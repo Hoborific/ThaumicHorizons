@@ -1,0 +1,48 @@
+// 
+// Decompiled by Procyon v0.5.30
+// 
+
+package com.kentington.thaumichorizons.common.items.lenses;
+
+import net.minecraft.entity.player.EntityPlayer;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.ItemStack;
+import net.minecraft.client.Minecraft;
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import net.minecraft.util.IIcon;
+import net.minecraft.item.Item;
+
+public class ItemLensEarth extends Item implements ILens
+{
+    IIcon icon;
+    
+    public ItemLensEarth() {
+        this.setCreativeTab(ThaumicHorizons.tabTH);
+    }
+    
+    public String lensName() {
+        return "LensEarth";
+    }
+    
+    public void handleRender(final Minecraft mc, final float partialTicks) {
+    }
+    
+    public String getUnlocalizedName(final ItemStack par1ItemStack) {
+        return "item.LensEarth";
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(final IIconRegister ir) {
+        this.icon = ir.registerIcon("thaumichorizons:lensearth");
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamage(final int par1) {
+        return this.icon;
+    }
+    
+    public void handleRemoval(final EntityPlayer p) {
+    }
+}

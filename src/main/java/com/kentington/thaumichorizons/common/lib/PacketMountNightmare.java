@@ -1,0 +1,42 @@
+// 
+// Decompiled by Procyon v0.5.30
+// 
+
+package com.kentington.thaumichorizons.common.lib;
+
+import io.netty.buffer.ByteBuf;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.Entity;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+
+public class PacketMountNightmare implements IMessage, IMessageHandler<PacketMountNightmare, IMessage>
+{
+    int id;
+    int playerId;
+    
+    public PacketMountNightmare() {
+    }
+    
+    public PacketMountNightmare(final Entity ent, final EntityPlayer player) {
+        this.id = ent.getEntityId();
+        this.playerId = player.getEntityId();
+    }
+    
+    public IMessage onMessage(final PacketMountNightmare message, final MessageContext ctx) {
+        EventHandlerEntity.clientNightmareID = message.id;
+        EventHandlerEntity.clientPlayerID = message.playerId;
+        return null;
+    }
+    
+    public void fromBytes(final ByteBuf buf) {
+        this.id = buf.readInt();
+        this.playerId = buf.readInt();
+    }
+    
+    public void toBytes(final ByteBuf buf) {
+        buf.writeInt(this.id);
+        buf.writeInt(this.playerId);
+    }
+}

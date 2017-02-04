@@ -1,0 +1,119 @@
+// 
+// Decompiled by Procyon v0.5.30
+// 
+
+package com.kentington.thaumichorizons.client.fx;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.OpenGlHelper;
+import thaumcraft.client.lib.UtilsFX;
+import net.minecraftforge.client.model.AdvancedModelLoader;
+import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.world.World;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.IModelCustom;
+import net.minecraft.client.particle.EntityFX;
+
+public class FXSonic extends EntityFX
+{
+    float yaw;
+    float pitch;
+    private IModelCustom model;
+    private static final ResourceLocation MODEL;
+    
+    public FXSonic(final World world, final double d, final double d1, final double d2, final int age, final int dir) {
+        super(world, d, d1, d2, 0.0, 0.0, 0.0);
+        this.yaw = 0.0f;
+        this.pitch = 0.0f;
+        this.particleRed = 0.0f;
+        this.particleGreen = 1.0f;
+        this.particleBlue = 1.0f;
+        this.particleGravity = 0.0f;
+        final double motionX = 0.0;
+        this.motionZ = motionX;
+        this.motionY = motionX;
+        this.motionX = motionX;
+        this.particleMaxAge = age + this.rand.nextInt(age / 2);
+        this.noClip = false;
+        this.setSize(0.01f, 0.01f);
+        this.noClip = true;
+        this.particleScale = 1.0f;
+        switch (dir) {
+            case 0: {
+                this.pitch = 90.0f;
+                break;
+            }
+            case 1: {
+                this.pitch = -90.0f;
+                break;
+            }
+            case 2: {
+                this.yaw = 180.0f;
+                break;
+            }
+            case 3: {
+                this.yaw = 0.0f;
+                break;
+            }
+            case 4: {
+                this.yaw = 90.0f;
+                break;
+            }
+            case 5: {
+                this.yaw = 270.0f;
+                break;
+            }
+        }
+        this.prevPosX = this.posX;
+        this.prevPosY = this.posY;
+        this.prevPosZ = this.posZ;
+    }
+    
+    public void renderParticle(final Tessellator tessellator, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+        tessellator.draw();
+        GL11.glPushMatrix();
+        GL11.glDisable(2884);
+        GL11.glEnable(3042);
+        GL11.glBlendFunc(770, 1);
+        if (this.model == null) {
+            this.model = AdvancedModelLoader.loadModel(FXSonic.MODEL);
+        }
+        final float fade = (this.particleAge + f) / this.particleMaxAge;
+        final float xx = (float)(this.prevPosX + (this.posX - this.prevPosX) * f - FXSonic.interpPosX);
+        final float yy = (float)(this.prevPosY + (this.posY - this.prevPosY) * f - FXSonic.interpPosY);
+        final float zz = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * f - FXSonic.interpPosZ);
+        GL11.glTranslated((double)xx, (double)yy, (double)zz);
+        float b = 1.0f;
+        final int frame = Math.min(15, (int)(14.0f * fade) + 1);
+        UtilsFX.bindTexture("textures/models/ripple" + frame + ".png");
+        b = 0.5f;
+        final int i = 220;
+        final int j = i % 65536;
+        final int k = i / 65536;
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0f, k / 1.0f);
+        GL11.glRotatef(-this.yaw, 0.0f, 1.0f, 0.0f);
+        GL11.glRotatef(this.pitch, 1.0f, 0.0f, 0.0f);
+        GL11.glScaled(0.5, 0.5, -0.5);
+        GL11.glColor4f(0.0f, b, b, 1.0f);
+        this.model.renderAll();
+        GL11.glDisable(3042);
+        GL11.glEnable(2884);
+        GL11.glPopMatrix();
+        Minecraft.getMinecraft().renderEngine.bindTexture(UtilsFX.getParticleTexture());
+        tessellator.startDrawingQuads();
+    }
+    
+    public void onUpdate() {
+        this.prevPosX = this.posX;
+        this.prevPosY = this.posY;
+        this.prevPosZ = this.posZ;
+        if (this.particleAge++ >= this.particleMaxAge) {
+            this.setDead();
+        }
+    }
+    
+    static {
+        MODEL = new ResourceLocation("thaumcraft", "textures/models/hemis.obj");
+    }
+}
