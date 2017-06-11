@@ -28,14 +28,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import net.minecraft.util.IIcon;
-import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.entities.golems.ItemGolemBell;
 
 public class ItemGolemBellTH extends ItemGolemBell
 {
     public ItemGolemBellTH() {
         this.setHasSubtypes(false);
-        this.setCreativeTab(Thaumcraft.tabTC);
+        this.setCreativeTab(ThaumicHorizons.tabTH);
         this.setMaxStackSize(1);
     }
     
@@ -46,7 +45,7 @@ public class ItemGolemBellTH extends ItemGolemBell
     }
     
     public String getUnlocalizedName(final ItemStack par1ItemStack) {
-        return "item.GolemBell";
+        return "item.GolemBellTH";
     }
     
     @Override

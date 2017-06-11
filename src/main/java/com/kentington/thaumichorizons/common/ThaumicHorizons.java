@@ -648,13 +648,16 @@ public class ThaumicHorizons {
         GameRegistry.registerItem(itemGolemPowder, "golemPowder");
         GameRegistry.registerItem(itemGolemPlacer, "golemPlacer");
 
-        try {
+
+        GameRegistry.registerItem(itemGolemBellTH,"Golemancy Bell TH");
+        ConfigItems.itemGolemBell = itemGolemBellTH;
+        /*try {
             GameRegistry.addSubstitutionAlias("Thaumcraft:GolemBell", Type.ITEM, itemGolemBellTH);
             ConfigItems.itemGolemBell = itemGolemBellTH;
         } catch (ExistingSubstitutionException var7) {
             var7.printStackTrace();
             System.out.println("WARNING: Unable to override golemancer\'s bell! Animated golems will behave unpredictably!");
-        }
+        }*/
 
         GameRegistry.registerItem(itemBoatGreatwood, "boatGreatwood");
         GameRegistry.registerItem(itemBoatThaumium, "boatThaumium");
@@ -785,7 +788,7 @@ public class ThaumicHorizons {
             alcheponics1 = new ResearchPage("alternateGolemBell1");
             alcheponics2 = new ResearchPage(ThaumcraftApi.addArcaneCraftingRecipe("GOLEMBELL", new ItemStack(itemGolemBellTH), (new AspectList()).add(Aspect.ORDER, 5), new Object[]{"QQ ", "QQ ", "  S", Character.valueOf('S'), "stickWood", Character.valueOf('Q'), Items.quartz}));
             alcheponics.setPages(new ResearchPage[]{alcheponics1, alcheponics2});
-            alcheponics.setSiblings(new String[]{"GOLEMBELL"});
+            alcheponics.setSiblings("GOLEMBELL");
             alcheponics.setConcealed();
             ResearchCategories.addResearch(alcheponics);
         }
@@ -1896,14 +1899,14 @@ public class ThaumicHorizons {
     private void syncConfig() {
         Property dimPocket = config.get("general", "pocket_plane_dim", 69);
         dimensionPocketId = dimPocket.getInt();
-        Property alternateBell = config.get("general", "alternateGolemBell", false);
+        Property alternateBell = config.get("general", "alternateGolemBell", true);
         alternateBell.comment = "Enable alternate golemancer\'s bell recipe (in case of mod conflict).";
         alternateBell.setRequiresMcRestart(true);
-        useAlternateBell = false;//alternateBell.getBoolean();
+        useAlternateBell = true;// alternateBell.getBoolean();
         Property enablePocketPlane = config.get("general", "enablePocketPlane", false);
         enablePocketPlane.comment = "Enable pocket plane content (currently incomplete - many aspects will not generate the cool stuff they are supposed to). World backups are highly suggested.";
         enablePocketPlane.setRequiresMcRestart(true);
-        enablePocket = true;//enablePocketPlane.getBoolean();
+        enablePocket = enablePocketPlane.getBoolean();
         config.save();
     }
 
