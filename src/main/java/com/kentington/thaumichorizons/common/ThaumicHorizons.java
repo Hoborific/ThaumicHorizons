@@ -784,7 +784,7 @@ public class ThaumicHorizons {
         ResearchPage alcheponics1;
         ResearchPage alcheponics2;
         if(useAlternateBell) {
-            alcheponics = new ResearchItem("alternateGolemBell", "ThaumicHorizons", new AspectList(), -2, 0, 1, new ItemStack(itemGolemBellTH));
+            alcheponics = new ResearchItem("alternateGolemBell", "ThaumicHorizons", (new AspectList()).add(Aspect.ORDER, 2).add(Aspect.ENERGY, 2).add(Aspect.CRYSTAL, 3), -2, 0, 1, new ItemStack(itemGolemBellTH));
             alcheponics1 = new ResearchPage("alternateGolemBell1");
             alcheponics2 = new ResearchPage(ThaumcraftApi.addArcaneCraftingRecipe("GOLEMBELL", new ItemStack(itemGolemBellTH), (new AspectList()).add(Aspect.ORDER, 5), new Object[]{"QQ ", "QQ ", "  S", Character.valueOf('S'), "stickWood", Character.valueOf('Q'), Items.quartz}));
             alcheponics.setPages(new ResearchPage[]{alcheponics1, alcheponics2});
