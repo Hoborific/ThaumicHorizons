@@ -656,7 +656,7 @@ public class ThaumicHorizons {
             ConfigItems.itemGolemBell = itemGolemBellTH;
         } catch (ExistingSubstitutionException var7) {
             var7.printStackTrace();
-            System.out.println("WARNING: Unable to override golemancer\'s bell! Animated golems will behave unpredictably!");
+            //System.out.println("WARNING: Unable to override golemancer\'s bell! Animated golems will behave unpredictably!");
         }*/
 
         GameRegistry.registerItem(itemBoatGreatwood, "boatGreatwood");

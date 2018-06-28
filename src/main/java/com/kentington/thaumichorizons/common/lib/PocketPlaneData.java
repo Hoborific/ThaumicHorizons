@@ -72,7 +72,7 @@ public class PocketPlaneData
     }
     
     public static void generatePocketPlane(final AspectList aspects, final PocketPlaneData data, final World world, final int vortexX, final int vortexY, final int vortexZ) {
-        System.out.println("Starting pocket plane generation");
+        //System.out.println("Starting pocket plane generation");
         final int xCenter = 0;
         final int yCenter = 128;
         final int zCenter = 256 * PocketPlaneData.planes.size();
@@ -115,7 +115,7 @@ public class PocketPlaneData
         data.portalD = new int[3];
         PocketPlaneData.planes.add(data);
         PocketPlaneData.positions.add(Vec3.createVectorHelper((double)vortexX, (double)vortexY, (double)vortexZ));
-        System.out.println("Finished with pocket plane generation!");
+        //System.out.println("Finished with pocket plane generation!");
     }
     
     static int getColor(final AspectList aspects) {
@@ -129,7 +129,7 @@ public class PocketPlaneData
             b += (int)(aspColor.getBlue() * aspectFraction(asp, aspects));
         }
         final int color = r * 256 * 256 + g * 256 + b;
-        System.out.println("Plane color is " + color);
+        //System.out.println("Plane color is " + color);
         return color;
     }
     
@@ -984,7 +984,7 @@ public class PocketPlaneData
     }
     
     public static void drawAPocket(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise, final Block block, final int md, final int xSize, final int zSize, final int xOffset, final int yOffset, final int zOffset) {
-        System.out.println("Drawing a pocket of " + block + " with width " + xSize + " and length " + zSize);
+        //System.out.println("Drawing a pocket of " + block + " with width " + xSize + " and length " + zSize);
         final NoiseGeneratorOctaves noiseGen = new NoiseGeneratorOctaves(world.rand, 10);
         double[] noiseDataTop = null;
         noiseDataTop = noiseGen.generateNoiseOctaves(noiseDataTop, xCenter - xSize + xOffset, yCenter + yOffset, zCenter - zSize + zOffset, xSize, 1, zSize, (double)(noise / 50.0f), (double)(noise / 25.0f), (double)(noise / 50.0f));
@@ -1234,7 +1234,7 @@ public class PocketPlaneData
     }
     
     public static void destroyPortal(final int id, final int which) {
-        System.out.println("Destroying portal " + which + " in plane " + id);
+        //System.out.println("Destroying portal " + which + " in plane " + id);
         final PocketPlaneData data = PocketPlaneData.planes.get(id);
         final World world = (World)MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId);
         if (which == 1) {
@@ -1280,7 +1280,7 @@ public class PocketPlaneData
     }
     
     public static void makePortal(final int id, final int which, final int xCoord, final int yCoord, final int zCoord) {
-        System.out.println("Creating portal " + which + " in plane " + id);
+        //System.out.println("Creating portal " + which + " in plane " + id);
         final PocketPlaneData data = PocketPlaneData.planes.get(id);
         final World world = (World)MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId);
         if (which == 1) {
