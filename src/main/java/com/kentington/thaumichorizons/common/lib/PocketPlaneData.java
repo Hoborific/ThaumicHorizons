@@ -5,6 +5,7 @@
 package com.kentington.thaumichorizons.common.lib;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
@@ -72,50 +73,52 @@ public class PocketPlaneData
     }
     
     public static void generatePocketPlane(final AspectList aspects, final PocketPlaneData data, final World world, final int vortexX, final int vortexY, final int vortexZ) {
-        //System.out.println("Starting pocket plane generation");
-        final int xCenter = 0;
-        final int yCenter = 128;
-        final int zCenter = 256 * PocketPlaneData.planes.size();
-        if (aspects.visSize() * 0.75f < 128.0f) {
-            data.radius = (int)Math.max(32.0f, aspects.visSize() * 0.75f);
-        }
-        else {
-            data.radius = 127;
-        }
-        data.color = getColor(aspects);
-        final BiomeGenBase bio = setBiome(xCenter, yCenter, zCenter, data, world, aspects);
-        final int noise = calcNoise(aspects);
-        final int life = calcLife(aspects);
-        drawLayers(xCenter, yCenter, zCenter, data, world, aspects, noise, bio, life);
-        drawCaves(xCenter, yCenter, zCenter, data, world, aspects, noise);
-        drawPockets(xCenter, yCenter, zCenter, data, world, aspects, noise);
-        drawRavines(xCenter, yCenter, zCenter, data, world, aspects, noise);
-        drawClouds(xCenter, yCenter, zCenter, data, world, aspects, noise);
-        drawSurfaceFeatures(xCenter, yCenter, zCenter, data, world, aspects, noise, life);
-        drawUndergroundFeatures(xCenter, yCenter, zCenter, data, world, aspects, noise, life);
-        drawLeviathanBones(xCenter, yCenter, zCenter, data, world, aspects, noise);
-        addEffects(data, aspects);
-        drawRings(xCenter, yCenter, zCenter, data, world, aspects);
-        drawSphere(xCenter, yCenter, zCenter, data.radius, ThaumicHorizons.blockVoid, 0, world);
-        for (int x = -2; x <= 2; ++x) {
-            for (int z = -2; z <= 2; ++z) {
-                world.setBlock(xCenter + x, yCenter, zCenter + z, ConfigBlocks.blockCosmeticSolid, 6, 0);
-                world.setBlockToAir(xCenter + x, yCenter + 1, zCenter + z);
-                world.setBlockToAir(xCenter + x, yCenter + 2, zCenter + z);
+        if (!world.isRemote) {
+            //System.out.println("Starting pocket plane generation");
+            final int xCenter = 0;
+            final int yCenter = 128;
+            final int zCenter = 256 * PocketPlaneData.planes.size();
+            if (aspects.visSize() * 0.75f < 128.0f) {
+                data.radius = (int) Math.max(32.0f, aspects.visSize() * 0.75f);
+            } else {
+                data.radius = 127;
             }
+            data.color = getColor(aspects);
+            final BiomeGenBase bio = setBiome(xCenter, yCenter, zCenter, data, world, aspects);
+            final int noise = calcNoise(aspects);
+            final int life = calcLife(aspects);
+            drawLayers(xCenter, yCenter, zCenter, data, world, aspects, noise, bio, life);
+            drawCaves(xCenter, yCenter, zCenter, data, world, aspects, noise);
+            drawPockets(xCenter, yCenter, zCenter, data, world, aspects, noise);
+            drawRavines(xCenter, yCenter, zCenter, data, world, aspects, noise);
+            drawClouds(xCenter, yCenter, zCenter, data, world, aspects, noise);
+            drawSurfaceFeatures(xCenter, yCenter, zCenter, data, world, aspects, noise, life);
+            drawUndergroundFeatures(xCenter, yCenter, zCenter, data, world, aspects, noise, life);
+            drawLeviathanBones(xCenter, yCenter, zCenter, data, world, aspects, noise);
+            addEffects(data, aspects);
+            drawRings(xCenter, yCenter, zCenter, data, world, aspects);
+            drawSphere(xCenter, yCenter, zCenter, data.radius, ThaumicHorizons.blockVoid, 0, world);
+            for (int x = -2; x <= 2; ++x) {
+                for (int z = -2; z <= 2; ++z) {
+                    world.setBlock(xCenter + x, yCenter, zCenter + z, ConfigBlocks.blockCosmeticSolid, 6, 0);
+                    world.setBlockToAir(xCenter + x, yCenter + 1, zCenter + z);
+                    world.setBlockToAir(xCenter + x, yCenter + 2, zCenter + z);
+                }
+            }
+            world.setBlock(xCenter, yCenter + 1, zCenter, ThaumicHorizons.blockVortex);
+            final TileVortex vortex = (TileVortex) world.getTileEntity(xCenter, yCenter + 1, zCenter);
+            vortex.cheat = true;
+            vortex.dimensionID = PocketPlaneData.planes.size();
+            vortex.createdDimension = true;
+            vortex.markDirty();
+            data.portalA = new int[3];
+            data.portalB = new int[3];
+            data.portalC = new int[3];
+            data.portalD = new int[3];
+            PocketPlaneData.planes.add(data);
+            PocketPlaneData.positions.add(Vec3.createVectorHelper((double) vortexX, (double) vortexY, (double) vortexZ));
+            //System.out.println("Finished with pocket plane generation!");
         }
-        world.setBlock(xCenter, yCenter + 1, zCenter, ThaumicHorizons.blockVortex);
-        final TileVortex vortex = (TileVortex)world.getTileEntity(xCenter, yCenter + 1, zCenter);
-        vortex.cheat = true;
-        vortex.dimensionID = PocketPlaneData.planes.size();
-        vortex.createdDimension = true;
-        data.portalA = new int[3];
-        data.portalB = new int[3];
-        data.portalC = new int[3];
-        data.portalD = new int[3];
-        PocketPlaneData.planes.add(data);
-        PocketPlaneData.positions.add(Vec3.createVectorHelper((double)vortexX, (double)vortexY, (double)vortexZ));
-        //System.out.println("Finished with pocket plane generation!");
     }
     
     static int getColor(final AspectList aspects) {

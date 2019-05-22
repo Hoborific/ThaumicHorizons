@@ -60,7 +60,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
     public boolean createdDimension;
     public boolean generating;
     public boolean cheat;
-    ArrayList<ItemStack> items;
+    public ArrayList<ItemStack> items;
     Thread ppThread;
     
     public TileVortex() {
@@ -121,7 +121,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                     }
                     this.ateDevices = true;
                 }
-                if (this.beams < 6 && !this.cheat) {
+                if (this.beams < 6 && !this.cheat && this.worldObj.provider.dimensionId != ThaumicHorizons.dimensionPocketId) {
                     this.handleHungryNode();
                 }
                 else if (!this.createdDimension && !this.generating) {
@@ -130,7 +130,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                 if (!this.cheat) {
                     this.count += 6 - this.beams;
                 }
-                if (this.count > 2400) {
+                if (this.count > MAX_COUNT) {
                     this.collapsing = true;
                     this.count = 0;
                 }
