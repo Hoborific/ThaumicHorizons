@@ -259,7 +259,7 @@ public class PocketPlaneData
     }
     
     public static float aspectFraction(final Aspect asp, final AspectList aspects) {
-        return aspects.getAmount(asp) / aspects.visSize();
+        return (float)aspects.getAmount(asp) / (float)aspects.visSize();
     }
     
     public static void drawLayers(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise, final BiomeGenBase bio, final int life) {

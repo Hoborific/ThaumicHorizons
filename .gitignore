@@ -2,7 +2,7 @@
 eclipse/
 out/
 gradle/
-Thaumic-Horizons.iws
-Thaumic-Horizons.ipr
-Thaumic-Horizons.iml
+*.iws
+*.ipr
+*.iml
 *.bat

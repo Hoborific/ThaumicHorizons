@@ -12,6 +12,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.WorldSpecificSaveHandler;
 import thaumcraft.api.ThaumcraftApiHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -233,6 +234,9 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
     }
     
     void createDimension(final EntityItem pearl) {
+        final MinecraftServer server = MinecraftServer.getServer();
+        if (server == null)
+            return;
         final PocketPlaneData data = new PocketPlaneData();
         String name = "";
         if (pearl != null && pearl.getEntityItem().hasTagCompound()) {
@@ -243,9 +247,8 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
         }
         data.name = name;
         this.dimensionID = PocketPlaneData.planes.size();
-        final MinecraftServer server = MinecraftServer.getServer();
         if (server.worldServerForDimension(ThaumicHorizons.dimensionPocketId) == null) {
-            final WorldServer pocket = new WorldServer(server, (ISaveHandler)null, (String)null, ThaumicHorizons.dimensionPocketId, (WorldSettings)null, server.theProfiler);
+            final WorldServer pocket = new WorldServer(server, this.worldObj.getSaveHandler(), null, ThaumicHorizons.dimensionPocketId, (WorldSettings)null, server.theProfiler);
         }
         this.generating = true;
         if (!this.worldObj.isRemote) {
