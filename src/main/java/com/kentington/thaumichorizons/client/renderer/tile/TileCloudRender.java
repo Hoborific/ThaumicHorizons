@@ -31,7 +31,7 @@ public class TileCloudRender extends TileEntitySpecialRenderer
     }
     
     public void renderTileEntityAt(final TileEntity tile, final double x, final double y, final double z, final float partial) {
-        if (((TileCloud)tile).isRaining()) {
+        if (TileCloud.raining) {
             this.renderRainSnowToo((TileCloud)tile, x, y, z, partial);
             ++this.rendererUpdateCount;
         }

@@ -12,6 +12,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.storage.SaveHandler;
+import net.minecraft.world.storage.SaveHandlerMP;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.WorldSpecificSaveHandler;
 import thaumcraft.api.ThaumcraftApiHelper;
 import net.minecraft.util.Vec3;
@@ -54,6 +57,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
     public int count;
     public int beams;
     public int dimensionID;
+    public int returnID;
     public AspectList aspects;
     boolean ateDevices;
     public boolean collapsing;
@@ -150,7 +154,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                                 }
                                 else {
                                     player.timeUntilPortal = 100;
-                                    player.mcServer.getConfigurationManager().transferPlayerToDimension(player, 0, (Teleporter)new VortexTeleporter(mServer.worldServerForDimension(0), this.dimensionID));
+                                    player.mcServer.getConfigurationManager().transferPlayerToDimension(player, this.returnID, (Teleporter)new VortexTeleporter(mServer.worldServerForDimension(this.returnID), this.dimensionID));
                                 }
                             }
                         }
@@ -247,12 +251,13 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
         }
         data.name = name;
         this.dimensionID = PocketPlaneData.planes.size();
-        if (server.worldServerForDimension(ThaumicHorizons.dimensionPocketId) == null) {
-            final WorldServer pocket = new WorldServer(server, this.worldObj.getSaveHandler(), null, ThaumicHorizons.dimensionPocketId, (WorldSettings)null, server.theProfiler);
+        if (DimensionManager.getWorld(ThaumicHorizons.dimensionPocketId) == null) {
+            DimensionManager.initDimension(ThaumicHorizons.dimensionPocketId);
         }
         this.generating = true;
         if (!this.worldObj.isRemote) {
-            (this.ppThread = new Thread(new PocketPlaneThread(data, this.aspects, (World)MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId), this.xCoord, this.yCoord, this.zCoord))).run();
+            this.returnID = this.worldObj.provider.dimensionId;
+            (this.ppThread = new Thread(new PocketPlaneThread(data, this.aspects, (World)MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId), this.xCoord, this.yCoord, this.zCoord,this.returnID))).run();
         }
         this.markDirty();
     }
@@ -357,6 +362,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
         nbttagcompound.setInteger("count", this.count);
         nbttagcompound.setInteger("beams", this.beams);
         nbttagcompound.setInteger("dimensionID", this.dimensionID);
+        nbttagcompound.setInteger("returnID", this.returnID);
         nbttagcompound.setBoolean("ateDevices", this.ateDevices);
         nbttagcompound.setBoolean("collapsing", this.collapsing);
         nbttagcompound.setBoolean("createdDimension", this.createdDimension);
@@ -387,6 +393,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
         this.count = nbttagcompound.getInteger("count");
         this.beams = nbttagcompound.getInteger("beams");
         this.dimensionID = nbttagcompound.getInteger("dimensionID");
+        this.returnID = nbttagcompound.getInteger("returnID");
         this.ateDevices = nbttagcompound.getBoolean("ateDevices");
         this.collapsing = nbttagcompound.getBoolean("collapsing");
         this.createdDimension = nbttagcompound.getBoolean("createdDimension");

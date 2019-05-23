@@ -4,10 +4,9 @@
 
 package com.kentington.thaumichorizons.common.lib;
 
-import net.minecraft.util.Vec3;
 import net.minecraft.entity.Entity;
-import net.minecraft.world.WorldServer;
 import net.minecraft.world.Teleporter;
+import net.minecraft.world.WorldServer;
 
 public class VortexTeleporter extends Teleporter
 {

@@ -4,57 +4,40 @@
 
 package com.kentington.thaumichorizons.common.lib;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
-import java.io.OutputStream;
-import java.io.FileOutputStream;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagCompound;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityMeatSlime;
+import com.kentington.thaumichorizons.common.entities.EntityMercurialSlime;
+import com.kentington.thaumichorizons.common.tiles.TileVortex;
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.entity.passive.*;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.CompressedStreamTools;
-import java.io.FileInputStream;
-import java.io.File;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.Potion;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.gen.NoiseGeneratorOctaves;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.config.Config;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.entities.monster.EntityTaintSporeSwarmer;
+import thaumcraft.common.entities.monster.EntityTaintacle;
 import thaumcraft.common.lib.utils.Utils;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 
+import java.awt.*;
+import java.io.*;
 import java.util.*;
 
-import net.minecraft.entity.EntityLiving;
-import thaumcraft.common.entities.monster.EntityTaintSporeSwarmer;
-import thaumcraft.common.entities.monster.EntityTaintacle;
-import net.minecraft.entity.monster.EntitySlime;
-import com.kentington.thaumichorizons.common.entities.EntityMeatSlime;
-import com.kentington.thaumichorizons.common.entities.EntityMercurialSlime;
-import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.passive.EntityCow;
-import thaumcraft.common.config.Config;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.EntitySquid;
-import net.minecraft.world.gen.NoiseGeneratorOctaves;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.potion.Potion;
-import thaumcraft.api.aspects.Aspect;
-import java.awt.Color;
-import net.minecraft.world.biome.BiomeGenBase;
-import com.kentington.thaumichorizons.common.tiles.TileVortex;
-import thaumcraft.common.config.ConfigBlocks;
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import net.minecraft.world.World;
-import thaumcraft.api.aspects.AspectList;
-import net.minecraft.util.Vec3;
-
-public class PocketPlaneData
-{
+public class PocketPlaneData {
     public int radius;
     public int color;
     public int[] potionEffects;
@@ -63,17 +46,22 @@ public class PocketPlaneData
     public int[] portalC;
     public int[] portalD;
     public String name;
-    public static ArrayList<PocketPlaneData> planes;
-    public static ArrayList<Vec3> positions;
-    
+    public static final LinkedList < PocketPlaneData > planes = new LinkedList < > ();
+    public static final LinkedList < Vec3 > positions = new LinkedList < > ();
+
     public PocketPlaneData() {
         this.radius = 32;
         this.color = 0;
         this.name = "Generic Pocket Plane";
     }
-    
-    public static void generatePocketPlane(final AspectList aspects, final PocketPlaneData data, final World world, final int vortexX, final int vortexY, final int vortexZ) {
+
+    private static int fastFloor(Number a) {
+        return a.intValue() > a.floatValue() ? a.intValue() - 1 : a.intValue();
+    }
+
+    public static void generatePocketPlane(final AspectList aspects, final PocketPlaneData data, final World world, final int vortexX, final int vortexY, final int vortexZ, final int returnID) {
         if (!world.isRemote) {
+            world.getChunkFromBlockCoords(vortexX,vortexZ).sendUpdates=false;
             //System.out.println("Starting pocket plane generation");
             final int xCenter = 0;
             final int yCenter = 128;
@@ -85,8 +73,8 @@ public class PocketPlaneData
             }
             data.color = getColor(aspects);
             final BiomeGenBase bio = setBiome(xCenter, yCenter, zCenter, data, world, aspects);
-            final int noise = calcNoise(aspects);
-            final int life = calcLife(aspects);
+            final int noise = fastFloor(calcNoise(aspects));
+            final int life = fastFloor(calcLife(aspects));
             drawLayers(xCenter, yCenter, zCenter, data, world, aspects, noise, bio, life);
             drawCaves(xCenter, yCenter, zCenter, data, world, aspects, noise);
             drawPockets(xCenter, yCenter, zCenter, data, world, aspects, noise);
@@ -108,6 +96,7 @@ public class PocketPlaneData
             world.setBlock(xCenter, yCenter + 1, zCenter, ThaumicHorizons.blockVortex);
             final TileVortex vortex = (TileVortex) world.getTileEntity(xCenter, yCenter + 1, zCenter);
             vortex.cheat = true;
+            vortex.returnID = returnID;
             vortex.dimensionID = PocketPlaneData.planes.size();
             vortex.createdDimension = true;
             vortex.markDirty();
@@ -118,14 +107,16 @@ public class PocketPlaneData
             PocketPlaneData.planes.add(data);
             PocketPlaneData.positions.add(Vec3.createVectorHelper((double) vortexX, (double) vortexY, (double) vortexZ));
             //System.out.println("Finished with pocket plane generation!");
+            world.getChunkFromBlockCoords(vortexX,vortexZ).sendUpdates=true;
+            world.getChunkFromBlockCoords(vortexX,vortexZ).isModified=true;
         }
     }
-    
+
     static int getColor(final AspectList aspects) {
         int r = 0;
         int g = 0;
         int b = 0;
-        for (final Aspect asp : aspects.getAspects()) {
+        for (final Aspect asp: aspects.getAspects()) {
             final Color aspColor = new Color(asp.getColor());
             r += (int)(aspColor.getRed() * aspectFraction(asp, aspects));
             g += (int)(aspColor.getGreen() * aspectFraction(asp, aspects));
@@ -135,7 +126,7 @@ public class PocketPlaneData
         //System.out.println("Plane color is " + color);
         return color;
     }
-    
+
     public static void addEffects(final PocketPlaneData data, final AspectList aspects) {
         int pointer = 0;
         data.potionEffects = new int[8];
@@ -168,7 +159,7 @@ public class PocketPlaneData
             ++pointer;
         }
     }
-    
+
     public static boolean drawRings(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects) {
         boolean drewAnything = false;
         int numRings = 0;
@@ -209,115 +200,134 @@ public class PocketPlaneData
         }
         return drewAnything;
     }
-    
-    public static int calcNoise(final AspectList aspects) {
-        int noise = 50;
-        noise -= (int)(aspectFraction(Aspect.ORDER, aspects) * 100.0f);
-        noise += (int)(aspectFraction(Aspect.ENTROPY, aspects) * 100.0f);
-        noise += (int)(aspectFraction(Aspect.MOTION, aspects) * 50.0f);
-        noise += (int)(aspectFraction(Aspect.EXCHANGE, aspects) * 100.0f);
-        noise += (int)(aspectFraction(Aspect.FLIGHT, aspects) * 50.0f);
-        noise -= (int)(aspectFraction(Aspect.TRAVEL, aspects) * 100.0f);
-        if (noise > 100) {
-            return 100;
+
+    public static double calcNoise(final AspectList aspects) {
+        double noise = 50d;
+        noise -= (aspectFraction(Aspect.ORDER, aspects) * 100.0d);
+        noise += (aspectFraction(Aspect.ENTROPY, aspects) * 100.0d);
+        noise += (aspectFraction(Aspect.MOTION, aspects) * 50.0d);
+        noise += (aspectFraction(Aspect.EXCHANGE, aspects) * 100.0d);
+        noise += (aspectFraction(Aspect.FLIGHT, aspects) * 50.0d);
+        noise -= (aspectFraction(Aspect.TRAVEL, aspects) * 100.0d);
+        if (noise > 100d) {
+            return 100d;
         }
-        if (noise < 0) {
-            return 0;
+        if (noise < 0d) {
+            return 0d;
         }
         return noise;
     }
-    
-    public static int calcLife(final AspectList aspects) {
-        int life = 0;
-        life += (int)(aspectFraction(Aspect.LIGHT, aspects) * 25.0f);
-        life += (int)(aspectFraction(Aspect.WEATHER, aspects) * 25.0f);
-        life += (int)(aspectFraction(Aspect.LIFE, aspects) * 150.0f);
-        life -= (int)(aspectFraction(Aspect.POISON, aspects) * 75.0f);
-        life -= (int)(aspectFraction(Aspect.DEATH, aspects) * 100.0f);
-        life -= (int)(aspectFraction(Aspect.DARKNESS, aspects) * 25.0f);
-        life += (int)(aspectFraction(Aspect.SOUL, aspects) * 50.0f);
-        life += (int)(aspectFraction(Aspect.HEAL, aspects) * 150.0f);
-        life += (int)(aspectFraction(Aspect.AURA, aspects) * 50.0f);
-        life += (int)(aspectFraction(Aspect.SLIME, aspects) * 50.0f);
-        life += (int)(aspectFraction(Aspect.PLANT, aspects) * 100.0f);
-        life += (int)(aspectFraction(Aspect.TREE, aspects) * 100.0f);
-        life += (int)(aspectFraction(Aspect.BEAST, aspects) * 100.0f);
-        life += (int)(aspectFraction(Aspect.FLESH, aspects) * 50.0f);
-        life -= (int)(aspectFraction(Aspect.UNDEAD, aspects) * 50.0f);
-        life += (int)(aspectFraction(Aspect.MIND, aspects) * 25.0f);
-        life += (int)(aspectFraction(Aspect.SENSES, aspects) * 25.0f);
-        life += (int)(aspectFraction(Aspect.MAN, aspects) * 25.0f);
-        life += (int)(aspectFraction(Aspect.CROP, aspects) * 50.0f);
-        life += (int)(aspectFraction(Aspect.HARVEST, aspects) * 25.0f);
-        life -= (int)(aspectFraction(Aspect.WEAPON, aspects) * 25.0f);
-        life -= (int)(aspectFraction(Aspect.HUNGER, aspects) * 25.0f);
-        life += (int)(aspectFraction(Aspect.CLOTH, aspects) * 25.0f);
-        if (life < 0) {
-            life = 0;
-        }
-        else if (life > 100) {
-            life = 100;
+
+    public static double calcLife(final AspectList aspects) {
+        double life = 0;
+        life += (aspectFraction(Aspect.LIGHT, aspects) * 25.0d);
+        life += (aspectFraction(Aspect.WEATHER, aspects) * 25.0d);
+        life += (aspectFraction(Aspect.LIFE, aspects) * 150.0d);
+        life -= (aspectFraction(Aspect.POISON, aspects) * 75.0d);
+        life -= (aspectFraction(Aspect.DEATH, aspects) * 100.0d);
+        life -= (aspectFraction(Aspect.DARKNESS, aspects) * 25.0d);
+        life += (aspectFraction(Aspect.SOUL, aspects) * 50.0d);
+        life += (aspectFraction(Aspect.HEAL, aspects) * 150.0d);
+        life += (aspectFraction(Aspect.AURA, aspects) * 50.0d);
+        life += (aspectFraction(Aspect.SLIME, aspects) * 50.0d);
+        life += (aspectFraction(Aspect.PLANT, aspects) * 100.0d);
+        life += (aspectFraction(Aspect.TREE, aspects) * 100.0d);
+        life += (aspectFraction(Aspect.BEAST, aspects) * 100.0d);
+        life += (aspectFraction(Aspect.FLESH, aspects) * 50.0d);
+        life -= (aspectFraction(Aspect.UNDEAD, aspects) * 50.0d);
+        life += (aspectFraction(Aspect.MIND, aspects) * 25.0d);
+        life += (aspectFraction(Aspect.SENSES, aspects) * 25.0d);
+        life += (aspectFraction(Aspect.MAN, aspects) * 25.0d);
+        life += (aspectFraction(Aspect.CROP, aspects) * 50.0d);
+        life += (aspectFraction(Aspect.HARVEST, aspects) * 25.0d);
+        life -= (aspectFraction(Aspect.WEAPON, aspects) * 25.0d);
+        life -= (aspectFraction(Aspect.HUNGER, aspects) * 25.0d);
+        life += (aspectFraction(Aspect.CLOTH, aspects) * 25.0d);
+        if (life < 0d) {
+            life = 0d;
+        } else if (life > 100d) {
+            life = 100d;
         }
         return life;
     }
-    
-    public static float aspectFraction(final Aspect asp, final AspectList aspects) {
-        return (float)aspects.getAmount(asp) / (float)aspects.visSize();
+
+    public static double aspectFraction(final Aspect asp, final AspectList aspects) {
+        return (double) aspects.getAmount(asp) / (double) aspects.visSize();
     }
-    
+
+    private static Aspect getMainAspect(final AspectList aspects) {
+        int max = 0;
+        Aspect ret = null;
+        for (Aspect a: aspects.aspects.keySet()) {
+            if (aspects.aspects.get(a) > max) {
+                max = aspects.aspects.get(a);
+                ret = a;
+            }
+        }
+        return ret;
+    }
+
     public static void drawLayers(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise, final BiomeGenBase bio, final int life) {
         final int total = aspects.visSize();
         int level = yCenter;
         boolean drewAnything = false;
+
         if (aspects.getAmount(Aspect.COLD) > 0) {
             drawLayer(xCenter, yCenter, zCenter, data, world, Blocks.packed_ice, 0, level, 0, null, 0, aspects);
-            level -= (int)(aspectFraction(Aspect.COLD, aspects) * data.radius);
+            level -= fastFloor((aspectFraction(Aspect.COLD, aspects) * data.radius));
             drewAnything = true;
         }
         if (aspects.getAmount(Aspect.WATER) > 0) {
             drawLayer(xCenter, yCenter, zCenter, data, world, Blocks.water, 0, level, 0, bio, life, aspects);
-            level -= (int)(aspectFraction(Aspect.WATER, aspects) * data.radius / 1.5f);
+            level -= fastFloor((aspectFraction(Aspect.WATER, aspects) * data.radius / 1.5f));
             drewAnything = true;
         }
         if (aspects.getAmount(Aspect.TAINT) > 0) {
             drawLayer(xCenter, yCenter, zCenter, data, world, ConfigBlocks.blockTaint, 1, level, noise, bio, life, aspects);
-            level -= (int)(aspectFraction(Aspect.TAINT, aspects) * data.radius);
+            level -= fastFloor((aspectFraction(Aspect.TAINT, aspects) * data.radius));
             drewAnything = true;
         }
         if (aspects.getAmount(Aspect.CLOTH) > 0) {
             drawLayer(xCenter, yCenter, zCenter, data, world, Blocks.wool, 0, level, noise, null, 0, aspects);
-            level -= (int)(aspectFraction(Aspect.CLOTH, aspects) * data.radius);
+            level -= fastFloor((aspectFraction(Aspect.CLOTH, aspects) * data.radius));
             drewAnything = true;
         }
         if (aspects.getAmount(Aspect.FLESH) > 0) {
             drawLayer(xCenter, yCenter, zCenter, data, world, ConfigBlocks.blockTaint, 2, level, noise, null, 0, aspects);
-            level -= (int)(aspectFraction(Aspect.CLOTH, aspects) * data.radius);
+            level -= fastFloor((aspectFraction(Aspect.CLOTH, aspects) * data.radius));
             drewAnything = true;
         }
         if (aspects.getAmount(Aspect.EARTH) > 0) {
             if (bio == BiomeGenBase.desert) {
-                drawLayer(xCenter, yCenter, zCenter, data, world, (Block)Blocks.sand, 0, level, noise, bio, life, aspects);
-            }
-            else {
+                drawLayer(xCenter, yCenter, zCenter, data, world, (Block) Blocks.sand, 0, level, noise, bio, life, aspects);
+            } else {
                 drawLayer(xCenter, yCenter, zCenter, data, world, Blocks.dirt, 0, level, noise, bio, life, aspects);
             }
             if (aspects.getAmount(Aspect.ORDER) >= aspects.getAmount(Aspect.ENTROPY)) {
                 drawLayer(xCenter, yCenter, zCenter, data, world, Blocks.stone, 0, level - 5, noise, null, 0, aspects);
-            }
-            else {
+            } else {
                 drawLayer(xCenter, yCenter, zCenter, data, world, Blocks.cobblestone, 0, level - 5, noise, null, 0, aspects);
             }
-            level -= (int)(aspectFraction(Aspect.EARTH, aspects) * data.radius);
+            level -= fastFloor((aspectFraction(Aspect.EARTH, aspects) * data.radius));
             drewAnything = true;
         }
         if (aspects.getAmount(Aspect.FIRE) > 0) {
             drawLayer(xCenter, yCenter, zCenter, data, world, Blocks.netherrack, 0, level, noise, null, 0, aspects);
-            level -= (int)(aspectFraction(Aspect.FIRE, aspects) * data.radius);
+            level -= fastFloor((aspectFraction(Aspect.FIRE, aspects) * data.radius));
             drewAnything = true;
         }
-        if (!drewAnything) {}
+        if (aspects.getAmount(Aspect.ARMOR) > 0) {
+            drawLayer(xCenter, yCenter, zCenter, data, world, Blocks.obsidian, 0, level, noise, null, 0, aspects);
+            level -= fastFloor((aspectFraction(Aspect.ARMOR, aspects) * data.radius));
+            drewAnything = true;
+        }
+        if (!drewAnything) {
+            drawLayer(xCenter, yCenter, zCenter, data, world, ThaumicHorizons.blockDust, 0, level, noise, bio, life, aspects);
+            level -= fastFloor((aspectFraction(Aspect.ARMOR, aspects) * data.radius));
+            drewAnything = true;
+        }
     }
-    
+
     public static void drawLayer(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final Block block, final int md, final int level, final int noise, final BiomeGenBase bio, final int life, final AspectList aspects) {
         final NoiseGeneratorOctaves noiseGen = new NoiseGeneratorOctaves(world.rand, 10);
         double[] noiseData = null;
@@ -332,10 +342,10 @@ public class PocketPlaneData
                 }
                 final int offsettop = -level + yCenter;
                 final int ctop = x * x + z * z + offsettop * offsettop - data.radius * data.radius;
-                final int tmax = offsettop + (int)Math.sqrt(offsettop * offsettop - ctop);
+                final int tmax = offsettop + (int) Math.sqrt(offsettop * offsettop - ctop);
                 final int offsetbottom = level - yCenter;
                 final int cbottom = x * x + z * z + offsetbottom * offsetbottom - data.radius * data.radius;
-                final int bmax = offsetbottom + (int)Math.sqrt(offsetbottom * offsetbottom - cbottom);
+                final int bmax = offsetbottom + (int) Math.sqrt(offsetbottom * offsetbottom - cbottom);
                 if (top > tmax) {
                     top = tmax;
                 }
@@ -346,107 +356,122 @@ public class PocketPlaneData
                             if (block == Blocks.water) {
                                 if (bio != null && bio.getTempCategory() == BiomeGenBase.TempCategory.COLD) {
                                     world.setBlock(x + xCenter, y + level, z + zCenter, Blocks.ice, 0, 0);
-                                }
-                                else {
+                                } else {
                                     world.setBlock(x + xCenter, y + level, z + zCenter, block, 0, 0);
                                     if ((life > 40 || aspects.getAmount(Aspect.BEAST) > 0) && world.rand.nextInt(100) > 98) {
                                         final EntitySquid squiddie = new EntitySquid(world);
                                         squiddie.setPosition((double)(x + xCenter), (double)(y + level), (double)(z + zCenter));
                                         squiddie.func_110163_bv();
-                                        world.spawnEntityInWorld((Entity)squiddie);
+                                        world.spawnEntityInWorld((Entity) squiddie);
                                     }
                                     if (life > 0 && world.rand.nextInt(100) > 98) {
                                         world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.waterlily, 0, 0);
                                     }
                                 }
-                            }
-                            else if (block == Blocks.dirt) {
+                            } else if (block == Blocks.dirt) {
                                 if (life > 0 && world.isAirBlock(x + xCenter, y + level + 1, z + zCenter)) {
-                                    world.setBlock(x + xCenter, y + level, z + zCenter, (Block)Blocks.grass, 0, 0);
+                                    world.setBlock(x + xCenter, y + level, z + zCenter, (Block) Blocks.grass, 0, 0);
                                     if (life >= 10) {
                                         if ((life >= 20 || aspects.getAmount(Aspect.CROP) > 0 || aspects.getAmount(Aspect.HARVEST) > 0) && world.rand.nextInt(100) > 97) {
                                             switch (world.rand.nextInt(10)) {
-                                                case 0: {
+                                                case 0:
+                                                {
                                                     world.setBlock(x + xCenter, y + level, z + zCenter, Blocks.farmland, 0, 0);
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.carrots, 0, 0);
                                                     break;
                                                 }
-                                                case 1: {
+                                                case 1:
+                                                {
                                                     world.setBlock(x + xCenter, y + level, z + zCenter, Blocks.farmland, 0, 0);
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.potatoes, 0, 0);
                                                     break;
                                                 }
-                                                case 2: {
+                                                case 2:
+                                                {
                                                     world.setBlock(x + xCenter, y + level, z + zCenter, Blocks.farmland, 0, 0);
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.wheat, 0, 0);
                                                     break;
                                                 }
-                                                case 3: {
+                                                case 3:
+                                                {
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.melon_block, 0, 0);
                                                     break;
                                                 }
-                                                case 4: {
+                                                case 4:
+                                                {
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.pumpkin, 0, 0);
                                                     break;
                                                 }
-                                                case 5: {
+                                                case 5:
+                                                {
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.reeds, 0, 0);
                                                     break;
                                                 }
-                                                case 6: {
-                                                    world.setBlock(x + xCenter, y + level, z + zCenter, (Block)Blocks.mycelium, 0, 0);
-                                                    world.setBlock(x + xCenter, y + level + 1, z + zCenter, (Block)Blocks.red_mushroom, 0, 0);
+                                                case 6:
+                                                {
+                                                    world.setBlock(x + xCenter, y + level, z + zCenter, (Block) Blocks.mycelium, 0, 0);
+                                                    world.setBlock(x + xCenter, y + level + 1, z + zCenter, (Block) Blocks.red_mushroom, 0, 0);
                                                     break;
                                                 }
-                                                case 7: {
-                                                    world.setBlock(x + xCenter, y + level, z + zCenter, (Block)Blocks.mycelium, 0, 0);
-                                                    world.setBlock(x + xCenter, y + level + 1, z + zCenter, (Block)Blocks.brown_mushroom, 0, 0);
+                                                case 7:
+                                                {
+                                                    world.setBlock(x + xCenter, y + level, z + zCenter, (Block) Blocks.mycelium, 0, 0);
+                                                    world.setBlock(x + xCenter, y + level + 1, z + zCenter, (Block) Blocks.brown_mushroom, 0, 0);
                                                     break;
                                                 }
-                                                case 8: {
+                                                case 8:
+                                                {
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, ConfigBlocks.blockCustomPlant, 2, 0);
                                                     break;
                                                 }
-                                                case 9: {
+                                                case 9:
+                                                {
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, ConfigBlocks.blockCustomPlant, 5, 0);
                                                     break;
                                                 }
                                             }
-                                        }
-                                        else if ((life >= 15 || aspects.getAmount(Aspect.TREE) > 0) && world.rand.nextInt(100) > 97) {
+                                        } else if ((life >= 15 || aspects.getAmount(Aspect.TREE) > 0) && world.rand.nextInt(100) > 97) {
                                             switch (world.rand.nextInt(10)) {
-                                                case 0: {
+                                                case 0:
+                                                {
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.sapling, 0, 0);
                                                     break;
                                                 }
-                                                case 1: {
+                                                case 1:
+                                                {
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.sapling, 1, 0);
                                                     break;
                                                 }
-                                                case 2: {
+                                                case 2:
+                                                {
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.sapling, 2, 0);
                                                     break;
                                                 }
-                                                case 3: {
+                                                case 3:
+                                                {
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.sapling, 3, 0);
                                                     break;
                                                 }
-                                                case 4: {
+                                                case 4:
+                                                {
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.sapling, 4, 0);
                                                     break;
                                                 }
-                                                case 5: {
+                                                case 5:
+                                                {
                                                     world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.sapling, 5, 0);
                                                     break;
                                                 }
-                                                case 6: {
+                                                case 6:
+                                                {
                                                     if (((bio != null && bio.biomeID == Config.biomeMagicalForestID) || aspects.getAmount(Aspect.MAGIC) > 10 || aspects.getAmount(Aspect.AURA) > 5) && world.rand.nextInt(4) == 0) {
                                                         world.setBlock(x + xCenter, y + level + 1, z + zCenter, ConfigBlocks.blockCustomPlant, 1, 0);
                                                         break;
                                                     }
                                                     break;
                                                 }
-                                                case 7: {
+                                                case 7:
+                                                {
                                                     if (world.rand.nextInt(3) == 0) {
                                                         world.setBlock(x + xCenter, y + level + 1, z + zCenter, ConfigBlocks.blockCustomPlant, 0, 0);
                                                         break;
@@ -454,34 +479,28 @@ public class PocketPlaneData
                                                     break;
                                                 }
                                             }
-                                        }
-                                        else if ((life >= 10 || aspects.getAmount(Aspect.PLANT) > 0) && world.rand.nextInt(100) > 94) {
+                                        } else if ((life >= 10 || aspects.getAmount(Aspect.PLANT) > 0) && world.rand.nextInt(100) > 94) {
                                             final int random = world.rand.nextInt(18);
                                             if (random <= 15) {
-                                                world.setBlock(x + xCenter, y + level + 1, z + zCenter, (Block)Blocks.red_flower, random, 0);
-                                            }
-                                            else {
-                                                world.setBlock(x + xCenter, y + level + 1, z + zCenter, (Block)Blocks.tallgrass, random - 16, 0);
+                                                world.setBlock(x + xCenter, y + level + 1, z + zCenter, (Block) Blocks.red_flower, random, 0);
+                                            } else {
+                                                world.setBlock(x + xCenter, y + level + 1, z + zCenter, (Block) Blocks.tallgrass, random - 16, 0);
                                             }
                                         }
                                     }
-                                }
-                                else {
+                                } else {
                                     world.setBlock(x + xCenter, y + level, z + zCenter, block, 0, 0);
                                 }
-                            }
-                            else if (block == Blocks.sand) {
+                            } else if (block == Blocks.sand) {
                                 world.setBlock(x + xCenter, y + level, z + zCenter, block, 0, 0);
                                 if (life > 10) {
                                     if (life >= 20 && world.rand.nextInt(100) > 98) {
                                         world.setBlock(x + xCenter, y + level + 1, z + zCenter, ConfigBlocks.blockCustomPlant, 3, 0);
-                                    }
-                                    else if (world.rand.nextInt(100) > 97) {
+                                    } else if (world.rand.nextInt(100) > 97) {
                                         world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.cactus, 0, 0);
                                     }
                                 }
-                            }
-                            else if (block == ConfigBlocks.blockTaint && md == 2 && world.rand.nextInt(300) > 298) {
+                            } else if (block == ConfigBlocks.blockTaint && md == 2 && world.rand.nextInt(300) > 298) {
                                 if (world.rand.nextBoolean()) {
                                     for (int ecks = 0; ecks < 3; ++ecks) {
                                         for (int zee = 0; zee < 2; ++zee) {
@@ -490,8 +509,7 @@ public class PocketPlaneData
                                             }
                                         }
                                     }
-                                }
-                                else {
+                                } else {
                                     for (int ecks = 0; ecks < 2; ++ecks) {
                                         for (int zee = 0; zee < 3; ++zee) {
                                             for (int why = 0; why < 2; ++why) {
@@ -507,54 +525,61 @@ public class PocketPlaneData
                             if ((life >= 50 || aspects.getAmount(Aspect.BEAST) > 0) && world.rand.nextInt(100) > 98) {
                                 EntityLiving critter = null;
                                 switch (world.rand.nextInt(7)) {
-                                    case 0: {
-                                        critter = (EntityLiving)new EntityCow(world);
+                                    case 0:
+                                    {
+                                        critter = (EntityLiving) new EntityCow(world);
                                         break;
                                     }
-                                    case 1: {
-                                        critter = (EntityLiving)new EntityPig(world);
+                                    case 1:
+                                    {
+                                        critter = (EntityLiving) new EntityPig(world);
                                         break;
                                     }
-                                    case 2: {
-                                        critter = (EntityLiving)new EntityChicken(world);
+                                    case 2:
+                                    {
+                                        critter = (EntityLiving) new EntityChicken(world);
                                         break;
                                     }
-                                    case 3: {
-                                        critter = (EntityLiving)new EntitySheep(world);
+                                    case 3:
+                                    {
+                                        critter = (EntityLiving) new EntitySheep(world);
                                         break;
                                     }
-                                    case 4: {
-                                        critter = (EntityLiving)new EntityHorse(world);
+                                    case 4:
+                                    {
+                                        critter = (EntityLiving) new EntityHorse(world);
                                         break;
                                     }
-                                    case 5: {
-                                        critter = (EntityLiving)new EntityOcelot(world);
+                                    case 5:
+                                    {
+                                        critter = (EntityLiving) new EntityOcelot(world);
                                         break;
                                     }
-                                    case 6: {
-                                        critter = (EntityLiving)new EntityWolf(world);
+                                    case 6:
+                                    {
+                                        critter = (EntityLiving) new EntityWolf(world);
                                         break;
                                     }
                                 }
                                 if (critter != null) {
                                     critter.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
-                                    world.spawnEntityInWorld((Entity)critter);
+                                    world.spawnEntityInWorld((Entity) critter);
                                 }
                             }
                             if ((aspects.getAmount(Aspect.POISON) > 0 || aspects.getAmount(Aspect.EXCHANGE) > 0 || aspects.getAmount(Aspect.METAL) > 0 || aspects.getAmount(Aspect.MECHANISM) > 0) && world.rand.nextInt(100) > 98) {
                                 final EntityMercurialSlime slime = new EntityMercurialSlime(world);
                                 slime.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
-                                world.spawnEntityInWorld((Entity)slime);
+                                world.spawnEntityInWorld((Entity) slime);
                             }
                             if ((aspects.getAmount(Aspect.SLIME) > 0 || aspects.getAmount(Aspect.FLESH) > 0 || aspects.getAmount(Aspect.HUNGER) > 0) && world.rand.nextInt(100) > 98) {
                                 final EntityMeatSlime slime2 = new EntityMeatSlime(world);
                                 slime2.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
-                                world.spawnEntityInWorld((Entity)slime2);
+                                world.spawnEntityInWorld((Entity) slime2);
                             }
                             if (aspects.getAmount(Aspect.SLIME) > 0 && world.rand.nextInt(100) > 98) {
                                 final EntitySlime slime3 = new EntitySlime(world);
                                 slime3.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
-                                world.spawnEntityInWorld((Entity)slime3);
+                                world.spawnEntityInWorld((Entity) slime3);
                             }
                             if (aspects.getAmount(Aspect.ELDRITCH) > 0 && world.rand.nextInt(200) > 198) {
                                 world.setBlock(x + xCenter, y + level, z + zCenter, ConfigBlocks.blockCosmeticSolid, 1, 0);
@@ -571,15 +596,14 @@ public class PocketPlaneData
                             if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(200) > 198) {
                                 final EntityTaintacle slime4 = new EntityTaintacle(world);
                                 slime4.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
-                                world.spawnEntityInWorld((Entity)slime4);
+                                world.spawnEntityInWorld((Entity) slime4);
                             }
                             if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(200) > 198) {
                                 final EntityTaintSporeSwarmer slime5 = new EntityTaintSporeSwarmer(world);
                                 slime5.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
-                                world.spawnEntityInWorld((Entity)slime5);
+                                world.spawnEntityInWorld((Entity) slime5);
                             }
-                        }
-                        else if (block != null) {
+                        } else if (block != null) {
                             world.setBlock(x + xCenter, y + level, z + zCenter, block, md, 0);
                         }
                     }
@@ -587,7 +611,7 @@ public class PocketPlaneData
             }
         }
     }
-    
+
     public static void drawCaves(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise) {
         float solidity = 0.5f;
         solidity -= aspectFraction(Aspect.AIR, aspects) * 0.5f;
@@ -598,12 +622,11 @@ public class PocketPlaneData
         solidity -= aspectFraction(Aspect.TRAP, aspects) * 0.5f;
         if (solidity <= 0.0f) {
             solidity = 0.0f;
-        }
-        else if (solidity > 1.0f) {
+        } else if (solidity > 1.0f) {
             solidity = 1.0f;
         }
         final int numCaves = (int)(data.radius * data.radius * data.radius / 10000 * (solidity + 0.1f));
-        final HashMap<Aspect, Float> dressing = new HashMap<Aspect, Float>();
+        final HashMap < Aspect, Number > dressing = new HashMap < Aspect, Number > ();
         if (aspects.getAmount(Aspect.EARTH) > 0) {
             dressing.put(Aspect.EARTH, aspectFraction(Aspect.EARTH, aspects));
         }
@@ -641,8 +664,8 @@ public class PocketPlaneData
             drawACave(xCenter, yCenter, zCenter, data, world, aspects, noise, Blocks.air, world.rand.nextInt(10) + 10, world.rand.nextInt(10) + 10, world.rand.nextInt((int)(data.radius * 1.5f)) - (int)(data.radius * 0.75f), -world.rand.nextInt((int)(data.radius * 0.5f)), world.rand.nextInt((int)(data.radius * 1.5f)) - (int)(data.radius * 0.75f), dressing);
         }
     }
-    
-    public static void drawACave(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise, final Block block, final int xSize, final int zSize, final int xOffset, final int yOffset, final int zOffset, final HashMap<Aspect, Float> dressing) {
+
+    public static void drawACave(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise, final Block block, final int xSize, final int zSize, final int xOffset, final int yOffset, final int zOffset, final HashMap < Aspect, Number > dressing) {
         final NoiseGeneratorOctaves noiseGen = new NoiseGeneratorOctaves(world.rand, 10);
         double[] noiseData = null;
         noiseData = noiseGen.generateNoiseOctaves(noiseData, xCenter - xSize + xOffset, yCenter + yOffset, zCenter - zSize + zOffset, xSize, 16, zSize, (double)(noise / 10.0f), (double)(noise / 25.0f), (double)(noise / 10.0f));
@@ -654,60 +677,48 @@ public class PocketPlaneData
                         if (!world.isAirBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y - 1, zCenter - zSize + zOffset + z) && world.rand.nextInt(50) == 49) {
                             float which = world.rand.nextFloat();
                             Aspect whichAspect = null;
-                            final Iterator<Aspect> it = dressing.keySet().iterator();
+                            final Iterator < Aspect > it = dressing.keySet().iterator();
                             boolean doDressing = false;
                             while (it.hasNext()) {
                                 whichAspect = it.next();
-                                if (which <= dressing.get(whichAspect)) {
+                                if (which <= dressing.get(whichAspect).floatValue()) {
                                     doDressing = true;
                                     break;
                                 }
-                                which -= dressing.get(whichAspect);
+                                which -= dressing.get(whichAspect).floatValue();
                             }
                             if (doDressing && whichAspect != null && !world.isAirBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z) && world.getBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z) != Blocks.water) {
                                 if (whichAspect == Aspect.EARTH) {
                                     world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, ConfigBlocks.blockCrystal, 3, 0);
-                                }
-                                else if (whichAspect == Aspect.AIR) {
+                                } else if (whichAspect == Aspect.AIR) {
                                     world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, ConfigBlocks.blockCrystal, 0, 0);
-                                }
-                                else if (whichAspect == Aspect.WATER) {
+                                } else if (whichAspect == Aspect.WATER) {
                                     world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, ConfigBlocks.blockCrystal, 2, 0);
-                                }
-                                else if (whichAspect == Aspect.FIRE) {
+                                } else if (whichAspect == Aspect.FIRE) {
                                     world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, ConfigBlocks.blockCrystal, 1, 0);
-                                }
-                                else if (whichAspect == Aspect.ORDER) {
+                                } else if (whichAspect == Aspect.ORDER) {
                                     world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, ConfigBlocks.blockCrystal, 4, 0);
-                                }
-                                else if (whichAspect == Aspect.ENTROPY) {
+                                } else if (whichAspect == Aspect.ENTROPY) {
                                     world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, ConfigBlocks.blockCrystal, 5, 0);
-                                }
-                                else if (whichAspect == Aspect.DEATH || whichAspect == Aspect.UNDEAD) {
+                                } else if (whichAspect == Aspect.DEATH || whichAspect == Aspect.UNDEAD) {
                                     world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, Blocks.skull, 0, 0);
-                                }
-                                else if (whichAspect == Aspect.SENSES) {
+                                } else if (whichAspect == Aspect.SENSES) {
                                     world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, Blocks.lapis_block, 0, 0);
-                                }
-                                else if (whichAspect == Aspect.GREED) {
+                                } else if (whichAspect == Aspect.GREED) {
                                     if (world.rand.nextBoolean()) {
                                         world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, Blocks.gold_block, 0, 0);
-                                    }
-                                    else {
+                                    } else {
                                         world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, Blocks.emerald_block, 0, 0);
                                     }
-                                }
-                                else if (whichAspect == Aspect.METAL) {
+                                } else if (whichAspect == Aspect.METAL) {
                                     if (world.rand.nextBoolean()) {
                                         world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, Blocks.gold_block, 0, 0);
-                                    }
-                                    else {
+                                    } else {
                                         world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, Blocks.iron_block, 0, 0);
                                     }
                                 }
                             }
-                        }
-                        else {
+                        } else {
                             world.setBlock(xCenter - xSize + xOffset + x, yCenter + yOffset + y, zCenter - zSize + zOffset + z, Blocks.air, 0, 0);
                         }
                     }
@@ -715,34 +726,29 @@ public class PocketPlaneData
             }
         }
     }
-    
-    public static void drawRavines(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise) {
-    }
-    
-    public static void drawClouds(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise) {
-    }
-    
-    public static void drawSurfaceFeatures(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise, final float life) {
-    }
-    
-    public static void drawUndergroundFeatures(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise, final float life) {
-    }
-    
-    public static void drawLeviathanBones(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise) {
-    }
-    
+
+    public static void drawRavines(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise) {}
+
+    public static void drawClouds(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise) {}
+
+    public static void drawSurfaceFeatures(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise, final float life) {}
+
+    public static void drawUndergroundFeatures(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise, final float life) {}
+
+    public static void drawLeviathanBones(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise) {}
+
     public static int getAvg(final double[] array) {
         long x = 0L;
         for (int i = 0; i < array.length; ++i) {
-            x += (long)array[i];
+            x += (long) array[i];
         }
         x /= array.length;
-        return (int)x;
+        return (int) x;
     }
-    
+
     public static void drawPockets(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise) {
         final int numPockets = data.radius * data.radius * data.radius / 200;
-        final HashMap<Aspect, Float> probabilities = new HashMap<Aspect, Float>();
+        final HashMap < Aspect, Number > probabilities = new HashMap < Aspect, Number > ();
         if (aspects.getAmount(Aspect.EARTH) > 0) {
             probabilities.put(Aspect.EARTH, aspectFraction(Aspect.EARTH, aspects));
         }
@@ -823,176 +829,139 @@ public class PocketPlaneData
         for (int i = 0; i < numPockets; ++i) {
             float which = world.rand.nextFloat();
             Aspect whichAspect = null;
-            final Iterator<Aspect> it = probabilities.keySet().iterator();
+            final Iterator < Aspect > it = probabilities.keySet().iterator();
             boolean doDressing = false;
             while (it.hasNext()) {
                 whichAspect = it.next();
-                if (which <= probabilities.get(whichAspect)) {
+                if (which <= probabilities.get(whichAspect).floatValue()) {
                     doDressing = true;
                     break;
                 }
-                which -= probabilities.get(whichAspect);
+                which -= probabilities.get(whichAspect).floatValue();
             }
             if (doDressing && whichAspect != null) {
                 if (whichAspect == Aspect.EARTH) {
                     block = ConfigBlocks.blockCustomOre;
                     md = 4;
-                }
-                else if (whichAspect == Aspect.AIR) {
+                } else if (whichAspect == Aspect.AIR) {
                     block = ConfigBlocks.blockCustomOre;
                     md = 1;
-                }
-                else if (whichAspect == Aspect.WATER) {
+                } else if (whichAspect == Aspect.WATER) {
                     block = ConfigBlocks.blockCustomOre;
                     md = 3;
-                }
-                else if (whichAspect == Aspect.FIRE) {
+                } else if (whichAspect == Aspect.FIRE) {
                     if (world.rand.nextBoolean()) {
                         block = ConfigBlocks.blockCustomOre;
                         md = 2;
-                    }
-                    else {
+                    } else {
                         block = Blocks.lava;
                     }
-                }
-                else if (whichAspect == Aspect.ORDER) {
+                } else if (whichAspect == Aspect.ORDER) {
                     block = ConfigBlocks.blockCustomOre;
                     md = 5;
-                }
-                else if (whichAspect == Aspect.ENTROPY) {
+                } else if (whichAspect == Aspect.ENTROPY) {
                     block = ConfigBlocks.blockCustomOre;
                     md = 6;
-                }
-                else if (whichAspect == Aspect.METAL) {
+                } else if (whichAspect == Aspect.METAL) {
                     if (world.rand.nextFloat() <= 0.5) {
                         block = Blocks.iron_ore;
-                    }
-                    else if (world.rand.nextFloat() <= 0.8) {
+                    } else if (world.rand.nextFloat() <= 0.8) {
                         block = Blocks.gold_ore;
-                    }
-                    else {
+                    } else {
                         block = ConfigBlocks.blockCustomOre;
                         md = 0;
                     }
-                }
-                else if (whichAspect == Aspect.MAGIC || whichAspect == Aspect.AURA) {
+                } else if (whichAspect == Aspect.MAGIC || whichAspect == Aspect.AURA) {
                     block = ConfigBlocks.blockCustomOre;
                     md = world.rand.nextInt(6) + 1;
-                }
-                else if (whichAspect == Aspect.CRYSTAL) {
+                } else if (whichAspect == Aspect.CRYSTAL) {
                     block = Blocks.quartz_block;
-                }
-                else if (whichAspect == Aspect.SOUL) {
+                } else if (whichAspect == Aspect.SOUL) {
                     block = Blocks.soul_sand;
-                }
-                else if (whichAspect == Aspect.ENERGY) {
+                } else if (whichAspect == Aspect.ENERGY) {
                     block = Blocks.redstone_block;
-                }
-                else if (whichAspect == Aspect.TREE) {
+                } else if (whichAspect == Aspect.TREE) {
                     if (world.rand.nextBoolean()) {
                         block = Blocks.log;
-                    }
-                    else {
+                    } else {
                         block = ConfigBlocks.blockCustomOre;
                         md = 7;
                     }
-                }
-                else if (whichAspect == Aspect.FLESH) {
+                } else if (whichAspect == Aspect.FLESH) {
                     block = ConfigBlocks.blockTaint;
                     md = 2;
-                }
-                else if (whichAspect == Aspect.SENSES) {
+                } else if (whichAspect == Aspect.SENSES) {
                     block = Blocks.lapis_ore;
-                }
-                else if (whichAspect == Aspect.MINE || whichAspect == Aspect.TOOL) {
+                } else if (whichAspect == Aspect.MINE || whichAspect == Aspect.TOOL) {
                     final float f = world.rand.nextFloat();
                     if (f < 0.4f) {
                         block = Blocks.iron_ore;
-                    }
-                    else if (f < 0.5f) {
+                    } else if (f < 0.5f) {
                         block = Blocks.gold_ore;
-                    }
-                    else if (f < 0.6f) {
+                    } else if (f < 0.6f) {
                         block = Blocks.diamond_ore;
-                    }
-                    else if (f < 0.7f) {
+                    } else if (f < 0.7f) {
                         block = Blocks.emerald_ore;
-                    }
-                    else if (f < 0.8f) {
+                    } else if (f < 0.8f) {
                         block = Blocks.lapis_ore;
-                    }
-                    else {
+                    } else {
                         block = ConfigBlocks.blockCustomOre;
                         md = world.rand.nextInt(8);
                     }
-                }
-                else if (whichAspect == Aspect.GREED) {
+                } else if (whichAspect == Aspect.GREED) {
                     final float f = world.rand.nextFloat();
                     if (f < 0.4f) {
                         block = Blocks.gold_ore;
-                    }
-                    else if (f < 0.6f) {
+                    } else if (f < 0.6f) {
                         block = Blocks.diamond_ore;
-                    }
-                    else if (f < 0.8f) {
+                    } else if (f < 0.8f) {
                         block = Blocks.emerald_ore;
-                    }
-                    else {
+                    } else {
                         block = Blocks.lapis_ore;
                     }
-                }
-                else if (whichAspect == Aspect.TAINT) {
+                } else if (whichAspect == Aspect.TAINT) {
                     block = ConfigBlocks.blockTaint;
                     md = 0;
-                }
-                else if (whichAspect == Aspect.POISON) {
+                } else if (whichAspect == Aspect.POISON) {
                     block = ConfigBlocks.blockFluidDeath;
                     md = 16;
-                }
-                else if (whichAspect == Aspect.EXCHANGE) {
+                } else if (whichAspect == Aspect.EXCHANGE) {
                     block = ConfigBlocks.blockCustomOre;
                     md = 0;
-                }
-                else if (whichAspect == Aspect.MIND) {
+                } else if (whichAspect == Aspect.MIND) {
                     if (world.rand.nextBoolean()) {
                         block = Blocks.bookshelf;
-                    }
-                    else {
+                    } else {
                         block = ThaumicHorizons.blockBrain;
                     }
-                }
-                else if (whichAspect == Aspect.MAN) {
+                } else if (whichAspect == Aspect.MAN) {
                     final int man = world.rand.nextInt(3);
                     if (man == 0) {
                         block = Blocks.bookshelf;
-                    }
-                    else if (man == 1) {
+                    } else if (man == 1) {
                         block = ThaumicHorizons.blockBrain;
-                    }
-                    else {
+                    } else {
                         block = ConfigBlocks.blockTaint;
                         md = 2;
                     }
-                }
-                else if (whichAspect == Aspect.HUNGER) {
+                } else if (whichAspect == Aspect.HUNGER) {
                     block = ConfigBlocks.blockTaint;
                     md = 2;
-                }
-                else if (whichAspect == Aspect.CRAFT) {
+                } else if (whichAspect == Aspect.CRAFT) {
                     block = Blocks.crafting_table;
                 }
             }
             drawAPocket(xCenter, yCenter, zCenter, data, world, aspects, noise, block, md, world.rand.nextInt(3) + 1, world.rand.nextInt(3) + 1, world.rand.nextInt((int)(data.radius * 2.0f)) - (int)(data.radius * 1.0f), -world.rand.nextInt((int)(data.radius * 1.0f)), world.rand.nextInt((int)(data.radius * 2.0f)) - (int)(data.radius * 1.0f));
         }
     }
-    
+
     public static void drawAPocket(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects, final int noise, final Block block, final int md, final int xSize, final int zSize, final int xOffset, final int yOffset, final int zOffset) {
         //System.out.println("Drawing a pocket of " + block + " with width " + xSize + " and length " + zSize);
         final NoiseGeneratorOctaves noiseGen = new NoiseGeneratorOctaves(world.rand, 10);
         double[] noiseDataTop = null;
-        noiseDataTop = noiseGen.generateNoiseOctaves(noiseDataTop, xCenter - xSize + xOffset, yCenter + yOffset, zCenter - zSize + zOffset, xSize, 1, zSize, (double)(noise / 50.0f), (double)(noise / 25.0f), (double)(noise / 50.0f));
+        noiseDataTop = noiseGen.generateNoiseOctaves(noiseDataTop, xCenter - xSize + xOffset, yCenter + yOffset, zCenter - zSize + zOffset, xSize, 1, zSize, (double)(noise / 50.0d), (double)(noise / 25.0d), (double)(noise / 50.0d));
         double[] noiseDataBottom = null;
-        noiseDataBottom = noiseGen.generateNoiseOctaves(noiseDataBottom, xCenter - xSize + xOffset, yCenter + yOffset, zCenter - zSize + zOffset, xSize, 1, zSize, (double)(noise / 50.0f), (double)(noise / 25.0f), (double)(noise / 50.0f));
+        noiseDataBottom = noiseGen.generateNoiseOctaves(noiseDataBottom, xCenter - xSize + xOffset, yCenter + yOffset, zCenter - zSize + zOffset, xSize, 1, zSize, (double)(noise / 50.0d), (double)(noise / 25.0d), (double)(noise / 50.0d));
         for (int x = 0; x < xSize; ++x) {
             for (int z = 0; z < zSize; ++z) {
                 int y;
@@ -1004,19 +973,16 @@ public class PocketPlaneData
             }
         }
     }
-    
+
     public static BiomeGenBase setBiome(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data, final World world, final AspectList aspects) {
         BiomeGenBase bio = null;
         if (aspects.getAmount(Aspect.TAINT) > 0) {
             bio = ThaumcraftWorldGenerator.biomeTaint;
-        }
-        else if (aspects.getAmount(Aspect.ELDRITCH) > 0 || aspects.getAmount(Aspect.UNDEAD) > 0) {
+        } else if (aspects.getAmount(Aspect.ELDRITCH) > 0 || aspects.getAmount(Aspect.UNDEAD) > 0) {
             bio = ThaumcraftWorldGenerator.biomeEerie;
-        }
-        else if (aspects.getAmount(Aspect.MAGIC) > 0 || aspects.getAmount(Aspect.AURA) > 0) {
+        } else if (aspects.getAmount(Aspect.MAGIC) > 0 || aspects.getAmount(Aspect.AURA) > 0) {
             bio = ThaumcraftWorldGenerator.biomeMagicalForest;
-        }
-        else {
+        } else {
             float temp = 0.5f;
             float moist = 0.5f;
             temp += aspectFraction(Aspect.FIRE, aspects);
@@ -1031,8 +997,7 @@ public class PocketPlaneData
             temp -= aspectFraction(Aspect.DARKNESS, aspects) * 0.25f;
             if (temp < 0.0f) {
                 temp = 0.0f;
-            }
-            else if (temp > 1.0f) {
+            } else if (temp > 1.0f) {
                 temp = 1.0f;
             }
             moist += aspectFraction(Aspect.WATER, aspects);
@@ -1043,30 +1008,24 @@ public class PocketPlaneData
             moist += aspectFraction(Aspect.SLIME, aspects) * 0.5f;
             if (moist < 0.0f) {
                 moist = 0.0f;
-            }
-            else if (moist > 1.0f) {
+            } else if (moist > 1.0f) {
                 moist = 1.0f;
             }
             if (temp > 0.8) {
                 bio = BiomeGenBase.desert;
-            }
-            else if (temp > 0.5) {
+            } else if (temp > 0.5) {
                 if (moist < 0.4) {
                     bio = BiomeGenBase.savanna;
-                }
-                else {
+                } else {
                     bio = BiomeGenBase.jungle;
                 }
-            }
-            else if (temp > 0.2) {
+            } else if (temp > 0.2) {
                 if (moist < 0.4) {
                     bio = BiomeGenBase.plains;
-                }
-                else {
+                } else {
                     bio = BiomeGenBase.forest;
                 }
-            }
-            else {
+            } else {
                 bio = BiomeGenBase.icePlains;
             }
         }
@@ -1077,7 +1036,7 @@ public class PocketPlaneData
         }
         return bio;
     }
-    
+
     public static void drawCircle(final int x0, final int y0, final int z0, final int y1, final int radius, final int error0, final Block block, final int md, final World world) {
         int x = radius;
         int z = 0;
@@ -1118,14 +1077,13 @@ public class PocketPlaneData
             ++z;
             if (radiusError < 0) {
                 radiusError += 2 * z + 1;
-            }
-            else {
+            } else {
                 --x;
                 radiusError += 2 * (z - x + 1);
             }
         }
     }
-    
+
     public static void drawSphere(final int x0, final int y0, final int z0, final int radius, final Block block, final int md, final World world) {
         int x = radius;
         int y = 0;
@@ -1135,25 +1093,22 @@ public class PocketPlaneData
             ++y;
             if (radiusError < 0) {
                 radiusError += 2 * y + 1;
-            }
-            else {
+            } else {
                 --x;
                 radiusError += 2 * (y - x + 1);
             }
         }
     }
-    
+
     public static void loadPocketPlanes(final World world) {
         final File planeFile = new File(world.getSaveHandler().getWorldDirectory(), "pocketplane.dat");
         NBTTagCompound root = null;
         if (planeFile.exists()) {
             try {
-                root = CompressedStreamTools.readCompressed((InputStream)new FileInputStream(planeFile));
-            }
-            catch (FileNotFoundException e) {
+                root = CompressedStreamTools.readCompressed((InputStream) new FileInputStream(planeFile));
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            }
-            catch (IOException e2) {
+            } catch (IOException e2) {
                 e2.printStackTrace();
             }
             if (root != null) {
@@ -1174,27 +1129,29 @@ public class PocketPlaneData
                 }
                 final NBTTagCompound positionz = root.getCompoundTag("Positions");
                 PocketPlaneData.positions.clear();
-                Set<String> list1 =  positionz.func_150296_c();
-                for (final String id : list1) {
+                Set < String > list1 = positionz.func_150296_c();
+                for (final String id: list1) {
                     PocketPlaneData.positions.add(Vec3.createVectorHelper(positionz.getIntArray(id)[0] + 0.5, (double)(positionz.getIntArray(id)[1] + 1), positionz.getIntArray(id)[2] + 0.5));
                 }
             }
         }
     }
-    
+
     public static void savePocketPlanes(final World world) {
         final File planeFile = new File(world.getSaveHandler().getWorldDirectory(), "pocketplane.dat");
         final NBTTagCompound root = new NBTTagCompound();
         final NBTTagCompound positionz = new NBTTagCompound();
         int which = 0;
-        for (final Vec3 pos : PocketPlaneData.positions) {
-            positionz.setIntArray(which + "", new int[] { (int)pos.xCoord, (int)pos.yCoord, (int)pos.zCoord });
+        for (final Vec3 pos: PocketPlaneData.positions) {
+            positionz.setIntArray(which + "", new int[] {
+                    (int) pos.xCoord, (int) pos.yCoord, (int) pos.zCoord
+            });
             ++which;
         }
-        root.setTag("Positions", (NBTBase)positionz);
+        root.setTag("Positions", (NBTBase) positionz);
         final NBTTagList planeNBT = new NBTTagList();
-        root.setTag("Data", (NBTBase)planeNBT);
-        for (final PocketPlaneData data : PocketPlaneData.planes) {
+        root.setTag("Data", (NBTBase) planeNBT);
+        for (final PocketPlaneData data: PocketPlaneData.planes) {
             if (data != null) {
                 final NBTTagCompound thePlane = new NBTTagCompound();
                 thePlane.setInteger("radius", data.radius);
@@ -1205,20 +1162,18 @@ public class PocketPlaneData
                 thePlane.setIntArray("portalB", data.portalB);
                 thePlane.setIntArray("portalC", data.portalC);
                 thePlane.setIntArray("portalD", data.portalD);
-                planeNBT.appendTag((NBTBase)thePlane);
+                planeNBT.appendTag((NBTBase) thePlane);
             }
         }
         try {
-            CompressedStreamTools.writeCompressed(root, (OutputStream)new FileOutputStream(planeFile));
-        }
-        catch (FileNotFoundException e) {
+            CompressedStreamTools.writeCompressed(root, (OutputStream) new FileOutputStream(planeFile));
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e2) {
+        } catch (IOException e2) {
             e2.printStackTrace();
         }
     }
-    
+
     public static int firstAvailablePortal(final int num) {
         final PocketPlaneData data = PocketPlaneData.planes.get(num);
         if (data.portalA[0] == 0 && data.portalA[1] == 0 && data.portalA[2] == 0) {
@@ -1235,11 +1190,11 @@ public class PocketPlaneData
         }
         return 0;
     }
-    
+
     public static void destroyPortal(final int id, final int which) {
         //System.out.println("Destroying portal " + which + " in plane " + id);
         final PocketPlaneData data = PocketPlaneData.planes.get(id);
-        final World world = (World)MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId);
+        final World world = (World) MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId);
         if (which == 1) {
             for (int x = -1; x <= 1; ++x) {
                 for (int y = 126; y <= 128; ++y) {
@@ -1249,8 +1204,7 @@ public class PocketPlaneData
             data.portalA[0] = 0;
             data.portalA[1] = 0;
             data.portalA[2] = 0;
-        }
-        else if (which == 2) {
+        } else if (which == 2) {
             for (int x = -1; x <= 1; ++x) {
                 for (int y = 126; y <= 128; ++y) {
                     world.setBlock(x, y, 256 * id - data.radius, ThaumicHorizons.blockVoid);
@@ -1259,8 +1213,7 @@ public class PocketPlaneData
             data.portalB[0] = 0;
             data.portalB[1] = 0;
             data.portalB[2] = 0;
-        }
-        else if (which == 3) {
+        } else if (which == 3) {
             for (int z = -1; z <= 1; ++z) {
                 for (int y = 126; y <= 128; ++y) {
                     world.setBlock(data.radius, y, 256 * id + z, ThaumicHorizons.blockVoid);
@@ -1269,8 +1222,7 @@ public class PocketPlaneData
             data.portalC[0] = 0;
             data.portalC[1] = 0;
             data.portalC[2] = 0;
-        }
-        else if (which == 4) {
+        } else if (which == 4) {
             for (int z = -1; z <= 1; ++z) {
                 for (int y = 126; y <= 128; ++y) {
                     world.setBlock(-data.radius, y, 256 * id + z, ThaumicHorizons.blockVoid);
@@ -1281,11 +1233,11 @@ public class PocketPlaneData
             data.portalD[2] = 0;
         }
     }
-    
+
     public static void makePortal(final int id, final int which, final int xCoord, final int yCoord, final int zCoord) {
         //System.out.println("Creating portal " + which + " in plane " + id);
         final PocketPlaneData data = PocketPlaneData.planes.get(id);
-        final World world = (World)MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId);
+        final World world = (World) MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId);
         if (which == 1) {
             for (int x = -1; x <= 1; ++x) {
                 for (int y = 126; y <= 128; ++y) {
@@ -1296,8 +1248,7 @@ public class PocketPlaneData
             data.portalA[0] = xCoord;
             data.portalA[1] = yCoord;
             data.portalA[2] = zCoord;
-        }
-        else if (which == 2) {
+        } else if (which == 2) {
             for (int x = -1; x <= 1; ++x) {
                 for (int y = 126; y <= 128; ++y) {
                     world.setBlock(x, y, 256 * id - data.radius, ThaumicHorizons.blockPortal, 2, 3);
@@ -1307,8 +1258,7 @@ public class PocketPlaneData
             data.portalB[0] = xCoord;
             data.portalB[1] = yCoord;
             data.portalB[2] = zCoord;
-        }
-        else if (which == 3) {
+        } else if (which == 3) {
             for (int z = -1; z <= 1; ++z) {
                 for (int y = 126; y <= 128; ++y) {
                     world.setBlock(data.radius, y, 256 * id + z, ThaumicHorizons.blockPortal, 1, 3);
@@ -1318,8 +1268,7 @@ public class PocketPlaneData
             data.portalC[0] = xCoord;
             data.portalC[1] = yCoord;
             data.portalC[2] = zCoord;
-        }
-        else if (which == 4) {
+        } else if (which == 4) {
             for (int z = -1; z <= 1; ++z) {
                 for (int y = 126; y <= 128; ++y) {
                     world.setBlock(-data.radius, y, 256 * id + z, ThaumicHorizons.blockPortal, 3, 3);
@@ -1331,23 +1280,16 @@ public class PocketPlaneData
             data.portalD[2] = zCoord;
         }
     }
-    
-    void buildStructure(final int x, final int y, final int z, final Structure struct) {
-    }
-    
-    static {
-        PocketPlaneData.planes = new ArrayList<PocketPlaneData>();
-        PocketPlaneData.positions = new ArrayList<Vec3>();
-    }
-    
-    private class Structure
-    {
+
+    void buildStructure(final int x, final int y, final int z, final Structure struct) {}
+
+    private class Structure {
         public int x;
         public int y;
         public int z;
         public Block[] blocks;
         public int[] meta;
-        
+
         public Structure(final int x, final int y, final int z, final Block[] blocks, final int[] meta) {
             this.x = x;
             this.y = y;

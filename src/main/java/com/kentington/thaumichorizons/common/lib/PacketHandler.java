@@ -14,20 +14,21 @@ public class PacketHandler
     
     public static void init() {
         int idx = 0;
-        PacketHandler.INSTANCE.registerMessage((Class)PacketLensChangeToServer.class, (Class)PacketLensChangeToServer.class, idx++, Side.SERVER);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketFXEssentiaBubble.class, (Class)PacketFXEssentiaBubble.class, idx++, Side.CLIENT);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketInfusionFX.class, (Class)PacketInfusionFX.class, idx++, Side.CLIENT);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketFXInfusionDone.class, (Class)PacketFXInfusionDone.class, idx++, Side.CLIENT);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketFXDeadCreature.class, (Class)PacketFXDeadCreature.class, idx++, Side.CLIENT);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketFXContainment.class, (Class)PacketFXContainment.class, idx++, Side.CLIENT);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketNoMoreItems.class, (Class)PacketNoMoreItems.class, idx++, Side.CLIENT);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketFXBlocksplosion.class, (Class)PacketFXBlocksplosion.class, idx++, Side.CLIENT);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketRemoveNightvision.class, (Class)PacketRemoveNightvision.class, idx++, Side.CLIENT);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketFingersToServer.class, (Class)PacketFingersToServer.class, idx++, Side.SERVER);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketPlayerInfusionSync.class, (Class)PacketPlayerInfusionSync.class, idx++, Side.CLIENT);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketMountNightmare.class, (Class)PacketMountNightmare.class, idx++, Side.CLIENT);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketToggleClimbToServer.class, (Class)PacketToggleClimbToServer.class, idx++, Side.SERVER);
-        PacketHandler.INSTANCE.registerMessage((Class)PacketToggleInvisibleToServer.class, (Class)PacketToggleInvisibleToServer.class, idx++, Side.SERVER);
+        PacketHandler.INSTANCE.registerMessage(PacketLensChangeToServer.class, PacketLensChangeToServer.class, idx++, Side.SERVER);
+        PacketHandler.INSTANCE.registerMessage(PacketFXEssentiaBubble.class, PacketFXEssentiaBubble.class, idx++, Side.CLIENT);
+        PacketHandler.INSTANCE.registerMessage(PacketInfusionFX.class, PacketInfusionFX.class, idx++, Side.CLIENT);
+        PacketHandler.INSTANCE.registerMessage(PacketFXInfusionDone.class, PacketFXInfusionDone.class, idx++, Side.CLIENT);
+        PacketHandler.INSTANCE.registerMessage(PacketFXDeadCreature.class, PacketFXDeadCreature.class, idx++, Side.CLIENT);
+        PacketHandler.INSTANCE.registerMessage(PacketFXContainment.class, PacketFXContainment.class, idx++, Side.CLIENT);
+        PacketHandler.INSTANCE.registerMessage(PacketNoMoreItems.class, PacketNoMoreItems.class, idx++, Side.CLIENT);
+        PacketHandler.INSTANCE.registerMessage(PacketFXBlocksplosion.class, PacketFXBlocksplosion.class, idx++, Side.CLIENT);
+        PacketHandler.INSTANCE.registerMessage(PacketRemoveNightvision.class, PacketRemoveNightvision.class, idx++, Side.CLIENT);
+        PacketHandler.INSTANCE.registerMessage(PacketFingersToServer.class, PacketFingersToServer.class, idx++, Side.SERVER);
+        PacketHandler.INSTANCE.registerMessage(PacketPlayerInfusionSync.class, PacketPlayerInfusionSync.class, idx++, Side.CLIENT);
+        PacketHandler.INSTANCE.registerMessage(PacketMountNightmare.class, PacketMountNightmare.class, idx++, Side.CLIENT);
+        PacketHandler.INSTANCE.registerMessage(PacketToggleClimbToServer.class, PacketToggleClimbToServer.class, idx++, Side.SERVER);
+        PacketHandler.INSTANCE.registerMessage(PacketToggleInvisibleToServer.class, PacketToggleInvisibleToServer.class, idx++, Side.SERVER);
+        PacketHandler.INSTANCE.registerMessage(PacketRainState.class,PacketRainState.class,idx++,Side.CLIENT);
     }
     
     static {
