@@ -4,52 +4,40 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.DamageSource;
-import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.storage.SaveHandler;
-import net.minecraft.world.storage.SaveHandlerMP;
-import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.WorldSpecificSaveHandler;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.World;
-import com.kentington.thaumichorizons.common.lib.PocketPlaneThread;
-import net.minecraft.world.WorldSettings;
-import net.minecraft.world.storage.ISaveHandler;
-import net.minecraft.world.WorldServer;
-import net.minecraft.util.StatCollector;
-import com.kentington.thaumichorizons.common.lib.PocketPlaneData;
-import thaumcraft.common.entities.monster.EntityWisp;
-import net.minecraft.block.Block;
-import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.common.items.wands.ItemWandCasting;
-import thaumcraft.common.config.ConfigItems;
-import java.util.Iterator;
-import java.util.List;
-import net.minecraft.world.Teleporter;
-import com.kentington.thaumichorizons.common.lib.VortexTeleporter;
-import cpw.mods.fml.common.FMLCommonHandler;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.entity.player.EntityPlayerMP;
-import thaumcraft.common.blocks.BlockAiry;
-import thaumcraft.common.Thaumcraft;
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.entity.item.EntityItem;
+import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
+import com.kentington.thaumichorizons.common.lib.*;
+import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityFallingBlock;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import java.util.ArrayList;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.*;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.Teleporter;
+import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.TileThaumcraft;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.wands.IWandable;
-import thaumcraft.api.TileThaumcraft;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.blocks.BlockAiry;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.entities.monster.EntityWisp;
+import thaumcraft.common.items.wands.ItemWandCasting;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileVortex extends TileThaumcraft implements IWandable, IAspectContainer
 {
@@ -80,6 +68,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
     
     public void updateEntity() {
         super.updateEntity();
+
         if (this.generating) {
             this.worldObj.createExplosion((Entity)null, (double)(this.xCoord + this.worldObj.rand.nextFloat()), (double)(this.yCoord + this.worldObj.rand.nextFloat()), (double)(this.zCoord + this.worldObj.rand.nextFloat()), 1.0f, false);
             if (this.ppThread == null) {
@@ -101,7 +90,8 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                         MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId).setBlockToAir(0, 129, this.dimensionID * 256);
                     }
                     this.worldObj.setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
-                    Thaumcraft.proxy.burst(this.worldObj, (double)this.xCoord, (double)this.yCoord, (double)this.zCoord, 4.0f);
+                    if (worldObj.isRemote)
+                        Thaumcraft.proxy.burst(this.worldObj, (double)this.xCoord, (double)this.yCoord, (double)this.zCoord, 4.0f);
                     BlockAiry.explodify(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
                 }
                 return;
@@ -111,13 +101,14 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
             }
             else {
                 if (!this.ateDevices) {
-                    if (!this.cheat) {
+                    if (!this.cheat && this.worldObj.provider.dimensionId != ThaumicHorizons.dimensionPocketId) {
                         for (int dx = -1; dx < 2; ++dx) {
                             for (int dy = -1; dy < 2; ++dy) {
                                 for (int dz = -1; dz < 2; ++dz) {
                                     if (dx != 0 || dy != 0 || dz != 0) {
                                         this.worldObj.setBlockToAir(this.xCoord + dx, this.yCoord + dy, this.zCoord + dz);
-                                        Thaumcraft.proxy.burst(this.worldObj, (double)(this.xCoord + dx), (double)(this.yCoord + dy), (double)(this.zCoord + dz), 2.0f);
+                                        if (worldObj.isRemote)
+                                            Thaumcraft.proxy.burst(this.worldObj, (double)(this.xCoord + dx), (double)(this.yCoord + dy), (double)(this.zCoord + dz), 2.0f);
                                     }
                                 }
                             }
@@ -134,7 +125,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                 if (!this.cheat) {
                     this.count += 6 - this.beams;
                 }
-                if (this.count > MAX_COUNT) {
+                if (this.count > MAX_COUNT && !this.cheat && this.worldObj.provider.dimensionId != ThaumicHorizons.dimensionPocketId) {
                     this.collapsing = true;
                     this.count = 0;
                 }

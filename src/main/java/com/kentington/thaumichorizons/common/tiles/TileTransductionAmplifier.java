@@ -47,6 +47,11 @@ public class TileTransductionAmplifier extends TileThaumcraft
     
     public void updateEntity() {
         super.updateEntity();
+
+        if (this.worldObj.provider.dimensionId == ThaumicHorizons.dimensionPocketId){
+            this.worldObj.createExplosion((Entity)null, (double)(this.xCoord), (double)(this.yCoord), (double)(this.zCoord), 1.0f, false);
+        }
+
         if (!this.fireOnce) {
             this.direction = (byte)this.getBlockMetadata();
             this.worldObj.getBlock(this.xCoord, this.yCoord, this.zCoord).onNeighborBlockChange(this.worldObj, this.xCoord, this.yCoord, this.zCoord, (Block)null);

@@ -35,7 +35,10 @@ import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 
 import java.awt.*;
 import java.io.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Set;
 
 public class PocketPlaneData {
     public int radius;
@@ -61,7 +64,6 @@ public class PocketPlaneData {
 
     public static void generatePocketPlane(final AspectList aspects, final PocketPlaneData data, final World world, final int vortexX, final int vortexY, final int vortexZ, final int returnID) {
         if (!world.isRemote) {
-            world.getChunkFromBlockCoords(vortexX,vortexZ).sendUpdates=false;
             //System.out.println("Starting pocket plane generation");
             final int xCenter = 0;
             final int yCenter = 128;
@@ -99,7 +101,7 @@ public class PocketPlaneData {
             vortex.returnID = returnID;
             vortex.dimensionID = PocketPlaneData.planes.size();
             vortex.createdDimension = true;
-            vortex.markDirty();
+            world.setTileEntity(xCenter, yCenter + 1, zCenter,vortex);
             data.portalA = new int[3];
             data.portalB = new int[3];
             data.portalC = new int[3];
@@ -107,7 +109,6 @@ public class PocketPlaneData {
             PocketPlaneData.planes.add(data);
             PocketPlaneData.positions.add(Vec3.createVectorHelper((double) vortexX, (double) vortexY, (double) vortexZ));
             //System.out.println("Finished with pocket plane generation!");
-            world.getChunkFromBlockCoords(vortexX,vortexZ).sendUpdates=true;
             world.getChunkFromBlockCoords(vortexX,vortexZ).isModified=true;
         }
     }
@@ -193,11 +194,11 @@ public class PocketPlaneData {
             drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, Blocks.packed_ice, 0, world);
             drewAnything = true;
         }
-        if (aspects.getAmount(Aspect.WEATHER) > 0 || (aspects.getAmount(Aspect.AIR) > 0 && aspects.getAmount(Aspect.WATER) > 0)) {
-            ++numRings;
-            drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, ThaumicHorizons.blockCloud, 0, world);
-            drewAnything = true;
-        }
+//        if (aspects.getAmount(Aspect.WEATHER) > 0 || (aspects.getAmount(Aspect.AIR) > 0 && aspects.getAmount(Aspect.WATER) > 0)) {
+//            ++numRings;
+//            drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, ThaumicHorizons.blockCloud, 0, world);
+//            drewAnything = true;
+//        }
         return drewAnything;
     }
 

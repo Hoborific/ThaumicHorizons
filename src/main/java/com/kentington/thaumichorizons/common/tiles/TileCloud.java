@@ -4,7 +4,11 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
+import com.kentington.thaumichorizons.common.lib.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.PacketNoMoreItems;
 import com.kentington.thaumichorizons.common.lib.PacketRainState;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.util.AxisAlignedBB;
@@ -63,7 +67,7 @@ public class TileCloud extends TileThaumcraft
     
     public boolean isRaining() {
         if (!worldObj.isRemote)
-            new PacketRainState(DimensionManager.getWorld(0) != null && DimensionManager.getWorld(0).isRaining());
+            PacketHandler.INSTANCE.sendToDimension(new PacketRainState(DimensionManager.getWorld(0) != null && DimensionManager.getWorld(0).isRaining()),this.worldObj.provider.dimensionId);
         return TileCloud.raining;
     }
     
@@ -86,7 +90,7 @@ public class TileCloud extends TileThaumcraft
             timer = 0;
         Label_4978:
         {
-            if (this.raining) {
+            if (this.rainstate) {
                 if (this.worldObj.getTotalWorldTime() % 10L == 0L) {
                     this.findBlockBelow();
                     switch (this.md) {
@@ -571,14 +575,14 @@ public class TileCloud extends TileThaumcraft
     @Override
     public void writeCustomNBT(final NBTTagCompound nbttagcompound) {
         super.writeCustomNBT(nbttagcompound);
-        nbttagcompound.setBoolean("raining", this.raining);
+        nbttagcompound.setBoolean("raining", this.rainstate);
         nbttagcompound.setInteger("dropTimer", this.dropTimer);
     }
     
     @Override
     public void readCustomNBT(final NBTTagCompound nbttagcompound) {
         super.readCustomNBT(nbttagcompound);
-        this.raining = nbttagcompound.getBoolean("raining");
+        this.rainstate = nbttagcompound.getBoolean("raining");
         this.dropTimer = nbttagcompound.getInteger("dropTimer");
     }
     
