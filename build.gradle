@@ -25,7 +25,7 @@ group= "com.kentington.thaumichorizons" // http://maven.apache.org/guides/mini/g
 targetCompatibility = "1.8"
 sourceCompatibility = "1.8"
 
-version = "1.1.9.7"
+version = "1.1.9.8"
 archivesBaseName = "ThaumicHorizons-1.7.10"
 
 
