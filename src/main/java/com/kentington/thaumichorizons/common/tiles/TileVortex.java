@@ -23,6 +23,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.TileThaumcraft;
@@ -87,7 +88,10 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                 ++this.count;
                 if (this.count > 25) {
                     if (this.createdDimension) {
-                        MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId).setBlockToAir(0, 129, this.dimensionID * 256);
+                        WorldServer wsd = DimensionManager.getWorld(ThaumicHorizons.dimensionPocketId);
+                        if (wsd != null) {
+                            wsd.setBlockToAir(0, 129, this.dimensionID * 256);
+                        }
                     }
                     this.worldObj.setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
                     if (worldObj.isRemote)
