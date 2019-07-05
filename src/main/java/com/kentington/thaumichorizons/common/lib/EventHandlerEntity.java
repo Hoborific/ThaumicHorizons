@@ -4,7 +4,10 @@
 
 package com.kentington.thaumichorizons.common.lib;
 
-import net.minecraft.item.Item;
+import com.kentington.thaumichorizons.common.lib.networking.PacketFXContainment;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.networking.PacketNoMoreItems;
+import com.kentington.thaumichorizons.common.lib.networking.PacketPlayerInfusionSync;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -64,7 +67,6 @@ import com.kentington.thaumichorizons.common.entities.ai.EntityAIFollowOwnerTH;
 import com.kentington.thaumichorizons.common.entities.ai.EntityAIAttackOnCollideTH;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import com.kentington.thaumichorizons.common.entities.ai.EntityAISitTH;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks;
 import thaumcraft.common.Thaumcraft;
@@ -79,7 +81,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import com.kentington.thaumichorizons.common.entities.EntityNightmare;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.common.IExtendedEntityProperties;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.event.entity.EntityEvent;
 import cpw.mods.fml.relauncher.Side;

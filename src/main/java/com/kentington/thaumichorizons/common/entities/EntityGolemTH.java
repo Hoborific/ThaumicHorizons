@@ -12,8 +12,8 @@ import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import com.kentington.thaumichorizons.common.lib.PacketFXBlocksplosion;
-import com.kentington.thaumichorizons.common.lib.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.networking.PacketFXBlocksplosion;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 import net.minecraft.item.ItemStack;
 import thaumcraft.common.config.ConfigItems;
 import cpw.mods.fml.relauncher.Side;
@@ -253,21 +253,21 @@ public class EntityGolemTH extends EntityGolemBase
                     switch (this.voidCount) {
                         case 0: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText("\u00ef¿½5\u00ef¿½o" + StatCollector.translateToLocal("thaumichorizons.golemWarning1")));
+                                player.addChatMessage((IChatComponent)new ChatComponentText("\u00efï¿½ï¿½5\u00efï¿½ï¿½o" + StatCollector.translateToLocal("thaumichorizons.golemWarning1")));
                                 break;
                             }
                             break;
                         }
                         case 1: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText("\u00ef¿½5\u00ef¿½o" + StatCollector.translateToLocal("thaumichorizons.golemWarning2")));
+                                player.addChatMessage((IChatComponent)new ChatComponentText("\u00efï¿½ï¿½5\u00efï¿½ï¿½o" + StatCollector.translateToLocal("thaumichorizons.golemWarning2")));
                                 break;
                             }
                             break;
                         }
                         case 2: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText("\u00ef¿½5\u00ef¿½o" + StatCollector.translateToLocal("thaumichorizons.golemWarning3")));
+                                player.addChatMessage((IChatComponent)new ChatComponentText("\u00efï¿½ï¿½5\u00efï¿½ï¿½o" + StatCollector.translateToLocal("thaumichorizons.golemWarning3")));
                                 break;
                             }
                             break;

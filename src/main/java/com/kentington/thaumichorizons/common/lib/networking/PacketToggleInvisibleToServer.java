@@ -2,9 +2,14 @@
 // Decompiled by Procyon v0.5.30
 // 
 
-package com.kentington.thaumichorizons.common.lib;
+package com.kentington.thaumichorizons.common.lib.networking;
 
+import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
 import net.minecraft.world.World;
+import java.util.List;
+import java.util.ArrayList;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.Potion;
 import net.minecraftforge.common.DimensionManager;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
@@ -12,15 +17,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 
-public class PacketToggleClimbToServer implements IMessage, IMessageHandler<PacketToggleClimbToServer, IMessage>
+public class PacketToggleInvisibleToServer implements IMessage, IMessageHandler<PacketToggleInvisibleToServer, IMessage>
 {
     private int playerid;
     private int dim;
     
-    public PacketToggleClimbToServer() {
+    public PacketToggleInvisibleToServer() {
     }
     
-    public PacketToggleClimbToServer(final EntityPlayer player, final int dim) {
+    public PacketToggleInvisibleToServer(final EntityPlayer player, final int dim) {
         this.playerid = player.getEntityId();
         this.dim = dim;
     }
@@ -35,10 +40,20 @@ public class PacketToggleClimbToServer implements IMessage, IMessageHandler<Pack
         this.dim = buffer.readInt();
     }
     
-    public IMessage onMessage(final PacketToggleClimbToServer message, final MessageContext ctx) {
+    public IMessage onMessage(final PacketToggleInvisibleToServer message, final MessageContext ctx) {
         final World world = (World)DimensionManager.getWorld(message.dim);
         final EntityPlayer player = (EntityPlayer)world.getEntityByID(message.playerid);
         ((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleClimb = !((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleClimb;
+        if (((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleClimb) {
+            player.removePotionEffect(Potion.invisibility.id);
+            player.setInvisible(false);
+        }
+        else {
+            final PotionEffect effect = new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 0, true);
+            effect.setCurativeItems((List)new ArrayList());
+            player.addPotionEffect(effect);
+            player.setInvisible(true);
+        }
         return null;
     }
 }

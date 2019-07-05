@@ -35,10 +35,7 @@ import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 
 import java.awt.*;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 public class PocketPlaneData {
     public int radius;
@@ -49,8 +46,11 @@ public class PocketPlaneData {
     public int[] portalC;
     public int[] portalD;
     public String name;
-    public static final LinkedList < PocketPlaneData > planes = new LinkedList < > ();
-    public static final LinkedList < Vec3 > positions = new LinkedList < > ();
+    private static final short MAX_CREATURES = 100;
+    private static short creatures;
+    public static final LinkedList<PocketPlaneData> planes = new LinkedList<>();
+    public static final HashMap<Integer,Vec3> positions = new HashMap<>();
+    public static int pocketPlaneMAXID;
 
     public PocketPlaneData() {
         this.radius = 32;
@@ -107,9 +107,11 @@ public class PocketPlaneData {
             data.portalC = new int[3];
             data.portalD = new int[3];
             PocketPlaneData.planes.add(data);
-            PocketPlaneData.positions.add(Vec3.createVectorHelper((double) vortexX, (double) vortexY, (double) vortexZ));
+            PocketPlaneData.positions.put(pocketPlaneMAXID,Vec3.createVectorHelper((double) vortexX, (double) vortexY, (double) vortexZ));
             //System.out.println("Finished with pocket plane generation!");
             world.getChunkFromBlockCoords(vortexX,vortexZ).isModified=true;
+            creatures = 0;
+            ++pocketPlaneMAXID;
         }
     }
 
@@ -359,11 +361,12 @@ public class PocketPlaneData {
                                     world.setBlock(x + xCenter, y + level, z + zCenter, Blocks.ice, 0, 0);
                                 } else {
                                     world.setBlock(x + xCenter, y + level, z + zCenter, block, 0, 0);
-                                    if ((life > 40 || aspects.getAmount(Aspect.BEAST) > 0) && world.rand.nextInt(100) > 98) {
+                                    if ((life > 40 || aspects.getAmount(Aspect.BEAST) > 0) && world.rand.nextInt(100) > 98 && creatures < MAX_CREATURES) {
                                         final EntitySquid squiddie = new EntitySquid(world);
                                         squiddie.setPosition((double)(x + xCenter), (double)(y + level), (double)(z + zCenter));
                                         squiddie.func_110163_bv();
                                         world.spawnEntityInWorld((Entity) squiddie);
+                                        ++creatures;
                                     }
                                     if (life > 0 && world.rand.nextInt(100) > 98) {
                                         world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.waterlily, 0, 0);
@@ -562,25 +565,29 @@ public class PocketPlaneData {
                                         break;
                                     }
                                 }
-                                if (critter != null) {
+                                if (critter != null && creatures < MAX_CREATURES) {
                                     critter.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
                                     world.spawnEntityInWorld((Entity) critter);
+                                    ++creatures;
                                 }
                             }
-                            if ((aspects.getAmount(Aspect.POISON) > 0 || aspects.getAmount(Aspect.EXCHANGE) > 0 || aspects.getAmount(Aspect.METAL) > 0 || aspects.getAmount(Aspect.MECHANISM) > 0) && world.rand.nextInt(100) > 98) {
+                            if ((aspects.getAmount(Aspect.POISON) > 0 || aspects.getAmount(Aspect.EXCHANGE) > 0 || aspects.getAmount(Aspect.METAL) > 0 || aspects.getAmount(Aspect.MECHANISM) > 0) && world.rand.nextInt(100) > 98 && creatures < MAX_CREATURES) {
                                 final EntityMercurialSlime slime = new EntityMercurialSlime(world);
                                 slime.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
                                 world.spawnEntityInWorld((Entity) slime);
+                                ++creatures;
                             }
-                            if ((aspects.getAmount(Aspect.SLIME) > 0 || aspects.getAmount(Aspect.FLESH) > 0 || aspects.getAmount(Aspect.HUNGER) > 0) && world.rand.nextInt(100) > 98) {
+                            if ((aspects.getAmount(Aspect.SLIME) > 0 || aspects.getAmount(Aspect.FLESH) > 0 || aspects.getAmount(Aspect.HUNGER) > 0) && world.rand.nextInt(100) > 98 && creatures < MAX_CREATURES) {
                                 final EntityMeatSlime slime2 = new EntityMeatSlime(world);
                                 slime2.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
                                 world.spawnEntityInWorld((Entity) slime2);
+                                ++creatures;
                             }
-                            if (aspects.getAmount(Aspect.SLIME) > 0 && world.rand.nextInt(100) > 98) {
+                            if (aspects.getAmount(Aspect.SLIME) > 0 && world.rand.nextInt(100) > 98 && creatures < MAX_CREATURES) {
                                 final EntitySlime slime3 = new EntitySlime(world);
                                 slime3.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
                                 world.spawnEntityInWorld((Entity) slime3);
+                                ++creatures;
                             }
                             if (aspects.getAmount(Aspect.ELDRITCH) > 0 && world.rand.nextInt(200) > 198) {
                                 world.setBlock(x + xCenter, y + level, z + zCenter, ConfigBlocks.blockCosmeticSolid, 1, 0);
@@ -594,15 +601,17 @@ public class PocketPlaneData {
                             if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(100) > 98) {
                                 world.setBlock(x + xCenter, y + level, z + zCenter, ConfigBlocks.blockTaintFibres, 0, 0);
                             }
-                            if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(200) > 198) {
+                            if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(200) > 198 && creatures < MAX_CREATURES) {
                                 final EntityTaintacle slime4 = new EntityTaintacle(world);
                                 slime4.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
                                 world.spawnEntityInWorld((Entity) slime4);
+                                ++creatures;
                             }
-                            if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(200) > 198) {
+                            if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(200) > 198 && creatures < MAX_CREATURES) {
                                 final EntityTaintSporeSwarmer slime5 = new EntityTaintSporeSwarmer(world);
                                 slime5.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
                                 world.spawnEntityInWorld((Entity) slime5);
+                                ++creatures;
                             }
                         } else if (block != null) {
                             world.setBlock(x + xCenter, y + level, z + zCenter, block, md, 0);
@@ -1113,6 +1122,7 @@ public class PocketPlaneData {
             if (root != null) {
                 PocketPlaneData.planes.clear();
                 final NBTTagList planeNBT = root.getTagList("Data", 10);
+                pocketPlaneMAXID = root.getInteger("MaxID");
                 for (int i = 0; i < planeNBT.tagCount(); ++i) {
                     final NBTTagCompound thePlane = planeNBT.getCompoundTagAt(i);
                     final PocketPlaneData data = new PocketPlaneData();
@@ -1130,7 +1140,7 @@ public class PocketPlaneData {
                 PocketPlaneData.positions.clear();
                 Set <String> list1 = positionz.func_150296_c();
                 for (final String id: list1) {
-                    PocketPlaneData.positions.add(Vec3.createVectorHelper(positionz.getIntArray(id)[0] + 0.5, (double)(positionz.getIntArray(id)[1] + 1), positionz.getIntArray(id)[2] + 0.5));
+                    PocketPlaneData.positions.put(Integer.valueOf(id),Vec3.createVectorHelper(positionz.getIntArray(id)[0] + 0.5, (double)(positionz.getIntArray(id)[1] + 1), positionz.getIntArray(id)[2] + 0.5));
                 }
             }
         }
@@ -1140,13 +1150,14 @@ public class PocketPlaneData {
         final File planeFile = new File(world.getSaveHandler().getWorldDirectory(), "pocketplane.dat");
         final NBTTagCompound root = new NBTTagCompound();
         final NBTTagCompound positionz = new NBTTagCompound();
-        int which = 0;
-        for (final Vec3 pos: PocketPlaneData.positions) {
-            positionz.setIntArray(which + "", new int[] {
-                    (int) pos.xCoord, (int) pos.yCoord, (int) pos.zCoord
+        Iterator it = PocketPlaneData.positions.entrySet().iterator();
+        while (it.hasNext()){
+            Map.Entry<Integer,Vec3> idToPos = (Map.Entry<Integer,Vec3>) it.next();
+            positionz.setIntArray(idToPos.getKey() + "", new int[] {
+                    (int) idToPos.getValue().xCoord, (int) idToPos.getValue().yCoord, (int) idToPos.getValue().zCoord
             });
-            ++which;
         }
+        root.setInteger("MaxID",pocketPlaneMAXID);
         root.setTag("Positions", (NBTBase) positionz);
         final NBTTagList planeNBT = new NBTTagList();
         root.setTag("Data", (NBTBase) planeNBT);

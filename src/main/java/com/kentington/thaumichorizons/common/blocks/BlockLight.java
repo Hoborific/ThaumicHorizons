@@ -82,7 +82,7 @@ public class BlockLight extends BlockContainer
     }
     
     public TileEntity createNewTileEntity(final World var1, final int md) {
-        return null;
+        return new TileLight();
     }
     
     public AxisAlignedBB getCollisionBoundingBoxFromPool(final World world, final int x, final int y, final int z) {

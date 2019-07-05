@@ -6,8 +6,8 @@ package com.kentington.thaumichorizons.common.items.lenses;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.entity.player.EntityPlayerMP;
-import com.kentington.thaumichorizons.common.lib.PacketRemoveNightvision;
-import com.kentington.thaumichorizons.common.lib.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.networking.PacketRemoveNightvision;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

@@ -2,7 +2,7 @@
 // Decompiled by Procyon v0.5.30
 // 
 
-package com.kentington.thaumichorizons.common.lib;
+package com.kentington.thaumichorizons.common.lib.networking;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

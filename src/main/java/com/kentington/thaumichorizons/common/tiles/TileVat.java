@@ -4,7 +4,7 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import com.kentington.thaumichorizons.common.lib.PacketFXEssentiaBubble;
+import com.kentington.thaumichorizons.common.lib.networking.PacketFXEssentiaBubble;
 import net.minecraft.init.Items;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.INpc;
@@ -15,7 +15,7 @@ import net.minecraft.entity.monster.EntityGolem;
 
 import java.util.Set;
 import com.google.common.collect.Multimap;
-import com.kentington.thaumichorizons.common.lib.PacketFXInfusionDone;
+import com.kentington.thaumichorizons.common.lib.networking.PacketFXInfusionDone;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import com.google.common.collect.HashMultimap;
 import com.kentington.thaumichorizons.common.entities.IEntityInfusedStats;
@@ -30,10 +30,9 @@ import java.util.List;
 import net.minecraft.util.DamageSource;
 import thaumcraft.common.lib.network.fx.PacketFXBlockZap;
 import net.minecraft.util.AxisAlignedBB;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import com.kentington.thaumichorizons.common.lib.PacketInfusionFX;
-import com.kentington.thaumichorizons.common.lib.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.networking.PacketInfusionFX;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.visnet.VisNetHandler;
 import net.minecraft.item.Item;

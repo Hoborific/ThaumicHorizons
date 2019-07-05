@@ -40,6 +40,8 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.kentington.thaumichorizons.common.lib.PocketPlaneData.pocketPlaneMAXID;
+
 public class TileVortex extends TileThaumcraft implements IWandable, IAspectContainer
 {
     final int MAX_COUNT = 2400;
@@ -106,13 +108,13 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
             else {
                 if (!this.ateDevices) {
                     if (!this.cheat && this.worldObj.provider.dimensionId != ThaumicHorizons.dimensionPocketId) {
-                        for (int dx = -1; dx < 2; ++dx) {
-                            for (int dy = -1; dy < 2; ++dy) {
-                                for (int dz = -1; dz < 2; ++dz) {
+                        for (int dx = -2; dx <= 2; ++dx) {
+                            for (int dy = -2; dy <= 2; ++dy) {
+                                for (int dz = -2; dz <= 2; ++dz) {
                                     if (dx != 0 || dy != 0 || dz != 0) {
                                         this.worldObj.setBlockToAir(this.xCoord + dx, this.yCoord + dy, this.zCoord + dz);
                                         if (worldObj.isRemote)
-                                            Thaumcraft.proxy.burst(this.worldObj, (double)(this.xCoord + dx), (double)(this.yCoord + dy), (double)(this.zCoord + dz), 2.0f);
+                                            Thaumcraft.proxy.burst(this.worldObj, (double)(this.xCoord + dx), (double)(this.yCoord + dy), (double)(this.zCoord + dz), 4.0f);
                                     }
                                 }
                             }
@@ -245,7 +247,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
             name = pearl.func_145800_j() + StatCollector.translateToLocal("thaumichorizons.pocketplane");
         }
         data.name = name;
-        this.dimensionID = PocketPlaneData.planes.size();
+        this.dimensionID = pocketPlaneMAXID;
         if (DimensionManager.getWorld(ThaumicHorizons.dimensionPocketId) == null) {
             DimensionManager.initDimension(ThaumicHorizons.dimensionPocketId);
         }
