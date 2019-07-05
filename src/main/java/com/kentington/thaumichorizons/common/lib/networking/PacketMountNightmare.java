@@ -2,8 +2,9 @@
 // Decompiled by Procyon v0.5.30
 // 
 
-package com.kentington.thaumichorizons.common.lib;
+package com.kentington.thaumichorizons.common.lib.networking;
 
+import com.kentington.thaumichorizons.common.lib.EventHandlerEntity;
 import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import net.minecraft.entity.player.EntityPlayer;

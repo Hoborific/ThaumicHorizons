@@ -4,6 +4,7 @@
 
 package com.kentington.thaumichorizons.common.lib;
 
+import com.kentington.thaumichorizons.common.lib.networking.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;

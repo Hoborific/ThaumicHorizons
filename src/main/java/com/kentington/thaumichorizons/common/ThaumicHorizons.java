@@ -6,7 +6,6 @@
 package com.kentington.thaumichorizons.common;
 
 import com.kentington.thaumichorizons.client.lib.RenderEventHandler;
-import com.kentington.thaumichorizons.common.CommonProxy;
 import com.kentington.thaumichorizons.common.blocks.BlockAlchemite;
 import com.kentington.thaumichorizons.common.blocks.BlockBloodInfuser;
 import com.kentington.thaumichorizons.common.blocks.BlockBone;
@@ -131,7 +130,7 @@ import com.kentington.thaumichorizons.common.lib.CreativeTabTH;
 import com.kentington.thaumichorizons.common.lib.CreatureInfusionRecipe;
 import com.kentington.thaumichorizons.common.lib.EventHandlerEntity;
 import com.kentington.thaumichorizons.common.lib.EventHandlerWorld;
-import com.kentington.thaumichorizons.common.lib.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 import com.kentington.thaumichorizons.common.lib.SelfInfusionRecipe;
 import com.kentington.thaumichorizons.common.lib.WorldProviderPocketPlane;
 import com.kentington.thaumichorizons.common.lib.potion.PotionShock;
@@ -173,11 +172,9 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.ExistingSubstitutionException;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.GameRegistry.Type;
+
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -212,12 +209,10 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -249,8 +244,6 @@ import thaumcraft.common.config.ConfigResearch;
 import thaumcraft.common.entities.monster.EntityPech;
 import thaumcraft.common.entities.monster.EntityWisp;
 import thaumcraft.common.lib.utils.Utils;
-
-import javax.xml.transform.Transformer;
 
 @Mod(
         modid = "ThaumicHorizons",
@@ -1724,6 +1717,7 @@ public class ThaumicHorizons {
         selfRecipes.add(new SelfInfusionRecipe("warpedTumor", 9, (new AspectList()).add(Aspect.TAINT, 32).add(Aspect.ELDRITCH, 32).add(Aspect.TRAP, 32).add(Aspect.FLESH, 32), new ItemStack[]{new ItemStack(ConfigBlocks.blockTaint, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 17), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 0), new ItemStack(ConfigItems.itemResource, 1, 17)}, 8));
         selfRecipes.add(new SelfInfusionRecipe("spiderClimb", 8, (new AspectList()).add(Aspect.BEAST, 32).add(Aspect.MOTION, 48).add(Aspect.SLIME, 32), new ItemStack[]{new ItemStack(Blocks.web), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(Blocks.web), new ItemStack(Blocks.ladder), new ItemStack(Blocks.web), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(Blocks.web), new ItemStack(Blocks.ladder)}, 9));
         selfRecipes.add(new SelfInfusionRecipe("chameleonSkin", 7, (new AspectList()).add(Aspect.SENSES, 48).add(Aspect.EXCHANGE, 32).add(Aspect.VOID, 32), new ItemStack[]{new ItemStack(Items.spider_eye), new ItemStack(Items.dye, 1, 1), new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 11), new ItemStack(Items.dye, 1, 0), new ItemStack(Items.dye, 1, 15)}, 10));
+        //selfRecipes.add(new SelfInfusionRecipe("runicSkin", 12, (new AspectList()).add(Aspect.ARMOR, 128).add(Aspect.MAGIC, 512).add(Aspect.ENERGY, 128).add(Aspect.FLESH, 64), new ItemStack[]{new ItemStack(Items.diamond), new ItemStack(ConfigItems.itemResource, 1, 6), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemInkwell)}, 11));
         addAspectsToAllTheThings();
     }
 
@@ -1903,7 +1897,7 @@ public class ThaumicHorizons {
         alternateBell.comment = "Enable alternate golemancer\'s bell recipe (in case of mod conflict).";
         alternateBell.setRequiresMcRestart(true);
         useAlternateBell = true;// alternateBell.getBoolean();
-        Property enablePocketPlane = config.get("general", "enablePocketPlane", false);
+        Property enablePocketPlane = config.get("general", "enablePocketPlane", true);
         enablePocketPlane.comment = "Enable pocket plane content (currently incomplete - many aspects will not generate the cool stuff they are supposed to). World backups are highly suggested.";
         enablePocketPlane.setRequiresMcRestart(true);
         enablePocket = enablePocketPlane.getBoolean();

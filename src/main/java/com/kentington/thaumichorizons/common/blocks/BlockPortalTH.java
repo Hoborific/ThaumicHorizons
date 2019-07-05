@@ -27,6 +27,7 @@ public class BlockPortalTH extends BlockBreakable
     public BlockPortalTH() {
         super("portal", ThaumicHorizons.portal, false);
         this.setTickRandomly(true);
+        this.setBlockUnbreakable();
     }
     
     public AxisAlignedBB getCollisionBoundingBoxFromPool(final World p_149668_1_, final int p_149668_2_, final int p_149668_3_, final int p_149668_4_) {
@@ -69,7 +70,7 @@ public class BlockPortalTH extends BlockBreakable
     
     @SideOnly(Side.CLIENT)
     public Item getItem(final World p_149694_1_, final int p_149694_2_, final int p_149694_3_, final int p_149694_4_) {
-        return Item.getItemById(0);
+        return null;
     }
     
     public int quantityDropped(final Random p_149745_1_) {

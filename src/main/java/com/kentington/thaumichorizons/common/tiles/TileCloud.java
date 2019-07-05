@@ -4,11 +4,8 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import com.kentington.thaumichorizons.common.lib.PacketHandler;
-import com.kentington.thaumichorizons.common.lib.PacketNoMoreItems;
-import com.kentington.thaumichorizons.common.lib.PacketRainState;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import net.minecraft.entity.player.EntityPlayerMP;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.networking.PacketRainState;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.util.AxisAlignedBB;
@@ -16,10 +13,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.nbt.NBTTagCompound;
 import com.kentington.thaumichorizons.common.entities.EntityItemInvulnerable;
-import java.util.Iterator;
+
 import java.util.List;
 
-import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import thaumcraft.common.config.ConfigBlocks;
 import net.minecraft.entity.item.EntityXPOrb;
@@ -43,7 +39,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraft.init.Blocks;
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.items.ItemFocusLiquefaction;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.block.Block;
 import thaumcraft.api.TileThaumcraft;
 

@@ -2,7 +2,7 @@
 // Decompiled by Procyon v0.5.30
 // 
 
-package com.kentington.thaumichorizons.common.lib;
+package com.kentington.thaumichorizons.common.lib.networking;
 
 import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.relauncher.Side;

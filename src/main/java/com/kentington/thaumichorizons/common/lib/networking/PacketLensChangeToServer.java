@@ -2,7 +2,7 @@
 // Decompiled by Procyon v0.5.30
 // 
 
-package com.kentington.thaumichorizons.common.lib;
+package com.kentington.thaumichorizons.common.lib.networking;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;

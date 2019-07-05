@@ -35,10 +35,7 @@ import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 
 import java.awt.*;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 public class PocketPlaneData {
     public int radius;
@@ -51,8 +48,9 @@ public class PocketPlaneData {
     public String name;
     private static final short MAX_CREATURES = 100;
     private static short creatures;
-    public static final LinkedList < PocketPlaneData > planes = new LinkedList < > ();
-    public static final LinkedList < Vec3 > positions = new LinkedList < > ();
+    public static final LinkedList<PocketPlaneData> planes = new LinkedList<>();
+    public static final HashMap<Integer,Vec3> positions = new HashMap<>();
+    public static int pocketPlaneMAXID;
 
     public PocketPlaneData() {
         this.radius = 32;
@@ -109,10 +107,11 @@ public class PocketPlaneData {
             data.portalC = new int[3];
             data.portalD = new int[3];
             PocketPlaneData.planes.add(data);
-            PocketPlaneData.positions.add(Vec3.createVectorHelper((double) vortexX, (double) vortexY, (double) vortexZ));
+            PocketPlaneData.positions.put(pocketPlaneMAXID,Vec3.createVectorHelper((double) vortexX, (double) vortexY, (double) vortexZ));
             //System.out.println("Finished with pocket plane generation!");
             world.getChunkFromBlockCoords(vortexX,vortexZ).isModified=true;
             creatures = 0;
+            ++pocketPlaneMAXID;
         }
     }
 
@@ -1123,6 +1122,7 @@ public class PocketPlaneData {
             if (root != null) {
                 PocketPlaneData.planes.clear();
                 final NBTTagList planeNBT = root.getTagList("Data", 10);
+                pocketPlaneMAXID = root.getInteger("MaxID");
                 for (int i = 0; i < planeNBT.tagCount(); ++i) {
                     final NBTTagCompound thePlane = planeNBT.getCompoundTagAt(i);
                     final PocketPlaneData data = new PocketPlaneData();
@@ -1140,7 +1140,7 @@ public class PocketPlaneData {
                 PocketPlaneData.positions.clear();
                 Set <String> list1 = positionz.func_150296_c();
                 for (final String id: list1) {
-                    PocketPlaneData.positions.add(Vec3.createVectorHelper(positionz.getIntArray(id)[0] + 0.5, (double)(positionz.getIntArray(id)[1] + 1), positionz.getIntArray(id)[2] + 0.5));
+                    PocketPlaneData.positions.put(Integer.valueOf(id),Vec3.createVectorHelper(positionz.getIntArray(id)[0] + 0.5, (double)(positionz.getIntArray(id)[1] + 1), positionz.getIntArray(id)[2] + 0.5));
                 }
             }
         }
@@ -1150,13 +1150,14 @@ public class PocketPlaneData {
         final File planeFile = new File(world.getSaveHandler().getWorldDirectory(), "pocketplane.dat");
         final NBTTagCompound root = new NBTTagCompound();
         final NBTTagCompound positionz = new NBTTagCompound();
-        int which = 0;
-        for (final Vec3 pos: PocketPlaneData.positions) {
-            positionz.setIntArray(which + "", new int[] {
-                    (int) pos.xCoord, (int) pos.yCoord, (int) pos.zCoord
+        Iterator it = PocketPlaneData.positions.entrySet().iterator();
+        while (it.hasNext()){
+            Map.Entry<Integer,Vec3> idToPos = (Map.Entry<Integer,Vec3>) it.next();
+            positionz.setIntArray(idToPos.getKey() + "", new int[] {
+                    (int) idToPos.getValue().xCoord, (int) idToPos.getValue().yCoord, (int) idToPos.getValue().zCoord
             });
-            ++which;
         }
+        root.setInteger("MaxID",pocketPlaneMAXID);
         root.setTag("Positions", (NBTBase) positionz);
         final NBTTagList planeNBT = new NBTTagList();
         root.setTag("Data", (NBTBase) planeNBT);

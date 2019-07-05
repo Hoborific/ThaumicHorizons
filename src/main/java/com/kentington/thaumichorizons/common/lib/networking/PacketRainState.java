@@ -1,4 +1,4 @@
-package com.kentington.thaumichorizons.common.lib;
+package com.kentington.thaumichorizons.common.lib.networking;
 
 import com.kentington.thaumichorizons.common.tiles.TileCloud;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
