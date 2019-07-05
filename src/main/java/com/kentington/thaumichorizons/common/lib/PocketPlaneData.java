@@ -49,6 +49,8 @@ public class PocketPlaneData {
     public int[] portalC;
     public int[] portalD;
     public String name;
+    private static final short MAX_CREATURES = 100;
+    private static short creatures;
     public static final LinkedList < PocketPlaneData > planes = new LinkedList < > ();
     public static final LinkedList < Vec3 > positions = new LinkedList < > ();
 
@@ -110,6 +112,7 @@ public class PocketPlaneData {
             PocketPlaneData.positions.add(Vec3.createVectorHelper((double) vortexX, (double) vortexY, (double) vortexZ));
             //System.out.println("Finished with pocket plane generation!");
             world.getChunkFromBlockCoords(vortexX,vortexZ).isModified=true;
+            creatures = 0;
         }
     }
 
@@ -359,11 +362,12 @@ public class PocketPlaneData {
                                     world.setBlock(x + xCenter, y + level, z + zCenter, Blocks.ice, 0, 0);
                                 } else {
                                     world.setBlock(x + xCenter, y + level, z + zCenter, block, 0, 0);
-                                    if ((life > 40 || aspects.getAmount(Aspect.BEAST) > 0) && world.rand.nextInt(100) > 98) {
+                                    if ((life > 40 || aspects.getAmount(Aspect.BEAST) > 0) && world.rand.nextInt(100) > 98 && creatures < MAX_CREATURES) {
                                         final EntitySquid squiddie = new EntitySquid(world);
                                         squiddie.setPosition((double)(x + xCenter), (double)(y + level), (double)(z + zCenter));
                                         squiddie.func_110163_bv();
                                         world.spawnEntityInWorld((Entity) squiddie);
+                                        ++creatures;
                                     }
                                     if (life > 0 && world.rand.nextInt(100) > 98) {
                                         world.setBlock(x + xCenter, y + level + 1, z + zCenter, Blocks.waterlily, 0, 0);
@@ -562,25 +566,29 @@ public class PocketPlaneData {
                                         break;
                                     }
                                 }
-                                if (critter != null) {
+                                if (critter != null && creatures < MAX_CREATURES) {
                                     critter.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
                                     world.spawnEntityInWorld((Entity) critter);
+                                    ++creatures;
                                 }
                             }
-                            if ((aspects.getAmount(Aspect.POISON) > 0 || aspects.getAmount(Aspect.EXCHANGE) > 0 || aspects.getAmount(Aspect.METAL) > 0 || aspects.getAmount(Aspect.MECHANISM) > 0) && world.rand.nextInt(100) > 98) {
+                            if ((aspects.getAmount(Aspect.POISON) > 0 || aspects.getAmount(Aspect.EXCHANGE) > 0 || aspects.getAmount(Aspect.METAL) > 0 || aspects.getAmount(Aspect.MECHANISM) > 0) && world.rand.nextInt(100) > 98 && creatures < MAX_CREATURES) {
                                 final EntityMercurialSlime slime = new EntityMercurialSlime(world);
                                 slime.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
                                 world.spawnEntityInWorld((Entity) slime);
+                                ++creatures;
                             }
-                            if ((aspects.getAmount(Aspect.SLIME) > 0 || aspects.getAmount(Aspect.FLESH) > 0 || aspects.getAmount(Aspect.HUNGER) > 0) && world.rand.nextInt(100) > 98) {
+                            if ((aspects.getAmount(Aspect.SLIME) > 0 || aspects.getAmount(Aspect.FLESH) > 0 || aspects.getAmount(Aspect.HUNGER) > 0) && world.rand.nextInt(100) > 98 && creatures < MAX_CREATURES) {
                                 final EntityMeatSlime slime2 = new EntityMeatSlime(world);
                                 slime2.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
                                 world.spawnEntityInWorld((Entity) slime2);
+                                ++creatures;
                             }
-                            if (aspects.getAmount(Aspect.SLIME) > 0 && world.rand.nextInt(100) > 98) {
+                            if (aspects.getAmount(Aspect.SLIME) > 0 && world.rand.nextInt(100) > 98 && creatures < MAX_CREATURES) {
                                 final EntitySlime slime3 = new EntitySlime(world);
                                 slime3.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
                                 world.spawnEntityInWorld((Entity) slime3);
+                                ++creatures;
                             }
                             if (aspects.getAmount(Aspect.ELDRITCH) > 0 && world.rand.nextInt(200) > 198) {
                                 world.setBlock(x + xCenter, y + level, z + zCenter, ConfigBlocks.blockCosmeticSolid, 1, 0);
@@ -594,15 +602,17 @@ public class PocketPlaneData {
                             if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(100) > 98) {
                                 world.setBlock(x + xCenter, y + level, z + zCenter, ConfigBlocks.blockTaintFibres, 0, 0);
                             }
-                            if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(200) > 198) {
+                            if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(200) > 198 && creatures < MAX_CREATURES) {
                                 final EntityTaintacle slime4 = new EntityTaintacle(world);
                                 slime4.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
                                 world.spawnEntityInWorld((Entity) slime4);
+                                ++creatures;
                             }
-                            if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(200) > 198) {
+                            if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(200) > 198 && creatures < MAX_CREATURES) {
                                 final EntityTaintSporeSwarmer slime5 = new EntityTaintSporeSwarmer(world);
                                 slime5.setPosition(x + xCenter + 0.5, (double)(y + level + 1), z + zCenter + 0.5);
                                 world.spawnEntityInWorld((Entity) slime5);
+                                ++creatures;
                             }
                         } else if (block != null) {
                             world.setBlock(x + xCenter, y + level, z + zCenter, block, md, 0);

@@ -4,6 +4,7 @@
 
 package com.kentington.thaumichorizons.common.items;
 
+import com.kentington.thaumichorizons.common.tiles.TileVortex;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import com.kentington.thaumichorizons.common.lib.PocketPlaneData;
@@ -52,19 +53,33 @@ public class ItemKeystone extends Item
     }
     
     @SideOnly(Side.CLIENT)
-    public int getColorFromItemStack(final ItemStack par1ItemStack, final int p_82790_2_) {
+    public int getColorFromItemStack(ItemStack par1ItemStack, int p_82790_2_) {
         if (par1ItemStack.getTagCompound() != null) {
-            return PocketPlaneData.planes.get(par1ItemStack.getTagCompound().getInteger("dimension")).color;
+            int dimID = par1ItemStack.getTagCompound().getInteger("dimension");
+            if (dimID < PocketPlaneData.planes.size())
+                return PocketPlaneData.planes.get(dimID).color;
+            else
+                par1ItemStack = null;
         }
         return 16777215;
     }
-    
-    public ItemStack onItemRightClick(final ItemStack stack, final World world, final EntityPlayer p) {
-        if (stack.getTagCompound() == null && p.dimension == ThaumicHorizons.dimensionPocketId) {
-            final ItemStack newStack = new ItemStack(ThaumicHorizons.itemKeystone);
-            (newStack.stackTagCompound = new NBTTagCompound()).setInteger("dimension", ((int)p.posZ + 128) / 256);
-            return newStack;
+
+    @Override
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        if (stack.getTagCompound() == null && player.dimension == ThaumicHorizons.dimensionPocketId && !world.isRemote) {
+            if (world.getTileEntity(x,y,z) instanceof TileVortex)
+                (stack.stackTagCompound = new NBTTagCompound()).setInteger("dimension", (z + 128) / 256);
+            return true;
         }
-        return stack;
+        return super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
     }
+
+//    public ItemStack onItemRightClick(final ItemStack stack, final World world, final EntityPlayer p) {
+//        if (stack.getTagCompound() == null && p.dimension == ThaumicHorizons.dimensionPocketId && !world.isRemote) {
+//            final ItemStack newStack = new ItemStack(ThaumicHorizons.itemKeystone);
+//            (newStack.stackTagCompound = new NBTTagCompound()).setInteger("dimension", ((int)p.posZ + 128) / 256);
+//            return newStack;
+//        }
+//        return stack;
+//    }
 }
