@@ -174,11 +174,11 @@ public class PocketPlaneData {
             drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, Blocks.obsidian, 0, world);
             drewAnything = true;
         }
-        if (aspects.getAmount(Aspect.LIGHT) > 0) {
-            ++numRings;
-            drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, ThaumicHorizons.blockLight, 11, world);
-            drewAnything = true;
-        }
+//        if (aspects.getAmount(Aspect.LIGHT) > 0) {
+//            ++numRings;
+//            drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, ThaumicHorizons.blockLight, 11, world);
+//            drewAnything = true;
+//        }
         if (aspects.getAmount(Aspect.ELDRITCH) > 0) {
             ++numRings;
             drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, ConfigBlocks.blockCosmeticSolid, 11, world);
@@ -1107,8 +1107,6 @@ public class PocketPlaneData {
         if (planeFile.exists()) {
             try {
                 root = CompressedStreamTools.readCompressed((InputStream) new FileInputStream(planeFile));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e2) {
                 e2.printStackTrace();
             }
@@ -1130,7 +1128,7 @@ public class PocketPlaneData {
                 }
                 final NBTTagCompound positionz = root.getCompoundTag("Positions");
                 PocketPlaneData.positions.clear();
-                Set < String > list1 = positionz.func_150296_c();
+                Set <String> list1 = positionz.func_150296_c();
                 for (final String id: list1) {
                     PocketPlaneData.positions.add(Vec3.createVectorHelper(positionz.getIntArray(id)[0] + 0.5, (double)(positionz.getIntArray(id)[1] + 1), positionz.getIntArray(id)[2] + 0.5));
                 }
@@ -1168,8 +1166,6 @@ public class PocketPlaneData {
         }
         try {
             CompressedStreamTools.writeCompressed(root, (OutputStream) new FileOutputStream(planeFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e2) {
             e2.printStackTrace();
         }
