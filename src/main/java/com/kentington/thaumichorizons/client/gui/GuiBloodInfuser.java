@@ -146,43 +146,40 @@ public class GuiBloodInfuser extends GuiContainer
             int k = 0;
             if (this.bottomOut == 38 && this.mousedEffects != null) {
                 for (final Integer key : this.mousedEffects.keySet()) {
-                    final Potion potion = Potion.potionTypes[key];
-                    if (potion.hasStatusIcon()) {
-                        this.mc.getTextureManager().bindTexture(GuiBloodInfuser.field_147001_a);
-                        final int l = potion.getStatusIconIndex();
-                        this.drawTexturedModalRect(j * 18 + 171, k * 18 + 72, 0 + l % 8 * 18, 198 + l / 8 * 18, 18, 18);
-                        this.fontRendererObj.drawString("" + this.mousedEffects.get(key), j * 18 + 171, k * 18 + 72, Color.GRAY.getRGB());
-                        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-                        if (j == 0) {
-                            j = 1;
-                        }
-                        else {
-                            j = 0;
-                            ++k;
-                        }
-                    }
-                    else {
-                        this.mc.getTextureManager().bindTexture(new ResourceLocation("thaumichorizons", "textures/misc/potions.png"));
-                        int ecks2 = 0;
-                        final int why2 = 216;
-                        if (potion.getId() == 23) {
-                            ecks2 = 36;
-                        }
-                        else if (potion.getId() == Potion.heal.id) {
-                            ecks2 = 0;
-                        }
-                        else if (potion.getId() == Potion.harm.id) {
-                            ecks2 = 18;
-                        }
-                        this.drawTexturedModalRect(j * 18 + 171, k * 18 + 72, ecks2, why2, 18, 18);
-                        this.fontRendererObj.drawString("" + this.mousedEffects.get(key), j * 18 + 171, k * 18 + 72, Color.GRAY.getRGB());
-                        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-                        if (j == 0) {
-                            j = 1;
-                        }
-                        else {
-                            j = 0;
-                            ++k;
+                    if (key >=0) {
+                        final Potion potion = Potion.potionTypes[key];
+                        if (potion.hasStatusIcon()) {
+                            this.mc.getTextureManager().bindTexture(GuiBloodInfuser.field_147001_a);
+                            final int l = potion.getStatusIconIndex();
+                            this.drawTexturedModalRect(j * 18 + 171, k * 18 + 72, 0 + l % 8 * 18, 198 + l / 8 * 18, 18, 18);
+                            this.fontRendererObj.drawString("" + this.mousedEffects.get(key), j * 18 + 171, k * 18 + 72, Color.GRAY.getRGB());
+                            GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+                            if (j == 0) {
+                                j = 1;
+                            } else {
+                                j = 0;
+                                ++k;
+                            }
+                        } else {
+                            this.mc.getTextureManager().bindTexture(new ResourceLocation("thaumichorizons", "textures/misc/potions.png"));
+                            int ecks2 = 0;
+                            final int why2 = 216;
+                            if (potion.getId() == 23) {
+                                ecks2 = 36;
+                            } else if (potion.getId() == Potion.heal.id) {
+                                ecks2 = 0;
+                            } else if (potion.getId() == Potion.harm.id) {
+                                ecks2 = 18;
+                            }
+                            this.drawTexturedModalRect(j * 18 + 171, k * 18 + 72, ecks2, why2, 18, 18);
+                            this.fontRendererObj.drawString("" + this.mousedEffects.get(key), j * 18 + 171, k * 18 + 72, Color.GRAY.getRGB());
+                            GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+                            if (j == 0) {
+                                j = 1;
+                            } else {
+                                j = 0;
+                                ++k;
+                            }
                         }
                     }
                 }
