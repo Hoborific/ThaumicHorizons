@@ -45,7 +45,7 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
     
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(final ItemStack stack, final int p_82790_2_) {
-        if (!stack.getTagCompound().hasKey("block")) {
+        if (!stack.hasTagCompound() || !stack.getTagCompound().hasKey("block")) {
             return 0;
         }
         final int[] block = stack.getTagCompound().getIntArray("block");
