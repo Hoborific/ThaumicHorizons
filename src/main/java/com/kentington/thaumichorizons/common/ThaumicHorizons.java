@@ -249,7 +249,7 @@ import thaumcraft.common.lib.utils.Utils;
         modid = "ThaumicHorizons",
         name = "ThaumicHorizons",
         version = "1.1.9.15",
-        dependencies = "required-after:Forge@[10.13.2,);required-after:Thaumcraft@[4.2.3.4,);required-after:gregtech,)",
+        dependencies = "required-after:Forge@[10.13.2,);required-after:Thaumcraft@[4.2.3.4,)",
         guiFactory = "com.kentington.thaumichorizons.common.lib.THGuiFactory"
 )
 public class ThaumicHorizons {
