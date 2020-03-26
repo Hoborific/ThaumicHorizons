@@ -17,7 +17,7 @@ buildscript {
 
 
 apply plugin: 'java'
-
+apply plugin: 'idea'
 apply plugin: 'forge'
 
 group= "com.kentington.thaumichorizons" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -25,13 +25,15 @@ group= "com.kentington.thaumichorizons" // http://maven.apache.org/guides/mini/g
 targetCompatibility = "1.8"
 sourceCompatibility = "1.8"
 
-version = "1.1.9.15"
+version = "1.1.9.16"
 archivesBaseName = "ThaumicHorizons-1.7.10"
 
 
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"
 	replace '${version}', project.version
+    replaceIn "ThaumicHorizons.java"
+    replace '@version@', project.version
     runDir = "eclipse"
 }
 

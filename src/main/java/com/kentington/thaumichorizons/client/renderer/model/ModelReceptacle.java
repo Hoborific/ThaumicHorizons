@@ -168,14 +168,20 @@ public class ModelReceptacle extends ModelBase
         this.Side3B.render(f5);
         this.Side3C.render(f5);
         this.Side3D.render(f5);
-        if (keystone) {
+        if (keystone && PocketPlaneData.planes.size() > plane) {
             final Color col = new Color(PocketPlaneData.planes.get(plane).color);
-            GL11.glColor4f(col.getRed() / 255.0f, col.getGreen() / 255.0f, col.getBlue() / 255.0f, 1.0f);
-            this.Keystone.render(f5);
-            GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+            renderKeystone(col.getRed() / 255.0f, col.getGreen() / 255.0f, col.getBlue() / 255.0f, f5);
+        } else if (keystone) {
+            renderKeystone(1f,1f,1f, f5);
         }
     }
-    
+
+    private void renderKeystone(float r, float g, float b, float f5){
+        GL11.glColor4f(r, g, b, 1.0f);
+        this.Keystone.render(f5);
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+
     private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
