@@ -196,6 +196,8 @@ public class GuiBloodInfuser extends GuiContainer
             if (this.topOut == 38) {
                 for (int index = 0; index < this.cachedEffects.tagCount(); ++index) {
                     final Byte id = this.cachedEffects.getCompoundTagAt(index).getByte("Id");
+                    if (id < 0 || id >= Potion.potionTypes.length)
+                        continue;
                     final Potion potion = Potion.potionTypes[id];
                     if (potion != null) {
                         this.mc.getTextureManager().bindTexture(GuiBloodInfuser.field_147001_a);
