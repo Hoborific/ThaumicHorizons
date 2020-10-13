@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.Item
 
 public class RecipeVoidPuttyRepair implements IRecipe
 {
@@ -19,7 +20,7 @@ public class RecipeVoidPuttyRepair implements IRecipe
         for (int i = 0; i < par1InventoryCrafting.getSizeInventory(); ++i) {
             final ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(i);
             if (itemstack2 != null) {
-                if (itemstack2.getItem().isDamageable() && itemstack2.getItem().isDamaged(itemstack2)) {
+                if (itemstack2.getItem().isDamageable() && itemstack2.getItem().isRepairable() && itemstack2.getItem().isDamaged(itemstack2)) {
                     if (itemstack != null) {
                         return null;
                     }
