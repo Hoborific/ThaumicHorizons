@@ -23,6 +23,7 @@ public class BlockVortexStabilizer extends BlockContainer
     public BlockVortexStabilizer() {
         super(Material.iron);
         this.setBlockName("ThaumicHorizons_vortexStabilizer");
+        this.setHardness(10.0f);
         this.setCreativeTab(ThaumicHorizons.tabTH);
     }
     
