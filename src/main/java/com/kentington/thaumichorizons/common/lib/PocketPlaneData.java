@@ -356,6 +356,9 @@ public class PocketPlaneData {
                 for (int bottom = y = -bmax; y <= top; ++y) {
                     if (top != bottom && level + y > 0) {
                         if (y == top) {
+                            if (block != null) {
+                                world.setBlock(x + xCenter, y + level, z + zCenter, block, md, 0);
+                            }
                             if (block == Blocks.water) {
                                 if (bio != null && bio.getTempCategory() == BiomeGenBase.TempCategory.COLD) {
                                     world.setBlock(x + xCenter, y + level, z + zCenter, Blocks.ice, 0, 0);
