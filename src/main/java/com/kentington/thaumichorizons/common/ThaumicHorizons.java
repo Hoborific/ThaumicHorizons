@@ -788,8 +788,7 @@ public class ThaumicHorizons {
             ResearchCategories.addResearch(alcheponics);
         }
 
-        recipeAlcheponicsWheat = ThaumcraftApi.addCrucibleRecipe("alcheponics", GT_ModHandler.getModItem("Thaumcraft","blockCosmeticSlabStone",4L), new ItemStack(Items.wheat_seeds), (new AspectList()).add(Aspect.LIGHT, 2).add(Aspect.EARTH, 2).add(Aspect.WATER, 2));
-        recipeAlcheponicsCarrot = ThaumcraftApi.addCrucibleRecipe("alcheponics", new ItemStack(Items.carrot, 2), new ItemStack(Items.carrot), (new AspectList()).add(Aspect.LIGHT, 2).add(Aspect.EARTH, 2).add(Aspect.WATER, 2));
+        recipeAlcheponicsWheat = ThaumcraftApi.addCrucibleRecipe("alcheponics", new ItemStack(Items.wheat, 2), new ItemStack(Items.wheat_seeds), (new AspectList()).add(Aspect.LIGHT, 2).add(Aspect.EARTH, 2).add(Aspect.WATER, 2));recipeAlcheponicsCarrot = ThaumcraftApi.addCrucibleRecipe("alcheponics", new ItemStack(Items.carrot, 2), new ItemStack(Items.carrot), (new AspectList()).add(Aspect.LIGHT, 2).add(Aspect.EARTH, 2).add(Aspect.WATER, 2));
         recipeAlcheponicsPotato = ThaumcraftApi.addCrucibleRecipe("alcheponics", new ItemStack(Items.potato, 2), new ItemStack(Items.potato), (new AspectList()).add(Aspect.LIGHT, 2).add(Aspect.EARTH, 2).add(Aspect.WATER, 2));
         recipeAlcheponicsMelon = ThaumcraftApi.addCrucibleRecipe("alcheponics", new ItemStack(Blocks.melon_block, 1), new ItemStack(Items.melon_seeds), (new AspectList()).add(Aspect.LIGHT, 3).add(Aspect.EARTH, 3).add(Aspect.WATER, 3));
         recipeAlcheponicsPumpkin = ThaumcraftApi.addCrucibleRecipe("alcheponics", new ItemStack(Blocks.pumpkin, 1), new ItemStack(Items.pumpkin_seeds), (new AspectList()).add(Aspect.LIGHT, 3).add(Aspect.EARTH, 3).add(Aspect.WATER, 3));
