@@ -122,7 +122,7 @@ public class TileSlot extends TileThaumcraft
         }
         final int portalNum = PocketPlaneData.firstAvailablePortal(this.pocketID);
         final ItemWandCasting wand = (ItemWandCasting)player.getHeldItem().getItem();
-        if (portalNum != 0 && wand.consumeAllVisCrafting(player.getHeldItem(), player, new AspectList().add(Aspect.WATER, 100).add(Aspect.EARTH, 100).add(Aspect.ORDER, 100).add(Aspect.FIRE, 100).add(Aspect.AIR, 100).add(Aspect.ENTROPY, 100), false)) {
+        if (portalNum != 0 && wand.consumeAllVisCrafting(player.getHeldItem(), player, new AspectList().add(Aspect.WATER, 250).add(Aspect.EARTH, 250).add(Aspect.ORDER, 250).add(Aspect.FIRE, 250).add(Aspect.AIR, 250).add(Aspect.ENTROPY, 250), false)) {
             boolean madePortal = false;
             if (this.checkPortalX()) {
                 this.xAligned = true;
@@ -186,7 +186,7 @@ public class TileSlot extends TileThaumcraft
                 PocketPlaneData.makePortal(this.pocketID, portalNum, this.xCoord, this.yCoord, this.zCoord);
                 this.which = portalNum;
                 this.portalOpen = true;
-                wand.consumeAllVisCrafting(player.getHeldItem(), player, new AspectList().add(Aspect.WATER, 100).add(Aspect.EARTH, 100).add(Aspect.ORDER, 100).add(Aspect.FIRE, 100).add(Aspect.AIR, 100).add(Aspect.ENTROPY, 100), true);
+                wand.consumeAllVisCrafting(player.getHeldItem(), player, new AspectList().add(Aspect.WATER, 250).add(Aspect.EARTH, 250).add(Aspect.ORDER, 250).add(Aspect.FIRE, 250).add(Aspect.AIR, 250).add(Aspect.ENTROPY, 250), true);
                 this.worldObj.playSoundEffect(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5, "thaumcraft:wand", 1.0f, 1.0f);
                 this.markDirty();
                 this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
@@ -203,7 +203,7 @@ public class TileSlot extends TileThaumcraft
             }
         }
 
-        return checkPortal(this.xCoord, this.yCoord, this.zCoord);
+        return checkBlocksX(this.xCoord, this.yCoord, this.zCoord);
     }
 
     boolean checkPortalZ() {
@@ -215,28 +215,51 @@ public class TileSlot extends TileThaumcraft
             }
         }
 
-        return checkPortal(this.zCoord, this.yCoord, this.xCoord);
+        return checkBlocksZ(this.xCoord, this.yCoord, this.zCoord);
     }
 
-    boolean checkPortal(int sideways, int y, int backwards) {
+    boolean checkBlocksX(int x, int y, int z) {
         boolean isValid = true;
 
-        isValid &= checkCornerBlock(sideways - 2, y, backwards);
-        isValid &= checkCornerBlock(sideways + 2, y, backwards);
-        isValid &= checkCornerBlock(sideways - 2, y - 4, backwards);
-        isValid &= checkCornerBlock(sideways + 2, y - 4, backwards);
+        isValid &= checkCornerBlock(x - 2, y, z);
+        isValid &= checkCornerBlock(x + 2, y, z);
+        isValid &= checkCornerBlock(x - 2, y - 4, z);
+        isValid &= checkCornerBlock(x + 2, y - 4, z);
 
-        isValid &= checkEdgeBlock(sideways - 1, y, backwards);
-        isValid &= checkEdgeBlock(sideways + 1, y, backwards);
-        isValid &= checkEdgeBlock(sideways - 2, y - 1, backwards);
-        isValid &= checkEdgeBlock(sideways + 2, y - 1, backwards);
-        isValid &= checkEdgeBlock(sideways - 2, y - 2, backwards);
-        isValid &= checkEdgeBlock(sideways + 2, y - 2, backwards);
-        isValid &= checkEdgeBlock(sideways - 2, y - 3, backwards);
-        isValid &= checkEdgeBlock(sideways + 2, y - 3, backwards);
-        isValid &= checkEdgeBlock(sideways - 1, y - 4, backwards);
-        isValid &= checkEdgeBlock(sideways, y - 4, backwards);
-        isValid &= checkEdgeBlock(sideways + 1, y - 4, backwards);
+        isValid &= checkEdgeBlock(x - 1, y, z);
+        isValid &= checkEdgeBlock(x + 1, y, z);
+        isValid &= checkEdgeBlock(x - 2, y - 1, z);
+        isValid &= checkEdgeBlock(x + 2, y - 1, z);
+        isValid &= checkEdgeBlock(x - 2, y - 2, z);
+        isValid &= checkEdgeBlock(x + 2, y - 2, z);
+        isValid &= checkEdgeBlock(x - 2, y - 3, z);
+        isValid &= checkEdgeBlock(x + 2, y - 3, z);
+        isValid &= checkEdgeBlock(x - 1, y - 4, z);
+        isValid &= checkEdgeBlock(x, y - 4, z);
+        isValid &= checkEdgeBlock(x + 1, y - 4, z);
+
+        return isValid;
+    }
+
+    boolean checkBlocksZ(int x, int y, int z) {
+        boolean isValid = true;
+
+        isValid &= checkCornerBlock(x, y, z - 2);
+        isValid &= checkCornerBlock(x, y, z + 2);
+        isValid &= checkCornerBlock(x, y - 4, z - 2);
+        isValid &= checkCornerBlock(x, y - 4, z + 2);
+
+        isValid &= checkEdgeBlock(x, y, z - 1);
+        isValid &= checkEdgeBlock(x, y, z + 1);
+        isValid &= checkEdgeBlock(x, y - 1, z - 2);
+        isValid &= checkEdgeBlock(x, y - 1, z + 2);
+        isValid &= checkEdgeBlock(x, y - 2, z - 2);
+        isValid &= checkEdgeBlock(x, y - 2, z + 2);
+        isValid &= checkEdgeBlock(x, y - 3, z - 2);
+        isValid &= checkEdgeBlock(x, y - 3, z + 2);
+        isValid &= checkEdgeBlock(x, y - 4, z - 1);
+        isValid &= checkEdgeBlock(x, y - 4, z);
+        isValid &= checkEdgeBlock(x, y - 4, z + 1);
 
         return isValid;
     }
