@@ -56,21 +56,21 @@ public class TileSlot extends TileThaumcraft
             return;
         }
         if (this.xAligned) {
-            this.worldObj.setBlock(this.xCoord - 2, this.yCoord, this.zCoord, ConfigBlocks.blockMetalDevice, 1, 3);
-            this.worldObj.setBlock(this.xCoord + 2, this.yCoord, this.zCoord, ConfigBlocks.blockMetalDevice, 1, 3);
-            this.worldObj.setBlock(this.xCoord - 2, this.yCoord - 4, this.zCoord, ConfigBlocks.blockMetalDevice, 1, 3);
-            this.worldObj.setBlock(this.xCoord + 2, this.yCoord - 4, this.zCoord, ConfigBlocks.blockMetalDevice, 1, 3);
-            this.worldObj.setBlock(this.xCoord - 1, this.yCoord, this.zCoord, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord + 1, this.yCoord, this.zCoord, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord - 1, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord + 1, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord - 2, this.yCoord - 1, this.zCoord, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord - 2, this.yCoord - 2, this.zCoord, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord - 2, this.yCoord - 3, this.zCoord, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord + 2, this.yCoord - 1, this.zCoord, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord + 2, this.yCoord - 2, this.zCoord, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord + 2, this.yCoord - 3, this.zCoord, ConfigBlocks.blockCosmeticSolid, 6, 11);
+            this.worldObj.setBlock(this.xCoord - 2, this.yCoord, this.zCoord, ConfigBlocks.blockMetalDevice, 3, 1);
+            this.worldObj.setBlock(this.xCoord + 2, this.yCoord, this.zCoord, ConfigBlocks.blockMetalDevice, 3, 1);
+            this.worldObj.setBlock(this.xCoord - 2, this.yCoord - 4, this.zCoord, ConfigBlocks.blockMetalDevice, 3, 1);
+            this.worldObj.setBlock(this.xCoord + 2, this.yCoord - 4, this.zCoord, ConfigBlocks.blockMetalDevice, 3, 1);
+            this.worldObj.setBlock(this.xCoord - 1, this.yCoord, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord + 1, this.yCoord, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord - 1, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord + 1, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord - 2, this.yCoord - 1, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord - 2, this.yCoord - 2, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord - 2, this.yCoord - 3, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord + 2, this.yCoord - 1, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord + 2, this.yCoord - 2, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord + 2, this.yCoord - 3, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
             for (int x = -1; x <= 1; ++x) {
                 for (int y = -1; y >= -3; --y) {
                     this.worldObj.setBlockToAir(this.xCoord + x, this.yCoord + y, this.zCoord);
@@ -83,21 +83,21 @@ public class TileSlot extends TileThaumcraft
             }
         }
         else {
-            this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord - 2, ConfigBlocks.blockMetalDevice, 1, 3);
-            this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord + 2, ConfigBlocks.blockMetalDevice, 1, 3);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord - 2, ConfigBlocks.blockMetalDevice, 1, 3);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord + 2, ConfigBlocks.blockMetalDevice, 1, 3);
-            this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord - 1, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord + 1, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord - 1, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord + 1, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 1, this.zCoord - 2, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 2, this.zCoord - 2, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 3, this.zCoord - 2, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 1, this.zCoord + 2, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 2, this.zCoord + 2, ConfigBlocks.blockCosmeticSolid, 6, 11);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 3, this.zCoord + 2, ConfigBlocks.blockCosmeticSolid, 6, 11);
+            this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord - 2, ConfigBlocks.blockMetalDevice, 3, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord + 2, ConfigBlocks.blockMetalDevice, 3, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord - 2, ConfigBlocks.blockMetalDevice, 3, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord + 2, ConfigBlocks.blockMetalDevice, 3, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord - 1, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord + 1, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord - 1, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord + 1, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord - 1, this.zCoord - 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord - 2, this.zCoord - 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord - 3, this.zCoord - 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord - 1, this.zCoord + 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord - 2, this.zCoord + 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(this.xCoord, this.yCoord - 3, this.zCoord + 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
             for (int z = -1; z <= 1; ++z) {
                 for (int y = -1; y >= -3; --y) {
                     this.worldObj.setBlockToAir(this.xCoord, this.yCoord + y, this.zCoord + z);
