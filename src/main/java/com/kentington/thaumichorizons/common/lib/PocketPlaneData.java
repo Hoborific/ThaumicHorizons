@@ -120,10 +120,12 @@ public class PocketPlaneData {
         int g = 0;
         int b = 0;
         for (final Aspect asp: aspects.getAspects()) {
-            final Color aspColor = new Color(asp.getColor());
-            r += (int)(aspColor.getRed() * aspectFraction(asp, aspects));
-            g += (int)(aspColor.getGreen() * aspectFraction(asp, aspects));
-            b += (int)(aspColor.getBlue() * aspectFraction(asp, aspects));
+            if (asp != null) {
+                final Color aspColor = new Color(asp.getColor());
+                r += (int) (aspColor.getRed() * aspectFraction(asp, aspects));
+                g += (int) (aspColor.getGreen() * aspectFraction(asp, aspects));
+                b += (int) (aspColor.getBlue() * aspectFraction(asp, aspects));
+            }
         }
         final int color = r * 256 * 256 + g * 256 + b;
         //System.out.println("Plane color is " + color);
