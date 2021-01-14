@@ -19,7 +19,7 @@ public class FXSonic extends EntityFX
 {
     float yaw;
     float pitch;
-    private IModelCustom model;
+    public static IModelCustom model;
     private static final ResourceLocation MODEL;
     
     public FXSonic(final World world, final double d, final double d1, final double d2, final int age, final int dir) {
