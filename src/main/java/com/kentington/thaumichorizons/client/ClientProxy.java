@@ -5,6 +5,9 @@
 package com.kentington.thaumichorizons.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.block.Block;
 import thaumcraft.client.fx.ParticleEngine;
 import thaumcraft.client.fx.particles.FXWisp;
@@ -143,6 +146,7 @@ import com.kentington.thaumichorizons.common.tiles.TileSoulBeacon;
 import com.kentington.thaumichorizons.client.renderer.tile.TileBloodInfuserRender;
 import com.kentington.thaumichorizons.common.tiles.TileBloodInfuser;
 import com.kentington.thaumichorizons.client.renderer.tile.TileVatMatrixRender;
+import com.kentington.thaumichorizons.client.fx.FXSonic;
 import com.kentington.thaumichorizons.common.tiles.TileVatMatrix;
 import com.kentington.thaumichorizons.client.renderer.tile.TileVatSlaveRender;
 import com.kentington.thaumichorizons.common.tiles.TileVatSlave;
@@ -181,6 +185,15 @@ public class ClientProxy extends CommonProxy
     @Override
     public void registerHandlers() {
         MinecraftForge.EVENT_BUS.register((Object)ThaumicHorizons.instance.renderEventHandler);
+        final IResourceManager resourceManager = Minecraft.getMinecraft().getResourceManager();
+        if (resourceManager instanceof IReloadableResourceManager) {
+            ((IReloadableResourceManager) resourceManager).registerReloadListener(new IResourceManagerReloadListener() {
+                @Override
+                public void onResourceManagerReload(IResourceManager ignored) {
+                    FXSonic.model = null;
+                }
+            });
+        }
     }
     
     @Override
