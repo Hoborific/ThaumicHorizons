@@ -80,10 +80,10 @@ public class BlockPortalTH extends BlockBreakable
     public void onEntityCollidedWithBlock(final World world, final int x, final int y, final int z, final Entity player) {
         if (player.ridingEntity == null && player.riddenByEntity == null && player instanceof EntityPlayerMP) {
             if (player.timeUntilPortal > 0) {
-                player.timeUntilPortal = 100;
+                player.timeUntilPortal = 10;
                 return;
             }
-            player.timeUntilPortal = 100;
+            player.timeUntilPortal = 10;
             int targetX = 0;
             int targetY = 0;
             int targetZ = 0;
