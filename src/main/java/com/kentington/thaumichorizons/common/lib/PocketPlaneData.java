@@ -102,10 +102,10 @@ public class PocketPlaneData {
             vortex.dimensionID = PocketPlaneData.planes.size();
             vortex.createdDimension = true;
             world.setTileEntity(xCenter, yCenter + 1, zCenter,vortex);
-            data.portalA = new int[3];
-            data.portalB = new int[3];
-            data.portalC = new int[3];
-            data.portalD = new int[3];
+            data.portalA = new int[4];
+            data.portalB = new int[4];
+            data.portalC = new int[4];
+            data.portalD = new int[4];
             PocketPlaneData.planes.add(data);
             PocketPlaneData.positions.put(pocketPlaneMAXID,Vec3.createVectorHelper((double) vortexX, (double) vortexY, (double) vortexZ));
             //System.out.println("Finished with pocket plane generation!");
