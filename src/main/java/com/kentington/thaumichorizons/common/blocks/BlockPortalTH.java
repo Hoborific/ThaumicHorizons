@@ -94,15 +94,16 @@ public class BlockPortalTH extends BlockBreakable
                 final PocketPlaneData plane = PocketPlaneData.planes.get(planeNum);
                 final int[] portal;
 
+                //Note the order ACBD
                 switch (which) {
                     case 0:
                         portal = plane.portalA;
                         break;
                     case 1:
-                        portal = plane.portalB;
+                        portal = plane.portalC;
                         break;
                     case 2:
-                        portal = plane.portalC;
+                        portal = plane.portalB;
                         break;
                     case 3:
                         portal = plane.portalD;
@@ -117,40 +118,6 @@ public class BlockPortalTH extends BlockBreakable
                 if (portal.length > 3)
                     targetDim = portal[3];
 
-                switch (which) {
-                    case 0: {
-                        targetX = PocketPlaneData.planes.get(planeNum).portalA[0];
-                        targetY = PocketPlaneData.planes.get(planeNum).portalA[1] - 2;
-                        targetZ = PocketPlaneData.planes.get(planeNum).portalA[2];
-                        if (PocketPlaneData.planes.get(planeNum).portalA.length > 3)
-                            targetDim = PocketPlaneData.planes.get(planeNum).portalA[3];
-                        break;
-                    }
-                    case 2: {
-                        targetX = PocketPlaneData.planes.get(planeNum).portalB[0];
-                        targetY = PocketPlaneData.planes.get(planeNum).portalB[1] - 2;
-                        targetZ = PocketPlaneData.planes.get(planeNum).portalB[2];
-                        if (PocketPlaneData.planes.get(planeNum).portalB.length > 3)
-                            targetDim = PocketPlaneData.planes.get(planeNum).portalB[3];
-                        break;
-                    }
-                    case 1: {
-                        targetX = PocketPlaneData.planes.get(planeNum).portalC[0];
-                        targetY = PocketPlaneData.planes.get(planeNum).portalC[1] - 2;
-                        targetZ = PocketPlaneData.planes.get(planeNum).portalC[2];
-                        if (PocketPlaneData.planes.get(planeNum).portalC.length > 3)
-                            targetDim = PocketPlaneData.planes.get(planeNum).portalC[3];
-                        break;
-                    }
-                    case 3: {
-                        targetX = PocketPlaneData.planes.get(planeNum).portalD[0];
-                        targetY = PocketPlaneData.planes.get(planeNum).portalD[1] - 2;
-                        targetZ = PocketPlaneData.planes.get(planeNum).portalD[2];
-                        if (PocketPlaneData.planes.get(planeNum).portalD.length == 4)
-                            targetDim = PocketPlaneData.planes.get(planeNum).portalD[3];
-                        break;
-                    }
-                }
                 final MinecraftServer mServer = FMLCommonHandler.instance().getMinecraftServerInstance();
                 ((EntityPlayerMP)player).mcServer.getConfigurationManager().transferPlayerToDimension((EntityPlayerMP)player, targetDim, (Teleporter)new GatewayTeleporter(mServer.worldServerForDimension(ThaumicHorizons.dimensionPocketId), targetX, targetY, targetZ, player.rotationYaw));
             }
