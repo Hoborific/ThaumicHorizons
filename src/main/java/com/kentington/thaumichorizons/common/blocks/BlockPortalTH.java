@@ -91,6 +91,32 @@ public class BlockPortalTH extends BlockBreakable
             if (world.provider.dimensionId == ThaumicHorizons.dimensionPocketId) {
                 final int planeNum = (z + 128) / 256;
                 final int which = world.getBlockMetadata(x, y, z);
+                final PocketPlaneData plane = PocketPlaneData.planes.get(planeNum);
+                final int[] portal;
+
+                switch (which) {
+                    case 0:
+                        portal = plane.portalA;
+                        break;
+                    case 1:
+                        portal = plane.portalB;
+                        break;
+                    case 2:
+                        portal = plane.portalC;
+                        break;
+                    case 3:
+                        portal = plane.portalD;
+                        break;
+                    default:
+                        return;
+                }
+
+                targetX = portal[0];
+                targetY = portal[1] - 2;
+                targetZ = portal[2];
+                if (portal.length > 3)
+                    targetDim = portal[3];
+
                 switch (which) {
                     case 0: {
                         targetX = PocketPlaneData.planes.get(planeNum).portalA[0];
