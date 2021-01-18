@@ -143,14 +143,14 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                             if (player.ridingEntity == null && player.riddenByEntity == null) {
                                 final MinecraftServer mServer = FMLCommonHandler.instance().getMinecraftServerInstance();
                                 if (player.timeUntilPortal > 0) {
-                                    player.timeUntilPortal = 100;
+                                    player.timeUntilPortal = 10;
                                 }
                                 else if (player.dimension != ThaumicHorizons.dimensionPocketId) {
-                                    player.timeUntilPortal = 100;
+                                    player.timeUntilPortal = 10;
                                     player.mcServer.getConfigurationManager().transferPlayerToDimension(player, ThaumicHorizons.dimensionPocketId, (Teleporter)new VortexTeleporter(mServer.worldServerForDimension(ThaumicHorizons.dimensionPocketId), this.dimensionID));
                                 }
                                 else {
-                                    player.timeUntilPortal = 100;
+                                    player.timeUntilPortal = 10;
                                     player.mcServer.getConfigurationManager().transferPlayerToDimension(player, this.returnID, (Teleporter)new VortexTeleporter(mServer.worldServerForDimension(this.returnID), this.dimensionID));
                                 }
                             }
