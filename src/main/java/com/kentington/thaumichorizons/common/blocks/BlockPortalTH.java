@@ -87,37 +87,39 @@ public class BlockPortalTH extends BlockBreakable
             int targetX = 0;
             int targetY = 0;
             int targetZ = 0;
+            int targetDim = 0;
             if (world.provider.dimensionId == ThaumicHorizons.dimensionPocketId) {
                 final int planeNum = (z + 128) / 256;
                 final int which = world.getBlockMetadata(x, y, z);
+                final PocketPlaneData plane = PocketPlaneData.planes.get(planeNum);
+                final int[] portal;
+
+                //Note the order ACBD
                 switch (which) {
-                    case 0: {
-                        targetX = PocketPlaneData.planes.get(planeNum).portalA[0];
-                        targetY = PocketPlaneData.planes.get(planeNum).portalA[1] - 2;
-                        targetZ = PocketPlaneData.planes.get(planeNum).portalA[2];
+                    case 0:
+                        portal = plane.portalA;
                         break;
-                    }
-                    case 2: {
-                        targetX = PocketPlaneData.planes.get(planeNum).portalB[0];
-                        targetY = PocketPlaneData.planes.get(planeNum).portalB[1] - 2;
-                        targetZ = PocketPlaneData.planes.get(planeNum).portalB[2];
+                    case 1:
+                        portal = plane.portalC;
                         break;
-                    }
-                    case 1: {
-                        targetX = PocketPlaneData.planes.get(planeNum).portalC[0];
-                        targetY = PocketPlaneData.planes.get(planeNum).portalC[1] - 2;
-                        targetZ = PocketPlaneData.planes.get(planeNum).portalC[2];
+                    case 2:
+                        portal = plane.portalB;
                         break;
-                    }
-                    case 3: {
-                        targetX = PocketPlaneData.planes.get(planeNum).portalD[0];
-                        targetY = PocketPlaneData.planes.get(planeNum).portalD[1] - 2;
-                        targetZ = PocketPlaneData.planes.get(planeNum).portalD[2];
+                    case 3:
+                        portal = plane.portalD;
                         break;
-                    }
+                    default:
+                        return;
                 }
+
+                targetX = portal[0];
+                targetY = portal[1] - 2;
+                targetZ = portal[2];
+                if (portal.length > 3)
+                    targetDim = portal[3];
+
                 final MinecraftServer mServer = FMLCommonHandler.instance().getMinecraftServerInstance();
-                ((EntityPlayerMP)player).mcServer.getConfigurationManager().transferPlayerToDimension((EntityPlayerMP)player, 0, (Teleporter)new GatewayTeleporter(mServer.worldServerForDimension(ThaumicHorizons.dimensionPocketId), targetX, targetY, targetZ, player.rotationYaw));
+                ((EntityPlayerMP)player).mcServer.getConfigurationManager().transferPlayerToDimension((EntityPlayerMP)player, targetDim, (Teleporter)new GatewayTeleporter(mServer.worldServerForDimension(ThaumicHorizons.dimensionPocketId), targetX, targetY, targetZ, player.rotationYaw));
             }
             else {
                 int slotY = y;

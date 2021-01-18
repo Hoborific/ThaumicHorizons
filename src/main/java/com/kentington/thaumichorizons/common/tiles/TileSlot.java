@@ -162,24 +162,28 @@ public class TileSlot extends TileThaumcraft
                         PocketPlaneData.planes.get(this.pocketID).portalA[0] = this.xCoord;
                         PocketPlaneData.planes.get(this.pocketID).portalA[1] = this.yCoord;
                         PocketPlaneData.planes.get(this.pocketID).portalA[2] = this.zCoord;
+                        PocketPlaneData.planes.get(this.pocketID).portalA[3] = player.dimension;
                         break;
                     }
                     case 2: {
                         PocketPlaneData.planes.get(this.pocketID).portalB[0] = this.xCoord;
                         PocketPlaneData.planes.get(this.pocketID).portalB[1] = this.yCoord;
                         PocketPlaneData.planes.get(this.pocketID).portalB[2] = this.zCoord;
+                        PocketPlaneData.planes.get(this.pocketID).portalB[3] = player.dimension;
                         break;
                     }
                     case 3: {
                         PocketPlaneData.planes.get(this.pocketID).portalC[0] = this.xCoord;
                         PocketPlaneData.planes.get(this.pocketID).portalC[1] = this.yCoord;
                         PocketPlaneData.planes.get(this.pocketID).portalC[2] = this.zCoord;
+                        PocketPlaneData.planes.get(this.pocketID).portalC[3] = player.dimension;
                         break;
                     }
                     case 4: {
                         PocketPlaneData.planes.get(this.pocketID).portalD[0] = this.xCoord;
                         PocketPlaneData.planes.get(this.pocketID).portalD[1] = this.yCoord;
                         PocketPlaneData.planes.get(this.pocketID).portalD[2] = this.zCoord;
+                        PocketPlaneData.planes.get(this.pocketID).portalD[3] = player.dimension;
                         break;
                     }
                 }
