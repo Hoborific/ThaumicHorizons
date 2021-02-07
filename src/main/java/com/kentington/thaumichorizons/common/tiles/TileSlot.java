@@ -157,36 +157,33 @@ public class TileSlot extends TileThaumcraft
                 madePortal = true;
             }
             if (madePortal) {
+                PocketPlaneData planeData = PocketPlaneData.planes.get(this.pocketID);
+                int[] portal;
                 switch (portalNum) {
-                    case 1: {
-                        PocketPlaneData.planes.get(this.pocketID).portalA[0] = this.xCoord;
-                        PocketPlaneData.planes.get(this.pocketID).portalA[1] = this.yCoord;
-                        PocketPlaneData.planes.get(this.pocketID).portalA[2] = this.zCoord;
-                        PocketPlaneData.planes.get(this.pocketID).portalA[3] = player.dimension;
+                    case 1:
+                        planeData.portalA = new int[4];
+                        portal = planeData.portalA;
                         break;
-                    }
-                    case 2: {
-                        PocketPlaneData.planes.get(this.pocketID).portalB[0] = this.xCoord;
-                        PocketPlaneData.planes.get(this.pocketID).portalB[1] = this.yCoord;
-                        PocketPlaneData.planes.get(this.pocketID).portalB[2] = this.zCoord;
-                        PocketPlaneData.planes.get(this.pocketID).portalB[3] = player.dimension;
+                    case 2:
+                        planeData.portalB = new int[4];
+                        portal = planeData.portalB;
                         break;
-                    }
-                    case 3: {
-                        PocketPlaneData.planes.get(this.pocketID).portalC[0] = this.xCoord;
-                        PocketPlaneData.planes.get(this.pocketID).portalC[1] = this.yCoord;
-                        PocketPlaneData.planes.get(this.pocketID).portalC[2] = this.zCoord;
-                        PocketPlaneData.planes.get(this.pocketID).portalC[3] = player.dimension;
+                    case 3:
+                        planeData.portalC = new int[4];
+                        portal = planeData.portalC;
                         break;
-                    }
-                    case 4: {
-                        PocketPlaneData.planes.get(this.pocketID).portalD[0] = this.xCoord;
-                        PocketPlaneData.planes.get(this.pocketID).portalD[1] = this.yCoord;
-                        PocketPlaneData.planes.get(this.pocketID).portalD[2] = this.zCoord;
-                        PocketPlaneData.planes.get(this.pocketID).portalD[3] = player.dimension;
+                    case 4:
+                        planeData.portalD = new int[4];
+                        portal = planeData.portalD;
                         break;
-                    }
+                    default:
+                        return;
                 }
+                portal[0] = this.xCoord;
+                portal[1] = this.yCoord;
+                portal[2] = this.zCoord;
+                portal[3] = player.dimension;
+
                 PocketPlaneData.makePortal(this.pocketID, portalNum, this.xCoord, this.yCoord, this.zCoord);
                 this.which = portalNum;
                 this.portalOpen = true;
