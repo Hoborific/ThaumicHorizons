@@ -18,7 +18,7 @@ buildscript {
     dependencies {
         classpath "com.github.GTNH2:ForgeGradle:FG_1.2-SNAPSHOT"
     }
-
+}
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'forge'
