@@ -128,7 +128,7 @@ public class EventHandlerEntity
             }
             this.applyPlayerPotionInfusions((EntityPlayer)entity, infusions, ((EntityInfusionProperties)entity.getExtendedProperties("CreatureInfusion")).toggleInvisible);
             if (!entity.worldObj.isRemote) {
-                PacketHandler.INSTANCE.sendToAll((IMessage)new PacketPlayerInfusionSync(entity.getCommandSenderName(), infusions));
+                PacketHandler.INSTANCE.sendToAll((IMessage)new PacketPlayerInfusionSync(entity.getCommandSenderName(), infusions, ((EntityInfusionProperties)entity.getExtendedProperties("CreatureInfusion")).toggleClimb, ((EntityInfusionProperties)entity.getExtendedProperties("CreatureInfusion")).toggleInvisible));
             }
         }
         else {
