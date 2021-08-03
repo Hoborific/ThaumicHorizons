@@ -24,14 +24,14 @@ public class PacketPlayerInfusionSync implements IMessage, IMessageHandler<Packe
     boolean toggleInvisible;
     
     public PacketPlayerInfusionSync() {
-        this.infusions = new int[10];
+        this.infusions = new int[EntityInfusionProperties.NUM_INFUSIONS];
         this.name = "";
         this.toggleClimb = false;
         this.toggleInvisible = false;
     }
     
     public PacketPlayerInfusionSync(final String name, final int[] infusions, final boolean toggleClimb, final boolean toggleInvisible) {
-        this.infusions = new int[10];
+        this.infusions = new int[EntityInfusionProperties.NUM_INFUSIONS];
         this.name = "";
         this.name = name;
         this.infusions = infusions;
@@ -73,7 +73,7 @@ public class PacketPlayerInfusionSync implements IMessage, IMessageHandler<Packe
             chars[i] = (char)bites[i];
         }
         this.name = String.copyValueOf(chars);
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < EntityInfusionProperties.NUM_INFUSIONS; ++i) {
             this.infusions[i] = buf.readInt();
         }
         this.toggleClimb = buf.readBoolean();
@@ -88,7 +88,7 @@ public class PacketPlayerInfusionSync implements IMessage, IMessageHandler<Packe
             bites[i] = (byte)chars[i];
         }
         buf.writeBytes(bites);
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < EntityInfusionProperties.NUM_INFUSIONS; ++i) {
             buf.writeInt(this.infusions[i]);
         }
         buf.writeBoolean(this.toggleClimb);
