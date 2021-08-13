@@ -43,8 +43,8 @@ public class PacketToggleInvisibleToServer implements IMessage, IMessageHandler<
     public IMessage onMessage(final PacketToggleInvisibleToServer message, final MessageContext ctx) {
         final World world = (World)DimensionManager.getWorld(message.dim);
         final EntityPlayer player = (EntityPlayer)world.getEntityByID(message.playerid);
-        ((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleClimb = !((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleClimb;
-        if (((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleClimb) {
+        ((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleInvisible = !((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleInvisible;
+        if (((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleInvisible) {
             player.removePotionEffect(Potion.invisibility.id);
             player.setInvisible(false);
         }

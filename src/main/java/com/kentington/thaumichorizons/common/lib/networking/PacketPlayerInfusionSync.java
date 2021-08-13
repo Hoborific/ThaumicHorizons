@@ -4,9 +4,14 @@
 
 package com.kentington.thaumichorizons.common.lib.networking;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -15,22 +20,46 @@ public class PacketPlayerInfusionSync implements IMessage, IMessageHandler<Packe
 {
     int[] infusions;
     String name;
+    boolean toggleClimb;
+    boolean toggleInvisible;
     
     public PacketPlayerInfusionSync() {
-        this.infusions = new int[10];
+        this.infusions = new int[EntityInfusionProperties.NUM_INFUSIONS];
         this.name = "";
+        this.toggleClimb = false;
+        this.toggleInvisible = false;
     }
     
-    public PacketPlayerInfusionSync(final String name, final int[] infusions) {
-        this.infusions = new int[10];
+    public PacketPlayerInfusionSync(final String name, final int[] infusions, final boolean toggleClimb, final boolean toggleInvisible) {
+        this.infusions = new int[EntityInfusionProperties.NUM_INFUSIONS];
         this.name = "";
         this.name = name;
         this.infusions = infusions;
+        this.toggleClimb = toggleClimb;
+        this.toggleInvisible = toggleInvisible;
     }
     
     public IMessage onMessage(final PacketPlayerInfusionSync message, final MessageContext ctx) {
         if (Minecraft.getMinecraft().theWorld != null && Minecraft.getMinecraft().theWorld.getPlayerEntityByName(message.name) != null && Minecraft.getMinecraft().theWorld.getPlayerEntityByName(message.name).getExtendedProperties("CreatureInfusion") != null) {
-            ((EntityInfusionProperties)Minecraft.getMinecraft().theWorld.getPlayerEntityByName(message.name).getExtendedProperties("CreatureInfusion")).playerInfusions = message.infusions;
+            EntityPlayer player = Minecraft.getMinecraft().theWorld.getPlayerEntityByName(message.name);
+            EntityInfusionProperties prop = (EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion");
+            prop.playerInfusions = message.infusions;
+            if (prop.toggleClimb != message.toggleClimb) {
+                prop.toggleClimb = message.toggleClimb;
+            }
+            if (prop.toggleInvisible != message.toggleInvisible) {
+                prop.toggleInvisible = message.toggleInvisible;
+                if (prop.toggleInvisible) {
+                    player.removePotionEffectClient(Potion.invisibility.id);
+                    player.setInvisible(false);
+                }
+                else {
+                    final PotionEffect effect = new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 0, true);
+                    effect.setCurativeItems((List)new ArrayList());
+                    player.addPotionEffect(effect);
+                    player.setInvisible(true);
+                }
+            }
         }
         return null;
     }
@@ -44,9 +73,11 @@ public class PacketPlayerInfusionSync implements IMessage, IMessageHandler<Packe
             chars[i] = (char)bites[i];
         }
         this.name = String.copyValueOf(chars);
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < EntityInfusionProperties.NUM_INFUSIONS; ++i) {
             this.infusions[i] = buf.readInt();
         }
+        this.toggleClimb = buf.readBoolean();
+        this.toggleInvisible = buf.readBoolean();
     }
     
     public void toBytes(final ByteBuf buf) {
@@ -57,8 +88,10 @@ public class PacketPlayerInfusionSync implements IMessage, IMessageHandler<Packe
             bites[i] = (byte)chars[i];
         }
         buf.writeBytes(bites);
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < EntityInfusionProperties.NUM_INFUSIONS; ++i) {
             buf.writeInt(this.infusions[i]);
         }
+        buf.writeBoolean(this.toggleClimb);
+        buf.writeBoolean(this.toggleInvisible);
     }
 }

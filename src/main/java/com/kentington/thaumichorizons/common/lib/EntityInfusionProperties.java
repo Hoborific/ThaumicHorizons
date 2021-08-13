@@ -32,8 +32,8 @@ public class EntityInfusionProperties implements IExtendedEntityProperties
     public boolean toggleInvisible;
     
     public EntityInfusionProperties() {
-        this.infusions = new int[12];
-        this.playerInfusions = new int[12];
+        this.infusions = new int[NUM_INFUSIONS];
+        this.playerInfusions = new int[NUM_INFUSIONS];
         this.infusionCosts = new AspectList();
         this.infusionsApplied = false;
     }
@@ -64,14 +64,14 @@ public class EntityInfusionProperties implements IExtendedEntityProperties
             this.owner = properties.getString("owner");
             this.sitting = properties.getBoolean("sitting");
             this.infusions = properties.getIntArray("Infusions");
-            if (this.infusions.length < 12) {
+            if (this.infusions.length < NUM_INFUSIONS) {
                 this.convertInfusions();
             }
             this.playerInfusions = properties.getIntArray("PlayerInfusions");
             if (this.playerInfusions.length == 0) {
-                this.playerInfusions = new int[12];
+                this.playerInfusions = new int[NUM_INFUSIONS];
             }
-            else if (this.playerInfusions.length < 12) {
+            else if (this.playerInfusions.length < NUM_INFUSIONS) {
                 this.convertPlayerInfusions();
             }
             this.tumorWarp = properties.getInteger("tumorWarp");
@@ -89,13 +89,13 @@ public class EntityInfusionProperties implements IExtendedEntityProperties
     }
     
     void convertInfusions() {
-        final int[] newArray = new int[12];
+        final int[] newArray = new int[NUM_INFUSIONS];
         System.arraycopy(this.infusions, 0, newArray, 0, this.infusions.length);
         this.infusions = newArray;
     }
     
     void convertPlayerInfusions() {
-        final int[] newArray = new int[12];
+        final int[] newArray = new int[NUM_INFUSIONS];
         System.arraycopy(this.playerInfusions, 0, newArray, 0, this.playerInfusions.length);
         this.playerInfusions = newArray;
     }
@@ -157,7 +157,7 @@ public class EntityInfusionProperties implements IExtendedEntityProperties
     }
     
     public void resetPlayerInfusions() {
-        this.playerInfusions = new int[12];
+        this.playerInfusions = new int[NUM_INFUSIONS];
         this.tumorWarp = 0;
         this.tumorWarpTemp = 0;
     }

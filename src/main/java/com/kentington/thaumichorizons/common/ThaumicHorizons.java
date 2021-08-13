@@ -481,6 +481,7 @@ public class ThaumicHorizons {
         PacketHandler.init();
         MinecraftForge.EVENT_BUS.register(this.eventHandlerEntity);
         MinecraftForge.EVENT_BUS.register(this.eventHandlerWorld);
+        FMLCommonHandler.instance().bus().register(this.eventHandlerEntity);
         FMLCommonHandler.instance().bus().register(this.renderEventHandler);
         DimensionManager.registerProviderType(providerID, WorldProviderPocketPlane.class, true);
         DimensionManager.registerDimension(dimensionPocketId, providerID);

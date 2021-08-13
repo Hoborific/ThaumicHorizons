@@ -115,20 +115,29 @@ public class EventHandlerEntity
         }
     }
     
+    @SubscribeEvent
+    public void Respawn(cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent event) {
+        // Exit Portal fix
+        if (!event.player.worldObj.isRemote) {
+            this.applyInfusions(event.player);
+        }
+    }
+    
     public void applyInfusions(final EntityLivingBase entity) {
         final StackTraceElement[] above = Thread.currentThread().getStackTrace();
+        EntityInfusionProperties infusionProperties = (EntityInfusionProperties)entity.getExtendedProperties("CreatureInfusion");
         if (entity instanceof EntityPlayer) {
-            final int[] infusions = ((EntityInfusionProperties)entity.getExtendedProperties("CreatureInfusion")).getPlayerInfusions();
+            final int[] infusions = infusionProperties.getPlayerInfusions();
             for (int i = 0; i < infusions.length; ++i) {
                 if (infusions[i] != 0) {
                     if (infusions[i] == 8 && !entity.worldObj.isRemote) {
-                        this.warpTumor((EntityPlayer)entity, 50 - ((EntityInfusionProperties)entity.getExtendedProperties("CreatureInfusion")).tumorWarpPermanent - ((EntityInfusionProperties)entity.getExtendedProperties("CreatureInfusion")).tumorWarp - ((EntityInfusionProperties)entity.getExtendedProperties("CreatureInfusion")).tumorWarpTemp);
+                        this.warpTumor((EntityPlayer)entity, 50 - infusionProperties.tumorWarpPermanent - infusionProperties.tumorWarp - infusionProperties.tumorWarpTemp);
                     }
                 }
             }
-            this.applyPlayerPotionInfusions((EntityPlayer)entity, infusions, ((EntityInfusionProperties)entity.getExtendedProperties("CreatureInfusion")).toggleInvisible);
+            this.applyPlayerPotionInfusions((EntityPlayer)entity, infusions, infusionProperties.toggleInvisible);
             if (!entity.worldObj.isRemote) {
-                PacketHandler.INSTANCE.sendToAll((IMessage)new PacketPlayerInfusionSync(entity.getCommandSenderName(), infusions));
+                PacketHandler.INSTANCE.sendToAll((IMessage)new PacketPlayerInfusionSync(entity.getCommandSenderName(), infusions, infusionProperties.toggleClimb, infusionProperties.toggleInvisible));
             }
         }
         else {
@@ -137,8 +146,8 @@ public class EventHandlerEntity
                     return;
                 }
             }
-            final int[] infusions = ((EntityInfusionProperties)entity.getExtendedProperties("CreatureInfusion")).getInfusions();
-            for (int i = 0; i < 12; ++i) {
+            final int[] infusions = infusionProperties.getInfusions();
+            for (int i = 0; i < EntityInfusionProperties.NUM_INFUSIONS; ++i) {
                 if (infusions[i] != 0) {
                     if (infusions[i] == 1) {
                         final PotionEffect effect = new PotionEffect(Potion.jump.id, Integer.MAX_VALUE, 0, true);
