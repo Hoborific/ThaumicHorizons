@@ -531,6 +531,17 @@ public class EventHandlerEntity
             else if (event.entityLiving instanceof EntityMercurialSlime && ((EntityMercurialSlime)event.entityLiving).getSlimeSize() == 1) {
                 event.entityLiving.entityDropItem(new ItemStack(ConfigItems.itemResource, 1, 3), 0.0f);
             }
+            else if (event.entityLiving instanceof EntityPlayer) {
+            	final EntityInfusionProperties prop = (EntityInfusionProperties)event.entity.getExtendedProperties("CreatureInfusion");
+            	if (prop != null) {
+            		if (prop.tumorWarpPermanent > 0 || prop.tumorWarp > 0 || prop.tumorWarpTemp > 0) {
+            			Thaumcraft.proxy.getPlayerKnowledge().addWarpPerm(event.entity.getCommandSenderName(), prop.tumorWarpPermanent);
+            			Thaumcraft.proxy.getPlayerKnowledge().addWarpSticky(event.entity.getCommandSenderName(), prop.tumorWarp);
+            			Thaumcraft.proxy.getPlayerKnowledge().addWarpTemp(event.entity.getCommandSenderName(), prop.tumorWarpTemp);
+            		}
+            		prop.resetPlayerInfusions();
+            	}
+            }
         }
     }
     
