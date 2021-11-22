@@ -9,6 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.common.DimensionManager;
@@ -111,7 +112,7 @@ public class ItemAmuletMirror extends Item implements IBauble, IRunicArmor
             itemstack.setTagInfo("linkDim", (NBTBase)new NBTTagInt(world.provider.dimensionId));
             itemstack.setTagInfo("dimname", (NBTBase)new NBTTagString(DimensionManager.getProvider(world.provider.dimensionId).getDimensionName()));
             world.playSoundEffect((double)x, (double)y, (double)z, "thaumcraft:jar", 1.0f, 2.0f);
-            player.addChatMessage((IChatComponent)new ChatComponentText("\u00ef¿½5\u00ef¿½o" + StatCollector.translateToLocal("tc.handmirrorlinked")));
+            player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.GRAY + StatCollector.translateToLocal("tc.handmirrorlinked")));
             player.inventoryContainer.detectAndSendChanges();
         }
         return true;

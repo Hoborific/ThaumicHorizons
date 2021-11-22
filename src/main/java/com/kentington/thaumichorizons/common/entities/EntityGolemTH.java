@@ -15,23 +15,19 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import com.kentington.thaumichorizons.common.lib.networking.PacketFXBlocksplosion;
 import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.*;
 import thaumcraft.common.config.ConfigItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.Minecraft;
 import com.kentington.thaumichorizons.client.lib.GolemTHTexture;
-import net.minecraft.util.IIcon;
 import thaumcraft.common.entities.golems.EnumGolemType;
 import net.minecraft.nbt.NBTTagCompound;
 import thaumcraft.common.entities.monster.EntityEldritchGuardian;
 import thaumcraft.common.Thaumcraft;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.StatCollector;
 import net.minecraft.init.Blocks;
 import thaumcraft.common.config.ConfigBlocks;
-import net.minecraft.util.DamageSource;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.EntityLiving;
@@ -50,7 +46,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.block.Block;
-import net.minecraft.util.ResourceLocation;
 import thaumcraft.common.entities.golems.EntityGolemBase;
 
 public class EntityGolemTH extends EntityGolemBase
@@ -253,21 +248,21 @@ public class EntityGolemTH extends EntityGolemBase
                     switch (this.voidCount) {
                         case 0: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText("\u00ef��5\u00ef��o" + StatCollector.translateToLocal("thaumichorizons.golemWarning1")));
+                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("thaumichorizons.golemWarning1")));
                                 break;
                             }
                             break;
                         }
                         case 1: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText("\u00ef��5\u00ef��o" + StatCollector.translateToLocal("thaumichorizons.golemWarning2")));
+                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("thaumichorizons.golemWarning2")));
                                 break;
                             }
                             break;
                         }
                         case 2: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText("\u00ef��5\u00ef��o" + StatCollector.translateToLocal("thaumichorizons.golemWarning3")));
+                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("thaumichorizons.golemWarning3")));
                                 break;
                             }
                             break;
