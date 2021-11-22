@@ -121,10 +121,10 @@ public class THKeyHandler
                         if (((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).hasPlayerInfusion(9) && !this.keyPressedC) {
                             ((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleClimb = !((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleClimb;
                             if (((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleClimb) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.GRAY + "Spider Climb disabled."));
+                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + EnumChatFormatting.GRAY + "Spider Climb disabled."));
                             }
                             else {
-                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.GRAY + "Spider Climb enabled."));
+                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + EnumChatFormatting.GRAY + "Spider Climb enabled."));
                             }
                             PacketHandler.INSTANCE.sendToServer((IMessage)new PacketToggleClimbToServer(player, player.dimension));
                         }
@@ -150,14 +150,14 @@ public class THKeyHandler
                             if (((EntityInfusionProperties)player.getExtendedProperties("CreatureInfusion")).toggleInvisible) {
                                 player.removePotionEffectClient(Potion.invisibility.id);
                                 player.setInvisible(false);
-                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.GRAY + "Chameleon Skin disabled."));
+                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + EnumChatFormatting.GRAY + "Chameleon Skin disabled."));
                             }
                             else {
                                 final PotionEffect effect = new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 0, true);
                                 effect.setCurativeItems((List)new ArrayList());
                                 player.addPotionEffect(effect);
                                 player.setInvisible(true);
-                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.GRAY + "Chameleon Skin enabled."));
+                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + EnumChatFormatting.GRAY + "Chameleon Skin enabled."));
                             }
                             PacketHandler.INSTANCE.sendToServer((IMessage)new PacketToggleInvisibleToServer(player, player.dimension));
                         }

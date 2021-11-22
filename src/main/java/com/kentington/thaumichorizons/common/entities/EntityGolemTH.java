@@ -248,21 +248,21 @@ public class EntityGolemTH extends EntityGolemBase
                     switch (this.voidCount) {
                         case 0: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("thaumichorizons.golemWarning1")));
+                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("thaumichorizons.golemWarning1")));
                                 break;
                             }
                             break;
                         }
                         case 1: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("thaumichorizons.golemWarning2")));
+                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("thaumichorizons.golemWarning2")));
                                 break;
                             }
                             break;
                         }
                         case 2: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("thaumichorizons.golemWarning3")));
+                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("thaumichorizons.golemWarning3")));
                                 break;
                             }
                             break;

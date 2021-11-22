@@ -26,7 +26,7 @@ public class TileSoulBeacon extends TileThaumcraft
         p.getEntityData().setBoolean("soulBeacon", true);
         p.getEntityData().setIntArray("soulBeaconCoords", new int[] { this.xCoord, this.yCoord, this.zCoord });
         p.getEntityData().setInteger("soulBeaconDim", this.worldObj.provider.dimensionId);
-        p.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.GRAY + StatCollector.translateToLocal("thaumichorizons.setBeacon")));
+        p.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + EnumChatFormatting.GRAY + StatCollector.translateToLocal("thaumichorizons.setBeacon")));
         Thaumcraft.proxy.arcLightning(this.worldObj, p.posX, p.posY + p.getEyeHeight(), p.posZ, this.xCoord + 0.5, this.yCoord + 0.75, this.zCoord + 0.5, 0.05f, 1.0f, 0.05f, 0.5f);
         this.worldObj.playSoundEffect(this.xCoord + 0.5, this.yCoord + 0.75, this.zCoord + 0.5, "thaumcraft:zap", 1.0f, 1.0f);
         return true;
