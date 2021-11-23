@@ -815,10 +815,10 @@ public class EventHandlerEntity
                 prop.setSitting(!prop.isSitting());
                 if (event.target.worldObj.isRemote) {
                     if (prop.isSitting()) {
-                        event.entityPlayer.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + EnumChatFormatting.GRAY + event.target.getCommandSenderName() + " is waiting."));
+                        event.entityPlayer.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.GRAY + event.target.getCommandSenderName() + " is waiting."));
                     }
                     else {
-                        event.entityPlayer.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + EnumChatFormatting.GRAY + event.target.getCommandSenderName() + " will follow you."));
+                        event.entityPlayer.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.GRAY + event.target.getCommandSenderName() + " will follow you."));
                     }
                 }
             }

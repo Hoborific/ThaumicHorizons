@@ -112,7 +112,7 @@ public class ItemAmuletMirror extends Item implements IBauble, IRunicArmor
             itemstack.setTagInfo("linkDim", (NBTBase)new NBTTagInt(world.provider.dimensionId));
             itemstack.setTagInfo("dimname", (NBTBase)new NBTTagString(DimensionManager.getProvider(world.provider.dimensionId).getDimensionName()));
             world.playSoundEffect((double)x, (double)y, (double)z, "thaumcraft:jar", 1.0f, 2.0f);
-            player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + EnumChatFormatting.GRAY + StatCollector.translateToLocal("tc.handmirrorlinked")));
+            player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.GRAY + StatCollector.translateToLocal("tc.handmirrorlinked")));
             player.inventoryContainer.detectAndSendChanges();
         }
         return true;

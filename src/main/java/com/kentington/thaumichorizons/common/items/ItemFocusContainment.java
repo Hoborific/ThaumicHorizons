@@ -128,7 +128,7 @@ public class ItemFocusContainment extends ItemFocusBasic
         final ItemWandCasting wand = (ItemWandCasting)stack.getItem();
         if (!this.canJarEntity(p)) {
             if (p.ticksExisted % 5 == 0) {
-                p.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + EnumChatFormatting.GRAY + StatCollector.translateToLocal("thaumichorizons.noJar")));
+                p.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.GRAY + StatCollector.translateToLocal("thaumichorizons.noJar")));
             }
             p.stopUsingItem();
             return;
