@@ -158,6 +158,7 @@ public class EntityInfusionProperties implements IExtendedEntityProperties
     
     public void resetPlayerInfusions() {
         this.playerInfusions = new int[NUM_INFUSIONS];
+        this.tumorWarpPermanent = 0;
         this.tumorWarp = 0;
         this.tumorWarpTemp = 0;
     }

@@ -333,7 +333,7 @@ public class EventHandlerEntity
                 player.setAir(300);
             }
             if (event.entityLiving.ticksExisted % 30 == 0) {
-                if (prop.hasPlayerInfusion(8)) {
+                if (prop.hasPlayerInfusion(8) && !event.entityLiving.worldObj.isRemote) {
                     this.warpTumor((EntityPlayer)event.entityLiving, 50 - prop.tumorWarpPermanent - prop.tumorWarp - prop.tumorWarpTemp);
                 }
                 this.applyPlayerPotionInfusions(player, prop.playerInfusions, prop.toggleInvisible);
@@ -555,7 +555,7 @@ public class EventHandlerEntity
         }
         if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer && event.entityLiving.getHealth() - event.ammount <= 0.0f) {
             final EntityPlayer player = (EntityPlayer)event.entity;
-            if (prop.tumorWarp > 0 || prop.tumorWarpTemp > 0) {
+            if (prop.tumorWarpPermanent > 0 || prop.tumorWarp > 0 || prop.tumorWarpTemp > 0) {
                 Thaumcraft.proxy.getPlayerKnowledge().addWarpPerm(event.entity.getCommandSenderName(), prop.tumorWarpPermanent);
                 Thaumcraft.proxy.getPlayerKnowledge().addWarpSticky(event.entity.getCommandSenderName(), prop.tumorWarp);
                 Thaumcraft.proxy.getPlayerKnowledge().addWarpTemp(event.entity.getCommandSenderName(), prop.tumorWarpTemp);
