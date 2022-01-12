@@ -34,14 +34,14 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer
     public void renderTileEntityAt(final TileEntity te, final double x, final double y, final double z, final float f) {
         GL11.glPushMatrix();
         final TileSyntheticNode tco = (TileSyntheticNode)te;
-        int red = 255;
-        int green = 255;
-        int blue = 255;
-        int numPoints = 0;
-        int numPointsFilled = 0;
+        long red = 255;
+        long green = 255;
+        long blue = 255;
+        long numPoints = 0;
+        long numPointsFilled = 0;
         if (tco != null && tco.getAspectsBase() != null && tco.getAspects() != null && tco.getAspects().size() > 0 && tco.getAspectsBase().size() > 0) {
             for (final Aspect asp : tco.getAspectsBase().getAspects()) {
-                final int amt = tco.getAspectsBase().getAmount(asp);
+                final long amt = tco.getAspectsBase().getAmount(asp);
                 final Color col = new Color(asp.getColor());
                 red += col.getRed() * amt;
                 green += col.getGreen() * amt;
@@ -52,6 +52,9 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer
             red /= numPoints + 1;
             green /= numPoints + 1;
             blue /= numPoints + 1;
+            red = Math.min(255,Math.max(red, 0));
+            green = Math.min(255,Math.max(green, 0));
+            blue = Math.min(255,Math.max(blue, 0));
         }
 
         try {
@@ -118,7 +121,7 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer
         }
         catch (Exception e)
         {
-            System.out.println("Error rendering Ethereal shard");
+            System.out.println(e.getMessage());
         }
     }
     
