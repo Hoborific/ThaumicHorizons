@@ -251,8 +251,8 @@ import thaumcraft.common.entities.monster.EntityWisp;
 import thaumcraft.common.lib.utils.Utils;
 
 @Mod(
-        modid = "ThaumicHorizons",
-        name = "ThaumicHorizons",
+        modid = ThaumicHorizons.MODID,
+        name = ThaumicHorizons.MODID,
         version = ThaumicHorizons.VERSION,
         dependencies = "required-after:Forge@[10.13.2,);" +
                        "required-after:Thaumcraft@[4.2.3.4,)",
@@ -260,7 +260,7 @@ import thaumcraft.common.lib.utils.Utils;
 )
 public class ThaumicHorizons {
     public static final String MODID = "ThaumicHorizons";
-    public static final String VERSION = "@version@";
+    public static final String VERSION = "GRADLETOKEN_VERSION";
 
     @Instance("ThaumicHorizons")
     public static ThaumicHorizons instance;
