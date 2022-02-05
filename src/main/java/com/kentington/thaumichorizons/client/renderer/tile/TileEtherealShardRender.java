@@ -58,7 +58,7 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer
         }
 
         try {
-            final Color col2 = new Color(red, green, blue);
+            final Color col2 = new Color((int)red, (int)green, (int)blue);
             UtilsFX.bindTexture("textures/models/crystal.png");
             final Random rand = new Random(tco.getBlockMetadata() + tco.xCoord + tco.yCoord * tco.zCoord);
             this.drawCrystal(0, (float) x, (float) y, (float) z, tco.rotation, 0.0f, rand, col2.getRGB(), 1.1f);
@@ -117,11 +117,14 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer
             }
             GL11.glDisable(3042);
             GL11.glAlphaFunc(516, 0.1f);
-            GL11.glPopMatrix();
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
+        }
+        finally
+        {
+            GL11.glPopMatrix();
         }
     }
     
