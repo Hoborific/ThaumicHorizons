@@ -131,6 +131,7 @@ import com.kentington.thaumichorizons.common.lib.CreatureInfusionRecipe;
 import com.kentington.thaumichorizons.common.lib.EventHandlerEntity;
 import com.kentington.thaumichorizons.common.lib.EventHandlerWorld;
 import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.PageFormatText;
 import com.kentington.thaumichorizons.common.lib.SelfInfusionRecipe;
 import com.kentington.thaumichorizons.common.lib.WorldProviderPocketPlane;
 import com.kentington.thaumichorizons.common.lib.potion.PotionShock;
@@ -458,6 +459,7 @@ public class ThaumicHorizons {
     public static ArrayList<Class> classBanList;
     private static boolean useAlternateBell;
     public static boolean enablePocket;
+    public static int warpedTumorValue;
 
     public ThaumicHorizons() {
     }
@@ -1615,7 +1617,7 @@ public class ThaumicHorizons {
         amphibious.setPages(amphibious1, amphibious2);
         ResearchCategories.addResearch(amphibious);
         ResearchItem warpedTumor = new ResearchItem("warpedTumor", "ThaumicHorizons", (new AspectList()).add(Aspect.MAN, 15).add(Aspect.TAINT, 12).add(Aspect.ELDRITCH, 9).add(Aspect.FLESH, 6).add(Aspect.EXCHANGE, 3), 19, 4, 3, new ResourceLocation("thaumichorizons", "textures/items/warpedtumor.png"));
-        ResearchPage warpedTumor1 = new ResearchPage("warpedTumor1");
+        ResearchPage warpedTumor1 = new PageFormatText("warpedTumor1", ThaumicHorizons.warpedTumorValue);
         dummyTag1 = new NBTTagCompound();
         dummyTag1.setString("infName", "selfInfusions.warpedTumor");
         dummyStack1 = new ItemStack(itemDummy, 1, 15);
@@ -1911,6 +1913,10 @@ public class ThaumicHorizons {
         enablePocketPlane.comment = "Enable pocket plane content (currently incomplete - many aspects will not generate the cool stuff they are supposed to). World backups are highly suggested.";
         enablePocketPlane.setRequiresMcRestart(true);
         enablePocket = enablePocketPlane.getBoolean();
+        Property warpedTumorValueProperty = config.get("general", "warpedTumorValue", 50);
+        warpedTumorValueProperty.comment = "Points of warp held by warped tumor.";
+        warpedTumorValueProperty.setRequiresMcRestart(true);
+        warpedTumorValue = warpedTumorValueProperty.getInt();
         config.save();
     }
 
