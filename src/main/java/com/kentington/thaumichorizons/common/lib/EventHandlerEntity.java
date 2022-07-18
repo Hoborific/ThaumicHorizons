@@ -131,7 +131,7 @@ public class EventHandlerEntity
             for (int i = 0; i < infusions.length; ++i) {
                 if (infusions[i] != 0) {
                     if (infusions[i] == 8 && !entity.worldObj.isRemote) {
-                        this.warpTumor((EntityPlayer)entity, 50 - infusionProperties.tumorWarpPermanent - infusionProperties.tumorWarp - infusionProperties.tumorWarpTemp);
+                        this.warpTumor((EntityPlayer)entity, ThaumicHorizons.warpedTumorValue - infusionProperties.tumorWarpPermanent - infusionProperties.tumorWarp - infusionProperties.tumorWarpTemp);
                     }
                 }
             }
@@ -334,7 +334,7 @@ public class EventHandlerEntity
             }
             if (event.entityLiving.ticksExisted % 30 == 0) {
                 if (prop.hasPlayerInfusion(8) && !event.entityLiving.worldObj.isRemote) {
-                    this.warpTumor((EntityPlayer)event.entityLiving, 50 - prop.tumorWarpPermanent - prop.tumorWarp - prop.tumorWarpTemp);
+                    this.warpTumor((EntityPlayer)event.entityLiving, ThaumicHorizons.warpedTumorValue - prop.tumorWarpPermanent - prop.tumorWarp - prop.tumorWarpTemp);
                 }
                 this.applyPlayerPotionInfusions(player, prop.playerInfusions, prop.toggleInvisible);
             }
