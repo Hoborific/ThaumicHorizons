@@ -1,30 +1,30 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.gui;
 
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.inventory.Container;
 import com.kentington.thaumichorizons.common.container.ContainerInspiratron;
-import net.minecraft.entity.player.InventoryPlayer;
 import com.kentington.thaumichorizons.common.tiles.TileInspiratron;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
 
-public class GuiInspiratron extends GuiContainer
-{
+public class GuiInspiratron extends GuiContainer {
     TileInspiratron tile;
-    
+
     public GuiInspiratron(final InventoryPlayer player, final TileInspiratron tile) {
-        super((Container)new ContainerInspiratron(player, tile));
+        super((Container) new ContainerInspiratron(player, tile));
         this.tile = tile;
         this.xSize = 175;
         this.ySize = 219;
     }
-    
-    protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
+
+    protected void drawGuiContainerBackgroundLayer(
+            final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         UtilsFX.bindTexture(new ResourceLocation("thaumichorizons", "textures/gui/guiinspiratron.png"));

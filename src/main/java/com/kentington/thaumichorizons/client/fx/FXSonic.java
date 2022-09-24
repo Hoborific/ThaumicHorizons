@@ -1,27 +1,26 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.fx;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.OpenGlHelper;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraftforge.client.model.AdvancedModelLoader;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.world.World;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModelCustom;
 import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.client.model.AdvancedModelLoader;
+import net.minecraftforge.client.model.IModelCustom;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
 
-public class FXSonic extends EntityFX
-{
+public class FXSonic extends EntityFX {
     float yaw;
     float pitch;
     public static IModelCustom model;
     private static final ResourceLocation MODEL;
-    
+
     public FXSonic(final World world, final double d, final double d1, final double d2, final int age, final int dir) {
         super(world, d, d1, d2, 0.0, 0.0, 0.0);
         this.yaw = 0.0f;
@@ -69,8 +68,15 @@ public class FXSonic extends EntityFX
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
     }
-    
-    public void renderParticle(final Tessellator tessellator, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+
+    public void renderParticle(
+            final Tessellator tessellator,
+            final float f,
+            final float f1,
+            final float f2,
+            final float f3,
+            final float f4,
+            final float f5) {
         tessellator.draw();
         GL11.glPushMatrix();
         GL11.glDisable(2884);
@@ -80,12 +86,12 @@ public class FXSonic extends EntityFX
             this.model = AdvancedModelLoader.loadModel(FXSonic.MODEL);
         }
         final float fade = (this.particleAge + f) / this.particleMaxAge;
-        final float xx = (float)(this.prevPosX + (this.posX - this.prevPosX) * f - FXSonic.interpPosX);
-        final float yy = (float)(this.prevPosY + (this.posY - this.prevPosY) * f - FXSonic.interpPosY);
-        final float zz = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * f - FXSonic.interpPosZ);
-        GL11.glTranslated((double)xx, (double)yy, (double)zz);
+        final float xx = (float) (this.prevPosX + (this.posX - this.prevPosX) * f - FXSonic.interpPosX);
+        final float yy = (float) (this.prevPosY + (this.posY - this.prevPosY) * f - FXSonic.interpPosY);
+        final float zz = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * f - FXSonic.interpPosZ);
+        GL11.glTranslated((double) xx, (double) yy, (double) zz);
         float b = 1.0f;
-        final int frame = Math.min(15, (int)(14.0f * fade) + 1);
+        final int frame = Math.min(15, (int) (14.0f * fade) + 1);
         UtilsFX.bindTexture("textures/models/ripple" + frame + ".png");
         b = 0.5f;
         final int i = 220;
@@ -103,7 +109,7 @@ public class FXSonic extends EntityFX
         Minecraft.getMinecraft().renderEngine.bindTexture(UtilsFX.getParticleTexture());
         tessellator.startDrawingQuads();
     }
-    
+
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -112,7 +118,7 @@ public class FXSonic extends EntityFX
             this.setDead();
         }
     }
-    
+
     static {
         MODEL = new ResourceLocation("thaumcraft", "textures/models/hemis.obj");
     }

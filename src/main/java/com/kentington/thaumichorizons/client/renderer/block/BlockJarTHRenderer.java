@@ -1,46 +1,77 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.renderer.block;
 
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.util.IIcon;
 import com.kentington.thaumichorizons.common.blocks.BlockSoulJar;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.Minecraft;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.block.Block;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import org.lwjgl.opengl.GL11;
 import thaumcraft.client.renderers.block.BlockRenderer;
 
-public class BlockJarTHRenderer extends BlockRenderer implements ISimpleBlockRenderingHandler
-{
-    public void renderInventoryBlock(final Block block, final int metadata, final int modelID, final RenderBlocks renderer) {
+public class BlockJarTHRenderer extends BlockRenderer implements ISimpleBlockRenderingHandler {
+    public void renderInventoryBlock(
+            final Block block, final int metadata, final int modelID, final RenderBlocks renderer) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-        final IIcon i1 = ((BlockSoulJar)block).iconJarTop;
-        final IIcon i2 = ((BlockSoulJar)block).iconJarSide;
-        block.setBlockBounds(BlockJarTHRenderer.W3, 0.0f, BlockJarTHRenderer.W3, BlockJarTHRenderer.W13, BlockJarTHRenderer.W12, BlockJarTHRenderer.W13);
+        final IIcon i1 = ((BlockSoulJar) block).iconJarTop;
+        final IIcon i2 = ((BlockSoulJar) block).iconJarSide;
+        block.setBlockBounds(
+                BlockJarTHRenderer.W3,
+                0.0f,
+                BlockJarTHRenderer.W3,
+                BlockJarTHRenderer.W13,
+                BlockJarTHRenderer.W12,
+                BlockJarTHRenderer.W13);
         renderer.setRenderBoundsFromBlock(block);
-        drawFaces(renderer, block, ((BlockSoulJar)block).iconJarBottom, i1, i2, i2, i2, i2, true);
-        block.setBlockBounds(BlockJarTHRenderer.W5, BlockJarTHRenderer.W12, BlockJarTHRenderer.W5, BlockJarTHRenderer.W11, BlockJarTHRenderer.W14, BlockJarTHRenderer.W11);
+        drawFaces(renderer, block, ((BlockSoulJar) block).iconJarBottom, i1, i2, i2, i2, i2, true);
+        block.setBlockBounds(
+                BlockJarTHRenderer.W5,
+                BlockJarTHRenderer.W12,
+                BlockJarTHRenderer.W5,
+                BlockJarTHRenderer.W11,
+                BlockJarTHRenderer.W14,
+                BlockJarTHRenderer.W11);
         renderer.setRenderBoundsFromBlock(block);
-        drawFaces(renderer, block, ((BlockSoulJar)block).iconJarBottom, i1, i2, i2, i2, i2, true);
+        drawFaces(renderer, block, ((BlockSoulJar) block).iconJarBottom, i1, i2, i2, i2, i2, true);
         GL11.glPopMatrix();
     }
-    
-    public boolean renderWorldBlock(final IBlockAccess world, final int x, final int y, final int z, final Block block, final int modelId, final RenderBlocks renderer) {
+
+    public boolean renderWorldBlock(
+            final IBlockAccess world,
+            final int x,
+            final int y,
+            final int z,
+            final Block block,
+            final int modelId,
+            final RenderBlocks renderer) {
         final int bb = setBrightness(world, x, y, z, block);
         final int metadata = world.getBlockMetadata(x, y, z);
-        block.setBlockBounds(BlockJarTHRenderer.W3, 0.0f, BlockJarTHRenderer.W3, BlockJarTHRenderer.W13, BlockJarTHRenderer.W12, BlockJarTHRenderer.W13);
+        block.setBlockBounds(
+                BlockJarTHRenderer.W3,
+                0.0f,
+                BlockJarTHRenderer.W3,
+                BlockJarTHRenderer.W13,
+                BlockJarTHRenderer.W12,
+                BlockJarTHRenderer.W13);
         renderer.setRenderBoundsFromBlock(block);
         renderer.renderStandardBlock(block, x, y, z);
-        block.setBlockBounds(BlockJarTHRenderer.W5, BlockJarTHRenderer.W12, BlockJarTHRenderer.W5, BlockJarTHRenderer.W11, BlockJarTHRenderer.W14, BlockJarTHRenderer.W11);
+        block.setBlockBounds(
+                BlockJarTHRenderer.W5,
+                BlockJarTHRenderer.W12,
+                BlockJarTHRenderer.W5,
+                BlockJarTHRenderer.W11,
+                BlockJarTHRenderer.W14,
+                BlockJarTHRenderer.W11);
         renderer.setRenderBoundsFromBlock(block);
         renderer.renderStandardBlock(block, x, y, z);
         renderer.clearOverrideBlockTexture();
@@ -48,11 +79,11 @@ public class BlockJarTHRenderer extends BlockRenderer implements ISimpleBlockRen
         renderer.setRenderBoundsFromBlock(block);
         return true;
     }
-    
+
     public boolean shouldRender3DInInventory(final int modelId) {
         return true;
     }
-    
+
     public int getRenderId() {
         return ThaumicHorizons.blockJarRI;
     }

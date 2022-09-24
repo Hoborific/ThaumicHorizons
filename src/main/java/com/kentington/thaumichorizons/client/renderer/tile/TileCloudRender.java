@@ -1,45 +1,50 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.util.MathHelper;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
-import org.lwjgl.opengl.GL11;
 import com.kentington.thaumichorizons.common.tiles.TileCloud;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.BiomeGenBase;
+import org.lwjgl.opengl.GL11;
 
-public class TileCloudRender extends TileEntitySpecialRenderer
-{
+public class TileCloudRender extends TileEntitySpecialRenderer {
     private Minecraft mc;
     Random random;
     private int rendererUpdateCount;
     private static final ResourceLocation locationRainPng;
     private static final ResourceLocation locationEmberPng;
     private static final ResourceLocation locationSnowPng;
-    
+
     public TileCloudRender() {
         this.mc = Minecraft.getMinecraft();
         this.random = new Random();
     }
-    
-    public void renderTileEntityAt(final TileEntity tile, final double x, final double y, final double z, final float partial) {
+
+    public void renderTileEntityAt(
+            final TileEntity tile, final double x, final double y, final double z, final float partial) {
         if (TileCloud.raining) {
-            this.renderRainSnowToo((TileCloud)tile, x, y, z, partial);
+            this.renderRainSnowToo((TileCloud) tile, x, y, z, partial);
             ++this.rendererUpdateCount;
         }
     }
-    
-    public void renderRainSnowToo(final TileCloud tco, final double p_147500_2_, final double p_147500_4_, final double p_147500_6_, final float p_147500_8_) {
+
+    public void renderRainSnowToo(
+            final TileCloud tco,
+            final double p_147500_2_,
+            final double p_147500_4_,
+            final double p_147500_6_,
+            final float p_147500_8_) {
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)p_147500_2_ + 0.5f, (float)p_147500_4_ + 1.5f, (float)p_147500_6_ + 0.5f);
+        GL11.glTranslatef((float) p_147500_2_ + 0.5f, (float) p_147500_4_ + 1.5f, (float) p_147500_6_ + 0.5f);
         GL11.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
         GL11.glPopMatrix();
         if (tco.getWorldObj() == null) {
@@ -52,11 +57,9 @@ public class TileCloudRender extends TileEntitySpecialRenderer
             final BiomeGenBase biomegenbase = tco.getWorldObj().getBiomeGenForCoords(tco.xCoord, tco.zCoord);
             if (tco.md == 1) {
                 this.bindTexture(TileCloudRender.locationEmberPng);
-            }
-            else if (biomegenbase.getFloatTemperature(tco.xCoord, tco.yCoord, tco.zCoord) >= 0.15) {
+            } else if (biomegenbase.getFloatTemperature(tco.xCoord, tco.yCoord, tco.zCoord) >= 0.15) {
                 this.bindTexture(TileCloudRender.locationRainPng);
-            }
-            else {
+            } else {
                 this.bindTexture(TileCloudRender.locationSnowPng);
             }
             GL11.glTexParameterf(3553, 10242, 10497.0f);
@@ -117,7 +120,7 @@ public class TileCloudRender extends TileEntitySpecialRenderer
             final double d9 = 1.0;
             final double d10 = 1.0;
             final double d11 = 1.0;
-            final double d12 = (tco.howManyDown != -1) ? (tco.howManyDown - 1) : ((double)(256.0f * f1));
+            final double d12 = (tco.howManyDown != -1) ? (tco.howManyDown - 1) : ((double) (256.0f * f1));
             final double d13 = 0.0;
             final double d14 = 1.0;
             final double d15 = -1.0f + f3;
@@ -144,7 +147,7 @@ public class TileCloudRender extends TileEntitySpecialRenderer
             GL11.glDepthMask(true);
         }
     }
-    
+
     static {
         locationRainPng = new ResourceLocation("thaumichorizons", "textures/environment/rain.png");
         locationEmberPng = new ResourceLocation("thaumichorizons", "textures/environment/firerain.png");

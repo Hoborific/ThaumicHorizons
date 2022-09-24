@@ -1,37 +1,36 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import net.minecraft.item.Item;
-import thaumcraft.common.items.ItemWispEssence;
-import thaumcraft.common.config.ConfigItems;
-import net.minecraft.util.Vec3;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.api.visnet.VisNetHandler;
+import java.awt.Color;
 import java.util.ArrayList;
-import thaumcraft.common.lib.research.ResearchManager;
-import thaumcraft.common.lib.utils.EntityUtils;
-import thaumcraft.common.items.wands.ItemWandCasting;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import thaumcraft.api.aspects.Aspect;
-import java.awt.Color;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.entity.Entity;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.nodes.INode;
 import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.api.nodes.NodeType;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.wands.IWandable;
-import thaumcraft.api.nodes.INode;
 import thaumcraft.api.visnet.TileVisNode;
+import thaumcraft.api.visnet.VisNetHandler;
+import thaumcraft.api.wands.IWandable;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.ItemWispEssence;
+import thaumcraft.common.items.wands.ItemWandCasting;
+import thaumcraft.common.lib.research.ResearchManager;
+import thaumcraft.common.lib.utils.EntityUtils;
 
-public class TileSyntheticNode extends TileVisNode implements INode, IWandable
-{
+public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
     AspectList aspects;
     AspectList fractionalAspects;
     AspectList aspectsMax;
@@ -44,7 +43,7 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
     public int drainColor;
     public Color targetColor;
     public Color color;
-    
+
     public TileSyntheticNode() {
         this.aspects = new AspectList();
         this.fractionalAspects = new AspectList();
@@ -59,11 +58,11 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
         this.targetColor = new Color(16777215);
         this.color = new Color(16777215);
     }
-    
+
     public void debug() {
         if (this.worldObj.isRemote) {}
     }
-    
+
     @Override
     public AspectList getAspects() {
         if (this.aspects.getAspects().length > 0 && this.aspects.getAspects()[0] != null) {
@@ -71,11 +70,11 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
         }
         return new AspectList();
     }
-    
+
     public AspectList getMaxAspects() {
         return this.aspectsMax;
     }
-    
+
     @Override
     public void setAspects(final AspectList aspects) {
         this.aspectsMax = aspects;
@@ -86,12 +85,12 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
             this.fractionalAspects.add(asp, 0);
         }
     }
-    
+
     @Override
     public boolean doesContainerAccept(final Aspect tag) {
         return true;
     }
-    
+
     @Override
     public int addToContainer(final Aspect tag, final int amount) {
         this.aspects.add(tag, amount);
@@ -104,7 +103,7 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
         this.markDirty();
         return toReturn;
     }
-    
+
     public boolean addFractionalToContainer(final Aspect tag, final int amount) {
         if (this.aspects.getAmount(tag) < this.aspectsMax.getAmount(tag)) {
             this.fractionalAspects.add(tag, amount);
@@ -116,12 +115,12 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
         }
         return false;
     }
-    
+
     @Override
     public boolean takeFromContainer(final Aspect tag, final int amount) {
         return this.aspects.reduce(tag, amount);
     }
-    
+
     @Override
     public boolean takeFromContainer(final AspectList ot) {
         final Aspect[] toRemove = ot.getAspects();
@@ -132,12 +131,12 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
         }
         return true;
     }
-    
+
     @Override
     public boolean doesContainerContainAmount(final Aspect tag, final int amount) {
         return this.aspects.getAmount(tag) >= amount;
     }
-    
+
     @Override
     public boolean doesContainerContain(final AspectList ot) {
         for (final Aspect asp : ot.getAspectsSortedAmount()) {
@@ -147,34 +146,43 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
         }
         return true;
     }
-    
+
     @Override
     public int containerContains(final Aspect tag) {
         return this.aspects.getAmount(tag);
     }
-    
+
     @Override
-    public int onWandRightClick(final World world, final ItemStack wandstack, final EntityPlayer player, final int x, final int y, final int z, final int side, final int md) {
+    public int onWandRightClick(
+            final World world,
+            final ItemStack wandstack,
+            final EntityPlayer player,
+            final int x,
+            final int y,
+            final int z,
+            final int side,
+            final int md) {
         return -1;
     }
-    
+
     @Override
     public ItemStack onWandRightClick(final World world, final ItemStack wandstack, final EntityPlayer player) {
         player.setItemInUse(wandstack, Integer.MAX_VALUE);
-        final ItemWandCasting wand = (ItemWandCasting)wandstack.getItem();
+        final ItemWandCasting wand = (ItemWandCasting) wandstack.getItem();
         wand.setObjectInUse(wandstack, this.xCoord, this.yCoord, this.zCoord);
         return wandstack;
     }
-    
+
     @Override
     public void onUsingWandTick(final ItemStack wandstack, final EntityPlayer player, final int count) {
         boolean mfu = false;
-        final ItemWandCasting wand = (ItemWandCasting)wandstack.getItem();
-        final MovingObjectPosition movingobjectposition = EntityUtils.getMovingObjectPositionFromPlayer(this.worldObj, player, true);
-        if (movingobjectposition == null || movingobjectposition.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
+        final ItemWandCasting wand = (ItemWandCasting) wandstack.getItem();
+        final MovingObjectPosition movingobjectposition =
+                EntityUtils.getMovingObjectPositionFromPlayer(this.worldObj, player, true);
+        if (movingobjectposition == null
+                || movingobjectposition.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
             player.stopUsingItem();
-        }
-        else {
+        } else {
             final int i = movingobjectposition.blockX;
             final int j = movingobjectposition.blockY;
             final int k = movingobjectposition.blockZ;
@@ -190,7 +198,10 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
             if (ResearchManager.isResearchComplete(player.getCommandSenderName(), "NODETAPPER2")) {
                 ++tap;
             }
-            final boolean preserve = !player.isSneaking() && ResearchManager.isResearchComplete(player.getCommandSenderName(), "NODEPRESERVE") && !wand.getRod(wandstack).getTag().equals("wood") && !wand.getCap(wandstack).getTag().equals("iron");
+            final boolean preserve = !player.isSneaking()
+                    && ResearchManager.isResearchComplete(player.getCommandSenderName(), "NODEPRESERVE")
+                    && !wand.getRod(wandstack).getTag().equals("wood")
+                    && !wand.getCap(wandstack).getTag().equals("iron");
             boolean success = false;
             Aspect aspect = null;
             if ((aspect = this.chooseRandomFilteredFromSource(wand.getAspectsWithRoom(wandstack), preserve)) != null) {
@@ -214,11 +225,10 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
                 }
             }
             if (success) {
-                this.drainEntity = (Entity)player;
+                this.drainEntity = (Entity) player;
                 this.drainCollision = movingobjectposition;
                 this.targetColor = new Color(this.drainColor);
-            }
-            else {
+            } else {
                 this.drainEntity = null;
                 this.drainCollision = null;
             }
@@ -237,7 +247,7 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
             this.color = new Color((r + r2) / 5, (g + g2) / 5, (b + b2) / 5);
         }
     }
-    
+
     public Aspect chooseRandomFilteredFromSource(final AspectList filter, final boolean preserve) {
         final int min = preserve ? 1 : 0;
         final ArrayList<Aspect> validaspects = new ArrayList<Aspect>();
@@ -255,60 +265,58 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
         }
         return null;
     }
-    
+
     @Override
-    public void onWandStoppedUsing(final ItemStack wandstack, final World world, final EntityPlayer player, final int count) {
+    public void onWandStoppedUsing(
+            final ItemStack wandstack, final World world, final EntityPlayer player, final int count) {
         this.drainEntity = null;
         this.drainCollision = null;
     }
-    
+
     @Override
     public String getId() {
         return "SYNTHETIC";
     }
-    
+
     @Override
     public AspectList getAspectsBase() {
         return this.aspectsMax;
     }
-    
+
     @Override
     public NodeType getNodeType() {
         return NodeType.NORMAL;
     }
-    
+
     @Override
-    public void setNodeType(final NodeType nodeType) {
-    }
-    
+    public void setNodeType(final NodeType nodeType) {}
+
     @Override
-    public void setNodeModifier(final NodeModifier nodeModifier) {
-    }
-    
+    public void setNodeModifier(final NodeModifier nodeModifier) {}
+
     @Override
     public NodeModifier getNodeModifier() {
         return null;
     }
-    
+
     @Override
     public int getNodeVisBase(final Aspect aspect) {
         return this.aspectsMax.getAmount(aspect);
     }
-    
+
     @Override
-    public void setNodeVisBase(final Aspect aspect, final short nodeVisBase) {
-    }
-    
+    public void setNodeVisBase(final Aspect aspect, final short nodeVisBase) {}
+
     @Override
     public int getRange() {
         return 8;
     }
-    
+
     @Override
     public boolean isSource() {
         return false;
     }
-    
+
     @Override
     public void updateEntity() {
         if (!this.worldObj.isRemote) {
@@ -316,16 +324,18 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
                 if (aspect != null) {
                     if (this.aspects.getAmount(aspect) < this.aspectsMax.getAmount(aspect)) {
                         if (aspect.isPrimal()) {
-                            final int drained = VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, aspect, 10);
+                            final int drained = VisNetHandler.drainVis(
+                                    this.worldObj, this.xCoord, this.yCoord, this.zCoord, aspect, 10);
                             if (drained > 0) {
                                 this.addFractionalToContainer(aspect, drained);
                             }
-                        }
-                        else {
-                            final AspectList primalComponents = ResearchManager.reduceToPrimals(new AspectList().add(aspect, 1));
+                        } else {
+                            final AspectList primalComponents =
+                                    ResearchManager.reduceToPrimals(new AspectList().add(aspect, 1));
                             int actuallyDrained = 100;
                             for (final Aspect primal : primalComponents.getAspects()) {
-                                final int drained2 = VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, primal, 10);
+                                final int drained2 = VisNetHandler.drainVis(
+                                        this.worldObj, this.xCoord, this.yCoord, this.zCoord, primal, 10);
                                 if (drained2 < actuallyDrained) {
                                     actuallyDrained = drained2;
                                 }
@@ -337,46 +347,45 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
                     }
                 }
             }
-        }
-        else {
+        } else {
             this.rotation += this.increment;
             if (this.rotation > 360.0f) {
                 this.rotation -= 360.0f;
             }
         }
     }
-    
+
     @Override
     public void writeCustomNBT(final NBTTagCompound nbttagcompound) {
         super.writeCustomNBT(nbttagcompound);
         final NBTTagList tlist = new NBTTagList();
-        nbttagcompound.setTag("AspectsMax", (NBTBase)tlist);
+        nbttagcompound.setTag("AspectsMax", (NBTBase) tlist);
         for (final Aspect aspect : this.aspectsMax.getAspects()) {
             if (aspect != null) {
                 final NBTTagCompound f = new NBTTagCompound();
                 f.setString("key", aspect.getTag());
                 f.setInteger("amount", this.aspectsMax.getAmount(aspect));
-                tlist.appendTag((NBTBase)f);
+                tlist.appendTag((NBTBase) f);
             }
         }
         final NBTTagList tlist2 = new NBTTagList();
-        nbttagcompound.setTag("Aspects", (NBTBase)tlist2);
+        nbttagcompound.setTag("Aspects", (NBTBase) tlist2);
         for (final Aspect aspect2 : this.aspects.getAspects()) {
             if (aspect2 != null) {
                 final NBTTagCompound f2 = new NBTTagCompound();
                 f2.setString("key", aspect2.getTag());
                 f2.setInteger("amount", this.aspects.getAmount(aspect2));
-                tlist2.appendTag((NBTBase)f2);
+                tlist2.appendTag((NBTBase) f2);
             }
         }
         final NBTTagList tlist3 = new NBTTagList();
-        nbttagcompound.setTag("AspectsFractional", (NBTBase)tlist3);
+        nbttagcompound.setTag("AspectsFractional", (NBTBase) tlist3);
         for (final Aspect aspect3 : this.fractionalAspects.getAspects()) {
             if (aspect3 != null) {
                 final NBTTagCompound f3 = new NBTTagCompound();
                 f3.setString("key", aspect3.getTag());
                 f3.setInteger("amount", this.fractionalAspects.getAmount(aspect3));
-                tlist3.appendTag((NBTBase)f3);
+                tlist3.appendTag((NBTBase) f3);
             }
         }
         if (this.drainEntity != null && this.drainEntity instanceof EntityPlayer) {
@@ -384,7 +393,7 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
         }
         nbttagcompound.setInteger("draincolor", this.drainColor);
     }
-    
+
     @Override
     public void readCustomNBT(final NBTTagCompound nbttagcompound) {
         super.readCustomNBT(nbttagcompound);
@@ -417,18 +426,26 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable
         this.fractionalAspects = al3.copy();
         final String de = nbttagcompound.getString("drainer");
         if (de != null && de.length() > 0 && this.getWorldObj() != null) {
-            this.drainEntity = (Entity)this.getWorldObj().getPlayerEntityByName(de);
+            this.drainEntity = (Entity) this.getWorldObj().getPlayerEntityByName(de);
             if (this.drainEntity != null) {
-                this.drainCollision = new MovingObjectPosition(this.xCoord, this.yCoord, this.zCoord, 0, Vec3.createVectorHelper(this.drainEntity.posX, this.drainEntity.posY, this.drainEntity.posZ));
+                this.drainCollision = new MovingObjectPosition(
+                        this.xCoord,
+                        this.yCoord,
+                        this.zCoord,
+                        0,
+                        Vec3.createVectorHelper(this.drainEntity.posX, this.drainEntity.posY, this.drainEntity.posZ));
             }
         }
         this.drainColor = nbttagcompound.getInteger("draincolor");
     }
-    
+
     public void addEssence(final EntityPlayer player) {
         final Item essence = player.getHeldItem().getItem();
-        if (essence == ConfigItems.itemWispEssence && ((ItemWispEssence)essence).getAspects(player.getHeldItem()) != null && ((ItemWispEssence)essence).getAspects(player.getHeldItem()).getAspects().length > 0) {
-            final Aspect asp = ((ItemWispEssence)essence).getAspects(player.getHeldItem()).getAspects()[0];
+        if (essence == ConfigItems.itemWispEssence
+                && ((ItemWispEssence) essence).getAspects(player.getHeldItem()) != null
+                && ((ItemWispEssence) essence).getAspects(player.getHeldItem()).getAspects().length > 0) {
+            final Aspect asp =
+                    ((ItemWispEssence) essence).getAspects(player.getHeldItem()).getAspects()[0];
             this.aspectsMax.add(asp, 4);
             this.aspects.add(asp, 0);
             this.fractionalAspects.add(asp, 0);

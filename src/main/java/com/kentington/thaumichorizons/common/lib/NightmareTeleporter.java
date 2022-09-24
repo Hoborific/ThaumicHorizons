@@ -1,31 +1,35 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.lib;
 
-import net.minecraft.util.MathHelper;
-import net.minecraft.entity.Entity;
 import java.util.Random;
-import net.minecraft.world.WorldServer;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.Teleporter;
+import net.minecraft.world.WorldServer;
 
-public class NightmareTeleporter extends Teleporter
-{
+public class NightmareTeleporter extends Teleporter {
     int dim;
     private WorldServer worldServerInstance;
     private Random random;
-    
+
     public NightmareTeleporter(final WorldServer p_i1963_1_) {
         super(p_i1963_1_);
         this.worldServerInstance = p_i1963_1_;
         this.random = new Random(p_i1963_1_.getSeed());
     }
-    
-    public void placeInPortal(final Entity p_77185_1_, final double p_77185_2_, final double p_77185_4_, final double p_77185_6_, final float p_77185_8_) {
+
+    public void placeInPortal(
+            final Entity p_77185_1_,
+            final double p_77185_2_,
+            final double p_77185_4_,
+            final double p_77185_6_,
+            final float p_77185_8_) {
         this.moveToHole(p_77185_1_);
     }
-    
+
     public void moveToHole(final Entity p_85188_1_) {
         final byte b0 = 16;
         double d0 = -1.0;
@@ -41,7 +45,7 @@ public class NightmareTeleporter extends Teleporter
             final double d2 = i3 + 0.5 - p_85188_1_.posX;
             for (int k3 = k - b0; k3 <= k + b0; ++k3) {
                 final double d3 = k3 + 0.5 - p_85188_1_.posZ;
-            Label_0433:
+                Label_0433:
                 for (int i4 = this.worldServerInstance.getActualHeight() - 1; i4 >= 0; --i4) {
                     if (this.worldServerInstance.isAirBlock(i3, i4, k3)) {
                         while (i4 > 0 && this.worldServerInstance.isAirBlock(i3, i4 - 1, k3)) {
@@ -60,7 +64,11 @@ public class NightmareTeleporter extends Teleporter
                                         final int l4 = i3 + (j4 - 1) * k4 + i5 * l3;
                                         final int i6 = i4 + k5;
                                         final int j5 = k3 + (j4 - 1) * l3 - i5 * k4;
-                                        if (k5 < 0 && !this.worldServerInstance.getBlock(l4, i6, j5).getMaterial().isSolid()) {
+                                        if (k5 < 0
+                                                && !this.worldServerInstance
+                                                        .getBlock(l4, i6, j5)
+                                                        .getMaterial()
+                                                        .isSolid()) {
                                             continue Label_0433;
                                         }
                                         if (k5 >= 0 && !this.worldServerInstance.isAirBlock(l4, i6, j5)) {
@@ -88,7 +96,7 @@ public class NightmareTeleporter extends Teleporter
                 final double d2 = i3 + 0.5 - p_85188_1_.posX;
                 for (int k3 = k - b0; k3 <= k + b0; ++k3) {
                     final double d3 = k3 + 0.5 - p_85188_1_.posZ;
-                Label_0786:
+                    Label_0786:
                     for (int i4 = this.worldServerInstance.getActualHeight() - 1; i4 >= 0; --i4) {
                         if (this.worldServerInstance.isAirBlock(i3, i4, k3)) {
                             while (i4 > 0 && this.worldServerInstance.isAirBlock(i3, i4 - 1, k3)) {
@@ -102,7 +110,11 @@ public class NightmareTeleporter extends Teleporter
                                         final int k5 = i3 + (i5 - 1) * k4;
                                         final int l4 = i4 + j4;
                                         final int i6 = k3 + (i5 - 1) * l3;
-                                        if (j4 < 0 && !this.worldServerInstance.getBlock(k5, l4, i6).getMaterial().isSolid()) {
+                                        if (j4 < 0
+                                                && !this.worldServerInstance
+                                                        .getBlock(k5, l4, i6)
+                                                        .getMaterial()
+                                                        .isSolid()) {
                                             continue Label_0786;
                                         }
                                         if (j4 >= 0 && !this.worldServerInstance.isAirBlock(k5, l4, i6)) {
@@ -134,6 +146,6 @@ public class NightmareTeleporter extends Teleporter
             l5 = -l5;
             l6 = -l6;
         }
-        p_85188_1_.setPosition((double)k6, (double)j6, (double)k3);
+        p_85188_1_.setPosition((double) k6, (double) j6, (double) k3);
     }
 }

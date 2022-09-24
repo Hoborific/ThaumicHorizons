@@ -1,34 +1,33 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import thaumcraft.client.lib.UtilsFX;
-import org.lwjgl.opengl.GL11;
 import com.kentington.thaumichorizons.common.tiles.TileSpike;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModelCustom;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.AdvancedModelLoader;
+import net.minecraftforge.client.model.IModelCustom;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
 
-public class TileSpikeRender extends TileEntitySpecialRenderer
-{
+public class TileSpikeRender extends TileEntitySpecialRenderer {
     private IModelCustom model;
     private static final ResourceLocation SPIKE;
     static String tx1;
     static String tx2;
     static String tx3;
-    
+
     public TileSpikeRender() {
         this.model = AdvancedModelLoader.loadModel(TileSpikeRender.SPIKE);
     }
-    
+
     public void renderTileEntityAt(final TileEntity te, final double x, final double y, final double z, final float f) {
-        final TileSpike tco = (TileSpike)te;
+        final TileSpike tco = (TileSpike) te;
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)x + 0.5f, (float)(y + 0.5), (float)z + 0.5f);
+        GL11.glTranslatef((float) x + 0.5f, (float) (y + 0.5), (float) z + 0.5f);
         GL11.glScalef(0.35f, 0.35f, 0.35f);
         switch (tco.direction) {
             case 1: {
@@ -63,17 +62,15 @@ public class TileSpikeRender extends TileEntitySpecialRenderer
         }
         if (tco.spikeType == 0) {
             UtilsFX.bindTexture("thaumichorizons", TileSpikeRender.tx1);
-        }
-        else if (tco.spikeType == 1) {
+        } else if (tco.spikeType == 1) {
             UtilsFX.bindTexture("thaumichorizons", TileSpikeRender.tx2);
-        }
-        else {
+        } else {
             UtilsFX.bindTexture("thaumichorizons", TileSpikeRender.tx3);
         }
         this.model.renderAll();
         GL11.glPopMatrix();
     }
-    
+
     static {
         SPIKE = new ResourceLocation("thaumichorizons", "textures/models/spike.obj");
         TileSpikeRender.tx1 = "textures/models/metalspike.png";

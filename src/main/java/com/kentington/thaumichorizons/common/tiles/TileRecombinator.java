@@ -1,47 +1,47 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import net.minecraft.nbt.NBTTagCompound;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import thaumcraft.common.lib.network.fx.PacketFXBlockZap;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.common.lib.research.ResearchManager;
-import thaumcraft.api.aspects.AspectList;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.tiles.TileNode;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.block.Block;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import thaumcraft.api.TileThaumcraft;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.fx.PacketFXBlockZap;
+import thaumcraft.common.lib.research.ResearchManager;
+import thaumcraft.common.tiles.TileNode;
 
-public class TileRecombinator extends TileThaumcraft
-{
+public class TileRecombinator extends TileThaumcraft {
     public int count;
     public boolean activated;
     public boolean shouldActivate;
     boolean fireOnce;
-    
+
     public TileRecombinator() {
         this.count = -1;
         this.activated = false;
         this.shouldActivate = false;
         this.fireOnce = false;
     }
-    
+
     public void updateEntity() {
         super.updateEntity();
         if (!this.fireOnce) {
-            this.worldObj.getBlock(this.xCoord, this.yCoord, this.zCoord).onNeighborBlockChange(this.worldObj, this.xCoord, this.yCoord, this.zCoord, (Block)null);
+            this.worldObj
+                    .getBlock(this.xCoord, this.yCoord, this.zCoord)
+                    .onNeighborBlockChange(this.worldObj, this.xCoord, this.yCoord, this.zCoord, (Block) null);
             this.fireOnce = true;
         }
         if (this.activated) {
             ++this.count;
-        }
-        else if (!this.activated && this.count > 0) {
+        } else if (!this.activated && this.count > 0) {
             if (this.count > 50) {
                 this.count = 50;
             }
@@ -51,24 +51,29 @@ public class TileRecombinator extends TileThaumcraft
             this.activated = true;
             this.markDirty();
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-        }
-        else if (!this.shouldActivate && this.activated) {
+        } else if (!this.shouldActivate && this.activated) {
             this.activated = false;
             this.markDirty();
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         }
-        if (!this.worldObj.isRemote && this.activated && this.count > 50 && this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof TileNode) {
-            final TileNode tile = (TileNode)this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord);
+        if (!this.worldObj.isRemote
+                && this.activated
+                && this.count > 50
+                && this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof TileNode) {
+            final TileNode tile = (TileNode) this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord);
             final int x = this.worldObj.rand.nextInt(5) - this.worldObj.rand.nextInt(5);
             final int y = this.worldObj.rand.nextInt(5) - this.worldObj.rand.nextInt(5) - 1;
             final int z = this.worldObj.rand.nextInt(5) - this.worldObj.rand.nextInt(5);
             if (x != 0 || y != -1 || z != 0) {
                 final TileEntity te = this.worldObj.getTileEntity(this.xCoord + x, this.yCoord + y, this.zCoord + z);
-                if (te != null && te instanceof TileNode && this.worldObj.getBlock(this.xCoord + x, this.yCoord + y, this.zCoord + z) == ConfigBlocks.blockAiry) {
-                    if (te instanceof TileNode && ((TileNode)te).getLock() > 0) {
+                if (te != null
+                        && te instanceof TileNode
+                        && this.worldObj.getBlock(this.xCoord + x, this.yCoord + y, this.zCoord + z)
+                                == ConfigBlocks.blockAiry) {
+                    if (te instanceof TileNode && ((TileNode) te).getLock() > 0) {
                         return;
                     }
-                    final TileNode nd = (TileNode)te;
+                    final TileNode nd = (TileNode) te;
                     if (nd.getAspects().size() == 0) {
                         return;
                     }
@@ -77,7 +82,7 @@ public class TileRecombinator extends TileThaumcraft
             }
         }
     }
-    
+
     void processCombos(final TileNode nd, final TileNode tile, final int x, final int y, final int z) {
         final AspectList possibleCombos = new AspectList();
         for (final Aspect asp : tile.getAspectsBase().getAspects()) {
@@ -128,8 +133,14 @@ public class TileRecombinator extends TileThaumcraft
             this.doMerge(possibleCombos, nd, tile, x, y, z);
         }
     }
-    
-    public void doMerge(final AspectList possibleCombos, final TileNode nd, final TileNode tile, final int x, final int y, final int z) {
+
+    public void doMerge(
+            final AspectList possibleCombos,
+            final TileNode nd,
+            final TileNode tile,
+            final int x,
+            final int y,
+            final int z) {
         final int which = this.worldObj.rand.nextInt(possibleCombos.getAspects().length);
         final Aspect toAdd = possibleCombos.getAspects()[which];
         tile.getAspectsBase().add(toAdd, 1);
@@ -139,8 +150,7 @@ public class TileRecombinator extends TileThaumcraft
         if (tile.getAspectsBase().getAmount(toAdd.getComponents()[0]) > 0) {
             aspA = toAdd.getComponents()[0];
             aspB = toAdd.getComponents()[1];
-        }
-        else {
+        } else {
             aspA = toAdd.getComponents()[1];
             aspB = toAdd.getComponents()[0];
         }
@@ -148,15 +158,28 @@ public class TileRecombinator extends TileThaumcraft
         tile.getAspects().remove(aspA, 1);
         nd.getAspects().remove(aspB, 1);
         if (this.worldObj.rand.nextInt(3) == 0) {
-            nd.setNodeVisBase(aspB, (short)(nd.getNodeVisBase(aspB) - 1));
+            nd.setNodeVisBase(aspB, (short) (nd.getNodeVisBase(aspB) - 1));
         }
         this.worldObj.markBlockForUpdate(this.xCoord + x, this.yCoord + y, this.zCoord + z);
         nd.markDirty();
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord - 1, this.zCoord);
         tile.markDirty();
-        PacketHandler.INSTANCE.sendToAllAround((IMessage)new PacketFXBlockZap(this.xCoord + x + 0.5f, this.yCoord + y + 0.5f, this.zCoord + z + 0.5f, this.xCoord + 0.5f, this.yCoord + 0.5f, this.zCoord + 0.5f), new NetworkRegistry.TargetPoint(this.worldObj.provider.dimensionId, (double)this.xCoord, (double)this.yCoord, (double)this.zCoord, 32.0));
+        PacketHandler.INSTANCE.sendToAllAround(
+                (IMessage) new PacketFXBlockZap(
+                        this.xCoord + x + 0.5f,
+                        this.yCoord + y + 0.5f,
+                        this.zCoord + z + 0.5f,
+                        this.xCoord + 0.5f,
+                        this.yCoord + 0.5f,
+                        this.zCoord + 0.5f),
+                new NetworkRegistry.TargetPoint(
+                        this.worldObj.provider.dimensionId,
+                        (double) this.xCoord,
+                        (double) this.yCoord,
+                        (double) this.zCoord,
+                        32.0));
     }
-    
+
     @Override
     public void writeCustomNBT(final NBTTagCompound nbttagcompound) {
         super.writeCustomNBT(nbttagcompound);
@@ -164,7 +187,7 @@ public class TileRecombinator extends TileThaumcraft
         nbttagcompound.setBoolean("shouldactivate", this.shouldActivate);
         nbttagcompound.setInteger("count", this.count);
     }
-    
+
     @Override
     public void readCustomNBT(final NBTTagCompound nbttagcompound) {
         super.readCustomNBT(nbttagcompound);

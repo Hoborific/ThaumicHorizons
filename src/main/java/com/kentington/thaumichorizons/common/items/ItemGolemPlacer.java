@@ -1,48 +1,47 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.items;
 
-import net.minecraft.nbt.NBTTagList;
-import java.util.ArrayList;
-import thaumcraft.common.entities.golems.ItemGolemBell;
-import net.minecraft.entity.Entity;
-import thaumcraft.codechicken.lib.math.MathHelper;
 import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
-import net.minecraft.world.World;
-import java.util.List;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
+import thaumcraft.codechicken.lib.math.MathHelper;
+import thaumcraft.common.entities.golems.ItemGolemBell;
 
-public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolemPlacer
-{
+public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolemPlacer {
     public IIcon icon;
     public IIcon newBell;
-    
+
     public ItemGolemPlacer() {
-        this.setCreativeTab((CreativeTabs)null);
+        this.setCreativeTab((CreativeTabs) null);
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void registerIcons(final IIconRegister ir) {
         super.registerIcons(ir);
         this.icon = ir.registerIcon("thaumichorizons:golem");
         this.newBell = ir.registerIcon("thaumichorizons:newbell");
     }
-    
+
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(final int par1) {
         return this.icon;
     }
-    
+
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(final ItemStack stack, final int p_82790_2_) {
         if (!stack.hasTagCompound() || !stack.getTagCompound().hasKey("block")) {
@@ -58,26 +57,32 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
         }
         return -1;
     }
-    
-    public void addInformation(final ItemStack stack, final EntityPlayer par2EntityPlayer, final List list, final boolean par4) {
+
+    public void addInformation(
+            final ItemStack stack, final EntityPlayer par2EntityPlayer, final List list, final boolean par4) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("block")) {
             final int[] block = stack.getTagCompound().getIntArray("block");
             final String name = "?";
             final ItemStack blockStack = new ItemStack(Block.getBlockById(block[0]), 1, block[1]);
             if (blockStack.getItem() != null) {
                 list.add(blockStack.getDisplayName());
-            }
-            else if (Block.getBlockById(block[0]) == Blocks.air) {
+            } else if (Block.getBlockById(block[0]) == Blocks.air) {
                 list.add("Voidling");
-            }
-            else {
+            } else {
                 list.add(Block.getBlockById(block[0]).getLocalizedName());
             }
         }
         super.addInformation(stack, par2EntityPlayer, list, par4);
     }
-    
-    public boolean spawnCreature(final World par0World, final double par2, final double par4, final double par6, final int side, final ItemStack stack, final EntityPlayer player) {
+
+    public boolean spawnCreature(
+            final World par0World,
+            final double par2,
+            final double par4,
+            final double par6,
+            final int side,
+            final ItemStack stack,
+            final EntityPlayer player) {
         boolean adv = false;
         if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("advanced")) {
             adv = true;
@@ -86,8 +91,9 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
         if (golem != null) {
             golem.setLocationAndAngles(par2, par4, par6, par0World.rand.nextFloat() * 360.0f, 0.0f);
             golem.playLivingSound();
-            golem.setHomeArea(MathHelper.floor_double(par2), MathHelper.floor_double(par4), MathHelper.floor_double(par6), 32);
-            int[] block = { 0, 0 };
+            golem.setHomeArea(
+                    MathHelper.floor_double(par2), MathHelper.floor_double(par4), MathHelper.floor_double(par6), 32);
+            int[] block = {0, 0};
             if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("core")) {
                 golem.setCore(stack.stackTagCompound.getByte("core"));
             }
@@ -100,7 +106,16 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
                 block = stack.stackTagCompound.getIntArray("block");
             }
             golem.setup(side);
-            golem.loadGolem(golem.posX, golem.posY, golem.posZ, Block.getBlockById(block[0]), block[1], 600, adv, stack.stackTagCompound.getBoolean("berserk"), stack.stackTagCompound.getBoolean("explosive"));
+            golem.loadGolem(
+                    golem.posX,
+                    golem.posY,
+                    golem.posZ,
+                    Block.getBlockById(block[0]),
+                    block[1],
+                    600,
+                    adv,
+                    stack.stackTagCompound.getBoolean("berserk"),
+                    stack.stackTagCompound.getBoolean("explosive"));
             if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("upgrades")) {
                 final int ul = golem.upgrades.length;
                 golem.upgrades = stack.stackTagCompound.getByteArray("upgrades");
@@ -117,10 +132,10 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
                     golem.upgrades = tt;
                 }
             }
-            par0World.spawnEntityInWorld((Entity)golem);
+            par0World.spawnEntityInWorld((Entity) golem);
             golem.setGolemDecoration(deco);
             golem.setOwner(player.getCommandSenderName());
-            golem.setMarkers((ArrayList)ItemGolemBell.getMarkers(stack));
+            golem.setMarkers((ArrayList) ItemGolemBell.getMarkers(stack));
             int a2 = 0;
             for (final byte b : golem.upgrades) {
                 golem.setUpgrade(a2, b);
@@ -137,7 +152,7 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
         }
         return golem != null;
     }
-    
+
     public String getUnlocalizedName(final ItemStack par1ItemStack) {
         return "item.golemPlacer";
     }

@@ -1,43 +1,42 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.gui;
 
-import net.minecraft.client.renderer.Tessellator;
-import thaumcraft.client.fx.ParticleEngine;
-import thaumcraft.common.config.Config;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.inventory.Container;
 import com.kentington.thaumichorizons.common.container.ContainerVisDynamo;
-import net.minecraft.entity.player.EntityPlayer;
-import java.awt.Color;
 import com.kentington.thaumichorizons.common.tiles.TileVisDynamo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.awt.Color;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.config.Config;
 
 @SideOnly(Side.CLIENT)
-public class GuiVisDynamo extends GuiContainer
-{
+public class GuiVisDynamo extends GuiContainer {
     TileVisDynamo tile;
     int flashX;
     int flashY;
     Color flashColor;
     int flashTimer;
-    
+
     public GuiVisDynamo(final EntityPlayer player, final TileVisDynamo tileEntity) {
-        super((Container)new ContainerVisDynamo(player, tileEntity));
+        super((Container) new ContainerVisDynamo(player, tileEntity));
         this.flashColor = null;
         this.flashTimer = 0;
         this.tile = tileEntity;
         this.xSize = 111;
         this.ySize = 104;
     }
-    
+
     protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
@@ -49,50 +48,44 @@ public class GuiVisDynamo extends GuiContainer
         GL11.glDisable(3042);
         GL11.glPopMatrix();
     }
-    
+
     protected void drawGuiContainerForegroundLayer(final int par1, final int par2) {
         if (this.tile.provideAer) {
-            UtilsFX.drawTag(11, 12, Aspect.AIR, 0.0f, 0, (double)this.zLevel, 771, 1.0f, false);
-        }
-        else {
-            UtilsFX.drawTag(11, 12, Aspect.AIR, 0.0f, 0, (double)this.zLevel, 771, 1.0f, true);
+            UtilsFX.drawTag(11, 12, Aspect.AIR, 0.0f, 0, (double) this.zLevel, 771, 1.0f, false);
+        } else {
+            UtilsFX.drawTag(11, 12, Aspect.AIR, 0.0f, 0, (double) this.zLevel, 771, 1.0f, true);
         }
         if (this.tile.provideTerra) {
-            UtilsFX.drawTag(83, 11, Aspect.EARTH, 0.0f, 0, (double)this.zLevel, 771, 1.0f, false);
-        }
-        else {
-            UtilsFX.drawTag(83, 11, Aspect.EARTH, 0.0f, 0, (double)this.zLevel, 771, 1.0f, true);
+            UtilsFX.drawTag(83, 11, Aspect.EARTH, 0.0f, 0, (double) this.zLevel, 771, 1.0f, false);
+        } else {
+            UtilsFX.drawTag(83, 11, Aspect.EARTH, 0.0f, 0, (double) this.zLevel, 771, 1.0f, true);
         }
         if (this.tile.provideIgnis) {
-            UtilsFX.drawTag(11, 45, Aspect.FIRE, 0.0f, 0, (double)this.zLevel, 771, 1.0f, false);
-        }
-        else {
-            UtilsFX.drawTag(11, 45, Aspect.FIRE, 0.0f, 0, (double)this.zLevel, 771, 1.0f, true);
+            UtilsFX.drawTag(11, 45, Aspect.FIRE, 0.0f, 0, (double) this.zLevel, 771, 1.0f, false);
+        } else {
+            UtilsFX.drawTag(11, 45, Aspect.FIRE, 0.0f, 0, (double) this.zLevel, 771, 1.0f, true);
         }
         if (this.tile.provideAqua) {
-            UtilsFX.drawTag(83, 45, Aspect.WATER, 0.0f, 0, (double)this.zLevel, 771, 1.0f, false);
-        }
-        else {
-            UtilsFX.drawTag(83, 45, Aspect.WATER, 0.0f, 0, (double)this.zLevel, 771, 1.0f, true);
+            UtilsFX.drawTag(83, 45, Aspect.WATER, 0.0f, 0, (double) this.zLevel, 771, 1.0f, false);
+        } else {
+            UtilsFX.drawTag(83, 45, Aspect.WATER, 0.0f, 0, (double) this.zLevel, 771, 1.0f, true);
         }
         if (this.tile.provideOrdo) {
-            UtilsFX.drawTag(11, 78, Aspect.ORDER, 0.0f, 0, (double)this.zLevel, 771, 1.0f, false);
-        }
-        else {
-            UtilsFX.drawTag(11, 78, Aspect.ORDER, 0.0f, 0, (double)this.zLevel, 771, 1.0f, true);
+            UtilsFX.drawTag(11, 78, Aspect.ORDER, 0.0f, 0, (double) this.zLevel, 771, 1.0f, false);
+        } else {
+            UtilsFX.drawTag(11, 78, Aspect.ORDER, 0.0f, 0, (double) this.zLevel, 771, 1.0f, true);
         }
         if (this.tile.providePerditio) {
-            UtilsFX.drawTag(83, 78, Aspect.ENTROPY, 0.0f, 0, (double)this.zLevel, 771, 1.0f, false);
-        }
-        else {
-            UtilsFX.drawTag(83, 78, Aspect.ENTROPY, 0.0f, 0, (double)this.zLevel, 771, 1.0f, true);
+            UtilsFX.drawTag(83, 78, Aspect.ENTROPY, 0.0f, 0, (double) this.zLevel, 771, 1.0f, false);
+        } else {
+            UtilsFX.drawTag(83, 78, Aspect.ENTROPY, 0.0f, 0, (double) this.zLevel, 771, 1.0f, true);
         }
         if (this.flashTimer > 0) {
             --this.flashTimer;
             this.drawFlash();
         }
     }
-    
+
     protected void mouseClicked(final int par1, final int par2, final int par3) {
         super.mouseClicked(par1, par2, par3);
         final int gx = (this.width - this.xSize) / 2;
@@ -106,7 +99,14 @@ public class GuiVisDynamo extends GuiContainer
             this.flashColor = new Color(Aspect.AIR.getColor());
             this.flashX = par1 - gx - 8;
             this.flashY = par2 - gy - 8;
-            this.mc.renderViewEntity.worldObj.playSound(this.mc.renderViewEntity.posX, this.mc.renderViewEntity.posY, this.mc.renderViewEntity.posZ, "thaumcraft:hhoff", 0.2f, 1.0f + this.mc.renderViewEntity.worldObj.rand.nextFloat() * 0.1f, false);
+            this.mc.renderViewEntity.worldObj.playSound(
+                    this.mc.renderViewEntity.posX,
+                    this.mc.renderViewEntity.posY,
+                    this.mc.renderViewEntity.posZ,
+                    "thaumcraft:hhoff",
+                    0.2f,
+                    1.0f + this.mc.renderViewEntity.worldObj.rand.nextFloat() * 0.1f,
+                    false);
             return;
         }
         x = par1 - (gx + 83);
@@ -117,7 +117,14 @@ public class GuiVisDynamo extends GuiContainer
             this.flashColor = new Color(Aspect.EARTH.getColor());
             this.flashX = par1 - gx - 8;
             this.flashY = par2 - gy - 8;
-            this.mc.renderViewEntity.worldObj.playSound(this.mc.renderViewEntity.posX, this.mc.renderViewEntity.posY, this.mc.renderViewEntity.posZ, "thaumcraft:hhoff", 0.2f, 1.0f + this.mc.renderViewEntity.worldObj.rand.nextFloat() * 0.1f, false);
+            this.mc.renderViewEntity.worldObj.playSound(
+                    this.mc.renderViewEntity.posX,
+                    this.mc.renderViewEntity.posY,
+                    this.mc.renderViewEntity.posZ,
+                    "thaumcraft:hhoff",
+                    0.2f,
+                    1.0f + this.mc.renderViewEntity.worldObj.rand.nextFloat() * 0.1f,
+                    false);
             return;
         }
         x = par1 - (gx + 11);
@@ -129,7 +136,14 @@ public class GuiVisDynamo extends GuiContainer
             this.flashColor = new Color(Aspect.FIRE.getColor());
             this.flashX = par1 - gx - 8;
             this.flashY = par2 - gy - 8;
-            this.mc.renderViewEntity.worldObj.playSound(this.mc.renderViewEntity.posX, this.mc.renderViewEntity.posY, this.mc.renderViewEntity.posZ, "thaumcraft:hhoff", 0.2f, 1.0f + this.mc.renderViewEntity.worldObj.rand.nextFloat() * 0.1f, false);
+            this.mc.renderViewEntity.worldObj.playSound(
+                    this.mc.renderViewEntity.posX,
+                    this.mc.renderViewEntity.posY,
+                    this.mc.renderViewEntity.posZ,
+                    "thaumcraft:hhoff",
+                    0.2f,
+                    1.0f + this.mc.renderViewEntity.worldObj.rand.nextFloat() * 0.1f,
+                    false);
             return;
         }
         x = par1 - (gx + 83);
@@ -140,7 +154,14 @@ public class GuiVisDynamo extends GuiContainer
             this.flashColor = new Color(Aspect.WATER.getColor());
             this.flashX = par1 - gx - 8;
             this.flashY = par2 - gy - 8;
-            this.mc.renderViewEntity.worldObj.playSound(this.mc.renderViewEntity.posX, this.mc.renderViewEntity.posY, this.mc.renderViewEntity.posZ, "thaumcraft:hhoff", 0.2f, 1.0f + this.mc.renderViewEntity.worldObj.rand.nextFloat() * 0.1f, false);
+            this.mc.renderViewEntity.worldObj.playSound(
+                    this.mc.renderViewEntity.posX,
+                    this.mc.renderViewEntity.posY,
+                    this.mc.renderViewEntity.posZ,
+                    "thaumcraft:hhoff",
+                    0.2f,
+                    1.0f + this.mc.renderViewEntity.worldObj.rand.nextFloat() * 0.1f,
+                    false);
             return;
         }
         x = par1 - (gx + 11);
@@ -152,7 +173,14 @@ public class GuiVisDynamo extends GuiContainer
             this.flashColor = new Color(Aspect.ORDER.getColor());
             this.flashX = par1 - gx - 8;
             this.flashY = par2 - gy - 8;
-            this.mc.renderViewEntity.worldObj.playSound(this.mc.renderViewEntity.posX, this.mc.renderViewEntity.posY, this.mc.renderViewEntity.posZ, "thaumcraft:hhoff", 0.2f, 1.0f + this.mc.renderViewEntity.worldObj.rand.nextFloat() * 0.1f, false);
+            this.mc.renderViewEntity.worldObj.playSound(
+                    this.mc.renderViewEntity.posX,
+                    this.mc.renderViewEntity.posY,
+                    this.mc.renderViewEntity.posZ,
+                    "thaumcraft:hhoff",
+                    0.2f,
+                    1.0f + this.mc.renderViewEntity.worldObj.rand.nextFloat() * 0.1f,
+                    false);
             return;
         }
         x = par1 - (gx + 83);
@@ -163,10 +191,17 @@ public class GuiVisDynamo extends GuiContainer
             this.flashColor = new Color(Aspect.ENTROPY.getColor());
             this.flashX = par1 - gx - 8;
             this.flashY = par2 - gy - 8;
-            this.mc.renderViewEntity.worldObj.playSound(this.mc.renderViewEntity.posX, this.mc.renderViewEntity.posY, this.mc.renderViewEntity.posZ, "thaumcraft:hhoff", 0.2f, 1.0f + this.mc.renderViewEntity.worldObj.rand.nextFloat() * 0.1f, false);
+            this.mc.renderViewEntity.worldObj.playSound(
+                    this.mc.renderViewEntity.posX,
+                    this.mc.renderViewEntity.posY,
+                    this.mc.renderViewEntity.posZ,
+                    "thaumcraft:hhoff",
+                    0.2f,
+                    1.0f + this.mc.renderViewEntity.worldObj.rand.nextFloat() * 0.1f,
+                    false);
         }
     }
-    
+
     private void drawFlash() {
         float red = this.flashColor.getRed() / 255.0f;
         float green = this.flashColor.getGreen() / 255.0f;
@@ -179,7 +214,7 @@ public class GuiVisDynamo extends GuiContainer
         GL11.glPushMatrix();
         UtilsFX.bindTexture(ParticleEngine.particleTexture);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        GL11.glTranslated((double)this.flashX, (double)this.flashY, 0.0);
+        GL11.glTranslated((double) this.flashX, (double) this.flashY, 0.0);
         final Tessellator tessellator = Tessellator.instance;
         final int part = this.flashTimer;
         final float var8 = 0.5f + part / 8.0f;
@@ -189,10 +224,10 @@ public class GuiVisDynamo extends GuiContainer
         tessellator.startDrawingQuads();
         tessellator.setBrightness(240);
         tessellator.setColorRGBA_F(red, green, blue, 1.0f);
-        tessellator.addVertexWithUV(0.0, 16.0, (double)this.zLevel, (double)var9, (double)var11);
-        tessellator.addVertexWithUV(16.0, 16.0, (double)this.zLevel, (double)var9, (double)var10);
-        tessellator.addVertexWithUV(16.0, 0.0, (double)this.zLevel, (double)var8, (double)var10);
-        tessellator.addVertexWithUV(0.0, 0.0, (double)this.zLevel, (double)var8, (double)var11);
+        tessellator.addVertexWithUV(0.0, 16.0, (double) this.zLevel, (double) var9, (double) var11);
+        tessellator.addVertexWithUV(16.0, 16.0, (double) this.zLevel, (double) var9, (double) var10);
+        tessellator.addVertexWithUV(16.0, 0.0, (double) this.zLevel, (double) var8, (double) var10);
+        tessellator.addVertexWithUV(0.0, 0.0, (double) this.zLevel, (double) var8, (double) var11);
         tessellator.draw();
         GL11.glPopMatrix();
     }

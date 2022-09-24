@@ -1,27 +1,26 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import net.minecraft.block.material.MapColor;
-import net.minecraft.item.ItemStack;
-import java.util.List;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import java.util.List;
 import net.minecraft.block.Block;
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.IIcon;
 import net.minecraft.block.BlockBreakable;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
-public class BlockCrystal extends BlockBreakable
-{
+public class BlockCrystal extends BlockBreakable {
     public IIcon[] icon;
-    
+
     public BlockCrystal() {
         super("thaumichorizons:blockCrystalRed", Material.glass, false);
         this.icon = new IIcon[16];
@@ -32,7 +31,7 @@ public class BlockCrystal extends BlockBreakable
         this.setLightOpacity(1);
         this.setBlockName("ThaumicHorizons_crystal");
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(final IIconRegister par1IconRegister) {
         this.icon[0] = par1IconRegister.registerIcon("thaumichorizons:blockCrystalWhite");
@@ -52,36 +51,36 @@ public class BlockCrystal extends BlockBreakable
         this.icon[14] = par1IconRegister.registerIcon("thaumichorizons:blockCrystalRed");
         this.icon[15] = par1IconRegister.registerIcon("thaumichorizons:blockCrystalBlack");
     }
-    
+
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(final int par1, final int par2) {
         return this.icon[par2];
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
         for (int var4 = 0; var4 < 16; ++var4) {
-            par3List.add(new ItemStack((Block)this, 1, var4));
+            par3List.add(new ItemStack((Block) this, 1, var4));
         }
     }
-    
+
     public int damageDropped(final int par1) {
         return par1;
     }
-    
+
     @SideOnly(Side.CLIENT)
     public int getRenderBlockPass() {
         return 1;
     }
-    
+
     public boolean isOpaqueCube() {
         return false;
     }
-    
+
     public boolean renderAsNormalBlock() {
         return false;
     }
-    
+
     public MapColor getMapColor(final int p_149728_1_) {
         return MapColor.getMapColorForBlockColored(p_149728_1_);
     }

@@ -1,32 +1,32 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.gui;
 
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.inventory.Container;
 import com.kentington.thaumichorizons.common.container.ContainerSoulforge;
-import net.minecraft.entity.player.EntityPlayer;
 import com.kentington.thaumichorizons.common.tiles.TileSoulforge;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
 
 @SideOnly(Side.CLIENT)
-public class GuiSoulforge extends GuiContainer
-{
+public class GuiSoulforge extends GuiContainer {
     TileSoulforge tile;
-    
+
     public GuiSoulforge(final EntityPlayer player, final TileSoulforge tile) {
-        super((Container)new ContainerSoulforge(player, tile));
+        super((Container) new ContainerSoulforge(player, tile));
         this.xSize = 0;
         this.ySize = 0;
     }
-    
-    protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
+
+    protected void drawGuiContainerBackgroundLayer(
+            final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         UtilsFX.bindTexture(new ResourceLocation("thaumichorizons", "textures/gui/guidynamo.png"));
@@ -37,7 +37,6 @@ public class GuiSoulforge extends GuiContainer
         GL11.glDisable(3042);
         GL11.glPopMatrix();
     }
-    
-    protected void drawGuiContainerForegroundLayer(final int par1, final int par2) {
-    }
+
+    protected void drawGuiContainerForegroundLayer(final int par1, final int par2) {}
 }

@@ -1,18 +1,17 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-public class BlockVatSolid extends BlockVat
-{
+public class BlockVatSolid extends BlockVat {
     public IIcon iconLidCenterTop;
     public IIcon iconLidSideCenter;
     public IIcon iconLidLeftRight;
@@ -30,22 +29,22 @@ public class BlockVatSolid extends BlockVat
     public IIcon iconBaseSide;
     public IIcon iconBaseSideBottom;
     public IIcon iconGreatwood;
-    
+
     public BlockVatSolid() {
         super(Material.wood);
     }
-    
+
     @SideOnly(Side.CLIENT)
     @Override
     public int getRenderBlockPass() {
         return 0;
     }
-    
+
     @Override
     public int getRenderType() {
         return ThaumicHorizons.blockVatSolidRI;
     }
-    
+
     @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(final IIconRegister ir) {
@@ -67,7 +66,7 @@ public class BlockVatSolid extends BlockVat
         this.iconBaseSideBottom = ir.registerIcon("thaumichorizons:vatbasesidebottom");
         this.iconGreatwood = ir.registerIcon("thaumcraft:planks_greatwood");
     }
-    
+
     @Override
     public IIcon getIcon(final int par1, final int par2) {
         return this.iconGreatwood;

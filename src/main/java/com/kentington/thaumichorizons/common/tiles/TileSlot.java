@@ -1,22 +1,20 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.tiles;
 
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.items.wands.ItemWandCasting;
-import net.minecraft.entity.player.EntityPlayer;
 import com.kentington.thaumichorizons.common.lib.PocketPlaneData;
-import thaumcraft.common.config.ConfigBlocks;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import thaumcraft.api.TileThaumcraft;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.items.wands.ItemWandCasting;
 
-public class TileSlot extends TileThaumcraft
-{
+public class TileSlot extends TileThaumcraft {
     public boolean hasKeystone;
     public boolean portalOpen;
     public int pocketID;
@@ -62,15 +60,23 @@ public class TileSlot extends TileThaumcraft
             this.worldObj.setBlock(this.xCoord + 2, this.yCoord - 4, this.zCoord, ConfigBlocks.blockMetalDevice, 3, 1);
             this.worldObj.setBlock(this.xCoord - 1, this.yCoord, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
             this.worldObj.setBlock(this.xCoord + 1, this.yCoord, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord - 1, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord - 1, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
             this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord + 1, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord - 2, this.yCoord - 1, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord - 2, this.yCoord - 2, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord - 2, this.yCoord - 3, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord + 2, this.yCoord - 1, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord + 2, this.yCoord - 2, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord + 2, this.yCoord - 3, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord + 1, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord - 2, this.yCoord - 1, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord - 2, this.yCoord - 2, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord - 2, this.yCoord - 3, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord + 2, this.yCoord - 1, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord + 2, this.yCoord - 2, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord + 2, this.yCoord - 3, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
             for (int x = -1; x <= 1; ++x) {
                 for (int y = -1; y >= -3; --y) {
                     this.worldObj.setBlockToAir(this.xCoord + x, this.yCoord + y, this.zCoord);
@@ -81,23 +87,30 @@ public class TileSlot extends TileThaumcraft
                     this.worldObj.markBlockForUpdate(this.xCoord + x, this.yCoord + y, this.zCoord);
                 }
             }
-        }
-        else {
+        } else {
             this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord - 2, ConfigBlocks.blockMetalDevice, 3, 1);
             this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord + 2, ConfigBlocks.blockMetalDevice, 3, 1);
             this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord - 2, ConfigBlocks.blockMetalDevice, 3, 1);
             this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord + 2, ConfigBlocks.blockMetalDevice, 3, 1);
             this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord - 1, ConfigBlocks.blockCosmeticSolid, 11, 1);
             this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord + 1, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord - 1, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord, this.yCoord - 4, this.zCoord - 1, ConfigBlocks.blockCosmeticSolid, 11, 1);
             this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 4, this.zCoord + 1, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 1, this.zCoord - 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 2, this.zCoord - 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 3, this.zCoord - 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 1, this.zCoord + 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 2, this.zCoord + 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
-            this.worldObj.setBlock(this.xCoord, this.yCoord - 3, this.zCoord + 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord, this.yCoord - 4, this.zCoord + 1, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord, this.yCoord - 1, this.zCoord - 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord, this.yCoord - 2, this.zCoord - 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord, this.yCoord - 3, this.zCoord - 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord, this.yCoord - 1, this.zCoord + 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord, this.yCoord - 2, this.zCoord + 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
+            this.worldObj.setBlock(
+                    this.xCoord, this.yCoord - 3, this.zCoord + 2, ConfigBlocks.blockCosmeticSolid, 11, 1);
             for (int z = -1; z <= 1; ++z) {
                 for (int y = -1; y >= -3; --y) {
                     this.worldObj.setBlockToAir(this.xCoord, this.yCoord + y, this.zCoord + z);
@@ -110,7 +123,8 @@ public class TileSlot extends TileThaumcraft
             }
         }
         PocketPlaneData.destroyPortal(this.pocketID, this.which);
-        this.worldObj.playSoundEffect(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5, "thaumcraft:craftfail", 1.0f, 1.0f);
+        this.worldObj.playSoundEffect(
+                this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5, "thaumcraft:craftfail", 1.0f, 1.0f);
         this.portalOpen = false;
         this.markDirty();
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
@@ -121,36 +135,50 @@ public class TileSlot extends TileThaumcraft
             return;
         }
         final int portalNum = PocketPlaneData.firstAvailablePortal(this.pocketID);
-        final ItemWandCasting wand = (ItemWandCasting)player.getHeldItem().getItem();
-        if (portalNum != 0 && wand.consumeAllVisCrafting(player.getHeldItem(), player, new AspectList().add(Aspect.WATER, 250).add(Aspect.EARTH, 250).add(Aspect.ORDER, 250).add(Aspect.FIRE, 250).add(Aspect.AIR, 250).add(Aspect.ENTROPY, 250), false)) {
+        final ItemWandCasting wand = (ItemWandCasting) player.getHeldItem().getItem();
+        if (portalNum != 0
+                && wand.consumeAllVisCrafting(
+                        player.getHeldItem(),
+                        player,
+                        new AspectList()
+                                .add(Aspect.WATER, 250)
+                                .add(Aspect.EARTH, 250)
+                                .add(Aspect.ORDER, 250)
+                                .add(Aspect.FIRE, 250)
+                                .add(Aspect.AIR, 250)
+                                .add(Aspect.ENTROPY, 250),
+                        false)) {
             boolean madePortal = false;
             if (this.checkPortalX()) {
                 this.xAligned = true;
                 int md = 0;
                 for (int x = -2; x <= 2; ++x) {
                     for (int y = 0; y >= -4; --y) {
-                        if (!this.worldObj.isAirBlock(this.xCoord + x, this.yCoord + y, this.zCoord) && (x != 0 || y != 0)) {
-                            this.worldObj.setBlock(this.xCoord + x, this.yCoord + y, this.zCoord, ThaumicHorizons.blockGateway, md, 3);
+                        if (!this.worldObj.isAirBlock(this.xCoord + x, this.yCoord + y, this.zCoord)
+                                && (x != 0 || y != 0)) {
+                            this.worldObj.setBlock(
+                                    this.xCoord + x, this.yCoord + y, this.zCoord, ThaumicHorizons.blockGateway, md, 3);
                             ++md;
-                        }
-                        else if (x != 0 || y != 0) {
-                            this.worldObj.setBlock(this.xCoord + x, this.yCoord + y, this.zCoord, ThaumicHorizons.blockPortal, 0, 3);
+                        } else if (x != 0 || y != 0) {
+                            this.worldObj.setBlock(
+                                    this.xCoord + x, this.yCoord + y, this.zCoord, ThaumicHorizons.blockPortal, 0, 3);
                         }
                     }
                 }
                 madePortal = true;
-            }
-            else if (this.checkPortalZ()) {
+            } else if (this.checkPortalZ()) {
                 this.xAligned = false;
                 int md = 0;
                 for (int z = -2; z <= 2; ++z) {
                     for (int y = 0; y >= -4; --y) {
-                        if (!this.worldObj.isAirBlock(this.xCoord, this.yCoord + y, this.zCoord + z) && (z != 0 || y != 0)) {
-                            this.worldObj.setBlock(this.xCoord, this.yCoord + y, this.zCoord + z, ThaumicHorizons.blockGateway, md, 3);
+                        if (!this.worldObj.isAirBlock(this.xCoord, this.yCoord + y, this.zCoord + z)
+                                && (z != 0 || y != 0)) {
+                            this.worldObj.setBlock(
+                                    this.xCoord, this.yCoord + y, this.zCoord + z, ThaumicHorizons.blockGateway, md, 3);
                             ++md;
-                        }
-                        else if (z != 0 || y != 0) {
-                            this.worldObj.setBlock(this.xCoord, this.yCoord + y, this.zCoord + z, ThaumicHorizons.blockPortal, 0, 3);
+                        } else if (z != 0 || y != 0) {
+                            this.worldObj.setBlock(
+                                    this.xCoord, this.yCoord + y, this.zCoord + z, ThaumicHorizons.blockPortal, 0, 3);
                         }
                     }
                 }
@@ -187,8 +215,19 @@ public class TileSlot extends TileThaumcraft
                 PocketPlaneData.makePortal(this.pocketID, portalNum, this.xCoord, this.yCoord, this.zCoord);
                 this.which = portalNum;
                 this.portalOpen = true;
-                wand.consumeAllVisCrafting(player.getHeldItem(), player, new AspectList().add(Aspect.WATER, 250).add(Aspect.EARTH, 250).add(Aspect.ORDER, 250).add(Aspect.FIRE, 250).add(Aspect.AIR, 250).add(Aspect.ENTROPY, 250), true);
-                this.worldObj.playSoundEffect(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5, "thaumcraft:wand", 1.0f, 1.0f);
+                wand.consumeAllVisCrafting(
+                        player.getHeldItem(),
+                        player,
+                        new AspectList()
+                                .add(Aspect.WATER, 250)
+                                .add(Aspect.EARTH, 250)
+                                .add(Aspect.ORDER, 250)
+                                .add(Aspect.FIRE, 250)
+                                .add(Aspect.AIR, 250)
+                                .add(Aspect.ENTROPY, 250),
+                        true);
+                this.worldObj.playSoundEffect(
+                        this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5, "thaumcraft:wand", 1.0f, 1.0f);
                 this.markDirty();
                 this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             }
@@ -266,11 +305,13 @@ public class TileSlot extends TileThaumcraft
     }
 
     boolean checkCornerBlock(final int x, final int y, final int z) {
-        return this.worldObj.getBlock(x, y, z) == ConfigBlocks.blockMetalDevice && this.worldObj.getBlockMetadata(x, y, z) == 3;
+        return this.worldObj.getBlock(x, y, z) == ConfigBlocks.blockMetalDevice
+                && this.worldObj.getBlockMetadata(x, y, z) == 3;
     }
 
     boolean checkEdgeBlock(final int x, final int y, final int z) {
-        return this.worldObj.getBlock(x, y, z) == ConfigBlocks.blockCosmeticSolid && this.worldObj.getBlockMetadata(x, y, z) == 11;
+        return this.worldObj.getBlock(x, y, z) == ConfigBlocks.blockCosmeticSolid
+                && this.worldObj.getBlockMetadata(x, y, z) == 11;
     }
 
     public void insertKeystone(final int pocketNum) {

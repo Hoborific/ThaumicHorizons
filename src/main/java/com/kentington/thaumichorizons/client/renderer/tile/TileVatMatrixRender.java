@@ -1,41 +1,41 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
 import com.kentington.thaumichorizons.common.tiles.TileVat;
-import net.minecraft.client.renderer.OpenGlHelper;
-import thaumcraft.codechicken.lib.math.MathHelper;
-import net.minecraft.client.Minecraft;
-import thaumcraft.client.lib.UtilsFX;
 import com.kentington.thaumichorizons.common.tiles.TileVatMatrix;
-import java.util.Random;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
 import cpw.mods.fml.client.FMLClientHandler;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.client.renderers.models.ModelCube;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.models.ModelCube;
+import thaumcraft.codechicken.lib.math.MathHelper;
 
 @SideOnly(Side.CLIENT)
-public class TileVatMatrixRender extends TileEntitySpecialRenderer
-{
+public class TileVatMatrixRender extends TileEntitySpecialRenderer {
     private ModelCube model;
     private ModelCube model_over;
     int type;
-    
+
     public TileVatMatrixRender(final int type) {
         this.model = new ModelCube(0);
         this.model_over = new ModelCube(32);
         this.type = 0;
         this.type = type;
     }
-    
-    private void drawHalo(final TileEntity is, final double x, final double y, final double z, final float par8, final int count) {
+
+    private void drawHalo(
+            final TileEntity is, final double x, final double y, final double z, final float par8, final int count) {
         GL11.glPushMatrix();
         GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
         final int q = FMLClientHandler.instance().getClient().gameSettings.fancyGraphics ? 20 : 10;
@@ -65,13 +65,13 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer
             float f4 = random.nextFloat() * 2.0f + 1.0f + f3 * 2.0f;
             fa /= 20.0f / (Math.min(count, 50) / 50.0f);
             f4 /= 20.0f / (Math.min(count, 50) / 50.0f);
-            tessellator.setColorRGBA_I(16777215, (int)(255.0f * (1.0f - f3)));
+            tessellator.setColorRGBA_I(16777215, (int) (255.0f * (1.0f - f3)));
             tessellator.addVertex(0.0, 0.0, 0.0);
             tessellator.setColorRGBA_I(13369599, 0);
-            tessellator.addVertex(-0.866 * f4, (double)fa, (double)(-0.5f * f4));
-            tessellator.addVertex(0.866 * f4, (double)fa, (double)(-0.5f * f4));
-            tessellator.addVertex(0.0, (double)fa, (double)(1.0f * f4));
-            tessellator.addVertex(-0.866 * f4, (double)fa, (double)(-0.5f * f4));
+            tessellator.addVertex(-0.866 * f4, (double) fa, (double) (-0.5f * f4));
+            tessellator.addVertex(0.866 * f4, (double) fa, (double) (-0.5f * f4));
+            tessellator.addVertex(0.0, (double) fa, (double) (1.0f * f4));
+            tessellator.addVertex(-0.866 * f4, (double) fa, (double) (-0.5f * f4));
             tessellator.draw();
         }
         GL11.glPopMatrix();
@@ -86,12 +86,13 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer
         GL11.glBlendFunc(770, 771);
         GL11.glPopMatrix();
     }
-    
-    public void renderInfusionMatrix(final TileVatMatrix tile, final double par2, final double par4, final double par6, final float par8) {
+
+    public void renderInfusionMatrix(
+            final TileVatMatrix tile, final double par2, final double par4, final double par6, final float par8) {
         final TileVat vat = tile.getVat();
         GL11.glPushMatrix();
         UtilsFX.bindTexture("textures/models/infuser.png");
-        GL11.glTranslatef((float)par2 + 0.5f, (float)par4 + 0.5f, (float)par6 + 0.5f);
+        GL11.glTranslatef((float) par2 + 0.5f, (float) par4 + 0.5f, (float) par6 + 0.5f);
         final float ticks = Minecraft.getMinecraft().renderViewEntity.ticksExisted + par8;
         float instability = 0.0f;
         float startUp = 0.0f;
@@ -114,22 +115,31 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer
         for (int a = 0; a < 2; ++a) {
             for (int b4 = 0; b4 < 2; ++b4) {
                 for (int c = 0; c < 2; ++c) {
-                    b1 = (float)(MathHelper.sin((double)((ticks + a * 10) / (15.0f - instability / 2.0f))) * 0.009999999776482582 * startUp * instability);
-                    b2 = (float)(MathHelper.sin((double)((ticks + b4 * 10) / (14.0f - instability / 2.0f))) * 0.009999999776482582 * startUp * instability);
-                    b3 = (float)(MathHelper.sin((double)((ticks + c * 10) / (13.0f - instability / 2.0f))) * 0.009999999776482582 * startUp * instability);
+                    b1 = (float) (MathHelper.sin((double) ((ticks + a * 10) / (15.0f - instability / 2.0f)))
+                            * 0.009999999776482582
+                            * startUp
+                            * instability);
+                    b2 = (float) (MathHelper.sin((double) ((ticks + b4 * 10) / (14.0f - instability / 2.0f)))
+                            * 0.009999999776482582
+                            * startUp
+                            * instability);
+                    b3 = (float) (MathHelper.sin((double) ((ticks + c * 10) / (13.0f - instability / 2.0f)))
+                            * 0.009999999776482582
+                            * startUp
+                            * instability);
                     aa = ((a == 0) ? -1 : 1);
                     bb = ((b4 == 0) ? -1 : 1);
                     cc = ((c == 0) ? -1 : 1);
                     GL11.glPushMatrix();
                     GL11.glTranslatef(b1 + aa * 0.25f, b2 + bb * 0.25f, b3 + cc * 0.25f);
                     if (a > 0) {
-                        GL11.glRotatef(90.0f, (float)a, 0.0f, 0.0f);
+                        GL11.glRotatef(90.0f, (float) a, 0.0f, 0.0f);
                     }
                     if (b4 > 0) {
-                        GL11.glRotatef(90.0f, 0.0f, (float)b4, 0.0f);
+                        GL11.glRotatef(90.0f, 0.0f, (float) b4, 0.0f);
                     }
                     if (c > 0) {
-                        GL11.glRotatef(90.0f, 0.0f, 0.0f, (float)c);
+                        GL11.glRotatef(90.0f, 0.0f, 0.0f, (float) c);
                     }
                     GL11.glScaled(0.45, 0.45, 0.45);
                     this.model.render();
@@ -144,29 +154,41 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer
         for (int a = 0; a < 2; ++a) {
             for (int b4 = 0; b4 < 2; ++b4) {
                 for (int c = 0; c < 2; ++c) {
-                    b1 = (float)(MathHelper.sin((double)((ticks + a * 10) / (15.0f - instability / 2.0f))) * 0.009999999776482582 * startUp * instability);
-                    b2 = (float)(MathHelper.sin((double)((ticks + b4 * 10) / (14.0f - instability / 2.0f))) * 0.009999999776482582 * startUp * instability);
-                    b3 = (float)(MathHelper.sin((double)((ticks + c * 10) / (13.0f - instability / 2.0f))) * 0.009999999776482582 * startUp * instability);
+                    b1 = (float) (MathHelper.sin((double) ((ticks + a * 10) / (15.0f - instability / 2.0f)))
+                            * 0.009999999776482582
+                            * startUp
+                            * instability);
+                    b2 = (float) (MathHelper.sin((double) ((ticks + b4 * 10) / (14.0f - instability / 2.0f)))
+                            * 0.009999999776482582
+                            * startUp
+                            * instability);
+                    b3 = (float) (MathHelper.sin((double) ((ticks + c * 10) / (13.0f - instability / 2.0f)))
+                            * 0.009999999776482582
+                            * startUp
+                            * instability);
                     aa = ((a == 0) ? -1 : 1);
                     bb = ((b4 == 0) ? -1 : 1);
                     cc = ((c == 0) ? -1 : 1);
                     GL11.glPushMatrix();
                     GL11.glTranslatef(b1 + aa * 0.25f, b2 + bb * 0.25f, b3 + cc * 0.25f);
                     if (a > 0) {
-                        GL11.glRotatef(90.0f, (float)a, 0.0f, 0.0f);
+                        GL11.glRotatef(90.0f, (float) a, 0.0f, 0.0f);
                     }
                     if (b4 > 0) {
-                        GL11.glRotatef(90.0f, 0.0f, (float)b4, 0.0f);
+                        GL11.glRotatef(90.0f, 0.0f, (float) b4, 0.0f);
                     }
                     if (c > 0) {
-                        GL11.glRotatef(90.0f, 0.0f, 0.0f, (float)c);
+                        GL11.glRotatef(90.0f, 0.0f, 0.0f, (float) c);
                     }
                     GL11.glScaled(0.45, 0.45, 0.45);
                     final int j = 15728880;
                     final int k = j % 65536;
                     final int l = j / 65536;
                     OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0f, l / 1.0f);
-                    GL11.glColor4f(0.8f, 0.1f, 1.0f, (float)((MathHelper.sin((double)((ticks + a * 2 + b4 * 3 + c * 4) / 4.0f)) * 0.10000000149011612 + 0.20000000298023224) * startUp));
+                    GL11.glColor4f(0.8f, 0.1f, 1.0f, (float)
+                            ((MathHelper.sin((double) ((ticks + a * 2 + b4 * 3 + c * 4) / 4.0f)) * 0.10000000149011612
+                                            + 0.20000000298023224)
+                                    * startUp));
                     this.model_over.render();
                     GL11.glPopMatrix();
                 }
@@ -180,8 +202,13 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer
             this.drawHalo(vat, par2, par4, par6, par8, vat.craftCount);
         }
     }
-    
-    public void renderTileEntityAt(final TileEntity par1TileEntity, final double par2, final double par4, final double par6, final float par8) {
-        this.renderInfusionMatrix((TileVatMatrix)par1TileEntity, par2, par4, par6, par8);
+
+    public void renderTileEntityAt(
+            final TileEntity par1TileEntity,
+            final double par2,
+            final double par4,
+            final double par6,
+            final float par8) {
+        this.renderInfusionMatrix((TileVatMatrix) par1TileEntity, par2, par4, par6, par8);
     }
 }

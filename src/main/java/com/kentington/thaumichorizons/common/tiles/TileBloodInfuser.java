@@ -1,32 +1,30 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraftforge.common.util.ForgeDirection;
-import java.util.Iterator;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import thaumcraft.common.config.Config;
-import net.minecraft.potion.Potion;
 import java.awt.Color;
 import java.util.HashMap;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.Potion;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import net.minecraft.inventory.ISidedInventory;
-import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.api.aspects.IAspectContainer;
-import thaumcraft.api.TileThaumcraft;
+import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.common.config.Config;
 
-public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer, IEssentiaTransport, ISidedInventory
-{
+public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer, IEssentiaTransport, ISidedInventory {
     public AspectList aspectsSelected;
     public AspectList aspectsAcquired;
     Aspect currentlySucking;
@@ -36,7 +34,7 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
     private HashMap<Aspect, HashMap<Integer, Integer>> effectWeights;
     private HashMap<Integer, Float> duration;
     private Color color;
-    
+
     public TileBloodInfuser() {
         this.aspectsSelected = new AspectList();
         this.aspectsAcquired = new AspectList();
@@ -359,7 +357,7 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
         map.put(fatigue, 2);
         this.effectWeights.put(Aspect.TRAP, map);
     }
-    
+
     public void updateEntity() {
         super.updateEntity();
         this.currentlySucking = null;
@@ -370,12 +368,16 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
                     break;
                 }
             }
-            if (this.currentlySucking == null && this.aspectsAcquired != null && ((this.aspectsAcquired.size() > 0 && this.aspectsAcquired.getAspects()[0] != null) || (this.aspectsAcquired.size() > 1 && this.aspectsAcquired.getAspects()[1] != null))) {
+            if (this.currentlySucking == null
+                    && this.aspectsAcquired != null
+                    && ((this.aspectsAcquired.size() > 0 && this.aspectsAcquired.getAspects()[0] != null)
+                            || (this.aspectsAcquired.size() > 1
+                                    && this.aspectsAcquired.getAspects()[1] != null))) {
                 final ItemStack theInjection = new ItemStack(ThaumicHorizons.itemSyringeInjection);
                 theInjection.setItemDamage(this.syringe.getItemDamage());
                 this.decrStackSize(0, 1);
                 final NBTTagCompound tag = new NBTTagCompound();
-                tag.setTag("CustomPotionEffects", (NBTBase)this.getCurrentEffects());
+                tag.setTag("CustomPotionEffects", (NBTBase) this.getCurrentEffects());
                 tag.setInteger("color", this.color.getRGB());
                 theInjection.setTagCompound(tag);
                 for (int i = 0; i < 9; ++i) {
@@ -389,13 +391,12 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
                 if (this.mode == 1) {
                     this.mode = 0;
                 }
-            }
-            else {
+            } else {
                 this.tryDrawEssentia();
             }
         }
     }
-    
+
     public NBTTagList getCurrentEffects() {
         final NBTTagList effectList = new NBTTagList();
         if (this.aspectsSelected == null) {
@@ -410,10 +411,16 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
             if (this.effectWeights.get(asp) != null) {
                 for (final Integer in : this.effectWeights.get(asp).keySet()) {
                     if (effects.get(in) != null) {
-                        effects.put(in, effects.get(in) + this.aspectsSelected.getAmount(asp) * this.effectWeights.get(asp).get(in));
-                    }
-                    else {
-                        effects.put(in, this.aspectsSelected.getAmount(asp) * this.effectWeights.get(asp).get(in));
+                        effects.put(
+                                in,
+                                effects.get(in)
+                                        + this.aspectsSelected.getAmount(asp)
+                                                * this.effectWeights.get(asp).get(in));
+                    } else {
+                        effects.put(
+                                in,
+                                this.aspectsSelected.getAmount(asp)
+                                        * this.effectWeights.get(asp).get(in));
                     }
                 }
                 totalEssentia += this.aspectsSelected.getAmount(asp);
@@ -438,30 +445,29 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
                 }
             }
             final NBTTagCompound potTag = new NBTTagCompound();
-            potTag.setByte("Id", (byte)(int)largestEffect);
-            potTag.setByte("Amplifier", (byte)(largestWeight / 30));
+            potTag.setByte("Id", (byte) (int) largestEffect);
+            potTag.setByte("Amplifier", (byte) (largestWeight / 30));
             if (largestEffect != Potion.harm.id && largestEffect != Potion.heal.id) {
                 potTag.setInteger("Duration", 100 * largestWeight);
-            }
-            else {
+            } else {
                 potTag.setInteger("Duration", 1);
             }
             potTag.setBoolean("Ambient", false);
-            effectList.appendTag((NBTBase)potTag);
+            effectList.appendTag((NBTBase) potTag);
             effects.remove(largestEffect);
         }
         this.color = new Color(red, green, blue);
         return effectList;
     }
-    
+
     public HashMap<Integer, Integer> getEffects(final Aspect asp) {
         return this.effectWeights.get(asp);
     }
-    
+
     public void setEssentiaSelected(final AspectList as) {
         this.aspectsSelected = as.copy();
     }
-    
+
     public boolean emptyOutputSlot() {
         for (int i = 0; i < 9; ++i) {
             if (this.output[i] == null) {
@@ -470,7 +476,7 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
         }
         return false;
     }
-    
+
     void tryDrawEssentia() {
         TileEntity te = null;
         IEssentiaTransport ic = null;
@@ -478,8 +484,10 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
             if (dir != ForgeDirection.UP) {
                 te = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, dir);
                 if (te != null) {
-                    ic = (IEssentiaTransport)te;
-                    if (ic.getEssentiaAmount(dir.getOpposite()) > 0 && ic.getSuctionAmount(dir.getOpposite()) < this.getSuctionAmount(null) && this.getSuctionAmount(null) >= ic.getMinimumSuction()) {
+                    ic = (IEssentiaTransport) te;
+                    if (ic.getEssentiaAmount(dir.getOpposite()) > 0
+                            && ic.getSuctionAmount(dir.getOpposite()) < this.getSuctionAmount(null)
+                            && this.getSuctionAmount(null) >= ic.getMinimumSuction()) {
                         final int ess = ic.takeEssentia(this.currentlySucking, 1, dir.getOpposite());
                         if (ess > 0) {
                             this.addToContainer(this.currentlySucking, ess);
@@ -490,35 +498,34 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
             }
         }
     }
-    
+
     @Override
     public void writeCustomNBT(final NBTTagCompound nbttagcompound) {
         super.writeCustomNBT(nbttagcompound);
         nbttagcompound.setInteger("mode", this.mode);
         if (this.currentlySucking != null) {
             nbttagcompound.setString("sucking", this.currentlySucking.getTag());
-        }
-        else {
+        } else {
             nbttagcompound.setString("sucking", "");
         }
         NBTTagList tlist = new NBTTagList();
-        nbttagcompound.setTag("AspectsSelected", (NBTBase)tlist);
+        nbttagcompound.setTag("AspectsSelected", (NBTBase) tlist);
         for (final Aspect aspect : this.aspectsSelected.getAspects()) {
             if (aspect != null) {
                 final NBTTagCompound f = new NBTTagCompound();
                 f.setString("key", aspect.getTag());
                 f.setInteger("amount", this.aspectsSelected.getAmount(aspect));
-                tlist.appendTag((NBTBase)f);
+                tlist.appendTag((NBTBase) f);
             }
         }
         tlist = new NBTTagList();
-        nbttagcompound.setTag("AspectsAcquired", (NBTBase)tlist);
+        nbttagcompound.setTag("AspectsAcquired", (NBTBase) tlist);
         for (final Aspect aspect : this.aspectsAcquired.getAspects()) {
             if (aspect != null) {
                 final NBTTagCompound f = new NBTTagCompound();
                 f.setString("key", aspect.getTag());
                 f.setInteger("amount", this.aspectsAcquired.getAmount(aspect));
-                tlist.appendTag((NBTBase)f);
+                tlist.appendTag((NBTBase) f);
             }
         }
         final NBTTagList nbttaglist = new NBTTagList();
@@ -526,17 +533,17 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
         if (this.syringe != null) {
             this.syringe.writeToNBT(nbttagcompound2);
         }
-        nbttaglist.appendTag((NBTBase)nbttagcompound2);
+        nbttaglist.appendTag((NBTBase) nbttagcompound2);
         for (int i = 0; i < 9; ++i) {
             nbttagcompound2 = new NBTTagCompound();
             if (this.output[i] != null) {
                 this.output[i].writeToNBT(nbttagcompound2);
             }
-            nbttaglist.appendTag((NBTBase)nbttagcompound2);
+            nbttaglist.appendTag((NBTBase) nbttagcompound2);
         }
-        nbttagcompound.setTag("Items", (NBTBase)nbttaglist);
+        nbttagcompound.setTag("Items", (NBTBase) nbttaglist);
     }
-    
+
     @Override
     public void readCustomNBT(final NBTTagCompound nbttagcompound) {
         super.readCustomNBT(nbttagcompound);
@@ -568,26 +575,25 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
             this.output[i] = ItemStack.loadItemStackFromNBT(nbttagcompound2);
         }
     }
-    
+
     @Override
     public boolean isConnectable(final ForgeDirection face) {
         return face != ForgeDirection.UP;
     }
-    
+
     @Override
     public boolean canInputFrom(final ForgeDirection face) {
         return face != ForgeDirection.UP;
     }
-    
+
     @Override
     public boolean canOutputTo(final ForgeDirection face) {
         return false;
     }
-    
+
     @Override
-    public void setSuction(final Aspect aspect, final int amount) {
-    }
-    
+    public void setSuction(final Aspect aspect, final int amount) {}
+
     @Override
     public Aspect getSuctionType(final ForgeDirection face) {
         if (face == ForgeDirection.UP) {
@@ -595,7 +601,7 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
         }
         return this.currentlySucking;
     }
-    
+
     @Override
     public int getSuctionAmount(final ForgeDirection face) {
         if (face == ForgeDirection.UP) {
@@ -603,37 +609,37 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
         }
         return (this.currentlySucking != null) ? 128 : 0;
     }
-    
+
     @Override
     public int takeEssentia(final Aspect aspect, final int amount, final ForgeDirection face) {
         return 0;
     }
-    
+
     @Override
     public int addEssentia(final Aspect aspect, final int amount, final ForgeDirection face) {
         return this.canInputFrom(face) ? (amount - this.addToContainer(aspect, amount)) : 0;
     }
-    
+
     @Override
     public Aspect getEssentiaType(final ForgeDirection face) {
         return null;
     }
-    
+
     @Override
     public int getEssentiaAmount(final ForgeDirection face) {
         return 0;
     }
-    
+
     @Override
     public int getMinimumSuction() {
         return 0;
     }
-    
+
     @Override
     public boolean renderExtendedTube() {
         return false;
     }
-    
+
     @Override
     public AspectList getAspects() {
         if (this.aspectsAcquired.getAspects().length > 0 && this.aspectsAcquired.getAspects()[0] != null) {
@@ -641,16 +647,15 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
         }
         return null;
     }
-    
+
     @Override
-    public void setAspects(final AspectList aspects) {
-    }
-    
+    public void setAspects(final AspectList aspects) {}
+
     @Override
     public boolean doesContainerAccept(final Aspect tag) {
         return tag.getTag().equals(this.currentlySucking.getTag());
     }
-    
+
     @Override
     public int addToContainer(final Aspect tag, final int amount) {
         this.aspectsAcquired.add(tag, amount);
@@ -658,36 +663,36 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
         this.markDirty();
         return 0;
     }
-    
+
     @Override
     public boolean takeFromContainer(final Aspect tag, final int amount) {
         return false;
     }
-    
+
     @Override
     public boolean takeFromContainer(final AspectList ot) {
         return false;
     }
-    
+
     @Override
     public boolean doesContainerContainAmount(final Aspect tag, final int amount) {
         return this.aspectsAcquired.getAmount(tag) >= amount;
     }
-    
+
     @Override
     public boolean doesContainerContain(final AspectList ot) {
         return false;
     }
-    
+
     @Override
     public int containerContains(final Aspect tag) {
         return this.aspectsAcquired.getAmount(tag);
     }
-    
+
     public int getSizeInventory() {
         return 10;
     }
-    
+
     public ItemStack getStackInSlot(final int slot) {
         if (slot == 0) {
             return this.syringe;
@@ -697,13 +702,12 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
         }
         return null;
     }
-    
+
     public ItemStack decrStackSize(final int p_70298_1_, final int p_70298_2_) {
         ItemStack theStack;
         if (p_70298_1_ == 0) {
             theStack = this.syringe;
-        }
-        else {
+        } else {
             theStack = this.output[p_70298_1_ - 1];
         }
         if (theStack == null) {
@@ -714,8 +718,7 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
             if (p_70298_1_ == 0) {
                 outStack = this.syringe.copy();
                 this.syringe = null;
-            }
-            else {
+            } else {
                 outStack = this.output[p_70298_1_ - 1].copy();
                 this.output[p_70298_1_ - 1] = null;
             }
@@ -725,65 +728,62 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
         if (theStack.stackSize == 0) {
             if (p_70298_1_ == 0) {
                 this.syringe = null;
-            }
-            else {
+            } else {
                 this.output[p_70298_1_ - 1] = null;
             }
         }
         return outStack;
     }
-    
+
     public ItemStack getStackInSlotOnClosing(final int p_70304_1_) {
         return null;
     }
-    
+
     public void setInventorySlotContents(final int p_70299_1_, final ItemStack p_70299_2_) {
         if (p_70299_1_ == 0) {
             this.syringe = p_70299_2_;
-        }
-        else if (p_70299_1_ < 10) {
+        } else if (p_70299_1_ < 10) {
             this.output[p_70299_1_ - 1] = p_70299_2_;
         }
     }
-    
+
     public String getInventoryName() {
         return "container.bloodInfuser";
     }
-    
+
     public boolean hasCustomInventoryName() {
         return false;
     }
-    
+
     public int getInventoryStackLimit() {
         return 64;
     }
-    
+
     public boolean isUseableByPlayer(final EntityPlayer p_70300_1_) {
-        return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && p_70300_1_.getDistanceSq(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5) <= 64.0;
+        return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this
+                && p_70300_1_.getDistanceSq(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5) <= 64.0;
     }
-    
-    public void openInventory() {
-    }
-    
-    public void closeInventory() {
-    }
-    
+
+    public void openInventory() {}
+
+    public void closeInventory() {}
+
     public boolean isItemValidForSlot(final int p_94041_1_, final ItemStack p_94041_2_) {
         return p_94041_1_ == 0 && p_94041_2_.isItemEqual(new ItemStack(ThaumicHorizons.itemSyringeHuman));
     }
-    
+
     public int[] getAccessibleSlotsFromSide(final int p_94128_1_) {
-        return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        return new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     }
-    
+
     public boolean canInsertItem(final int p_102007_1_, final ItemStack p_102007_2_, final int p_102007_3_) {
         return p_102007_1_ == 0 && p_102007_2_.isItemEqual(new ItemStack(ThaumicHorizons.itemSyringeHuman));
     }
-    
+
     public boolean canExtractItem(final int p_102008_1_, final ItemStack p_102008_2_, final int p_102008_3_) {
         return p_102008_1_ > 0 && p_102008_2_ != null;
     }
-    
+
     public boolean hasBlood() {
         if (this.syringe != null && this.syringe.stackSize > 0) {
             return true;

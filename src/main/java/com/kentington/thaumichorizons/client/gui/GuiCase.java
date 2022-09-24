@@ -1,31 +1,31 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.gui;
 
-import org.lwjgl.opengl.GL11;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.inventory.Container;
 import com.kentington.thaumichorizons.common.container.ContainerCase;
-import net.minecraft.world.World;
-import net.minecraft.entity.player.InventoryPlayer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
 
 @SideOnly(Side.CLIENT)
-public class GuiCase extends GuiContainer
-{
+public class GuiCase extends GuiContainer {
     private int blockSlot;
-    
-    public GuiCase(final InventoryPlayer par1InventoryPlayer, final World world, final int x, final int y, final int z) {
-        super((Container)new ContainerCase(par1InventoryPlayer, world, x, y, z));
+
+    public GuiCase(
+            final InventoryPlayer par1InventoryPlayer, final World world, final int x, final int y, final int z) {
+        super((Container) new ContainerCase(par1InventoryPlayer, world, x, y, z));
         this.blockSlot = par1InventoryPlayer.currentItem;
         this.xSize = 175;
         this.ySize = 232;
     }
-    
+
     protected void drawGuiContainerForegroundLayer(final int par1, final int par2) {
         UtilsFX.bindTexture("textures/gui/gui_focuspouch.png");
         final float t = this.zLevel;
@@ -35,11 +35,11 @@ public class GuiCase extends GuiContainer
         GL11.glDisable(3042);
         this.zLevel = t;
     }
-    
+
     protected boolean checkHotbarKeys(final int par1) {
         return false;
     }
-    
+
     protected void drawGuiContainerBackgroundLayer(final float par1, final int par2, final int par3) {
         if (this.mc.thePlayer.inventory.mainInventory[this.blockSlot] == null) {
             this.mc.thePlayer.closeScreen();

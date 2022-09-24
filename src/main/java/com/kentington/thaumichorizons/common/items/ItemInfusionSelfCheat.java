@@ -1,31 +1,30 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.items;
 
-import java.util.Iterator;
-import thaumcraft.common.Thaumcraft;
-import net.minecraft.entity.EntityLivingBase;
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
 import com.kentington.thaumichorizons.common.lib.SelfInfusionRecipe;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import net.minecraft.util.StatCollector;
-import net.minecraft.item.ItemStack;
-import java.util.List;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.util.IIcon;
+import java.util.List;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
+import thaumcraft.common.Thaumcraft;
 
-public class ItemInfusionSelfCheat extends Item
-{
+public class ItemInfusionSelfCheat extends Item {
     @SideOnly(Side.CLIENT)
     public IIcon icon1;
+
     public IIcon icon2;
     public IIcon icon3;
     public IIcon icon4;
@@ -35,11 +34,11 @@ public class ItemInfusionSelfCheat extends Item
     public IIcon icon8;
     public IIcon icon9;
     public IIcon icon10;
-    
+
     public ItemInfusionSelfCheat() {
         this.setCreativeTab(ThaumicHorizons.tabTH);
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void registerIcons(final IIconRegister ir) {
         this.icon1 = ir.registerIcon("thaumichorizons:quicksilverlimbs");
@@ -53,7 +52,7 @@ public class ItemInfusionSelfCheat extends Item
         this.icon9 = ir.registerIcon("thaumichorizons:spiderclimb");
         this.icon10 = ir.registerIcon("thaumichorizons:chameleonskin");
     }
-    
+
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(final int par1) {
         switch (par1) {
@@ -92,21 +91,21 @@ public class ItemInfusionSelfCheat extends Item
             }
         }
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void getSubItems(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
-        par3List.add(new ItemStack((Item)this, 1, 1));
-        par3List.add(new ItemStack((Item)this, 1, 2));
-        par3List.add(new ItemStack((Item)this, 1, 3));
-        par3List.add(new ItemStack((Item)this, 1, 4));
-        par3List.add(new ItemStack((Item)this, 1, 5));
-        par3List.add(new ItemStack((Item)this, 1, 6));
-        par3List.add(new ItemStack((Item)this, 1, 7));
-        par3List.add(new ItemStack((Item)this, 1, 8));
-        par3List.add(new ItemStack((Item)this, 1, 9));
-        par3List.add(new ItemStack((Item)this, 1, 10));
+        par3List.add(new ItemStack((Item) this, 1, 1));
+        par3List.add(new ItemStack((Item) this, 1, 2));
+        par3List.add(new ItemStack((Item) this, 1, 3));
+        par3List.add(new ItemStack((Item) this, 1, 4));
+        par3List.add(new ItemStack((Item) this, 1, 5));
+        par3List.add(new ItemStack((Item) this, 1, 6));
+        par3List.add(new ItemStack((Item) this, 1, 7));
+        par3List.add(new ItemStack((Item) this, 1, 8));
+        par3List.add(new ItemStack((Item) this, 1, 9));
+        par3List.add(new ItemStack((Item) this, 1, 10));
     }
-    
+
     public String getItemStackDisplayName(final ItemStack stack) {
         String stringy = "";
         switch (stack.getItemDamage()) {
@@ -153,13 +152,21 @@ public class ItemInfusionSelfCheat extends Item
         }
         return stringy;
     }
-    
+
     public ItemStack onItemRightClick(final ItemStack p_77659_1_, final World world, final EntityPlayer p) {
         for (final SelfInfusionRecipe recipe : ThaumicHorizons.selfRecipes) {
-            if (recipe.getID() == p_77659_1_.getItemDamage() && !((EntityInfusionProperties)((EntityLivingBase)p).getExtendedProperties("CreatureInfusion")).hasPlayerInfusion(recipe.getID())) {
-                ((EntityInfusionProperties)((EntityLivingBase)p).getExtendedProperties("CreatureInfusion")).addPlayerInfusion(recipe.getID());
-                ThaumicHorizons.instance.eventHandlerEntity.applyInfusions((EntityLivingBase)p);
-                Thaumcraft.proxy.burst(world, ((EntityLivingBase)p).posX, ((EntityLivingBase)p).posY + ((EntityLivingBase)p).getEyeHeight(), ((EntityLivingBase)p).posZ, 1.0f);
+            if (recipe.getID() == p_77659_1_.getItemDamage()
+                    && !((EntityInfusionProperties) ((EntityLivingBase) p).getExtendedProperties("CreatureInfusion"))
+                            .hasPlayerInfusion(recipe.getID())) {
+                ((EntityInfusionProperties) ((EntityLivingBase) p).getExtendedProperties("CreatureInfusion"))
+                        .addPlayerInfusion(recipe.getID());
+                ThaumicHorizons.instance.eventHandlerEntity.applyInfusions((EntityLivingBase) p);
+                Thaumcraft.proxy.burst(
+                        world,
+                        ((EntityLivingBase) p).posX,
+                        ((EntityLivingBase) p).posY + ((EntityLivingBase) p).getEyeHeight(),
+                        ((EntityLivingBase) p).posZ,
+                        1.0f);
                 return p_77659_1_;
             }
         }

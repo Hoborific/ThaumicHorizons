@@ -1,40 +1,47 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.entities;
 
+import baubles.api.BaublesApi;
+import java.util.List;
+import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import java.util.Iterator;
-import java.util.List;
-import thaumcraft.common.items.baubles.ItemAmuletVis;
 import thaumcraft.common.config.ConfigItems;
-import baubles.api.BaublesApi;
+import thaumcraft.common.items.baubles.ItemAmuletVis;
 import thaumcraft.common.items.wands.ItemWandCasting;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import net.minecraft.entity.passive.EntityWolf;
 
-public class EntityLunarWolf extends EntityWolf
-{
+public class EntityLunarWolf extends EntityWolf {
     public EntityLunarWolf(final World p_i1696_1_) {
         super(p_i1696_1_);
     }
-    
+
     public void updateAITick() {
         super.updateAITick();
         if (this.worldObj.isDaytime()) {
             return;
         }
-        final int tix = (int)(7.0f - this.worldObj.getCurrentMoonPhaseFactor() * 4.0f);
+        final int tix = (int) (7.0f - this.worldObj.getCurrentMoonPhaseFactor() * 4.0f);
         if (this.ticksExisted % tix == 0) {
-            final List<EntityPlayer> players = (List<EntityPlayer>)this.worldObj.getEntitiesWithinAABB((Class)EntityPlayer.class, AxisAlignedBB.getBoundingBox(this.posX - 5.0, this.posY - 5.0, this.posZ - 5.0, this.posX + 5.0, this.posY + 5.0, this.posZ + 5.0));
+            final List<EntityPlayer> players = (List<EntityPlayer>) this.worldObj.getEntitiesWithinAABB(
+                    (Class) EntityPlayer.class,
+                    AxisAlignedBB.getBoundingBox(
+                            this.posX - 5.0,
+                            this.posY - 5.0,
+                            this.posZ - 5.0,
+                            this.posX + 5.0,
+                            this.posY + 5.0,
+                            this.posZ + 5.0));
             for (final EntityPlayer player : players) {
                 if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemWandCasting) {
-                    final ItemWandCasting wand = (ItemWandCasting)player.getHeldItem().getItem();
+                    final ItemWandCasting wand =
+                            (ItemWandCasting) player.getHeldItem().getItem();
                     final AspectList al = wand.getAspectsWithRoom(player.getHeldItem());
                     for (final Aspect aspect : al.getAspects()) {
                         if (aspect != null) {
@@ -42,18 +49,21 @@ public class EntityLunarWolf extends EntityWolf
                         }
                     }
                 }
-                if (BaublesApi.getBaubles(player).getStackInSlot(0) != null && BaublesApi.getBaubles(player).getStackInSlot(0).getItem() == ConfigItems.itemAmuletVis) {
-                    final AspectList al2 = ((ItemAmuletVis)ConfigItems.itemAmuletVis).getAspectsWithRoom(BaublesApi.getBaubles(player).getStackInSlot(0));
+                if (BaublesApi.getBaubles(player).getStackInSlot(0) != null
+                        && BaublesApi.getBaubles(player).getStackInSlot(0).getItem() == ConfigItems.itemAmuletVis) {
+                    final AspectList al2 = ((ItemAmuletVis) ConfigItems.itemAmuletVis)
+                            .getAspectsWithRoom(BaublesApi.getBaubles(player).getStackInSlot(0));
                     for (final Aspect aspect2 : al2.getAspects()) {
                         if (aspect2 != null) {
-                            ((ItemAmuletVis)ConfigItems.itemAmuletVis).addRealVis(BaublesApi.getBaubles(player).getStackInSlot(0), aspect2, 1, true);
+                            ((ItemAmuletVis) ConfigItems.itemAmuletVis)
+                                    .addRealVis(BaublesApi.getBaubles(player).getStackInSlot(0), aspect2, 1, true);
                         }
                     }
                 }
             }
         }
     }
-    
+
     public int getVis(final ItemStack is, final Aspect aspect) {
         int out = 0;
         if (is.hasTagCompound() && is.stackTagCompound.hasKey(aspect.getTag())) {

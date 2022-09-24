@@ -1,36 +1,36 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.lib;
 
-import net.minecraftforge.oredict.OreDictionary;
-import java.util.Iterator;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
 import java.util.ArrayList;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
-public class SelfInfusionRecipe
-{
+public class SelfInfusionRecipe {
     protected AspectList aspects;
     protected String research;
     private ItemStack[] components;
     protected int instability;
     protected int id;
-    
-    public SelfInfusionRecipe(final String research, final int inst, final AspectList aspects2, final ItemStack[] recipe, final int id) {
+
+    public SelfInfusionRecipe(
+            final String research, final int inst, final AspectList aspects2, final ItemStack[] recipe, final int id) {
         this.research = research;
         this.instability = inst;
         this.aspects = aspects2.copy();
         this.components = recipe;
         this.id = id;
     }
-    
+
     public boolean matches(final ArrayList<ItemStack> input, final World world, final EntityPlayer player) {
-        if (this.research.length() > 0 && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), this.research)) {
+        if (this.research.length() > 0
+                && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), this.research)) {
             return false;
         }
         final ArrayList<ItemStack> ii = new ArrayList<ItemStack>();
@@ -56,7 +56,7 @@ public class SelfInfusionRecipe
         }
         return ii.size() == 0;
     }
-    
+
     public static boolean areItemStacksEqual(final ItemStack stack0, final ItemStack stack1, final boolean fuzzy) {
         if (stack0 == null && stack1 != null) {
             return false;
@@ -75,7 +75,7 @@ public class SelfInfusionRecipe
             final int od = OreDictionary.getOreID(stack0);
             if (od != -1) {
                 final ItemStack[] ores = OreDictionary.getOres(od).toArray(new ItemStack[0]);
-                if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[] { stack1 }, ores)) {
+                if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[] {stack1}, ores)) {
                     return true;
                 }
             }
@@ -83,23 +83,23 @@ public class SelfInfusionRecipe
         final boolean damage = stack0.getItemDamage() == stack1.getItemDamage() || stack1.getItemDamage() == 32767;
         return stack0.getItem() == stack1.getItem() && damage && stack0.stackSize <= stack0.getMaxStackSize();
     }
-    
+
     public AspectList getAspects() {
         return this.aspects;
     }
-    
+
     public int getInstability() {
         return this.instability;
     }
-    
+
     public String getResearch() {
         return this.research;
     }
-    
+
     public ItemStack[] getComponents() {
         return this.components;
     }
-    
+
     public int getID() {
         return this.id;
     }

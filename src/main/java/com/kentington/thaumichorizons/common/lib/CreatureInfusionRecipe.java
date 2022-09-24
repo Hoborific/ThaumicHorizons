@@ -1,21 +1,19 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.lib;
 
-import net.minecraftforge.oredict.OreDictionary;
-import java.util.Iterator;
-import thaumcraft.api.ThaumcraftApiHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
 import java.util.ArrayList;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
-public class CreatureInfusionRecipe
-{
+public class CreatureInfusionRecipe {
     protected AspectList aspects;
     protected String research;
     private ItemStack[] components;
@@ -23,19 +21,28 @@ public class CreatureInfusionRecipe
     protected Object recipeOutput;
     protected int instability;
     protected int id;
-    
-    public CreatureInfusionRecipe(final String research, final Object output, final int inst, final AspectList aspects2, final Class input, final ItemStack[] recipe, final int id) {
+
+    public CreatureInfusionRecipe(
+            final String research,
+            final Object output,
+            final int inst,
+            final AspectList aspects2,
+            final Class input,
+            final ItemStack[] recipe,
+            final int id) {
         this.research = research;
         this.recipeOutput = output;
-        this.recipeInput = (Class<EntityLivingBase>)input;
+        this.recipeInput = (Class<EntityLivingBase>) input;
         this.aspects = aspects2;
         this.components = recipe;
         this.instability = inst;
         this.id = id;
     }
-    
-    public boolean matches(final ArrayList<ItemStack> input, final Class central, final World world, final EntityPlayer player) {
-        if (this.research.length() > 0 && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), this.research)) {
+
+    public boolean matches(
+            final ArrayList<ItemStack> input, final Class central, final World world, final EntityPlayer player) {
+        if (this.research.length() > 0
+                && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), this.research)) {
             return false;
         }
         if (this.recipeInput != null && !central.isAssignableFrom(this.recipeInput)) {
@@ -64,7 +71,7 @@ public class CreatureInfusionRecipe
         }
         return ii.size() == 0;
     }
-    
+
     public static boolean areItemStacksEqual(final ItemStack stack0, final ItemStack stack1, final boolean fuzzy) {
         if (stack0 == null && stack1 != null) {
             return false;
@@ -83,7 +90,7 @@ public class CreatureInfusionRecipe
             final int od = OreDictionary.getOreID(stack0);
             if (od != -1) {
                 final ItemStack[] ores = OreDictionary.getOres(od).toArray(new ItemStack[0]);
-                if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[] { stack1 }, ores)) {
+                if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[] {stack1}, ores)) {
                     return true;
                 }
             }
@@ -91,43 +98,43 @@ public class CreatureInfusionRecipe
         final boolean damage = stack0.getItemDamage() == stack1.getItemDamage() || stack1.getItemDamage() == 32767;
         return stack0.getItem() == stack1.getItem() && damage && stack0.stackSize <= stack0.getMaxStackSize();
     }
-    
+
     public Object getRecipeOutput() {
         return this.getRecipeOutput(this.getRecipeInput());
     }
-    
+
     public AspectList getAspects() {
         return this.getAspects(this.getRecipeInput());
     }
-    
+
     public int getInstability() {
         return this.getInstability(this.getRecipeInput());
     }
-    
+
     public String getResearch() {
         return this.research;
     }
-    
+
     public Class getRecipeInput() {
         return this.recipeInput;
     }
-    
+
     public ItemStack[] getComponents() {
         return this.components;
     }
-    
+
     public Object getRecipeOutput(final Class input) {
         return this.recipeOutput;
     }
-    
+
     public AspectList getAspects(final Class input) {
         return this.aspects;
     }
-    
+
     public int getInstability(final Class input) {
         return this.instability;
     }
-    
+
     public int getID(final Class input) {
         return this.id;
     }
