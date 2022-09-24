@@ -1,38 +1,40 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.renderer.item;
 
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.entity.Entity;
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.item.ItemStack;
 import com.kentington.thaumichorizons.client.renderer.model.ModelInjector;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
 
-public class ItemInjectorRender implements IItemRenderer
-{
+public class ItemInjectorRender implements IItemRenderer {
     private ModelBase injector;
     private String tx1;
-    
+
     public ItemInjectorRender() {
         this.injector = new ModelInjector();
         this.tx1 = "textures/models/injector.png";
     }
-    
+
     public boolean handleRenderType(final ItemStack item, final IItemRenderer.ItemRenderType type) {
         return true;
     }
-    
-    public boolean shouldUseRenderHelper(final IItemRenderer.ItemRenderType type, final ItemStack item, final IItemRenderer.ItemRendererHelper helper) {
+
+    public boolean shouldUseRenderHelper(
+            final IItemRenderer.ItemRenderType type,
+            final ItemStack item,
+            final IItemRenderer.ItemRendererHelper helper) {
         return helper != IItemRenderer.ItemRendererHelper.BLOCK_3D;
     }
-    
+
     public void renderItem(final IItemRenderer.ItemRenderType type, final ItemStack item, final Object... data) {
         int ticksUsed = 0;
         int rotation = 0;
@@ -43,8 +45,7 @@ public class ItemInjectorRender implements IItemRenderer
             if (rotation < rotationTarget) {
                 ++rotation;
                 item.stackTagCompound.setInteger("rotation", rotation);
-            }
-            else if (rotation > rotationTarget) {
+            } else if (rotation > rotationTarget) {
                 --rotation;
                 item.stackTagCompound.setInteger("rotation", rotation);
             }
@@ -61,24 +62,22 @@ public class ItemInjectorRender implements IItemRenderer
         if (type != IItemRenderer.ItemRenderType.INVENTORY) {
             if (type == IItemRenderer.ItemRenderType.ENTITY) {
                 GL11.glTranslated(0.0, -0.5, 0.0);
-            }
-            else if (type != IItemRenderer.ItemRenderType.EQUIPPED_FIRST_PERSON) {
+            } else if (type != IItemRenderer.ItemRenderType.EQUIPPED_FIRST_PERSON) {
                 GL11.glTranslated(0.25, -1.0, -1.25);
                 GL11.glRotated(-45.0, 0.0, 0.0, 1.0);
                 GL11.glRotated(-90.0, 0.0, 1.0, 0.0);
-            }
-            else {
+            } else {
                 GL11.glScaled(4.0, 4.0, 4.0);
                 GL11.glTranslated(1.5, 0.0, 0.0);
                 GL11.glRotated(230.0, 0.0, 1.0, 0.0);
             }
-        }
-        else {
+        } else {
             GL11.glTranslated(0.38, -0.1, 0.38);
             GL11.glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
         }
         UtilsFX.bindTexture(new ResourceLocation("thaumichorizons", this.tx1));
-        this.injector.render((Entity)null, f * 3.1415927f / 16.0f, f * 3.1415927f / 4.0f, (float)rotation, f, 0.0f, 0.125f);
+        this.injector.render(
+                (Entity) null, f * 3.1415927f / 16.0f, f * 3.1415927f / 4.0f, (float) rotation, f, 0.0f, 0.125f);
         GL11.glPopMatrix();
     }
 }

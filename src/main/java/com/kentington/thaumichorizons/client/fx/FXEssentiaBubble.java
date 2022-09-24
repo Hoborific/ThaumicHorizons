@@ -1,23 +1,30 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.fx;
 
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
 import java.awt.Color;
+import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.client.particle.EntityFX;
+import org.lwjgl.opengl.GL11;
 
-public class FXEssentiaBubble extends EntityFX
-{
+public class FXEssentiaBubble extends EntityFX {
     private int count;
     private int delay;
     public int particle;
-    
-    public FXEssentiaBubble(final World par1World, final double par2, final double par4, final double par6, final int count, final int color, final float scale, final int delay) {
+
+    public FXEssentiaBubble(
+            final World par1World,
+            final double par2,
+            final double par4,
+            final double par6,
+            final int count,
+            final int color,
+            final float scale,
+            final int delay) {
         super(par1World, par2, par4, par6, 0.0, 0.0, 0.0);
         this.count = 0;
         this.delay = 0;
@@ -44,8 +51,15 @@ public class FXEssentiaBubble extends EntityFX
         this.particleGravity = 0.2f;
         this.noClip = false;
     }
-    
-    public void renderParticle(final Tessellator tessellator, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+
+    public void renderParticle(
+            final Tessellator tessellator,
+            final float f,
+            final float f1,
+            final float f2,
+            final float f3,
+            final float f4,
+            final float f5) {
         if (this.delay > 0) {
             return;
         }
@@ -57,22 +71,43 @@ public class FXEssentiaBubble extends EntityFX
         final int part = this.particle + this.particleAge % 16;
         final float s = MathHelper.sin((this.particleAge - this.count) / 5.0f) * 0.25f + 1.0f;
         final float var12 = 0.1f * this.particleScale * s;
-        final float var13 = (float)(this.prevPosX + (this.posX - this.prevPosX) * f - FXEssentiaBubble.interpPosX);
-        final float var14 = (float)(this.prevPosY + (this.posY - this.prevPosY) * f - FXEssentiaBubble.interpPosY);
-        final float var15 = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * f - FXEssentiaBubble.interpPosZ);
+        final float var13 = (float) (this.prevPosX + (this.posX - this.prevPosX) * f - FXEssentiaBubble.interpPosX);
+        final float var14 = (float) (this.prevPosY + (this.posY - this.prevPosY) * f - FXEssentiaBubble.interpPosY);
+        final float var15 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * f - FXEssentiaBubble.interpPosZ);
         final float var16 = 1.0f;
         tessellator.setBrightness(240);
-        tessellator.setColorRGBA_F(this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16, 0.5f);
-        tessellator.addVertexWithUV((double)(var13 - f1 * var12 - f4 * var12), (double)(var14 - f2 * var12), (double)(var15 - f3 * var12 - f5 * var12), (double)t2, (double)t5);
-        tessellator.addVertexWithUV((double)(var13 - f1 * var12 + f4 * var12), (double)(var14 + f2 * var12), (double)(var15 - f3 * var12 + f5 * var12), (double)t3, (double)t5);
-        tessellator.addVertexWithUV((double)(var13 + f1 * var12 + f4 * var12), (double)(var14 + f2 * var12), (double)(var15 + f3 * var12 + f5 * var12), (double)t3, (double)t4);
-        tessellator.addVertexWithUV((double)(var13 + f1 * var12 - f4 * var12), (double)(var14 - f2 * var12), (double)(var15 + f3 * var12 - f5 * var12), (double)t2, (double)t4);
+        tessellator.setColorRGBA_F(
+                this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16, 0.5f);
+        tessellator.addVertexWithUV(
+                (double) (var13 - f1 * var12 - f4 * var12),
+                (double) (var14 - f2 * var12),
+                (double) (var15 - f3 * var12 - f5 * var12),
+                (double) t2,
+                (double) t5);
+        tessellator.addVertexWithUV(
+                (double) (var13 - f1 * var12 + f4 * var12),
+                (double) (var14 + f2 * var12),
+                (double) (var15 - f3 * var12 + f5 * var12),
+                (double) t3,
+                (double) t5);
+        tessellator.addVertexWithUV(
+                (double) (var13 + f1 * var12 + f4 * var12),
+                (double) (var14 + f2 * var12),
+                (double) (var15 + f3 * var12 + f5 * var12),
+                (double) t3,
+                (double) t4);
+        tessellator.addVertexWithUV(
+                (double) (var13 + f1 * var12 - f4 * var12),
+                (double) (var14 - f2 * var12),
+                (double) (var15 + f3 * var12 - f5 * var12),
+                (double) t2,
+                (double) t4);
     }
-    
+
     public int getFXLayer() {
         return 1;
     }
-    
+
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;

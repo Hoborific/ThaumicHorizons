@@ -1,28 +1,27 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import thaumcraft.api.ThaumcraftApiHelper;
-import thaumcraft.common.lib.research.ResearchManager;
 import java.lang.ref.WeakReference;
-import thaumcraft.api.WorldCoordinates;
 import java.util.HashMap;
-import thaumcraft.api.visnet.VisNetHandler;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.WorldCoordinates;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.api.aspects.IAspectContainer;
+import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.api.visnet.TileVisNode;
+import thaumcraft.api.visnet.VisNetHandler;
+import thaumcraft.common.lib.research.ResearchManager;
 
-public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer, IEssentiaTransport
-{
+public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer, IEssentiaTransport {
     AspectList primalsActuallyProvided;
     AspectList primalsProvided;
     public Aspect essentia;
@@ -30,7 +29,7 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
     public float rise;
     public float rotation;
     public float rotation2;
-    
+
     public TileEssentiaDynamo() {
         this.primalsActuallyProvided = new AspectList();
         this.primalsProvided = new AspectList();
@@ -40,7 +39,7 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
         this.rotation = 0.0f;
         this.rotation2 = 0.0f;
     }
-    
+
     @Override
     public AspectList getAspects() {
         if (this.primalsProvided.getAspects().length > 0 && this.primalsProvided.getAspects()[0] != null) {
@@ -48,56 +47,55 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
         }
         return null;
     }
-    
+
     @Override
-    public void setAspects(final AspectList aspects) {
-    }
-    
+    public void setAspects(final AspectList aspects) {}
+
     @Override
     public boolean doesContainerAccept(final Aspect tag) {
         return false;
     }
-    
+
     @Override
     public int addToContainer(final Aspect tag, final int amount) {
         return 0;
     }
-    
+
     @Override
     public boolean takeFromContainer(final Aspect tag, final int amount) {
         return false;
     }
-    
+
     @Override
     public boolean takeFromContainer(final AspectList ot) {
         return false;
     }
-    
+
     @Override
     public boolean doesContainerContainAmount(final Aspect tag, final int amount) {
         return false;
     }
-    
+
     @Override
     public boolean doesContainerContain(final AspectList ot) {
         return false;
     }
-    
+
     @Override
     public int containerContains(final Aspect tag) {
         return 0;
     }
-    
+
     @Override
     public int getRange() {
         return 0;
     }
-    
+
     @Override
     public boolean isSource() {
         return this.ticksProvided > 0;
     }
-    
+
     @Override
     public int consumeVis(final Aspect aspect, final int amount) {
         final int drain = Math.min(this.primalsActuallyProvided.getAmount(aspect), amount);
@@ -106,31 +104,30 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
         }
         return drain;
     }
-    
+
     @Override
     public boolean isConnectable(final ForgeDirection face) {
         return face == ForgeDirection.DOWN;
     }
-    
+
     @Override
     public boolean canInputFrom(final ForgeDirection face) {
         return face == ForgeDirection.DOWN;
     }
-    
+
     @Override
     public boolean canOutputTo(final ForgeDirection face) {
         return false;
     }
-    
+
     @Override
-    public void setSuction(final Aspect aspect, final int amount) {
-    }
-    
+    public void setSuction(final Aspect aspect, final int amount) {}
+
     @Override
     public Aspect getSuctionType(final ForgeDirection face) {
         return null;
     }
-    
+
     @Override
     public int getSuctionAmount(final ForgeDirection face) {
         if (this.ticksProvided <= 20) {
@@ -138,59 +135,80 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
         }
         return 0;
     }
-    
+
     @Override
     public int takeEssentia(final Aspect aspect, final int amount, final ForgeDirection face) {
         return 0;
     }
-    
+
     @Override
     public int addEssentia(final Aspect aspect, final int amount, final ForgeDirection face) {
         this.ticksProvided += 21;
         this.essentia = aspect;
         if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId) == null) {
-            VisNetHandler.sources.put(this.worldObj.provider.dimensionId, new HashMap<WorldCoordinates, WeakReference<TileVisNode>>());
+            VisNetHandler.sources.put(
+                    this.worldObj.provider.dimensionId, new HashMap<WorldCoordinates, WeakReference<TileVisNode>>());
         }
-        if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId).get(new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId)) == null) {
-            VisNetHandler.sources.get(this.worldObj.provider.dimensionId).put(new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId), new WeakReference<TileVisNode>(this));
-        }
-        else if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId).get(new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId)).get() == null) {
-            VisNetHandler.sources.get(this.worldObj.provider.dimensionId).remove(new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId));
-            VisNetHandler.sources.get(this.worldObj.provider.dimensionId).put(new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId), new WeakReference<TileVisNode>(this));
+        if (VisNetHandler.sources
+                        .get(this.worldObj.provider.dimensionId)
+                        .get(new WorldCoordinates(
+                                this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
+                == null) {
+            VisNetHandler.sources
+                    .get(this.worldObj.provider.dimensionId)
+                    .put(
+                            new WorldCoordinates(
+                                    this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId),
+                            new WeakReference<TileVisNode>(this));
+        } else if (VisNetHandler.sources
+                        .get(this.worldObj.provider.dimensionId)
+                        .get(new WorldCoordinates(
+                                this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
+                        .get()
+                == null) {
+            VisNetHandler.sources
+                    .get(this.worldObj.provider.dimensionId)
+                    .remove(new WorldCoordinates(
+                            this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId));
+            VisNetHandler.sources
+                    .get(this.worldObj.provider.dimensionId)
+                    .put(
+                            new WorldCoordinates(
+                                    this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId),
+                            new WeakReference<TileVisNode>(this));
         }
         this.markDirty();
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         return 1;
     }
-    
+
     @Override
     public Aspect getEssentiaType(final ForgeDirection face) {
         return this.essentia;
     }
-    
+
     @Override
     public int getEssentiaAmount(final ForgeDirection face) {
         return 0;
     }
-    
+
     @Override
     public int getMinimumSuction() {
         return 0;
     }
-    
+
     @Override
     public boolean renderExtendedTube() {
         return false;
     }
-    
+
     @Override
     public void updateEntity() {
         super.updateEntity();
         if (this.ticksProvided >= 0) {
             if (this.rise < 0.3f) {
                 this.rise += 0.02f;
-            }
-            else {
+            } else {
                 this.rotation2 += 2.0f;
                 if (this.rotation2 >= 360.0f) {
                     this.rotation2 -= 360.0f;
@@ -200,15 +218,13 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
             if (this.rotation >= 360.0f) {
                 this.rotation -= 360.0f;
             }
-        }
-        else if (this.ticksProvided < 0 && (this.rise > 0.0f || this.rotation2 != 0.0f)) {
+        } else if (this.ticksProvided < 0 && (this.rise > 0.0f || this.rotation2 != 0.0f)) {
             if (this.rotation2 > 0.0f) {
                 this.rotation2 -= 8.0f;
                 if (this.rotation2 < 0.0f) {
                     this.rotation2 = 0.0f;
                 }
-            }
-            else if (this.rise > 0.0f) {
+            } else if (this.rise > 0.0f) {
                 this.rise -= 0.02f;
             }
         }
@@ -219,8 +235,7 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
                 final int num = this.primalsProvided.getAmount(asp);
                 if (num > numEach) {
                     this.primalsProvided.reduce(asp, num - numEach);
-                }
-                else if (num < numEach) {
+                } else if (num < numEach) {
                     this.primalsProvided.add(asp, numEach - num);
                 }
             }
@@ -230,9 +245,10 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
                 this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                 this.markDirty();
             }
-        }
-        else if (this.ticksProvided == 0) {
-            if (!this.worldObj.isRemote && !this.drawEssentia() && VisNetHandler.sources.get(this.worldObj.provider.dimensionId) != null) {
+        } else if (this.ticksProvided == 0) {
+            if (!this.worldObj.isRemote
+                    && !this.drawEssentia()
+                    && VisNetHandler.sources.get(this.worldObj.provider.dimensionId) != null) {
                 --this.ticksProvided;
                 this.killMe();
                 this.primalsProvided = new AspectList();
@@ -240,28 +256,36 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
                 this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                 this.markDirty();
             }
-        }
-        else if (!this.worldObj.isRemote && this.ticksProvided < 0) {
+        } else if (!this.worldObj.isRemote && this.ticksProvided < 0) {
             this.drawEssentia();
         }
     }
-    
+
     public void killMe() {
-        if (VisNetHandler.sources != null && this.worldObj != null && this.worldObj.provider != null && VisNetHandler.sources.get(this.worldObj.provider.dimensionId) != null) {
-            VisNetHandler.sources.get(this.worldObj.provider.dimensionId).remove(new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId));
+        if (VisNetHandler.sources != null
+                && this.worldObj != null
+                && this.worldObj.provider != null
+                && VisNetHandler.sources.get(this.worldObj.provider.dimensionId) != null) {
+            VisNetHandler.sources
+                    .get(this.worldObj.provider.dimensionId)
+                    .remove(new WorldCoordinates(
+                            this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId));
             this.removeThisNode();
         }
     }
-    
+
     boolean drawEssentia() {
-        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.DOWN);
+        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(
+                this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.DOWN);
         if (te != null) {
-            final IEssentiaTransport ic = (IEssentiaTransport)te;
+            final IEssentiaTransport ic = (IEssentiaTransport) te;
             if (!ic.canOutputTo(ForgeDirection.UP)) {
                 return false;
             }
             Aspect ta = null;
-            if (ic.getEssentiaAmount(ForgeDirection.UP) > 0 && ic.getSuctionAmount(ForgeDirection.UP) < this.getSuctionAmount(ForgeDirection.DOWN) && this.getSuctionAmount(ForgeDirection.DOWN) >= ic.getMinimumSuction()) {
+            if (ic.getEssentiaAmount(ForgeDirection.UP) > 0
+                    && ic.getSuctionAmount(ForgeDirection.UP) < this.getSuctionAmount(ForgeDirection.DOWN)
+                    && this.getSuctionAmount(ForgeDirection.DOWN) >= ic.getMinimumSuction()) {
                 ta = ic.getEssentiaType(ForgeDirection.UP);
             }
             if (ta != null && ic.takeEssentia(ta, 1, ForgeDirection.UP) == 1) {
@@ -271,10 +295,9 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
         }
         return false;
     }
-    
-    public void debug() {
-    }
-    
+
+    public void debug() {}
+
     @Override
     public void writeCustomNBT(final NBTTagCompound nbttagcompound) {
         super.writeCustomNBT(nbttagcompound);
@@ -283,17 +306,17 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
         }
         nbttagcompound.setInteger("ticks", this.ticksProvided);
         final NBTTagList tlist = new NBTTagList();
-        nbttagcompound.setTag("AspectsProvided", (NBTBase)tlist);
+        nbttagcompound.setTag("AspectsProvided", (NBTBase) tlist);
         for (final Aspect aspect : this.primalsProvided.getAspects()) {
             if (aspect != null) {
                 final NBTTagCompound f = new NBTTagCompound();
                 f.setString("key", aspect.getTag());
                 f.setInteger("amount", this.primalsProvided.getAmount(aspect));
-                tlist.appendTag((NBTBase)f);
+                tlist.appendTag((NBTBase) f);
             }
         }
     }
-    
+
     @Override
     public void readCustomNBT(final NBTTagCompound nbttagcompound) {
         super.readCustomNBT(nbttagcompound);

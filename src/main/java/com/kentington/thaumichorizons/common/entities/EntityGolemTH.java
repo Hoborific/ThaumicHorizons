@@ -1,55 +1,54 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.entities;
 
-import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.Potion;
-import net.minecraft.entity.EntityLivingBase;
-import io.netty.buffer.ByteBuf;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.NetworkRegistry;
+import com.kentington.thaumichorizons.client.lib.GolemTHTexture;
+import com.kentington.thaumichorizons.common.entities.ai.EntityAIFollowPlayer;
 import com.kentington.thaumichorizons.common.lib.networking.PacketFXBlocksplosion;
 import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
-import thaumcraft.common.config.ConfigItems;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.ITextureObject;
-import net.minecraft.client.Minecraft;
-import com.kentington.thaumichorizons.client.lib.GolemTHTexture;
-import thaumcraft.common.entities.golems.EnumGolemType;
-import net.minecraft.nbt.NBTTagCompound;
-import thaumcraft.common.entities.monster.EntityEldritchGuardian;
-import thaumcraft.common.Thaumcraft;
-import net.minecraft.init.Blocks;
-import thaumcraft.common.config.ConfigBlocks;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import com.kentington.thaumichorizons.common.entities.ai.EntityAIFollowPlayer;
-import thaumcraft.common.entities.ai.misc.AIOpenDoor;
-import thaumcraft.common.entities.ai.combat.AIGolemAttackOnCollide;
-import thaumcraft.common.entities.ai.combat.AINearestAttackableTarget;
-import net.minecraft.entity.EntityCreature;
-import thaumcraft.common.entities.ai.combat.AIHurtByTarget;
-import net.minecraft.entity.ai.EntityAIBase;
-import thaumcraft.common.entities.ai.combat.AIAvoidCreeperSwell;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.Entity;
-import net.minecraft.block.material.Material;
-import net.minecraft.world.World;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.ITextureObject;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.entities.ai.combat.AIAvoidCreeperSwell;
+import thaumcraft.common.entities.ai.combat.AIGolemAttackOnCollide;
+import thaumcraft.common.entities.ai.combat.AIHurtByTarget;
+import thaumcraft.common.entities.ai.combat.AINearestAttackableTarget;
+import thaumcraft.common.entities.ai.misc.AIOpenDoor;
 import thaumcraft.common.entities.golems.EntityGolemBase;
+import thaumcraft.common.entities.golems.EnumGolemType;
+import thaumcraft.common.entities.monster.EntityEldritchGuardian;
 
-public class EntityGolemTH extends EntityGolemBase
-{
+public class EntityGolemTH extends EntityGolemBase {
     public ResourceLocation texture;
     public Block blocky;
     public int md;
@@ -58,7 +57,7 @@ public class EntityGolemTH extends EntityGolemBase
     public boolean berserk;
     public boolean kaboom;
     public EnumGolemTHType type;
-    
+
     public EntityGolemTH(final World par1World) {
         super(par1World);
         this.texture = null;
@@ -66,8 +65,17 @@ public class EntityGolemTH extends EntityGolemBase
         this.voidCount = 0;
         this.type = EnumGolemTHType.SAND;
     }
-    
-    public void loadGolem(final double x, final double y, final double z, final Block block, final int md, final int ticksAlive, final boolean adv, final boolean berserk, final boolean kaboom) {
+
+    public void loadGolem(
+            final double x,
+            final double y,
+            final double z,
+            final Block block,
+            final int md,
+            final int ticksAlive,
+            final boolean adv,
+            final boolean berserk,
+            final boolean kaboom) {
         this.setPosition(x, y, z);
         this.md = md;
         this.blocky = block;
@@ -82,7 +90,7 @@ public class EntityGolemTH extends EntityGolemBase
             this.upgrades[a] = -1;
         }
     }
-    
+
     public void loadGolemTexturesAndStats() {
         if (this.blocky == null) {
             this.type = EnumGolemTHType.VOID;
@@ -91,99 +99,92 @@ public class EntityGolemTH extends EntityGolemBase
         final Material m = this.blocky.getMaterial();
         if (m == Material.grass) {
             this.type = EnumGolemTHType.GRASS;
-        }
-        else if (m == Material.ground) {
+        } else if (m == Material.ground) {
             this.type = EnumGolemTHType.DIRT;
-        }
-        else if (m == Material.wood || m == Material.gourd) {
+        } else if (m == Material.wood || m == Material.gourd) {
             this.type = EnumGolemTHType.WOOD;
-        }
-        else if (m == Material.leaves || m == Material.plants || m == Material.vine) {
+        } else if (m == Material.leaves || m == Material.plants || m == Material.vine) {
             this.type = EnumGolemTHType.PLANT;
-        }
-        else if (m == Material.rock) {
+        } else if (m == Material.rock) {
             this.type = EnumGolemTHType.ROCK;
-        }
-        else if (m == Material.iron || m == Material.anvil) {
+        } else if (m == Material.iron || m == Material.anvil) {
             this.type = EnumGolemTHType.METAL;
-        }
-        else if (m == Material.sponge || m == Material.cloth || m == Material.carpet) {
+        } else if (m == Material.sponge || m == Material.cloth || m == Material.carpet) {
             this.type = EnumGolemTHType.CLOTH;
-        }
-        else if (m == Material.sand) {
+        } else if (m == Material.sand) {
             this.type = EnumGolemTHType.SAND;
-        }
-        else if (m == Material.redstoneLight || m == Material.circuits) {
+        } else if (m == Material.redstoneLight || m == Material.circuits) {
             this.type = EnumGolemTHType.REDSTONE;
-        }
-        else if (m == Material.tnt) {
+        } else if (m == Material.tnt) {
             this.type = EnumGolemTHType.TNT;
-        }
-        else if (m == Material.ice || m == Material.packedIce || m == Material.snow || m == Material.craftedSnow) {
+        } else if (m == Material.ice || m == Material.packedIce || m == Material.snow || m == Material.craftedSnow) {
             this.type = EnumGolemTHType.ICE;
-        }
-        else if (m == Material.cactus) {
+        } else if (m == Material.cactus) {
             this.type = EnumGolemTHType.CACTUS;
-        }
-        else if (m == Material.cake) {
+        } else if (m == Material.cake) {
             this.type = EnumGolemTHType.CAKE;
-        }
-        else if (m == Material.web) {
+        } else if (m == Material.web) {
             this.type = EnumGolemTHType.WEB;
-        }
-        else {
+        } else {
             this.type = EnumGolemTHType.ROCK;
         }
         if (this.worldObj.isRemote) {
             this.loadTexture();
         }
     }
-    
+
     public boolean isValidTarget(final Entity target) {
         if (!this.berserk) {
             return super.isValidTarget(target) || target instanceof EntityCreeper;
         }
-        return target.isEntityAlive() && (!(target instanceof EntityPlayer) || !((EntityPlayer)target).getCommandSenderName().equals(this.getOwnerName())) && !target.getCommandSenderName().equals(this.getCommandSenderName());
+        return target.isEntityAlive()
+                && (!(target instanceof EntityPlayer)
+                        || !((EntityPlayer) target).getCommandSenderName().equals(this.getOwnerName()))
+                && !target.getCommandSenderName().equals(this.getCommandSenderName());
     }
-    
+
     public boolean setupGolem() {
         super.setupGolem();
         if (this.getCore() == -1) {
-            this.tasks.addTask(0, (EntityAIBase)new AIAvoidCreeperSwell((EntityGolemBase)this));
-            this.targetTasks.addTask(1, (EntityAIBase)new AIHurtByTarget((EntityCreature)this, false));
-            this.targetTasks.addTask(2, (EntityAIBase)new AINearestAttackableTarget((EntityGolemBase)this, 0, true));
-            this.tasks.addTask(3, (EntityAIBase)new AIGolemAttackOnCollide((EntityGolemBase)this));
-            this.tasks.addTask(5, (EntityAIBase)new AIOpenDoor((EntityGolemBase)this, true));
+            this.tasks.addTask(0, (EntityAIBase) new AIAvoidCreeperSwell((EntityGolemBase) this));
+            this.targetTasks.addTask(1, (EntityAIBase) new AIHurtByTarget((EntityCreature) this, false));
+            this.targetTasks.addTask(2, (EntityAIBase) new AINearestAttackableTarget((EntityGolemBase) this, 0, true));
+            this.tasks.addTask(3, (EntityAIBase) new AIGolemAttackOnCollide((EntityGolemBase) this));
+            this.tasks.addTask(5, (EntityAIBase) new AIOpenDoor((EntityGolemBase) this, true));
             if (!this.kaboom) {
-                this.tasks.addTask(6, (EntityAIBase)new EntityAIFollowPlayer(this, this.getAIMoveSpeed() * 3.0f, 2.0f, 12.0f));
+                this.tasks.addTask(
+                        6, (EntityAIBase) new EntityAIFollowPlayer(this, this.getAIMoveSpeed() * 3.0f, 2.0f, 12.0f));
+            } else {
+                this.tasks.addTask(
+                        6, (EntityAIBase) new EntityAIFollowPlayer(this, this.getAIMoveSpeed() * 3.0f, 8.0f, 12.0f));
             }
-            else {
-                this.tasks.addTask(6, (EntityAIBase)new EntityAIFollowPlayer(this, this.getAIMoveSpeed() * 3.0f, 8.0f, 12.0f));
-            }
-            this.tasks.addTask(7, (EntityAIBase)new EntityAIWatchClosest((EntityLiving)this, (Class)EntityPlayer.class, 6.0f));
-            this.tasks.addTask(8, (EntityAIBase)new EntityAILookIdle((EntityLiving)this));
+            this.tasks.addTask(
+                    7, (EntityAIBase) new EntityAIWatchClosest((EntityLiving) this, (Class) EntityPlayer.class, 6.0f));
+            this.tasks.addTask(8, (EntityAIBase) new EntityAILookIdle((EntityLiving) this));
             this.paused = false;
             this.inactive = false;
             this.bootup = 0.0f;
         }
         if (!this.worldObj.isRemote) {
-            this.dataWatcher.updateObject(19, (Object)(byte)this.type.ordinal());
+            this.dataWatcher.updateObject(19, (Object) (byte) this.type.ordinal());
         }
-        if (this.getGolemTHType() == EnumGolemTHType.ROCK || this.getGolemTHType() == EnumGolemTHType.METAL || this.getGolemTHType() == EnumGolemTHType.REDSTONE) {
+        if (this.getGolemTHType() == EnumGolemTHType.ROCK
+                || this.getGolemTHType() == EnumGolemTHType.METAL
+                || this.getGolemTHType() == EnumGolemTHType.REDSTONE) {
             this.getNavigator().setAvoidsWater(false);
-        }
-        else {
+        } else {
             this.getNavigator().setAvoidsWater(true);
         }
         int bonus = 0;
         try {
             bonus = (this.getGolemDecoration().contains("H") ? 5 : 0);
+        } catch (Exception ex) {
         }
-        catch (Exception ex) {}
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)(this.getGolemTHType().health + bonus));
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth)
+                .setBaseValue((double) (this.getGolemTHType().health + bonus));
         return true;
     }
-    
+
     public boolean attackEntityFrom(final DamageSource ds, float par2) {
         this.paused = false;
         if (ds == DamageSource.cactus) {
@@ -192,17 +193,22 @@ public class EntityGolemTH extends EntityGolemBase
         if (this.blocky == ConfigBlocks.blockCosmeticSolid && this.md == 4 && ds == DamageSource.magic) {
             par2 *= 0.5f;
         }
-        if (ds.getSourceOfDamage() != null && this.getUpgradeAmount(5) > 0 && ds.getSourceOfDamage().getEntityId() != this.getEntityId()) {
-            ds.getSourceOfDamage().attackEntityFrom(DamageSource.causeThornsDamage((Entity)this), (float)(this.getUpgradeAmount(5) * 2 + this.rand.nextInt(2 * this.getUpgradeAmount(5))));
+        if (ds.getSourceOfDamage() != null
+                && this.getUpgradeAmount(5) > 0
+                && ds.getSourceOfDamage().getEntityId() != this.getEntityId()) {
+            ds.getSourceOfDamage().attackEntityFrom(DamageSource.causeThornsDamage((Entity) this), (float)
+                    (this.getUpgradeAmount(5) * 2 + this.rand.nextInt(2 * this.getUpgradeAmount(5))));
             ds.getSourceOfDamage().playSound("damage.thorns", 0.5f, 1.0f);
-        }
-        else if (ds.getSourceOfDamage() != null && this.blocky == Blocks.cactus && ds.getSourceOfDamage().getEntityId() != this.getEntityId()) {
-            ds.getSourceOfDamage().attackEntityFrom(DamageSource.causeThornsDamage((Entity)this), (float)(this.getUpgradeAmount(5) * 2 + this.rand.nextInt(2)));
+        } else if (ds.getSourceOfDamage() != null
+                && this.blocky == Blocks.cactus
+                && ds.getSourceOfDamage().getEntityId() != this.getEntityId()) {
+            ds.getSourceOfDamage().attackEntityFrom(DamageSource.causeThornsDamage((Entity) this), (float)
+                    (this.getUpgradeAmount(5) * 2 + this.rand.nextInt(2)));
             ds.getSourceOfDamage().playSound("damage.thorns", 0.5f, 1.0f);
         }
         return super.attackEntityFrom(ds, par2);
     }
-    
+
     public int getCarryLimit() {
         int base = this.type.carry;
         if (this.worldObj.isRemote) {
@@ -211,7 +217,7 @@ public class EntityGolemTH extends EntityGolemBase
         base += Math.min(16, Math.max(4, base)) * this.getUpgradeAmount(1);
         return base;
     }
-    
+
     public float getAIMoveSpeed() {
         if (this.paused || this.inactive) {
             return 0.0f;
@@ -224,98 +230,113 @@ public class EntityGolemTH extends EntityGolemBase
         if (this.advanced) {
             speed *= 1.1f;
         }
-        if (this.isInWater() && (this.getGolemTHType() == EnumGolemTHType.ROCK || this.getGolemTHType() == EnumGolemTHType.METAL || this.getGolemTHType() == EnumGolemTHType.REDSTONE)) {
+        if (this.isInWater()
+                && (this.getGolemTHType() == EnumGolemTHType.ROCK
+                        || this.getGolemTHType() == EnumGolemTHType.METAL
+                        || this.getGolemTHType() == EnumGolemTHType.REDSTONE)) {
             speed *= 2.0f;
         }
         return speed;
     }
-    
+
     public void onLivingUpdate() {
         super.onLivingUpdate();
         if (!this.worldObj.isRemote) {
             if (this.getCore() == -1 && this.ticksAlive > 0) {
                 --this.ticksAlive;
                 if (this.worldObj.getPlayerEntityByName(this.getOwnerName()) != null) {
-                    this.setHomeArea((int)this.worldObj.getPlayerEntityByName(this.getOwnerName()).posX, (int)this.worldObj.getPlayerEntityByName(this.getOwnerName()).posY, (int)this.worldObj.getPlayerEntityByName(this.getOwnerName()).posZ, 16);
+                    this.setHomeArea(
+                            (int) this.worldObj.getPlayerEntityByName(this.getOwnerName()).posX,
+                            (int) this.worldObj.getPlayerEntityByName(this.getOwnerName()).posY,
+                            (int) this.worldObj.getPlayerEntityByName(this.getOwnerName()).posZ,
+                            16);
                 }
-            }
-            else if (this.getCore() == -1 && this.ticksAlive != -420) {
+            } else if (this.getCore() == -1 && this.ticksAlive != -420) {
                 this.die();
-            }
-            else if (this.getCore() == -1) {
+            } else if (this.getCore() == -1) {
                 if (this.ticksExisted % 10 == 0 && this.worldObj.rand.nextInt(500) == 0) {
                     final EntityPlayer player = this.worldObj.getPlayerEntityByName(this.getOwnerName());
                     switch (this.voidCount) {
                         case 0: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("thaumichorizons.golemWarning1")));
+                                player.addChatMessage((IChatComponent) new ChatComponentText(
+                                        EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE
+                                                + StatCollector.translateToLocal("thaumichorizons.golemWarning1")));
                                 break;
                             }
                             break;
                         }
                         case 1: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("thaumichorizons.golemWarning2")));
+                                player.addChatMessage((IChatComponent) new ChatComponentText(
+                                        EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE
+                                                + StatCollector.translateToLocal("thaumichorizons.golemWarning2")));
                                 break;
                             }
                             break;
                         }
                         case 2: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent)new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("thaumichorizons.golemWarning3")));
+                                player.addChatMessage((IChatComponent) new ChatComponentText(
+                                        EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE
+                                                + StatCollector.translateToLocal("thaumichorizons.golemWarning3")));
                                 break;
                             }
                             break;
                         }
                         case 3: {
                             this.die();
-                            Thaumcraft.proxy.burst(this.worldObj, this.posX, this.posY + this.height / 2.0f, this.posZ, 2.0f);
+                            Thaumcraft.proxy.burst(
+                                    this.worldObj, this.posX, this.posY + this.height / 2.0f, this.posZ, 2.0f);
                             final EntityEldritchGuardian scaryThing = new EntityEldritchGuardian(this.worldObj);
                             scaryThing.setPosition(this.posX, this.posY, this.posZ);
-                            this.worldObj.spawnEntityInWorld((Entity)scaryThing);
-                            scaryThing.setHomeArea((int)this.posX, (int)this.posY, (int)this.posZ, 32);
+                            this.worldObj.spawnEntityInWorld((Entity) scaryThing);
+                            scaryThing.setHomeArea((int) this.posX, (int) this.posY, (int) this.posZ, 32);
                             break;
                         }
                     }
                     ++this.voidCount;
                 }
                 if (this.worldObj.getPlayerEntityByName(this.getOwnerName()) != null) {
-                    this.setHomeArea((int)this.worldObj.getPlayerEntityByName(this.getOwnerName()).posX, (int)this.worldObj.getPlayerEntityByName(this.getOwnerName()).posY, (int)this.worldObj.getPlayerEntityByName(this.getOwnerName()).posZ, 16);
+                    this.setHomeArea(
+                            (int) this.worldObj.getPlayerEntityByName(this.getOwnerName()).posX,
+                            (int) this.worldObj.getPlayerEntityByName(this.getOwnerName()).posY,
+                            (int) this.worldObj.getPlayerEntityByName(this.getOwnerName()).posZ,
+                            16);
                 }
             }
             if (this.regenTimer <= 0) {
                 this.regenTimer = this.type.regenDelay;
                 if (this.decoration.contains("F")) {
-                    this.regenTimer *= (int)0.66f;
+                    this.regenTimer *= (int) 0.66f;
                 }
                 if (!this.worldObj.isRemote && this.getHealth() < this.getMaxHealth()) {
-                    this.worldObj.setEntityState((Entity)this, (byte)5);
+                    this.worldObj.setEntityState((Entity) this, (byte) 5);
                     this.heal(1.0f);
                 }
             }
         }
     }
-    
+
     public boolean isWithinHomeDistance(final int par1, final int par2, final int par3) {
         return this.getCore() == -1 || super.isWithinHomeDistance(par1, par2, par3);
     }
-    
+
     public void setFire(final int par1) {
         if (!this.type.fireResist) {
             super.setFire(par1);
         }
     }
-    
+
     public void writeEntityToNBT(final NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        nbt.setByte("GolemTypeTH", (byte)this.type.ordinal());
-        nbt.setByte("GolemType", (byte)EnumGolemType.FLESH.ordinal());
+        nbt.setByte("GolemTypeTH", (byte) this.type.ordinal());
+        nbt.setByte("GolemType", (byte) EnumGolemType.FLESH.ordinal());
         if (this.blocky != null) {
             final String s = "block";
             final Block blocky = this.blocky;
             nbt.setInteger(s, Block.getIdFromBlock(this.blocky));
-        }
-        else {
+        } else {
             nbt.setInteger("block", 0);
         }
         nbt.setByteArray("upgrades", this.upgrades);
@@ -325,7 +346,7 @@ public class EntityGolemTH extends EntityGolemBase
         nbt.setBoolean("berserk", this.berserk);
         nbt.setBoolean("explosive", this.kaboom);
     }
-    
+
     public void readEntityFromNBT(final NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         this.type = EnumGolemTHType.getType(nbt.getByte("GolemTypeTH"));
@@ -348,7 +369,7 @@ public class EntityGolemTH extends EntityGolemBase
         for (final byte c : this.upgrades) {
             st += Integer.toHexString(c);
         }
-        this.dataWatcher.updateObject(23, (Object)String.valueOf(st));
+        this.dataWatcher.updateObject(23, (Object) String.valueOf(st));
         this.blocky = Block.getBlockById(nbt.getInteger("block"));
         this.md = nbt.getInteger("metadata");
         this.ticksAlive = nbt.getInteger("ticksAlive");
@@ -359,14 +380,14 @@ public class EntityGolemTH extends EntityGolemBase
             this.loadTexture();
         }
     }
-    
+
     protected void damageEntity(final DamageSource ds, final float par2) {
         if (ds.isFireDamage() && this.type.fireResist) {
             return;
         }
         super.damageEntity(ds, par2);
     }
-    
+
     public int getTotalArmorValue() {
         int var1 = super.getTotalArmorValue() + this.type.armor;
         if (this.decoration.contains("V")) {
@@ -380,11 +401,11 @@ public class EntityGolemTH extends EntityGolemBase
         }
         return var1;
     }
-    
+
     public EnumGolemTHType getGolemTHType() {
         return EnumGolemTHType.getType(this.dataWatcher.getWatchableObjectByte(19));
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void loadTexture() {
         if (this.blocky == null || this.blocky == Blocks.air) {
@@ -396,29 +417,38 @@ public class EntityGolemTH extends EntityGolemBase
         final IIcon west = this.blocky.getIcon(3, this.md);
         final IIcon north = this.blocky.getIcon(4, this.md);
         final IIcon south = this.blocky.getIcon(5, this.md);
-        final GolemTHTexture newTex = new GolemTHTexture(new IIcon[] { bottom, top, east, west, north, south }, (this.blocky == Blocks.grass) ? 1 : ((this.blocky == Blocks.cake) ? 2 : 0));
+        final GolemTHTexture newTex = new GolemTHTexture(
+                new IIcon[] {bottom, top, east, west, north, south},
+                (this.blocky == Blocks.grass) ? 1 : ((this.blocky == Blocks.cake) ? 2 : 0));
         this.texture = new ResourceLocation("thaumichorizons", "TEMPGOLEMTEX" + this.getEntityId());
-        Minecraft.getMinecraft().getTextureManager().loadTexture(this.texture, (ITextureObject)newTex);
+        Minecraft.getMinecraft().getTextureManager().loadTexture(this.texture, (ITextureObject) newTex);
     }
-    
+
     public boolean interact(final EntityPlayer player) {
         if (player.isSneaking()) {
             return false;
         }
         final ItemStack itemstack = player.inventory.getCurrentItem();
-        if (this.getCore() == -1 && itemstack != null && itemstack.getItem() == ConfigItems.itemGolemCore && itemstack.getItemDamage() != 100) {
-            this.setHomeArea((int)Math.round(this.posX - 0.5), (int)Math.round(this.posY), (int)Math.round(this.posZ - 0.5), 32);
-            this.setCore((byte)itemstack.getItemDamage());
+        if (this.getCore() == -1
+                && itemstack != null
+                && itemstack.getItem() == ConfigItems.itemGolemCore
+                && itemstack.getItemDamage() != 100) {
+            this.setHomeArea(
+                    (int) Math.round(this.posX - 0.5),
+                    (int) Math.round(this.posY),
+                    (int) Math.round(this.posZ - 0.5),
+                    32);
+            this.setCore((byte) itemstack.getItemDamage());
             this.setupGolem();
             this.setupGolemInventory();
             final ItemStack itemStack = itemstack;
             --itemStack.stackSize;
             if (itemstack.stackSize <= 0) {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
             }
-            this.worldObj.playSoundAtEntity((Entity)this, "thaumcraft:upgrade", 0.5f, 1.0f);
+            this.worldObj.playSoundAtEntity((Entity) this, "thaumcraft:upgrade", 0.5f, 1.0f);
             player.swingItem();
-            this.worldObj.setEntityState((Entity)this, (byte)7);
+            this.worldObj.setEntityState((Entity) this, (byte) 7);
             return true;
         }
         if (this.getCore() == -1) {
@@ -427,15 +457,15 @@ public class EntityGolemTH extends EntityGolemBase
         if (itemstack != null && itemstack.getItem() == ConfigItems.itemGolemUpgrade) {
             for (int a = 0; a < this.upgrades.length; ++a) {
                 if (this.getUpgrade(a) == -1 && this.getUpgradeAmount(itemstack.getItemDamage()) < 2) {
-                    this.setUpgrade(a, (byte)itemstack.getItemDamage());
+                    this.setUpgrade(a, (byte) itemstack.getItemDamage());
                     this.setupGolem();
                     this.setupGolemInventory();
                     final ItemStack itemStack2 = itemstack;
                     --itemStack2.stackSize;
                     if (itemstack.stackSize <= 0) {
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
                     }
-                    this.worldObj.playSoundAtEntity((Entity)this, "thaumcraft:upgrade", 0.5f, 1.0f);
+                    this.worldObj.playSoundAtEntity((Entity) this, "thaumcraft:upgrade", 0.5f, 1.0f);
                     player.swingItem();
                     return true;
                 }
@@ -444,36 +474,76 @@ public class EntityGolemTH extends EntityGolemBase
         }
         return super.interact(player);
     }
-    
+
     public void die() {
         this.setDead();
         this.spawnExplosionParticle();
         this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "thaumcraft:craftfail", 1.0f, 1.0f);
         if (this.blocky != null && this.blocky != Blocks.air && this.blocky.getMaterial() == Material.tnt) {
-            this.worldObj.createExplosion((Entity)this, this.posX, this.posY, this.posZ, 4.0f, true);
+            this.worldObj.createExplosion((Entity) this, this.posX, this.posY, this.posZ, 4.0f, true);
             return;
         }
         if (this.kaboom) {
-            this.worldObj.createExplosion((Entity)this, this.posX, this.posY, this.posZ, 3.0f, true);
+            this.worldObj.createExplosion((Entity) this, this.posX, this.posY, this.posZ, 3.0f, true);
             return;
         }
-        if (this.worldObj.isAirBlock((int)Math.round(this.posX - 0.5), (int)Math.round(this.posY), (int)Math.round(this.posZ - 0.5))) {
+        if (this.worldObj.isAirBlock(
+                (int) Math.round(this.posX - 0.5), (int) Math.round(this.posY), (int) Math.round(this.posZ - 0.5))) {
             if (this.blocky != null && this.blocky != Blocks.air) {
-                this.worldObj.setBlock((int)Math.round(this.posX - 0.5), (int)Math.round(this.posY), (int)Math.round(this.posZ - 0.5), this.blocky, this.md, 3);
+                this.worldObj.setBlock(
+                        (int) Math.round(this.posX - 0.5),
+                        (int) Math.round(this.posY),
+                        (int) Math.round(this.posZ - 0.5),
+                        this.blocky,
+                        this.md,
+                        3);
                 final SimpleNetworkWrapper instance = PacketHandler.INSTANCE;
                 final Block blocky = this.blocky;
-                instance.sendToAllAround((IMessage)new PacketFXBlocksplosion(Block.getIdFromBlock(this.blocky), this.md, (int)Math.round(this.posX - 0.5), (int)Math.round(this.posY), (int)Math.round(this.posZ - 0.5)), new NetworkRegistry.TargetPoint(this.worldObj.provider.dimensionId, (double)(int)Math.round(this.posX - 0.5), (double)(int)Math.round(this.posY), (double)(int)Math.round(this.posZ - 0.5), 32.0));
+                instance.sendToAllAround(
+                        (IMessage) new PacketFXBlocksplosion(
+                                Block.getIdFromBlock(this.blocky),
+                                this.md,
+                                (int) Math.round(this.posX - 0.5),
+                                (int) Math.round(this.posY),
+                                (int) Math.round(this.posZ - 0.5)),
+                        new NetworkRegistry.TargetPoint(
+                                this.worldObj.provider.dimensionId,
+                                (double) (int) Math.round(this.posX - 0.5),
+                                (double) (int) Math.round(this.posY),
+                                (double) (int) Math.round(this.posZ - 0.5),
+                                32.0));
             }
             return;
         }
         for (int x = -1; x < 2; ++x) {
             for (int z = -1; z < 2; ++z) {
-                if (this.worldObj.isAirBlock((int)Math.round(this.posX - 0.5) + x, (int)Math.round(this.posY), (int)Math.round(this.posZ - 0.5) + z)) {
+                if (this.worldObj.isAirBlock(
+                        (int) Math.round(this.posX - 0.5) + x,
+                        (int) Math.round(this.posY),
+                        (int) Math.round(this.posZ - 0.5) + z)) {
                     if (this.blocky != null && this.blocky != Blocks.air) {
-                        this.worldObj.setBlock((int)Math.round(this.posX - 0.5) + x, (int)Math.round(this.posY), (int)Math.round(this.posZ - 0.5) + z, this.blocky, this.md, 3);
+                        this.worldObj.setBlock(
+                                (int) Math.round(this.posX - 0.5) + x,
+                                (int) Math.round(this.posY),
+                                (int) Math.round(this.posZ - 0.5) + z,
+                                this.blocky,
+                                this.md,
+                                3);
                         final SimpleNetworkWrapper instance2 = PacketHandler.INSTANCE;
                         final Block blocky2 = this.blocky;
-                        instance2.sendToAllAround((IMessage)new PacketFXBlocksplosion(Block.getIdFromBlock(this.blocky), this.md, (int)Math.round(this.posX - 0.5) + x, (int)Math.round(this.posY), (int)Math.round(this.posZ - 0.5) + z), new NetworkRegistry.TargetPoint(this.worldObj.provider.dimensionId, (double)((int)Math.round(this.posX - 0.5) + x), (double)(int)Math.round(this.posY), (double)((int)Math.round(this.posZ - 0.5) + z), 32.0));
+                        instance2.sendToAllAround(
+                                (IMessage) new PacketFXBlocksplosion(
+                                        Block.getIdFromBlock(this.blocky),
+                                        this.md,
+                                        (int) Math.round(this.posX - 0.5) + x,
+                                        (int) Math.round(this.posY),
+                                        (int) Math.round(this.posZ - 0.5) + z),
+                                new NetworkRegistry.TargetPoint(
+                                        this.worldObj.provider.dimensionId,
+                                        (double) ((int) Math.round(this.posX - 0.5) + x),
+                                        (double) (int) Math.round(this.posY),
+                                        (double) ((int) Math.round(this.posZ - 0.5) + z),
+                                        32.0));
                     }
                     return;
                 }
@@ -481,12 +551,33 @@ public class EntityGolemTH extends EntityGolemBase
         }
         for (int x = -1; x < 2; ++x) {
             for (int z = -1; z < 2; ++z) {
-                if (this.worldObj.isAirBlock((int)Math.round(this.posX - 0.5) + x, (int)Math.round(this.posY) - 1, (int)Math.round(this.posZ - 0.5) + z)) {
+                if (this.worldObj.isAirBlock(
+                        (int) Math.round(this.posX - 0.5) + x,
+                        (int) Math.round(this.posY) - 1,
+                        (int) Math.round(this.posZ - 0.5) + z)) {
                     if (this.blocky != null && this.blocky != Blocks.air) {
-                        this.worldObj.setBlock((int)Math.round(this.posX - 0.5) + x, (int)Math.round(this.posY) - 1, (int)Math.round(this.posZ - 0.5) + z, this.blocky, this.md, 3);
+                        this.worldObj.setBlock(
+                                (int) Math.round(this.posX - 0.5) + x,
+                                (int) Math.round(this.posY) - 1,
+                                (int) Math.round(this.posZ - 0.5) + z,
+                                this.blocky,
+                                this.md,
+                                3);
                         final SimpleNetworkWrapper instance3 = PacketHandler.INSTANCE;
                         final Block blocky3 = this.blocky;
-                        instance3.sendToAllAround((IMessage)new PacketFXBlocksplosion(Block.getIdFromBlock(this.blocky), this.md, (int)Math.round(this.posX - 0.5) + x, (int)Math.round(this.posY) - 1, (int)Math.round(this.posZ - 0.5) + z), new NetworkRegistry.TargetPoint(this.worldObj.provider.dimensionId, (double)((int)Math.round(this.posX - 0.5) + x), (double)((int)Math.round(this.posY) - 1), (double)((int)Math.round(this.posZ - 0.5) + z), 32.0));
+                        instance3.sendToAllAround(
+                                (IMessage) new PacketFXBlocksplosion(
+                                        Block.getIdFromBlock(this.blocky),
+                                        this.md,
+                                        (int) Math.round(this.posX - 0.5) + x,
+                                        (int) Math.round(this.posY) - 1,
+                                        (int) Math.round(this.posZ - 0.5) + z),
+                                new NetworkRegistry.TargetPoint(
+                                        this.worldObj.provider.dimensionId,
+                                        (double) ((int) Math.round(this.posX - 0.5) + x),
+                                        (double) ((int) Math.round(this.posY) - 1),
+                                        (double) ((int) Math.round(this.posZ - 0.5) + z),
+                                        32.0));
                     }
                     return;
                 }
@@ -494,35 +585,55 @@ public class EntityGolemTH extends EntityGolemBase
         }
         for (int x = -1; x < 2; ++x) {
             for (int z = -1; z < 2; ++z) {
-                if (this.worldObj.isAirBlock((int)Math.round(this.posX - 0.5) + x, (int)Math.round(this.posY) + 1, (int)Math.round(this.posZ - 0.5) + z)) {
+                if (this.worldObj.isAirBlock(
+                        (int) Math.round(this.posX - 0.5) + x,
+                        (int) Math.round(this.posY) + 1,
+                        (int) Math.round(this.posZ - 0.5) + z)) {
                     if (this.blocky != null && this.blocky != Blocks.air) {
-                        this.worldObj.setBlock((int)Math.round(this.posX - 0.5) + x, (int)Math.round(this.posY) + 1, (int)Math.round(this.posZ - 0.5) + z, this.blocky, this.md, 3);
+                        this.worldObj.setBlock(
+                                (int) Math.round(this.posX - 0.5) + x,
+                                (int) Math.round(this.posY) + 1,
+                                (int) Math.round(this.posZ - 0.5) + z,
+                                this.blocky,
+                                this.md,
+                                3);
                         final SimpleNetworkWrapper instance4 = PacketHandler.INSTANCE;
                         final Block blocky4 = this.blocky;
-                        instance4.sendToAllAround((IMessage)new PacketFXBlocksplosion(Block.getIdFromBlock(this.blocky), this.md, (int)Math.round(this.posX - 0.5) + x, (int)Math.round(this.posY) + 1, (int)Math.round(this.posZ - 0.5) + z), new NetworkRegistry.TargetPoint(this.worldObj.provider.dimensionId, (double)((int)Math.round(this.posX - 0.5) + x), (double)((int)Math.round(this.posY) + 1), (double)((int)Math.round(this.posZ - 0.5) + z), 32.0));
+                        instance4.sendToAllAround(
+                                (IMessage) new PacketFXBlocksplosion(
+                                        Block.getIdFromBlock(this.blocky),
+                                        this.md,
+                                        (int) Math.round(this.posX - 0.5) + x,
+                                        (int) Math.round(this.posY) + 1,
+                                        (int) Math.round(this.posZ - 0.5) + z),
+                                new NetworkRegistry.TargetPoint(
+                                        this.worldObj.provider.dimensionId,
+                                        (double) ((int) Math.round(this.posX - 0.5) + x),
+                                        (double) ((int) Math.round(this.posY) + 1),
+                                        (double) ((int) Math.round(this.posZ - 0.5) + z),
+                                        32.0));
                     }
                     return;
                 }
             }
         }
     }
-    
+
     public void writeSpawnData(final ByteBuf data) {
         super.writeSpawnData(data);
         if (this.blocky != null) {
             final Block blocky = this.blocky;
             data.writeInt(Block.getIdFromBlock(this.blocky));
-        }
-        else {
+        } else {
             data.writeInt(0);
         }
         data.writeByte(this.md);
         data.writeByte(this.upgrades.length);
         for (final byte b : this.upgrades) {
-            data.writeByte((int)b);
+            data.writeByte((int) b);
         }
     }
-    
+
     public void readSpawnData(final ByteBuf data) {
         super.readSpawnData(data);
         this.blocky = Block.getBlockById(data.readInt());
@@ -532,7 +643,7 @@ public class EntityGolemTH extends EntityGolemBase
             this.upgrades[a] = data.readByte();
         }
     }
-    
+
     public String getCommandSenderName() {
         if (this.hasCustomNameTag()) {
             return this.getCustomNameTag();
@@ -546,50 +657,46 @@ public class EntityGolemTH extends EntityGolemBase
         }
         return this.blocky.getLocalizedName() + " Golem";
     }
-    
+
     public EnumGolemType getGolemType() {
         return EnumGolemType.WOOD;
     }
-    
+
     public int getGolemStrength() {
         return this.type.strength + this.getUpgradeAmount(1);
     }
-    
+
     public boolean attackEntityAsMob(final Entity par1Entity) {
         if (this.blocky == Blocks.web && par1Entity instanceof EntityLivingBase) {
-            ((EntityLivingBase)par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 20, 0));
+            ((EntityLivingBase) par1Entity).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 20, 0));
         }
         return super.attackEntityAsMob(par1Entity);
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void handleHealthUpdate(final byte par1) {
         if (par1 == 4) {
             this.action = 6;
-        }
-        else if (par1 == 5) {
+        } else if (par1 == 5) {
             this.healing = 5;
             int bonus = 0;
             try {
                 bonus = (this.getGolemDecoration().contains("H") ? 5 : 0);
+            } catch (Exception ex) {
             }
-            catch (Exception ex) {}
-            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)(this.type.health + bonus));
-        }
-        else if (par1 == 6) {
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth)
+                    .setBaseValue((double) (this.type.health + bonus));
+        } else if (par1 == 6) {
             this.leftArm = 5;
-        }
-        else if (par1 == 8) {
+        } else if (par1 == 8) {
             this.rightArm = 5;
-        }
-        else if (par1 == 7) {
+        } else if (par1 == 7) {
             this.bootup = 33.0f;
-        }
-        else {
+        } else {
             super.handleHealthUpdate(par1);
         }
     }
-    
+
     public void onStruckByLightning(final EntityLightningBolt bolt) {
         if (bolt instanceof EntityLightningBoltFinite) {
             return;

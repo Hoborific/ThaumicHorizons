@@ -1,25 +1,34 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.fx;
 
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.Tessellator;
 import java.awt.Color;
+import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.client.particle.EntityFX;
+import org.lwjgl.opengl.GL11;
 
-public class FXEssentiaTrail extends EntityFX
-{
+public class FXEssentiaTrail extends EntityFX {
     private double targetX;
     private double targetY;
     private double targetZ;
     private int count;
     public int particle;
-    
-    public FXEssentiaTrail(final World par1World, final double par2, final double par4, final double par6, final double tx, final double ty, final double tz, final int count, final int color, final float scale) {
+
+    public FXEssentiaTrail(
+            final World par1World,
+            final double par2,
+            final double par4,
+            final double par6,
+            final double tx,
+            final double ty,
+            final double tz,
+            final int count,
+            final int color,
+            final float scale) {
         super(par1World, par2, par4, par6, 0.0, 0.0, 0.0);
         this.count = 0;
         this.particle = 24;
@@ -49,8 +58,15 @@ public class FXEssentiaTrail extends EntityFX
         this.particleGravity = 0.2f;
         this.noClip = false;
     }
-    
-    public void renderParticle(final Tessellator tessellator, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+
+    public void renderParticle(
+            final Tessellator tessellator,
+            final float f,
+            final float f1,
+            final float f2,
+            final float f3,
+            final float f4,
+            final float f5) {
         final float t2 = 0.5625f;
         final float t3 = 0.625f;
         final float t4 = 0.0625f;
@@ -59,22 +75,43 @@ public class FXEssentiaTrail extends EntityFX
         final int part = this.particle + this.particleAge % 16;
         final float s = MathHelper.sin((this.particleAge - this.count) / 5.0f) * 0.25f + 1.0f;
         final float var12 = 0.1f * this.particleScale * s;
-        final float var13 = (float)(this.prevPosX + (this.posX - this.prevPosX) * f - FXEssentiaTrail.interpPosX);
-        final float var14 = (float)(this.prevPosY + (this.posY - this.prevPosY) * f - FXEssentiaTrail.interpPosY);
-        final float var15 = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * f - FXEssentiaTrail.interpPosZ);
+        final float var13 = (float) (this.prevPosX + (this.posX - this.prevPosX) * f - FXEssentiaTrail.interpPosX);
+        final float var14 = (float) (this.prevPosY + (this.posY - this.prevPosY) * f - FXEssentiaTrail.interpPosY);
+        final float var15 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * f - FXEssentiaTrail.interpPosZ);
         final float var16 = 1.0f;
         tessellator.setBrightness(240);
-        tessellator.setColorRGBA_F(this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16, 0.5f);
-        tessellator.addVertexWithUV((double)(var13 - f1 * var12 - f4 * var12), (double)(var14 - f2 * var12), (double)(var15 - f3 * var12 - f5 * var12), (double)t2, (double)t5);
-        tessellator.addVertexWithUV((double)(var13 - f1 * var12 + f4 * var12), (double)(var14 + f2 * var12), (double)(var15 - f3 * var12 + f5 * var12), (double)t3, (double)t5);
-        tessellator.addVertexWithUV((double)(var13 + f1 * var12 + f4 * var12), (double)(var14 + f2 * var12), (double)(var15 + f3 * var12 + f5 * var12), (double)t3, (double)t4);
-        tessellator.addVertexWithUV((double)(var13 + f1 * var12 - f4 * var12), (double)(var14 - f2 * var12), (double)(var15 + f3 * var12 - f5 * var12), (double)t2, (double)t4);
+        tessellator.setColorRGBA_F(
+                this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16, 0.5f);
+        tessellator.addVertexWithUV(
+                (double) (var13 - f1 * var12 - f4 * var12),
+                (double) (var14 - f2 * var12),
+                (double) (var15 - f3 * var12 - f5 * var12),
+                (double) t2,
+                (double) t5);
+        tessellator.addVertexWithUV(
+                (double) (var13 - f1 * var12 + f4 * var12),
+                (double) (var14 + f2 * var12),
+                (double) (var15 - f3 * var12 + f5 * var12),
+                (double) t3,
+                (double) t5);
+        tessellator.addVertexWithUV(
+                (double) (var13 + f1 * var12 + f4 * var12),
+                (double) (var14 + f2 * var12),
+                (double) (var15 + f3 * var12 + f5 * var12),
+                (double) t3,
+                (double) t4);
+        tessellator.addVertexWithUV(
+                (double) (var13 + f1 * var12 - f4 * var12),
+                (double) (var14 - f2 * var12),
+                (double) (var15 + f3 * var12 - f5 * var12),
+                (double) t2,
+                (double) t4);
     }
-    
+
     public int getFXLayer() {
         return 1;
     }
-    
+
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -91,9 +128,9 @@ public class FXEssentiaTrail extends EntityFX
         this.motionX *= 0.985;
         this.motionY *= 0.985;
         this.motionZ *= 0.985;
-        this.motionX = MathHelper.clamp_float((float)this.motionX, -0.05f, 0.05f);
-        this.motionY = MathHelper.clamp_float((float)this.motionY, -0.05f, 0.05f);
-        this.motionZ = MathHelper.clamp_float((float)this.motionZ, -0.05f, 0.05f);
+        this.motionX = MathHelper.clamp_float((float) this.motionX, -0.05f, 0.05f);
+        this.motionY = MathHelper.clamp_float((float) this.motionY, -0.05f, 0.05f);
+        this.motionZ = MathHelper.clamp_float((float) this.motionZ, -0.05f, 0.05f);
         double dx = this.targetX - this.posX;
         double dy = this.targetY - this.posY;
         double dz = this.targetZ - this.posZ;
@@ -113,11 +150,11 @@ public class FXEssentiaTrail extends EntityFX
         this.motionY += dy * (d13 / Math.min(1.0, d14));
         this.motionZ += dz * (d13 / Math.min(1.0, d14));
     }
-    
+
     public void setGravity(final float value) {
         this.particleGravity = value;
     }
-    
+
     protected boolean pushOutOfBlocks(final double par1, final double par3, final double par5) {
         final int var7 = MathHelper.floor_double(par1);
         final int var8 = MathHelper.floor_double(par3);
@@ -125,7 +162,9 @@ public class FXEssentiaTrail extends EntityFX
         final double var10 = par1 - var7;
         final double var11 = par3 - var8;
         final double var12 = par5 - var9;
-        if (!this.worldObj.isAirBlock(var7, var8, var9) && this.worldObj.isBlockNormalCubeDefault(var7, var8, var9, true) && !this.worldObj.isAnyLiquid(this.boundingBox)) {
+        if (!this.worldObj.isAirBlock(var7, var8, var9)
+                && this.worldObj.isBlockNormalCubeDefault(var7, var8, var9, true)
+                && !this.worldObj.isAnyLiquid(this.boundingBox)) {
             final boolean var13 = !this.worldObj.isBlockNormalCubeDefault(var7 - 1, var8, var9, true);
             final boolean var14 = !this.worldObj.isBlockNormalCubeDefault(var7 + 1, var8, var9, true);
             final boolean var15 = !this.worldObj.isBlockNormalCubeDefault(var7, var8 - 1, var9, true);

@@ -1,27 +1,26 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import net.minecraft.world.IBlockAccess;
-import thaumcraft.common.config.ConfigBlocks;
-import net.minecraft.init.Blocks;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import java.util.Random;
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileSlot;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
-import com.kentington.thaumichorizons.common.tiles.TileSlot;
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import net.minecraft.world.World;
-import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
-import net.minecraft.block.Block;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import thaumcraft.common.config.ConfigBlocks;
 
-public class BlockGatewayPortal extends Block
-{
+public class BlockGatewayPortal extends Block {
     public IIcon CornerTR;
     public IIcon CornerTL;
     public IIcon CornerBR;
@@ -33,52 +32,47 @@ public class BlockGatewayPortal extends Block
     public IIcon B;
     public IIcon lapiz;
     public IIcon stone;
-    
+
     public BlockGatewayPortal() {
         super(Material.rock);
         this.setHardness(2.5f);
         this.setResistance(2.5f);
         this.setBlockName("ThaumicHorizons_gateway");
     }
-    
+
     public void breakBlock(final World world, final int x, final int y, final int z, final Block block, final int md) {
         int slotX = 0;
         int slotY = 0;
         int slotZ = 0;
         if (md < 5) {
             slotY = y + md;
-            if (world.getBlock(x + 1, y, z) == ThaumicHorizons.blockPortal || world.getBlock(x + 1, y, z) == ThaumicHorizons.blockGateway) {
+            if (world.getBlock(x + 1, y, z) == ThaumicHorizons.blockPortal
+                    || world.getBlock(x + 1, y, z) == ThaumicHorizons.blockGateway) {
                 slotX = x + 2;
                 slotZ = z;
-            }
-            else {
+            } else {
                 slotX = x;
                 slotZ = z + 2;
             }
-        }
-        else if (md == 5) {
+        } else if (md == 5) {
             slotY = y;
             if (world.getBlock(x + 1, y, z) == ThaumicHorizons.blockSlot) {
                 slotX = x + 1;
                 slotZ = z;
-            }
-            else {
+            } else {
                 slotX = x;
                 slotZ = z + 1;
             }
-        }
-        else if (md == 8) {
+        } else if (md == 8) {
             slotY = y;
             if (world.getBlock(x - 1, y, z) == ThaumicHorizons.blockSlot) {
                 slotX = x - 1;
                 slotZ = z;
-            }
-            else {
+            } else {
                 slotX = x;
                 slotZ = z - 1;
             }
-        }
-        else if (md == 6 || md == 7 || md == 9) {
+        } else if (md == 6 || md == 7 || md == 9) {
             slotY = y + 4;
             if (world.getBlock(x + 1, y, z) == ThaumicHorizons.blockGateway) {
                 slotZ = z;
@@ -96,8 +90,7 @@ public class BlockGatewayPortal extends Block
                         break;
                     }
                 }
-            }
-            else {
+            } else {
                 slotX = x;
                 switch (md) {
                     case 6: {
@@ -114,33 +107,32 @@ public class BlockGatewayPortal extends Block
                     }
                 }
             }
-        }
-        else {
+        } else {
             slotY = y + md - 10;
-            if (world.getBlock(x - 1, y, z) == ThaumicHorizons.blockPortal || world.getBlock(x - 1, y, z) == ThaumicHorizons.blockGateway) {
+            if (world.getBlock(x - 1, y, z) == ThaumicHorizons.blockPortal
+                    || world.getBlock(x - 1, y, z) == ThaumicHorizons.blockGateway) {
                 slotX = x - 2;
                 slotZ = z;
-            }
-            else {
+            } else {
                 slotX = x;
                 slotZ = z - 2;
             }
         }
         final TileEntity te = world.getTileEntity(slotX, slotY, slotZ);
         if (te instanceof TileSlot) {
-            ((TileSlot)te).destroyPortal();
+            ((TileSlot) te).destroyPortal();
         }
     }
-    
+
     @SideOnly(Side.CLIENT)
     public Item getItem(final World p_149694_1_, final int p_149694_2_, final int p_149694_3_, final int p_149694_4_) {
         return Item.getItemById(0);
     }
-    
+
     public int quantityDropped(final Random p_149745_1_) {
         return 0;
     }
-    
+
     public void registerBlockIcons(final IIconRegister ir) {
         this.CornerTR = ir.registerIcon("thaumichorizons:gateway_topright");
         this.CornerTL = ir.registerIcon("thaumichorizons:gateway_topleft");
@@ -154,11 +146,15 @@ public class BlockGatewayPortal extends Block
         this.lapiz = Blocks.lapis_block.getIcon(0, 0);
         this.stone = ConfigBlocks.blockCosmeticSolid.getIcon(0, 11);
     }
-    
+
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(final IBlockAccess world, final int x, final int y, final int z, final int side) {
-        final boolean isXAligned = world.getBlock(x + 1, y, z) == ThaumicHorizons.blockGateway || world.getBlock(x + 1, y, z) == ThaumicHorizons.blockPortal || world.getBlock(x - 1, y, z) == ThaumicHorizons.blockGateway || world.getBlock(x - 1, y, z) == ThaumicHorizons.blockPortal;
-        Label_0410: {
+        final boolean isXAligned = world.getBlock(x + 1, y, z) == ThaumicHorizons.blockGateway
+                || world.getBlock(x + 1, y, z) == ThaumicHorizons.blockPortal
+                || world.getBlock(x - 1, y, z) == ThaumicHorizons.blockGateway
+                || world.getBlock(x - 1, y, z) == ThaumicHorizons.blockPortal;
+        Label_0410:
+        {
             switch (world.getBlockMetadata(x, y, z)) {
                 case 0: {
                     switch (side) {
@@ -196,7 +192,7 @@ public class BlockGatewayPortal extends Block
                             return this.leftSide(isXAligned, side);
                         }
                     }
-                    //break;
+                    // break;
                 }
                 case 1: {
                     return this.leftSide(isXAligned, side);
@@ -243,7 +239,7 @@ public class BlockGatewayPortal extends Block
                             break Label_0410;
                         }
                     }
-                    //break;
+                    // break;
                 }
                 case 5: {
                     switch (side) {
@@ -354,7 +350,7 @@ public class BlockGatewayPortal extends Block
                             return this.rightSide(isXAligned, side);
                         }
                     }
-                    //break;
+                    // break;
                 }
                 case 11: {
                     return this.rightSide(isXAligned, side);
@@ -401,13 +397,13 @@ public class BlockGatewayPortal extends Block
                             break Label_0410;
                         }
                     }
-                    //break;
+                    // break;
                 }
             }
         }
         return this.lapiz;
     }
-    
+
     IIcon leftSide(final boolean xAligned, final int side) {
         if (xAligned) {
             switch (side) {
@@ -424,8 +420,7 @@ public class BlockGatewayPortal extends Block
                     return this.lapiz;
                 }
             }
-        }
-        else {
+        } else {
             switch (side) {
                 case 2: {
                     return this.stone;
@@ -442,7 +437,7 @@ public class BlockGatewayPortal extends Block
             }
         }
     }
-    
+
     IIcon rightSide(final boolean xAligned, final int side) {
         if (xAligned) {
             switch (side) {
@@ -459,8 +454,7 @@ public class BlockGatewayPortal extends Block
                     return this.lapiz;
                 }
             }
-        }
-        else {
+        } else {
             switch (side) {
                 case 3: {
                     return this.stone;
@@ -477,7 +471,7 @@ public class BlockGatewayPortal extends Block
             }
         }
     }
-    
+
     IIcon bottomSide(final boolean xAligned, final int side) {
         switch (side) {
             case 0: {

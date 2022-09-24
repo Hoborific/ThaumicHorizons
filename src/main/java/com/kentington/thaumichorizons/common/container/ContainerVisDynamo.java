@@ -1,6 +1,6 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.container;
 
@@ -8,20 +8,19 @@ import com.kentington.thaumichorizons.common.tiles.TileVisDynamo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 
-public class ContainerVisDynamo extends Container
-{
+public class ContainerVisDynamo extends Container {
     private EntityPlayer player;
     private TileVisDynamo tile;
-    
+
     public ContainerVisDynamo(final EntityPlayer p, final TileVisDynamo t) {
         this.player = p;
         this.tile = t;
     }
-    
+
     public boolean canInteractWith(final EntityPlayer p_75145_1_) {
         return this.tile.isUseableByPlayer(p_75145_1_);
     }
-    
+
     public boolean enchantItem(final EntityPlayer par1EntityPlayer, final int button) {
         switch (button) {
             case 1: {

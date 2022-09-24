@@ -1,46 +1,45 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.lib;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.io.InputStream;
-import net.minecraft.client.resources.IResource;
-import net.minecraft.util.ResourceLocation;
-import javax.imageio.ImageIO;
-import java.io.IOException;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.texture.TextureUtil;
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.blocks.BlockChocolate;
-import net.minecraft.client.Minecraft;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.AbstractTexture;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.TextureUtil;
+import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.IIcon;
-import net.minecraft.client.renderer.texture.AbstractTexture;
+import net.minecraft.util.ResourceLocation;
 
-public class GolemTHTexture extends AbstractTexture
-{
+public class GolemTHTexture extends AbstractTexture {
     IIcon[] icons;
     IResourceManager manager;
     BufferedImage myImage;
     int special;
-    
+
     public GolemTHTexture(final IIcon[] icons, final int isGrass) {
         this.icons = icons;
         this.special = isGrass;
         this.manager = Minecraft.getMinecraft().getResourceManager();
     }
-    
+
     public void loadTexture(final IResourceManager p_110551_1_) throws IOException {
         this.deleteGlTexture();
         this.myImage = new BufferedImage(128, 128, 2);
         final TextureMap allBlocks = Minecraft.getMinecraft().getTextureMapBlocks();
         BufferedImage top = this.getIconImage(this.icons[1]);
         if (this.special == 1) {
-            top = this.getIconImage(((BlockChocolate)ThaumicHorizons.blockChocolate).coloredGrass);
+            top = this.getIconImage(((BlockChocolate) ThaumicHorizons.blockChocolate).coloredGrass);
         }
         if (this.special == 2) {
             top = top.getSubimage(1, 1, 14, 14);
@@ -131,19 +130,19 @@ public class GolemTHTexture extends AbstractTexture
         this.myImage.setRGB(53, 5, 6, 16, tmp.getRGB(0, 0, 6, 16, null, 0, 6), 0, 6);
         tmp = this.resize(south, 4, 25);
         this.myImage.setRGB(76, 27, 4, 25, tmp.getRGB(0, 0, 4, 25, null, 0, 4), 0, 4);
-        final int[] eyeOverlay = { -16777216, -16316917, -16185587, -15593446 };
+        final int[] eyeOverlay = {-16777216, -16316917, -16185587, -15593446};
         this.myImage.setRGB(9, 12, 2, 2, eyeOverlay, 0, 2);
         this.myImage.setRGB(13, 12, 2, 2, eyeOverlay, 0, 2);
         TextureUtil.uploadTextureImageAllocate(this.getGlTextureId(), this.myImage, false, false);
     }
-    
+
     public BufferedImage getIconImage(final IIcon icon) throws IOException {
         final ResourceLocation resourceLocation = this.getResourceLocation(icon.getIconName());
         final IResource resource = this.manager.getResource(resourceLocation);
         final InputStream in = resource.getInputStream();
         return ImageIO.read(in);
     }
-    
+
     public ResourceLocation getResourceLocation(final String blockTexture) {
         String domain = "minecraft";
         String path = blockTexture;
@@ -157,7 +156,7 @@ public class GolemTHTexture extends AbstractTexture
         final String resourcePath = "textures/blocks/" + path + ".png";
         return new ResourceLocation(domain.toLowerCase(), resourcePath);
     }
-    
+
     public BufferedImage resize(final BufferedImage img, final int newW, final int newH) {
         final Image tmp = img.getScaledInstance(newW, newH, 4);
         final BufferedImage dimg = new BufferedImage(newW, newH, 2);

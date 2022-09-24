@@ -1,20 +1,19 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.entities;
 
-import net.minecraft.nbt.NBTTagCompound;
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import net.minecraft.world.World;
 import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
-public class EntityGoldChicken extends EntityChicken
-{
+public class EntityGoldChicken extends EntityChicken {
     public EntityGoldChicken(final World p_i1682_1_) {
         super(p_i1682_1_);
     }
-    
+
     public void onLivingUpdate() {
         final int notTime = this.timeUntilNextEgg;
         this.timeUntilNextEgg = Integer.MAX_VALUE;
@@ -22,7 +21,7 @@ public class EntityGoldChicken extends EntityChicken
         this.timeUntilNextEgg = notTime;
         this.field_70888_h = this.field_70886_e;
         this.field_70884_g = this.destPos;
-        this.destPos += (float)((this.onGround ? -1 : 4) * 0.3);
+        this.destPos += (float) ((this.onGround ? -1 : 4) * 0.3);
         if (this.destPos < 0.0f) {
             this.destPos = 0.0f;
         }
@@ -43,12 +42,12 @@ public class EntityGoldChicken extends EntityChicken
             this.timeUntilNextEgg = this.rand.nextInt(8000) + 8000;
         }
     }
-    
+
     public void writeEntityToNBT(final NBTTagCompound p_70014_1_) {
         super.writeEntityToNBT(p_70014_1_);
         p_70014_1_.setInteger("egg", this.timeUntilNextEgg);
     }
-    
+
     public void readEntityFromNBT(final NBTTagCompound p_70037_1_) {
         super.readEntityFromNBT(p_70037_1_);
         this.timeUntilNextEgg = p_70037_1_.getInteger("egg");

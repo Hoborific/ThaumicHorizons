@@ -1,30 +1,30 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.gui;
 
-import thaumcraft.client.lib.UtilsFX;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.inventory.Container;
 import com.kentington.thaumichorizons.common.container.ContainerSoulExtractor;
-import net.minecraft.entity.player.InventoryPlayer;
 import com.kentington.thaumichorizons.common.tiles.TileSoulExtractor;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
 
-public class GuiSoulExtractor extends GuiContainer
-{
+public class GuiSoulExtractor extends GuiContainer {
     TileSoulExtractor tile;
-    
+
     public GuiSoulExtractor(final InventoryPlayer player, final TileSoulExtractor tile) {
-        super((Container)new ContainerSoulExtractor(player, tile));
+        super((Container) new ContainerSoulExtractor(player, tile));
         this.tile = tile;
         this.xSize = 175;
         this.ySize = 165;
     }
-    
-    protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
+
+    protected void drawGuiContainerBackgroundLayer(
+            final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         UtilsFX.bindTexture(new ResourceLocation("thaumichorizons", "textures/gui/guisieve.png"));

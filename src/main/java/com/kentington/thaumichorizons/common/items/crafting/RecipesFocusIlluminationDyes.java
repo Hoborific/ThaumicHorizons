@@ -1,19 +1,18 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.items.crafting;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.init.Items;
 import com.kentington.thaumichorizons.common.items.ItemFocusIllumination;
 import java.util.ArrayList;
-import net.minecraft.world.World;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.world.World;
 
-public class RecipesFocusIlluminationDyes implements IRecipe
-{
+public class RecipesFocusIlluminationDyes implements IRecipe {
     public boolean matches(final InventoryCrafting par1InventoryCrafting, final World p_77569_2_) {
         ItemStack itemstack = null;
         final ArrayList arraylist = new ArrayList();
@@ -21,13 +20,12 @@ public class RecipesFocusIlluminationDyes implements IRecipe
             final ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(i);
             if (itemstack2 != null) {
                 if (itemstack2.getItem() instanceof ItemFocusIllumination) {
-                    final ItemFocusIllumination itemarmor = (ItemFocusIllumination)itemstack2.getItem();
+                    final ItemFocusIllumination itemarmor = (ItemFocusIllumination) itemstack2.getItem();
                     if (itemstack != null) {
                         return false;
                     }
                     itemstack = itemstack2;
-                }
-                else {
+                } else {
                     if (itemstack2.getItem() != Items.dye) {
                         return false;
                     }
@@ -37,7 +35,7 @@ public class RecipesFocusIlluminationDyes implements IRecipe
         }
         return itemstack != null && !arraylist.isEmpty();
     }
-    
+
     public ItemStack getCraftingResult(final InventoryCrafting par1InventoryCrafting) {
         ItemStack itemstack = null;
         ItemFocusIllumination itemarmor = null;
@@ -46,14 +44,13 @@ public class RecipesFocusIlluminationDyes implements IRecipe
             final ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(k);
             if (itemstack2 != null) {
                 if (itemstack2.getItem() instanceof ItemFocusIllumination) {
-                    itemarmor = (ItemFocusIllumination)itemstack2.getItem();
+                    itemarmor = (ItemFocusIllumination) itemstack2.getItem();
                     if (itemstack != null) {
                         return null;
                     }
                     itemstack = itemstack2.copy();
                     itemstack.stackSize = 1;
-                }
-                else {
+                } else {
                     if (itemstack2.getItem() != Items.dye) {
                         return null;
                     }
@@ -67,11 +64,11 @@ public class RecipesFocusIlluminationDyes implements IRecipe
         itemstack.setItemDamage(color);
         return itemstack;
     }
-    
+
     public int getRecipeSize() {
         return 10;
     }
-    
+
     public ItemStack getRecipeOutput() {
         return null;
     }

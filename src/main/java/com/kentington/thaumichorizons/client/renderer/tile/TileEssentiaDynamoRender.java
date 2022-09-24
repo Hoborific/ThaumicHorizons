@@ -1,43 +1,52 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import thaumcraft.client.lib.UtilsFX;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.particle.EntityFX;
-import thaumcraft.client.fx.ParticleEngine;
 import com.kentington.thaumichorizons.client.fx.FXEssentiaTrail;
-import net.minecraft.client.Minecraft;
-import com.kentington.thaumichorizons.common.tiles.TileEssentiaDynamo;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.client.model.AdvancedModelLoader;
 import com.kentington.thaumichorizons.client.renderer.model.ModelQuarterBlock;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModelCustom;
+import com.kentington.thaumichorizons.common.tiles.TileEssentiaDynamo;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.AdvancedModelLoader;
+import net.minecraftforge.client.model.IModelCustom;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.lib.UtilsFX;
 
-public class TileEssentiaDynamoRender extends TileEntitySpecialRenderer
-{
+public class TileEssentiaDynamoRender extends TileEntitySpecialRenderer {
     private IModelCustom model;
     private static final ResourceLocation SCANNER;
     static String tx1;
     static String tx2;
     static String tx3;
     private ModelQuarterBlock base;
-    
+
     public TileEssentiaDynamoRender() {
         this.model = AdvancedModelLoader.loadModel(TileEssentiaDynamoRender.SCANNER);
         this.base = new ModelQuarterBlock();
     }
-    
+
     public void renderTileEntityAt(final TileEntity te, final double x, final double y, final double z, final float f) {
-        final TileEssentiaDynamo tco = (TileEssentiaDynamo)te;
+        final TileEssentiaDynamo tco = (TileEssentiaDynamo) te;
         if (tco.essentia != null && tco.ticksProvided > 0) {
-            final FXEssentiaTrail fb = new FXEssentiaTrail(tco.getWorldObj(), tco.xCoord + 0.5, tco.yCoord, tco.zCoord + 0.5, tco.xCoord + 0.5, tco.yCoord + 0.5, tco.zCoord + 0.5, Minecraft.getMinecraft().thePlayer.ticksExisted, tco.essentia.getColor(), 0.3f);
+            final FXEssentiaTrail fb = new FXEssentiaTrail(
+                    tco.getWorldObj(),
+                    tco.xCoord + 0.5,
+                    tco.yCoord,
+                    tco.zCoord + 0.5,
+                    tco.xCoord + 0.5,
+                    tco.yCoord + 0.5,
+                    tco.zCoord + 0.5,
+                    Minecraft.getMinecraft().thePlayer.ticksExisted,
+                    tco.essentia.getColor(),
+                    0.3f);
             fb.noClip = true;
-            ParticleEngine.instance.addEffect(tco.getWorldObj(), (EntityFX)fb);
+            ParticleEngine.instance.addEffect(tco.getWorldObj(), (EntityFX) fb);
         }
         if (tco.rise >= 0.3f && tco.ticksProvided > 0) {
             GL11.glPushMatrix();
@@ -47,14 +56,24 @@ public class TileEssentiaDynamoRender extends TileEntitySpecialRenderer
             final long nt = System.nanoTime();
             UtilsFX.bindTexture(TileEssentiaDynamoRender.tx3);
             final int frames = UtilsFX.getTextureAnimationSize(TileEssentiaDynamoRender.tx3);
-            final int i = (int)((nt / 40000000L + x) % frames);
-            UtilsFX.renderFacingQuad(tco.xCoord + 0.5, (double)(tco.yCoord + 0.5f), tco.zCoord + 0.5, 0.0f, 0.2f, 0.9f, frames, i, f, tco.essentia.getColor());
+            final int i = (int) ((nt / 40000000L + x) % frames);
+            UtilsFX.renderFacingQuad(
+                    tco.xCoord + 0.5,
+                    (double) (tco.yCoord + 0.5f),
+                    tco.zCoord + 0.5,
+                    0.0f,
+                    0.2f,
+                    0.9f,
+                    frames,
+                    i,
+                    f,
+                    tco.essentia.getColor());
             GL11.glDisable(3042);
             GL11.glAlphaFunc(516, 0.1f);
             GL11.glPopMatrix();
         }
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)x, (float)y, (float)z);
+        GL11.glTranslatef((float) x, (float) y, (float) z);
         UtilsFX.bindTexture("thaumichorizons", TileEssentiaDynamoRender.tx2);
         this.base.render();
         GL11.glTranslatef(0.5f, 0.2f + tco.rise, 0.5f);
@@ -68,7 +87,7 @@ public class TileEssentiaDynamoRender extends TileEntitySpecialRenderer
         this.model.renderAll();
         GL11.glPopMatrix();
     }
-    
+
     static {
         SCANNER = new ResourceLocation("thaumcraft", "textures/models/scanner.obj");
         TileEssentiaDynamoRender.tx1 = "textures/models/thaumiumring.png";

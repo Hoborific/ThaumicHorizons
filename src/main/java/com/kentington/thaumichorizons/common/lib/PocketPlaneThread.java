@@ -1,14 +1,13 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.lib;
 
 import net.minecraft.world.World;
 import thaumcraft.api.aspects.AspectList;
 
-public class PocketPlaneThread implements Runnable
-{
+public class PocketPlaneThread implements Runnable {
     PocketPlaneData data;
     AspectList aspects;
     World world;
@@ -16,8 +15,15 @@ public class PocketPlaneThread implements Runnable
     int y;
     int z;
     int returnID;
-    
-    public PocketPlaneThread(final PocketPlaneData data, final AspectList aspects, final World world, final int x, final int y, final int z,final int returnID) {
+
+    public PocketPlaneThread(
+            final PocketPlaneData data,
+            final AspectList aspects,
+            final World world,
+            final int x,
+            final int y,
+            final int z,
+            final int returnID) {
         this.data = data;
         this.aspects = aspects;
         this.world = world;
@@ -26,10 +32,10 @@ public class PocketPlaneThread implements Runnable
         this.z = z;
         this.returnID = returnID;
     }
-    
+
     @Override
     public void run() {
-        //System.out.println("Starting pocket plane generation thread...");
+        // System.out.println("Starting pocket plane generation thread...");
         PocketPlaneData.generatePocketPlane(this.aspects, this.data, this.world, this.x, this.y, this.z, this.returnID);
     }
 }

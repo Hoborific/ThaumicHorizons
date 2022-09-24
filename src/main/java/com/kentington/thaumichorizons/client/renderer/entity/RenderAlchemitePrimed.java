@@ -1,38 +1,43 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.renderer.entity;
 
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.texture.TextureMap;
 import com.kentington.thaumichorizons.common.entities.EntityAlchemitePrimed;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderEntity;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
-public class RenderAlchemitePrimed extends RenderEntity
-{
+public class RenderAlchemitePrimed extends RenderEntity {
     private RenderBlocks blockRenderer;
-    
+
     public RenderAlchemitePrimed() {
         this.blockRenderer = new RenderBlocks();
         this.shadowSize = 0.5f;
     }
-    
+
     protected ResourceLocation getEntityTexture(final Entity p_110775_1_) {
-        return this.getEntityTexture((EntityAlchemitePrimed)p_110775_1_);
+        return this.getEntityTexture((EntityAlchemitePrimed) p_110775_1_);
     }
-    
+
     protected ResourceLocation getEntityTexture(final EntityAlchemitePrimed p_110775_1_) {
         return TextureMap.locationBlocksTexture;
     }
-    
-    public void doRenderStuff(final EntityAlchemitePrimed entity, final double p_76986_2_, final double p_76986_4_, final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
+
+    public void doRenderStuff(
+            final EntityAlchemitePrimed entity,
+            final double p_76986_2_,
+            final double p_76986_4_,
+            final double p_76986_6_,
+            final float p_76986_8_,
+            final float p_76986_9_) {
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
+        GL11.glTranslatef((float) p_76986_2_, (float) p_76986_4_, (float) p_76986_6_);
         if (entity.fuse - p_76986_9_ + 1.0f < 10.0f) {
             float f2 = 1.0f - (entity.fuse - p_76986_9_ + 1.0f) / 10.0f;
             if (f2 < 0.0f) {
@@ -47,7 +52,7 @@ public class RenderAlchemitePrimed extends RenderEntity
             GL11.glScalef(f3, f3, f3);
         }
         float f2 = (1.0f - (entity.fuse - p_76986_9_ + 1.0f) / 100.0f) * 0.8f;
-        this.bindEntityTexture((Entity)entity);
+        this.bindEntityTexture((Entity) entity);
         this.blockRenderer.renderBlockAsItem(ThaumicHorizons.blockAlchemite, 0, entity.getBrightness(p_76986_9_));
         if (entity.fuse / 5 % 2 == 0) {
             GL11.glDisable(3553);
@@ -63,8 +68,15 @@ public class RenderAlchemitePrimed extends RenderEntity
         }
         GL11.glPopMatrix();
     }
-    
-    public void doRender(final Entity p_76986_1_, final double p_76986_2_, final double p_76986_4_, final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
-        this.doRenderStuff((EntityAlchemitePrimed)p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+
+    public void doRender(
+            final Entity p_76986_1_,
+            final double p_76986_2_,
+            final double p_76986_4_,
+            final double p_76986_6_,
+            final float p_76986_8_,
+            final float p_76986_9_) {
+        this.doRenderStuff(
+                (EntityAlchemitePrimed) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 }

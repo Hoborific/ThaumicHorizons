@@ -1,22 +1,22 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.common.items;
 
-import net.minecraft.util.StatCollector;
-import net.minecraft.item.ItemStack;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.util.IIcon;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 
-public class ItemDummy extends Item
-{
+public class ItemDummy extends Item {
     @SideOnly(Side.CLIENT)
     public IIcon iconCow;
+
     public IIcon iconPig;
     public IIcon iconSheep;
     public IIcon iconChicken;
@@ -25,11 +25,11 @@ public class ItemDummy extends Item
     public IIcon iconHuman;
     public IIcon iconHorse;
     public IIcon iconSpider;
-    
+
     public ItemDummy() {
-        this.setCreativeTab((CreativeTabs)null);
+        this.setCreativeTab((CreativeTabs) null);
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void registerIcons(final IIconRegister ir) {
         this.iconCow = ir.registerIcon("thaumichorizons:cow");
@@ -42,7 +42,7 @@ public class ItemDummy extends Item
         this.iconHorse = ir.registerIcon("thaumichorizons:horse");
         this.iconSpider = ir.registerIcon("thaumichorizons:spider");
     }
-    
+
     public String getItemStackDisplayName(final ItemStack stack) {
         if (stack.getTagCompound() != null) {
             return StatCollector.translateToLocal(stack.getTagCompound().getString("infName"));
@@ -81,7 +81,7 @@ public class ItemDummy extends Item
             }
         }
     }
-    
+
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(final int md) {
         switch (md) {

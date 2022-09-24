@@ -1,30 +1,30 @@
-// 
+//
 // Decompiled by Procyon v0.5.30
-// 
+//
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import thaumcraft.client.lib.UtilsFX;
-import org.lwjgl.opengl.GL11;
-import com.kentington.thaumichorizons.common.tiles.TileVortexStabilizer;
-import net.minecraft.tileentity.TileEntity;
 import com.kentington.thaumichorizons.client.renderer.model.ModelVortexAttenuator;
+import com.kentington.thaumichorizons.common.tiles.TileVortexStabilizer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import org.lwjgl.opengl.GL11;
+import thaumcraft.client.lib.UtilsFX;
 
-public class TileVortexStabilizerRender extends TileEntitySpecialRenderer
-{
+public class TileVortexStabilizerRender extends TileEntitySpecialRenderer {
     private ModelVortexAttenuator model;
     static String tx1;
-    
+
     public TileVortexStabilizerRender() {
         this.model = new ModelVortexAttenuator();
     }
-    
-    public void renderTileEntityAt(final TileEntity p_147500_1_, final double x, final double y, final double z, final float p_147500_8_) {
-        final TileVortexStabilizer te = (TileVortexStabilizer)p_147500_1_;
+
+    public void renderTileEntityAt(
+            final TileEntity p_147500_1_, final double x, final double y, final double z, final float p_147500_8_) {
+        final TileVortexStabilizer te = (TileVortexStabilizer) p_147500_1_;
         GL11.glPushMatrix();
         GL11.glDisable(2884);
-        GL11.glTranslatef((float)x + 0.5f, (float)y, (float)z + 0.5f);
+        GL11.glTranslatef((float) x + 0.5f, (float) y, (float) z + 0.5f);
         switch (te.blockMetadata) {
             case 0: {
                 GL11.glTranslatef(0.0f, -0.5f, 0.0f);
@@ -70,7 +70,7 @@ public class TileVortexStabilizerRender extends TileEntitySpecialRenderer
         this.model.render(null, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
         GL11.glPopMatrix();
     }
-    
+
     static {
         TileVortexStabilizerRender.tx1 = "textures/models/attenuator.png";
     }
