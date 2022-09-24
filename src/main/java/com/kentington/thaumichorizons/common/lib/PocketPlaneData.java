@@ -1674,14 +1674,14 @@ public class PocketPlaneData {
                 }
                 final NBTTagCompound positionz = root.getCompoundTag("Positions");
                 PocketPlaneData.positions.clear();
-                Set<String> list1 = positionz.func_150296_c();
-                for (final String id : list1) {
+                Set<String> keySet = positionz.func_150296_c();
+                for (final String id : keySet) {
                     PocketPlaneData.positions.put(
                             Integer.valueOf(id),
                             Vec3.createVectorHelper(
-                                    positionz.getIntArray(id)[0] + 0.5,
-                                    (double) (positionz.getIntArray(id)[1] + 1),
-                                    positionz.getIntArray(id)[2] + 0.5));
+                                    positionz.getIntArray(id)[0],
+                                    positionz.getIntArray(id)[1],
+                                    positionz.getIntArray(id)[2]));
                 }
             }
         }
@@ -1694,7 +1694,7 @@ public class PocketPlaneData {
         Iterator it = PocketPlaneData.positions.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<Integer, Vec3> idToPos = (Map.Entry<Integer, Vec3>) it.next();
-            positionz.setIntArray(idToPos.getKey() + "", new int[] {
+            positionz.setIntArray(idToPos.getKey().toString(), new int[] {
                 (int) idToPos.getValue().xCoord, (int) idToPos.getValue().yCoord, (int) idToPos.getValue().zCoord
             });
         }
