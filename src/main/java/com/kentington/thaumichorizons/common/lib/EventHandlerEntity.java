@@ -127,7 +127,6 @@ public class EventHandlerEntity {
     }
 
     public void applyInfusions(final EntityLivingBase entity) {
-        final StackTraceElement[] above = Thread.currentThread().getStackTrace();
         EntityInfusionProperties infusionProperties =
                 (EntityInfusionProperties) entity.getExtendedProperties("CreatureInfusion");
         if (entity instanceof EntityPlayer) {
@@ -153,11 +152,6 @@ public class EventHandlerEntity {
                         infusionProperties.toggleInvisible));
             }
         } else {
-            for (final StackTraceElement el : above) {
-                if (el.getMethodName().equals("applyNewAI")) {
-                    return;
-                }
-            }
             final int[] infusions = infusionProperties.getInfusions();
             for (int i = 0; i < EntityInfusionProperties.NUM_INFUSIONS; ++i) {
                 if (infusions[i] != 0) {
@@ -260,7 +254,6 @@ public class EventHandlerEntity {
     }
 
     public void applyNewAI(final EntityLiving entity) {
-        if (entity.tasks.taskEntries.size() == 0) {}
         ArrayList tasks = new ArrayList();
         Iterator it = entity.tasks.taskEntries.iterator();
         while (it.hasNext()) {
