@@ -1,0 +1,10 @@
+License per https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/2361575-thaumic-horizons-v1-1-9-thaumcraft-4-addon
+
+Thaumic Horizons' conditions of use in modpacks are based on Thaumcraft's own:
+
+1. Your mod pack must link to this forum post.
+2. You cannot directly profit off of the mod pack - although streaming videos are fine and even encouraged.
+3. You cannot claim ownership of the mod or any of its elements.
+4. Please let me know when you add Thaumic Horizons to any publicly-available mod pack.
+
+5. I reserve the right to alter, remove, or add any conditions for good reasons or on a random whim.
