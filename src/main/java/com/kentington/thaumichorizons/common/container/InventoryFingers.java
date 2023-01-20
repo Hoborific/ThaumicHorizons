@@ -28,7 +28,8 @@ public class InventoryFingers extends TileMagicWorkbench implements IInventory {
     }
 
     public ItemStack getStackInSlotOnClosing(final int par1) {
-        if (this.stackList[par1] != null) {
+        // Makes sure we don't drop the output slot
+        if (par1 != 9 && this.stackList[par1] != null) {
             final ItemStack var2 = this.stackList[par1];
             this.stackList[par1] = null;
             this.markDirty();
