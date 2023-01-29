@@ -4,11 +4,10 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -17,8 +16,11 @@ import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.fx.PacketFXBlockZap;
 import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.tiles.TileNode;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
 
 public class TileRecombinator extends TileThaumcraft {
+
     public int count;
     public boolean activated;
     public boolean shouldActivate;
@@ -34,8 +36,7 @@ public class TileRecombinator extends TileThaumcraft {
     public void updateEntity() {
         super.updateEntity();
         if (!this.fireOnce) {
-            this.worldObj
-                    .getBlock(this.xCoord, this.yCoord, this.zCoord)
+            this.worldObj.getBlock(this.xCoord, this.yCoord, this.zCoord)
                     .onNeighborBlockChange(this.worldObj, this.xCoord, this.yCoord, this.zCoord, (Block) null);
             this.fireOnce = true;
         }
@@ -56,8 +57,7 @@ public class TileRecombinator extends TileThaumcraft {
             this.markDirty();
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         }
-        if (!this.worldObj.isRemote
-                && this.activated
+        if (!this.worldObj.isRemote && this.activated
                 && this.count > 50
                 && this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof TileNode) {
             final TileNode tile = (TileNode) this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord);
@@ -66,8 +66,7 @@ public class TileRecombinator extends TileThaumcraft {
             final int z = this.worldObj.rand.nextInt(5) - this.worldObj.rand.nextInt(5);
             if (x != 0 || y != -1 || z != 0) {
                 final TileEntity te = this.worldObj.getTileEntity(this.xCoord + x, this.yCoord + y, this.zCoord + z);
-                if (te != null
-                        && te instanceof TileNode
+                if (te != null && te instanceof TileNode
                         && this.worldObj.getBlock(this.xCoord + x, this.yCoord + y, this.zCoord + z)
                                 == ConfigBlocks.blockAiry) {
                     if (te instanceof TileNode && ((TileNode) te).getLock() > 0) {
@@ -134,13 +133,8 @@ public class TileRecombinator extends TileThaumcraft {
         }
     }
 
-    public void doMerge(
-            final AspectList possibleCombos,
-            final TileNode nd,
-            final TileNode tile,
-            final int x,
-            final int y,
-            final int z) {
+    public void doMerge(final AspectList possibleCombos, final TileNode nd, final TileNode tile, final int x,
+            final int y, final int z) {
         final int which = this.worldObj.rand.nextInt(possibleCombos.getAspects().length);
         final Aspect toAdd = possibleCombos.getAspects()[which];
         tile.getAspectsBase().add(toAdd, 1);

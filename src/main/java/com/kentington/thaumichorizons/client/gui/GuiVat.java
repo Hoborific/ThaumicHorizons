@@ -4,19 +4,23 @@
 
 package com.kentington.thaumichorizons.client.gui;
 
-import com.kentington.thaumichorizons.common.container.ContainerVat;
-import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
-import com.kentington.thaumichorizons.common.tiles.TileVat;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.lib.research.ResearchManager;
 
+import com.kentington.thaumichorizons.common.container.ContainerVat;
+import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
+import com.kentington.thaumichorizons.common.tiles.TileVat;
+
 public class GuiVat extends GuiContainer {
+
     TileVat tile;
     EntityPlayer player;
 
@@ -28,8 +32,8 @@ public class GuiVat extends GuiContainer {
         this.ySize = 209;
     }
 
-    protected void drawGuiContainerBackgroundLayer(
-            final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
+    protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_,
+            final int p_146976_3_) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         UtilsFX.bindTexture(new ResourceLocation("thaumichorizons", "textures/gui/guivat.png"));
@@ -47,13 +51,28 @@ public class GuiVat extends GuiContainer {
             for (int i = 0; i < (int) max; ++i) {
                 if (health >= i) {
                     this.drawTexturedModalRect(
-                            var5 + 56 + 7 * i - 63 * (i / 9), var6 + 12 + 7 * (i / 9), 176, 126, 7, 6);
+                            var5 + 56 + 7 * i - 63 * (i / 9),
+                            var6 + 12 + 7 * (i / 9),
+                            176,
+                            126,
+                            7,
+                            6);
                 } else {
                     this.drawTexturedModalRect(
-                            var5 + 56 + 7 * i - 63 * (i / 9), var6 + 12 + 7 * (i / 9), 176, 120, 7, 6);
+                            var5 + 56 + 7 * i - 63 * (i / 9),
+                            var6 + 12 + 7 * (i / 9),
+                            176,
+                            120,
+                            7,
+                            6);
                     if (health >= i - 0.5f) {
                         this.drawTexturedModalRect(
-                                var5 + 56 + 7 * i - 63 * (i / 9), var6 + 12 + 7 * (i / 9), 176, 126, 4, 6);
+                                var5 + 56 + 7 * i - 63 * (i / 9),
+                                var6 + 12 + 7 * (i / 9),
+                                176,
+                                126,
+                                4,
+                                6);
                     }
                 }
             }
@@ -63,21 +82,35 @@ public class GuiVat extends GuiContainer {
             for (int j = 0; j < (int) max2; ++j) {
                 if (health2 >= j) {
                     this.drawTexturedModalRect(
-                            var5 + 56 + 7 * j - 63 * (j / 9), var6 + 12 + 7 * (j / 9), 176, 126, 7, 6);
+                            var5 + 56 + 7 * j - 63 * (j / 9),
+                            var6 + 12 + 7 * (j / 9),
+                            176,
+                            126,
+                            7,
+                            6);
                 } else {
                     this.drawTexturedModalRect(
-                            var5 + 56 + 7 * j - 63 * (j / 9), var6 + 12 + 7 * (j / 9), 176, 120, 7, 6);
+                            var5 + 56 + 7 * j - 63 * (j / 9),
+                            var6 + 12 + 7 * (j / 9),
+                            176,
+                            120,
+                            7,
+                            6);
                     if (health2 >= j - 0.5f) {
                         this.drawTexturedModalRect(
-                                var5 + 56 + 7 * j - 63 * (j / 9), var6 + 12 + 7 * (j / 9), 176, 126, 4, 6);
+                                var5 + 56 + 7 * j - 63 * (j / 9),
+                                var6 + 12 + 7 * (j / 9),
+                                176,
+                                126,
+                                4,
+                                6);
                     }
                 }
             }
         }
         if (this.tile.getEntity() != null) {
-            final int[] infusions = ((EntityInfusionProperties)
-                            this.tile.getEntity().getExtendedProperties("CreatureInfusion"))
-                    .getInfusions();
+            final int[] infusions = ((EntityInfusionProperties) this.tile.getEntity()
+                    .getExtendedProperties("CreatureInfusion")).getInfusions();
             if (infusions[0] != 0) {
                 GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
                 for (int k = 0; k < 12; ++k) {
@@ -85,7 +118,12 @@ public class GuiVat extends GuiContainer {
                         break;
                     }
                     this.drawTexturedModalRect(
-                            var5 + 55 + 16 * (k % 4), var6 + 56 + 17 * (k / 4), (infusions[k] - 1) * 16, 209, 16, 16);
+                            var5 + 55 + 16 * (k % 4),
+                            var6 + 56 + 17 * (k / 4),
+                            (infusions[k] - 1) * 16,
+                            209,
+                            16,
+                            16);
                 }
             }
         }
@@ -97,7 +135,12 @@ public class GuiVat extends GuiContainer {
                     break;
                 }
                 this.drawTexturedModalRect(
-                        var5 + 55 + 16 * (k % 4), var6 + 56 + 17 * (k / 4), (infusions[k] - 1) * 16, 225, 16, 16);
+                        var5 + 55 + 16 * (k % 4),
+                        var6 + 56 + 17 * (k / 4),
+                        (infusions[k] - 1) * 16,
+                        225,
+                        16,
+                        16);
             }
         }
         GL11.glDisable(3042);

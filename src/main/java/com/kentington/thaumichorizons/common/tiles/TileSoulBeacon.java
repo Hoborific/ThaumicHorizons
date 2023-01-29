@@ -4,18 +4,20 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StatCollector;
+
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.common.Thaumcraft;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileSoulBeacon extends TileThaumcraft {
+
     @SideOnly(Side.CLIENT)
     private float field_146014_j;
 
@@ -24,10 +26,13 @@ public class TileSoulBeacon extends TileThaumcraft {
 
     public boolean activate(final EntityPlayer p) {
         p.getEntityData().setBoolean("soulBeacon", true);
-        p.getEntityData().setIntArray("soulBeaconCoords", new int[] {this.xCoord, this.yCoord, this.zCoord});
+        p.getEntityData().setIntArray("soulBeaconCoords", new int[] { this.xCoord, this.yCoord, this.zCoord });
         p.getEntityData().setInteger("soulBeaconDim", this.worldObj.provider.dimensionId);
-        p.addChatMessage((IChatComponent) new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.GRAY
-                + StatCollector.translateToLocal("thaumichorizons.setBeacon")));
+        p.addChatMessage(
+                (IChatComponent) new ChatComponentText(
+                        EnumChatFormatting.ITALIC + ""
+                                + EnumChatFormatting.GRAY
+                                + StatCollector.translateToLocal("thaumichorizons.setBeacon")));
         Thaumcraft.proxy.arcLightning(
                 this.worldObj,
                 p.posX,
@@ -41,7 +46,12 @@ public class TileSoulBeacon extends TileThaumcraft {
                 0.05f,
                 0.5f);
         this.worldObj.playSoundEffect(
-                this.xCoord + 0.5, this.yCoord + 0.75, this.zCoord + 0.5, "thaumcraft:zap", 1.0f, 1.0f);
+                this.xCoord + 0.5,
+                this.yCoord + 0.75,
+                this.zCoord + 0.5,
+                "thaumcraft:zap",
+                1.0f,
+                1.0f);
         return true;
     }
 

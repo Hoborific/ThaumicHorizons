@@ -4,14 +4,8 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.lib.GatewayTeleporter;
-import com.kentington.thaumichorizons.common.lib.PocketPlaneData;
-import com.kentington.thaumichorizons.common.tiles.TileSlot;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.block.BlockBreakable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -22,15 +16,25 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.lib.GatewayTeleporter;
+import com.kentington.thaumichorizons.common.lib.PocketPlaneData;
+import com.kentington.thaumichorizons.common.tiles.TileSlot;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockPortalTH extends BlockBreakable {
+
     public BlockPortalTH() {
         super("portal", ThaumicHorizons.portal, false);
         this.setTickRandomly(true);
         this.setBlockUnbreakable();
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(
-            final World p_149668_1_, final int p_149668_2_, final int p_149668_3_, final int p_149668_4_) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(final World p_149668_1_, final int p_149668_2_,
+            final int p_149668_3_, final int p_149668_4_) {
         return null;
     }
 
@@ -44,12 +48,8 @@ public class BlockPortalTH extends BlockBreakable {
     }
 
     @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(
-            final World p_149734_1_,
-            final int p_149734_2_,
-            final int p_149734_3_,
-            final int p_149734_4_,
-            final Random p_149734_5_) {
+    public void randomDisplayTick(final World p_149734_1_, final int p_149734_2_, final int p_149734_3_,
+            final int p_149734_4_, final Random p_149734_5_) {
         for (int l = 0; l < 4; ++l) {
             double d0 = p_149734_2_ + p_149734_5_.nextFloat();
             final double d2 = p_149734_3_ + p_149734_5_.nextFloat();
@@ -82,8 +82,8 @@ public class BlockPortalTH extends BlockBreakable {
         return 0;
     }
 
-    public void onEntityCollidedWithBlock(
-            final World world, final int x, final int y, final int z, final Entity player) {
+    public void onEntityCollidedWithBlock(final World world, final int x, final int y, final int z,
+            final Entity player) {
         if (player.ridingEntity == null && player.riddenByEntity == null && player instanceof EntityPlayerMP) {
             if (player.timeUntilPortal > 0) {
                 player.timeUntilPortal = 10;
@@ -124,16 +124,15 @@ public class BlockPortalTH extends BlockBreakable {
                 if (portal.length > 3) targetDim = portal[3];
 
                 final MinecraftServer mServer = FMLCommonHandler.instance().getMinecraftServerInstance();
-                ((EntityPlayerMP) player)
-                        .mcServer
-                        .getConfigurationManager()
-                        .transferPlayerToDimension(
-                                (EntityPlayerMP) player, targetDim, (Teleporter) new GatewayTeleporter(
-                                        mServer.worldServerForDimension(ThaumicHorizons.dimensionPocketId),
-                                        targetX,
-                                        targetY,
-                                        targetZ,
-                                        player.rotationYaw));
+                ((EntityPlayerMP) player).mcServer.getConfigurationManager().transferPlayerToDimension(
+                        (EntityPlayerMP) player,
+                        targetDim,
+                        (Teleporter) new GatewayTeleporter(
+                                mServer.worldServerForDimension(ThaumicHorizons.dimensionPocketId),
+                                targetX,
+                                targetY,
+                                targetZ,
+                                player.rotationYaw));
             } else {
                 int slotY = y;
                 int slotX = x;
@@ -181,17 +180,15 @@ public class BlockPortalTH extends BlockBreakable {
                         }
                     }
                     final MinecraftServer mServer2 = FMLCommonHandler.instance().getMinecraftServerInstance();
-                    ((EntityPlayerMP) player)
-                            .mcServer
-                            .getConfigurationManager()
-                            .transferPlayerToDimension(
-                                    (EntityPlayerMP) player, ThaumicHorizons.dimensionPocketId, (Teleporter)
-                                            new GatewayTeleporter(
-                                                    mServer2.worldServerForDimension(ThaumicHorizons.dimensionPocketId),
-                                                    targetX,
-                                                    targetY,
-                                                    targetZ,
-                                                    targetYaw));
+                    ((EntityPlayerMP) player).mcServer.getConfigurationManager().transferPlayerToDimension(
+                            (EntityPlayerMP) player,
+                            ThaumicHorizons.dimensionPocketId,
+                            (Teleporter) new GatewayTeleporter(
+                                    mServer2.worldServerForDimension(ThaumicHorizons.dimensionPocketId),
+                                    targetX,
+                                    targetY,
+                                    targetZ,
+                                    targetYaw));
                 }
             }
         }

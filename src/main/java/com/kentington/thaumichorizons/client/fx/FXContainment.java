@@ -8,10 +8,13 @@ import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
 public class FXContainment extends EntityFX {
+
     public static final ResourceLocation portaltex;
 
     public FXContainment(final World par1World, final double par2, final double par4, final double par6) {
@@ -34,14 +37,8 @@ public class FXContainment extends EntityFX {
         this.noClip = true;
     }
 
-    public void renderParticle(
-            final Tessellator p_70539_1_,
-            final float p_70539_2_,
-            final float p_70539_3_,
-            final float p_70539_4_,
-            final float p_70539_5_,
-            final float p_70539_6_,
-            final float p_70539_7_) {
+    public void renderParticle(final Tessellator p_70539_1_, final float p_70539_2_, final float p_70539_3_,
+            final float p_70539_4_, final float p_70539_5_, final float p_70539_6_, final float p_70539_7_) {
         final long nt = System.nanoTime();
         final long time = nt / 50000000L;
         final int frame = (int) time % 16;

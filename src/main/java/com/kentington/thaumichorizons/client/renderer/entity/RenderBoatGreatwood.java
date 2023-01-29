@@ -4,12 +4,14 @@
 
 package com.kentington.thaumichorizons.client.renderer.entity;
 
-import com.kentington.thaumichorizons.common.entities.EntityBoatGreatwood;
 import net.minecraft.client.renderer.entity.RenderBoat;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
+import com.kentington.thaumichorizons.common.entities.EntityBoatGreatwood;
+
 public class RenderBoatGreatwood extends RenderBoat {
+
     private static final ResourceLocation boatTextures;
 
     protected ResourceLocation getEntityTexture(final EntityBoatGreatwood p_110775_1_) {

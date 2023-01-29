@@ -4,14 +4,17 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.kentington.thaumichorizons.common.items.ItemFocusContainment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.world.World;
+
 import thaumcraft.common.entities.projectile.EntityEmber;
 
+import com.kentington.thaumichorizons.common.items.ItemFocusContainment;
+
 public class EntityNetherHound extends EntityWolf {
+
     long soundDelay;
 
     public EntityNetherHound(final World p_i1696_1_) {

@@ -14,11 +14,13 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.wands.IWandable;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class TileSoulJar extends TileThaumcraft implements IWandable {
+
     public NBTTagCompound jarTag;
     public Entity entity;
     public boolean drop;
@@ -50,15 +52,8 @@ public class TileSoulJar extends TileThaumcraft implements IWandable {
     }
 
     @Override
-    public int onWandRightClick(
-            final World world,
-            final ItemStack wandstack,
-            final EntityPlayer player,
-            final int x,
-            final int y,
-            final int z,
-            final int side,
-            final int md) {
+    public int onWandRightClick(final World world, final ItemStack wandstack, final EntityPlayer player, final int x,
+            final int y, final int z, final int side, final int md) {
         if (this.jarTag.getBoolean("isSoul")) {
             return 0;
         }
@@ -78,7 +73,13 @@ public class TileSoulJar extends TileThaumcraft implements IWandable {
         }
         world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(ConfigBlocks.blockJar) + 61440);
         player.worldObj.playSound(
-                x + 0.5, y + 0.5, z + 0.5, "random.glass", 1.0f, 0.9f + player.worldObj.rand.nextFloat() * 0.2f, false);
+                x + 0.5,
+                y + 0.5,
+                z + 0.5,
+                "random.glass",
+                1.0f,
+                0.9f + player.worldObj.rand.nextFloat() * 0.2f,
+                false);
         player.swingItem();
         return 0;
     }
@@ -96,6 +97,6 @@ public class TileSoulJar extends TileThaumcraft implements IWandable {
     public void onUsingWandTick(final ItemStack wandstack, final EntityPlayer player, final int count) {}
 
     @Override
-    public void onWandStoppedUsing(
-            final ItemStack wandstack, final World world, final EntityPlayer player, final int count) {}
+    public void onWandStoppedUsing(final ItemStack wandstack, final World world, final EntityPlayer player,
+            final int count) {}
 }

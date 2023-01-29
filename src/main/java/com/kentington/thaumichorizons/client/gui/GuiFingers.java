@@ -4,25 +4,31 @@
 
 package com.kentington.thaumichorizons.client.gui;
 
-import com.kentington.thaumichorizons.common.container.ContainerFingers;
-import com.kentington.thaumichorizons.common.container.InventoryFingers;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.MathHelper;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 
+import com.kentington.thaumichorizons.common.container.ContainerFingers;
+import com.kentington.thaumichorizons.common.container.InventoryFingers;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @SideOnly(Side.CLIENT)
 public class GuiFingers extends GuiContainer {
+
     private InventoryPlayer ip;
     private InventoryFingers tileEntity;
     private int[][] aspectLocs;
@@ -30,7 +36,7 @@ public class GuiFingers extends GuiContainer {
 
     public GuiFingers(final InventoryPlayer par1InventoryPlayer) {
         super((Container) new ContainerFingers(par1InventoryPlayer));
-        this.aspectLocs = new int[][] {{72, 21}, {24, 43}, {24, 102}, {72, 124}, {120, 102}, {120, 43}};
+        this.aspectLocs = new int[][] { { 72, 21 }, { 24, 43 }, { 24, 102 }, { 72, 124 }, { 120, 102 }, { 120, 43 } };
         this.primals = Aspect.getPrimalAspects();
         this.tileEntity = ((ContainerFingers) this.inventorySlots).tileEntity;
         this.ip = par1InventoryPlayer;
@@ -55,17 +61,20 @@ public class GuiFingers extends GuiContainer {
         }
         AspectList cost = null;
         if (ThaumcraftCraftingManager.findMatchingArcaneRecipe((IInventory) this.tileEntity, this.ip.player) != null) {
-            cost = ThaumcraftCraftingManager.findMatchingArcaneRecipeAspects(
-                    (IInventory) this.tileEntity, this.ip.player);
+            cost = ThaumcraftCraftingManager
+                    .findMatchingArcaneRecipeAspects((IInventory) this.tileEntity, this.ip.player);
             int count = 0;
             for (final Aspect primal : this.primals) {
                 float amt = cost.getAmount(primal);
                 if (cost.getAmount(primal) > 0) {
-                    float alpha =
-                            0.5f + (MathHelper.sin((this.ip.player.ticksExisted + count * 10) / 2.0f) * 0.2f - 0.2f);
+                    float alpha = 0.5f
+                            + (MathHelper.sin((this.ip.player.ticksExisted + count * 10) / 2.0f) * 0.2f - 0.2f);
                     if (wand != null) {
                         amt *= wand.getConsumptionModifier(
-                                this.tileEntity.getStackInSlot(10), this.ip.player, primal, true);
+                                this.tileEntity.getStackInSlot(10),
+                                this.ip.player,
+                                primal,
+                                true);
                         if (amt * 100.0f <= wand.getVis(this.tileEntity.getStackInSlot(10), primal)) {
                             alpha = 1.0f;
                         }
@@ -86,8 +95,7 @@ public class GuiFingers extends GuiContainer {
                 }
             }
         }
-        if (wand != null
-                && cost != null
+        if (wand != null && cost != null
                 && !wand.consumeAllVisCrafting(this.tileEntity.getStackInSlot(10), this.ip.player, cost, false)) {
             GL11.glPushMatrix();
             final float var7 = 0.33f;

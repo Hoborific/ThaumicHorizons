@@ -11,10 +11,13 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
 public class RenderSoul extends Render {
+
     int size1;
     int size2;
 
@@ -24,8 +27,8 @@ public class RenderSoul extends Render {
         this.shadowSize = 0.0f;
     }
 
-    public void renderEntityAt(
-            final Entity entity, final double x, final double y, final double z, final float fq, final float pticks) {
+    public void renderEntityAt(final Entity entity, final double x, final double y, final double z, final float fq,
+            final float pticks) {
         if (((EntityLiving) entity).getHealth() <= 0.0f) {
             return;
         }
@@ -79,8 +82,8 @@ public class RenderSoul extends Render {
         GL11.glPopMatrix();
     }
 
-    public void doRender(
-            final Entity entity, final double d, final double d1, final double d2, final float f, final float f1) {
+    public void doRender(final Entity entity, final double d, final double d1, final double d2, final float f,
+            final float f1) {
         if (this.size1 == 0) {
             this.size1 = 16;
         }

@@ -8,9 +8,11 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 public class ModelInjector extends ModelBase {
+
     ModelRenderer Drum;
     ModelRenderer Front;
     ModelRenderer BowL1;
@@ -70,14 +72,8 @@ public class ModelInjector extends ModelBase {
         this.setRotation(this.Grip, 0.0f, 0.0f, 0.0f);
     }
 
-    public void render(
-            final Entity entity,
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5) {
+    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3,
+            final float f4, final float f5) {
         super.render(entity, f, f1, f2, f3, f4, f5);
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         this.Drum.render(f5);
@@ -109,7 +105,9 @@ public class ModelInjector extends ModelBase {
         GL11.glEnable(2896);
         GL11.glEnable(3553);
         this.Thingy.setRotationPoint(
-                (this.BowR2.rotationPointX + this.BowL2.rotationPointX) / 2.0f, 0.0f, -6.5f + 5.0f * f3);
+                (this.BowR2.rotationPointX + this.BowL2.rotationPointX) / 2.0f,
+                0.0f,
+                -6.5f + 5.0f * f3);
         this.Thingy.render(f5);
     }
 
@@ -119,14 +117,8 @@ public class ModelInjector extends ModelBase {
         model.rotateAngleZ = z;
     }
 
-    public void setRotationAngles(
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5,
-            final Entity ent) {
+    public void setRotationAngles(final float f, final float f1, final float f2, final float f3, final float f4,
+            final float f5, final Entity ent) {
         super.setRotationAngles(f, f1, f2, f3, f4, f5, ent);
         this.BowL1.rotateAngleY = -f;
         this.BowR1.rotateAngleY = f + 3.1415927f;

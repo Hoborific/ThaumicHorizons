@@ -4,17 +4,21 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+
+import org.lwjgl.opengl.GL11;
+
+import thaumcraft.client.lib.UtilsFX;
+
 import com.kentington.thaumichorizons.client.renderer.model.ModelBloodInfuser;
 import com.kentington.thaumichorizons.client.renderer.model.ModelSyringe;
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.tiles.TileBloodInfuser;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.client.lib.UtilsFX;
 
 public class TileBloodInfuserRender extends TileEntitySpecialRenderer {
+
     static String tx1;
     private ModelBloodInfuser base;
     static String tx2;
@@ -39,7 +43,14 @@ public class TileBloodInfuserRender extends TileEntitySpecialRenderer {
             GL11.glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
             UtilsFX.bindTexture("thaumichorizons", TileBloodInfuserRender.tx2);
             this.syringe.render(
-                    null, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f, new ItemStack(ThaumicHorizons.itemSyringeHuman));
+                    null,
+                    0.0f,
+                    0.0f,
+                    0.0f,
+                    0.0f,
+                    0.0f,
+                    0.0625f,
+                    new ItemStack(ThaumicHorizons.itemSyringeHuman));
             GL11.glPopMatrix();
         }
     }

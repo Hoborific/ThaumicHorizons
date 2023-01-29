@@ -4,11 +4,9 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,10 +17,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
 import thaumcraft.codechicken.lib.math.MathHelper;
 import thaumcraft.common.entities.golems.ItemGolemBell;
 
+import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolemPlacer {
+
     public IIcon icon;
     public IIcon newBell;
 
@@ -58,8 +63,8 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
         return -1;
     }
 
-    public void addInformation(
-            final ItemStack stack, final EntityPlayer par2EntityPlayer, final List list, final boolean par4) {
+    public void addInformation(final ItemStack stack, final EntityPlayer par2EntityPlayer, final List list,
+            final boolean par4) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("block")) {
             final int[] block = stack.getTagCompound().getIntArray("block");
             final String name = "?";
@@ -75,14 +80,8 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
         super.addInformation(stack, par2EntityPlayer, list, par4);
     }
 
-    public boolean spawnCreature(
-            final World par0World,
-            final double par2,
-            final double par4,
-            final double par6,
-            final int side,
-            final ItemStack stack,
-            final EntityPlayer player) {
+    public boolean spawnCreature(final World par0World, final double par2, final double par4, final double par6,
+            final int side, final ItemStack stack, final EntityPlayer player) {
         boolean adv = false;
         if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("advanced")) {
             adv = true;
@@ -92,8 +91,11 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
             golem.setLocationAndAngles(par2, par4, par6, par0World.rand.nextFloat() * 360.0f, 0.0f);
             golem.playLivingSound();
             golem.setHomeArea(
-                    MathHelper.floor_double(par2), MathHelper.floor_double(par4), MathHelper.floor_double(par6), 32);
-            int[] block = {0, 0};
+                    MathHelper.floor_double(par2),
+                    MathHelper.floor_double(par4),
+                    MathHelper.floor_double(par6),
+                    32);
+            int[] block = { 0, 0 };
             if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("core")) {
                 golem.setCore(stack.stackTagCompound.getByte("core"));
             }

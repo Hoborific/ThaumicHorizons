@@ -4,12 +4,8 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
-import com.kentington.thaumichorizons.common.lib.SelfInfusionRecipe;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,9 +15,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
 import thaumcraft.common.Thaumcraft;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
+import com.kentington.thaumichorizons.common.lib.SelfInfusionRecipe;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemInfusionSelfCheat extends Item {
+
     @SideOnly(Side.CLIENT)
     public IIcon icon1;
 

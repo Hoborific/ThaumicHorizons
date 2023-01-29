@@ -4,19 +4,24 @@
 
 package com.kentington.thaumichorizons.client.gui;
 
-import com.kentington.thaumichorizons.common.container.ContainerSoulforge;
-import com.kentington.thaumichorizons.common.tiles.TileSoulforge;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
+
+import com.kentington.thaumichorizons.common.container.ContainerSoulforge;
+import com.kentington.thaumichorizons.common.tiles.TileSoulforge;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiSoulforge extends GuiContainer {
+
     TileSoulforge tile;
 
     public GuiSoulforge(final EntityPlayer player, final TileSoulforge tile) {
@@ -25,8 +30,8 @@ public class GuiSoulforge extends GuiContainer {
         this.ySize = 0;
     }
 
-    protected void drawGuiContainerBackgroundLayer(
-            final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
+    protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_,
+            final int p_146976_3_) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         UtilsFX.bindTexture(new ResourceLocation("thaumichorizons", "textures/gui/guidynamo.png"));

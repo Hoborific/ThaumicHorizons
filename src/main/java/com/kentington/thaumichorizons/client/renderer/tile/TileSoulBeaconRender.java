@@ -4,29 +4,28 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.client.renderer.model.ModelSoulBeacon;
-import com.kentington.thaumichorizons.common.tiles.TileSoulBeacon;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.client.renderer.model.ModelSoulBeacon;
+import com.kentington.thaumichorizons.common.tiles.TileSoulBeacon;
+
 public class TileSoulBeaconRender extends TileEntitySpecialRenderer {
+
     static String tx1;
     private ModelSoulBeacon base;
     private static final ResourceLocation field_147523_b;
-    private static final String __OBFID = "CL_00000962";
 
-    public void renderTileEntityAt(
-            final TileSoulBeacon tco,
-            final double p_147500_2_,
-            final double p_147500_4_,
-            final double p_147500_6_,
-            final float p_147500_8_) {
+    public void renderTileEntityAt(final TileSoulBeacon tco, final double p_147500_2_, final double p_147500_4_,
+            final double p_147500_6_, final float p_147500_8_) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) p_147500_2_ + 0.5f, (float) p_147500_4_ + 1.5f, (float) p_147500_6_ + 0.5f);
         GL11.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);

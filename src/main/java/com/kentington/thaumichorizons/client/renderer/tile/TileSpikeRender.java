@@ -4,16 +4,20 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.common.tiles.TileSpike;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.common.tiles.TileSpike;
+
 public class TileSpikeRender extends TileEntitySpecialRenderer {
+
     private IModelCustom model;
     private static final ResourceLocation SPIKE;
     static String tx1;

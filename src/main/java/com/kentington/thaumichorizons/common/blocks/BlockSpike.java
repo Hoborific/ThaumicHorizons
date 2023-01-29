@@ -4,10 +4,6 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.tiles.TileSpike;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -20,7 +16,14 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileSpike;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockSpike extends BlockContainer {
+
     int type;
     IIcon icon;
     IIcon iconWood;
@@ -74,12 +77,8 @@ public class BlockSpike extends BlockContainer {
         }
     }
 
-    public void onEntityCollidedWithBlock(
-            final World p_149670_1_,
-            final int p_149670_2_,
-            final int p_149670_3_,
-            final int p_149670_4_,
-            final Entity p_149670_5_) {
+    public void onEntityCollidedWithBlock(final World p_149670_1_, final int p_149670_2_, final int p_149670_3_,
+            final int p_149670_4_, final Entity p_149670_5_) {
         p_149670_5_.attackEntityFrom(DamageSource.cactus, 1.0f);
     }
 
@@ -92,15 +91,11 @@ public class BlockSpike extends BlockContainer {
         return spike;
     }
 
-    public boolean canPlaceBlockOnSide(
-            final World p_149742_1_,
-            final int p_149742_2_,
-            final int p_149742_3_,
-            final int p_149742_4_,
-            final int p_149742_5_) {
+    public boolean canPlaceBlockOnSide(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,
+            final int p_149742_4_, final int p_149742_5_) {
         final ForgeDirection dir = ForgeDirection.getOrientation(p_149742_5_);
         return (dir == ForgeDirection.DOWN
-                        && p_149742_1_.isSideSolid(p_149742_2_, p_149742_3_ + 1, p_149742_4_, ForgeDirection.DOWN))
+                && p_149742_1_.isSideSolid(p_149742_2_, p_149742_3_ + 1, p_149742_4_, ForgeDirection.DOWN))
                 || (dir == ForgeDirection.UP
                         && p_149742_1_.isSideSolid(p_149742_2_, p_149742_3_ - 1, p_149742_4_, ForgeDirection.UP))
                 || (dir == ForgeDirection.NORTH
@@ -113,8 +108,8 @@ public class BlockSpike extends BlockContainer {
                         && p_149742_1_.isSideSolid(p_149742_2_ - 1, p_149742_3_, p_149742_4_, ForgeDirection.EAST));
     }
 
-    public boolean canPlaceBlockAt(
-            final World p_149742_1_, final int p_149742_2_, final int p_149742_3_, final int p_149742_4_) {
+    public boolean canPlaceBlockAt(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,
+            final int p_149742_4_) {
         return p_149742_1_.isSideSolid(p_149742_2_ - 1, p_149742_3_, p_149742_4_, ForgeDirection.EAST)
                 || p_149742_1_.isSideSolid(p_149742_2_ + 1, p_149742_3_, p_149742_4_, ForgeDirection.WEST)
                 || p_149742_1_.isSideSolid(p_149742_2_, p_149742_3_, p_149742_4_ - 1, ForgeDirection.SOUTH)
@@ -123,16 +118,9 @@ public class BlockSpike extends BlockContainer {
                 || p_149742_1_.isSideSolid(p_149742_2_, p_149742_3_ + 1, p_149742_4_, ForgeDirection.DOWN);
     }
 
-    public int onBlockPlaced(
-            final World p_149660_1_,
-            final int p_149660_2_,
-            final int p_149660_3_,
-            final int p_149660_4_,
-            final int p_149660_5_,
-            final float p_149660_6_,
-            final float p_149660_7_,
-            final float p_149660_8_,
-            final int p_149660_9_) {
+    public int onBlockPlaced(final World p_149660_1_, final int p_149660_2_, final int p_149660_3_,
+            final int p_149660_4_, final int p_149660_5_, final float p_149660_6_, final float p_149660_7_,
+            final float p_149660_8_, final int p_149660_9_) {
         byte b0 = -1;
         if (p_149660_5_ == 0
                 && p_149660_1_.isSideSolid(p_149660_2_, p_149660_3_ + 1, p_149660_4_, ForgeDirection.DOWN)) {
@@ -160,17 +148,13 @@ public class BlockSpike extends BlockContainer {
         return b0;
     }
 
-    public void onNeighborBlockChange(
-            final World p_149695_1_,
-            final int p_149695_2_,
-            final int p_149695_3_,
-            final int p_149695_4_,
-            final Block p_149695_5_) {
+    public void onNeighborBlockChange(final World p_149695_1_, final int p_149695_2_, final int p_149695_3_,
+            final int p_149695_4_, final Block p_149695_5_) {
         this.func_149820_e(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_);
     }
 
-    private void func_149820_e(
-            final World p_149820_1_, final int p_149820_2_, final int p_149820_3_, final int p_149820_4_) {
+    private void func_149820_e(final World p_149820_1_, final int p_149820_2_, final int p_149820_3_,
+            final int p_149820_4_) {
         if (!this.canPlaceBlockOnSide(
                 p_149820_1_,
                 p_149820_2_,
@@ -188,8 +172,8 @@ public class BlockSpike extends BlockContainer {
         }
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(
-            final World p_149668_1_, final int p_149668_2_, final int p_149668_3_, final int p_149668_4_) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(final World p_149668_1_, final int p_149668_2_,
+            final int p_149668_3_, final int p_149668_4_) {
         final float f = 0.0625f;
         final int md = p_149668_1_.getBlockMetadata(p_149668_2_, p_149668_3_, p_149668_4_);
         if (md == 0) {

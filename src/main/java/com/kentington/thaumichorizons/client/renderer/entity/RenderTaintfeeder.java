@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.client.renderer.entity;
 
-import com.kentington.thaumichorizons.common.entities.EntityTaintPig;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderPig;
@@ -13,11 +12,16 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.tile.TileNodeRenderer;
 
+import com.kentington.thaumichorizons.common.entities.EntityTaintPig;
+
 public class RenderTaintfeeder extends RenderPig {
+
     private static final ResourceLocation pigTextures;
     private static final ResourceLocation pigEyesTextures;
 
@@ -29,13 +33,8 @@ public class RenderTaintfeeder extends RenderPig {
         return RenderTaintfeeder.pigTextures;
     }
 
-    public void doRender(
-            final EntityTaintPig p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final EntityTaintPig p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         super.doRender((EntityLiving) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
         GL11.glPushMatrix();
         GL11.glAlphaFunc(516, 0.003921569f);
@@ -66,33 +65,18 @@ public class RenderTaintfeeder extends RenderPig {
         GL11.glPopMatrix();
     }
 
-    public void doRender(
-            final Entity p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final Entity p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         this.doRender((EntityTaintPig) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 
-    public void doRender(
-            final EntityLiving p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final EntityLiving p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         this.doRender((EntityTaintPig) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 
-    public void doRender(
-            final EntityLivingBase p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final EntityLivingBase p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         this.doRender((EntityTaintPig) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 

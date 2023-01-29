@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 public class EntityMedSlime extends EntitySlime {
+
     public EntityMedSlime(final World p_i1742_1_) {
         super(p_i1742_1_);
     }
@@ -32,7 +33,11 @@ public class EntityMedSlime extends EntitySlime {
                 final EntityMedSlime entityslime = this.createInstance();
                 entityslime.setSlimeSize(i / 2);
                 entityslime.setLocationAndAngles(
-                        this.posX + f, this.posY + 0.5, this.posZ + f2, this.rand.nextFloat() * 360.0f, 0.0f);
+                        this.posX + f,
+                        this.posY + 0.5,
+                        this.posZ + f2,
+                        this.rand.nextFloat() * 360.0f,
+                        0.0f);
                 this.worldObj.spawnEntityInWorld((Entity) entityslime);
             }
         }
@@ -51,7 +56,12 @@ public class EntityMedSlime extends EntitySlime {
                 p_70100_1_.heal((float) (this.getAttackStrength() + 1));
                 this.playSound("mob.attack", 1.0f, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2f + 1.0f);
                 this.worldObj.createExplosion(
-                        (Entity) null, this.posX, this.posY + this.height / 2.0f, this.posZ, 0.0f, false);
+                        (Entity) null,
+                        this.posX,
+                        this.posY + this.height / 2.0f,
+                        this.posZ,
+                        0.0f,
+                        false);
                 this.setDead();
             }
         }

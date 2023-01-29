@@ -4,14 +4,17 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import net.minecraft.entity.player.EntityPlayer;
+
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class TileVatSlave extends TileThaumcraft implements IAspectContainer {
+
     boolean bossFound;
     int bossX;
     int bossY;
@@ -49,13 +52,14 @@ public class TileVatSlave extends TileThaumcraft implements IAspectContainer {
                 for (int x = -1; x < 2; ++x) {
                     for (int z = -1; z < 2; ++z) {
                         if (this.worldObj.getBlock(this.xCoord + x, this.yCoord, this.zCoord + z)
-                                        == ThaumicHorizons.blockVatInterior
+                                == ThaumicHorizons.blockVatInterior
                                 && this.worldObj.getBlockMetadata(this.xCoord + x, this.yCoord, this.zCoord + z) == 0
-                                && this.worldObj.getTileEntity(this.xCoord + x, this.yCoord, this.zCoord + z)
-                                        instanceof TileVatSlave) {
-                            final TileVat boss = ((TileVatSlave)
-                                            this.worldObj.getTileEntity(this.xCoord + x, this.yCoord, this.zCoord + z))
-                                    .getBoss(-1);
+                                && this.worldObj.getTileEntity(
+                                        this.xCoord + x,
+                                        this.yCoord,
+                                        this.zCoord + z) instanceof TileVatSlave) {
+                            final TileVat boss = ((TileVatSlave) this.worldObj
+                                    .getTileEntity(this.xCoord + x, this.yCoord, this.zCoord + z)).getBoss(-1);
                             if (boss != null) {
                                 this.bossX = boss.xCoord;
                                 this.bossY = boss.yCoord;
@@ -68,11 +72,10 @@ public class TileVatSlave extends TileThaumcraft implements IAspectContainer {
                 }
             } else if (md == 4) {
                 if (this.worldObj.getBlock(this.xCoord, this.yCoord + 1, this.zCoord) == ThaumicHorizons.blockVat
-                        && this.worldObj.getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord)
-                                instanceof TileVatSlave) {
-                    final TileVat boss2 = ((TileVatSlave)
-                                    this.worldObj.getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord))
-                            .getBoss(-1);
+                        && this.worldObj
+                                .getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord) instanceof TileVatSlave) {
+                    final TileVat boss2 = ((TileVatSlave) this.worldObj
+                            .getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord)).getBoss(-1);
                     if (boss2 != null) {
                         this.bossX = boss2.xCoord;
                         this.bossY = boss2.yCoord;
@@ -84,11 +87,10 @@ public class TileVatSlave extends TileThaumcraft implements IAspectContainer {
             } else if (md == 5) {
                 if (this.worldObj.getBlock(this.xCoord, this.yCoord + 1, this.zCoord) == ThaumicHorizons.blockVat
                         && this.worldObj.getBlockMetadata(this.xCoord, this.yCoord + 1, this.zCoord) == 10
-                        && this.worldObj.getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord)
-                                instanceof TileVatSlave) {
-                    final TileVat boss2 = ((TileVatSlave)
-                                    this.worldObj.getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord))
-                            .getBoss(-1);
+                        && this.worldObj
+                                .getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord) instanceof TileVatSlave) {
+                    final TileVat boss2 = ((TileVatSlave) this.worldObj
+                            .getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord)).getBoss(-1);
                     if (boss2 != null) {
                         this.bossX = boss2.xCoord;
                         this.bossY = boss2.yCoord;
@@ -99,11 +101,10 @@ public class TileVatSlave extends TileThaumcraft implements IAspectContainer {
                 }
                 if (this.worldObj.getBlock(this.xCoord, this.yCoord - 1, this.zCoord) == ThaumicHorizons.blockVat
                         && this.worldObj.getBlockMetadata(this.xCoord, this.yCoord - 1, this.zCoord) == 10
-                        && this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord)
-                                instanceof TileVatSlave) {
-                    final TileVat boss2 = ((TileVatSlave)
-                                    this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord))
-                            .getBoss(-1);
+                        && this.worldObj
+                                .getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof TileVatSlave) {
+                    final TileVat boss2 = ((TileVatSlave) this.worldObj
+                            .getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord)).getBoss(-1);
                     if (boss2 != null) {
                         this.bossX = boss2.xCoord;
                         this.bossY = boss2.yCoord;

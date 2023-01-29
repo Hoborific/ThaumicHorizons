@@ -6,12 +6,9 @@ package com.kentington.thaumichorizons.common.tiles;
 
 import static com.kentington.thaumichorizons.common.lib.PocketPlaneData.pocketPlaneMAXID;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
-import com.kentington.thaumichorizons.common.lib.*;
-import cpw.mods.fml.common.FMLCommonHandler;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
@@ -29,6 +26,7 @@ import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
@@ -41,7 +39,13 @@ import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.monster.EntityWisp;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
+import com.kentington.thaumichorizons.common.lib.*;
+import cpw.mods.fml.common.FMLCommonHandler;
+
 public class TileVortex extends TileThaumcraft implements IWandable, IAspectContainer {
+
     final int MAX_COUNT = 2400;
     public int count;
     public int beams;
@@ -99,9 +103,12 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                         }
                     }
                     this.worldObj.setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
-                    if (worldObj.isRemote)
-                        Thaumcraft.proxy.burst(
-                                this.worldObj, (double) this.xCoord, (double) this.yCoord, (double) this.zCoord, 4.0f);
+                    if (worldObj.isRemote) Thaumcraft.proxy.burst(
+                            this.worldObj,
+                            (double) this.xCoord,
+                            (double) this.yCoord,
+                            (double) this.zCoord,
+                            4.0f);
                     BlockAiry.explodify(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
                 }
                 return;
@@ -115,15 +122,14 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                             for (int dy = -2; dy <= 2; ++dy) {
                                 for (int dz = -2; dz <= 2; ++dz) {
                                     if (dx != 0 || dy != 0 || dz != 0) {
-                                        this.worldObj.setBlockToAir(
-                                                this.xCoord + dx, this.yCoord + dy, this.zCoord + dz);
-                                        if (worldObj.isRemote)
-                                            Thaumcraft.proxy.burst(
-                                                    this.worldObj,
-                                                    (double) (this.xCoord + dx),
-                                                    (double) (this.yCoord + dy),
-                                                    (double) (this.zCoord + dz),
-                                                    4.0f);
+                                        this.worldObj
+                                                .setBlockToAir(this.xCoord + dx, this.yCoord + dy, this.zCoord + dz);
+                                        if (worldObj.isRemote) Thaumcraft.proxy.burst(
+                                                this.worldObj,
+                                                (double) (this.xCoord + dx),
+                                                (double) (this.yCoord + dy),
+                                                (double) (this.zCoord + dz),
+                                                4.0f);
                                     }
                                 }
                             }
@@ -131,8 +137,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                     }
                     this.ateDevices = true;
                 }
-                if (this.beams < 6
-                        && !this.cheat
+                if (this.beams < 6 && !this.cheat
                         && this.worldObj.provider.dimensionId != ThaumicHorizons.dimensionPocketId) {
                     this.handleHungryNode();
                 } else if (!this.createdDimension && !this.generating) {
@@ -141,8 +146,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                 if (!this.cheat) {
                     this.count += 6 - this.beams;
                 }
-                if (this.count > MAX_COUNT
-                        && !this.cheat
+                if (this.count > MAX_COUNT && !this.cheat
                         && this.worldObj.provider.dimensionId != ThaumicHorizons.dimensionPocketId) {
                     this.collapsing = true;
                     this.count = 0;
@@ -161,28 +165,26 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                         for (final Object e : ents) {
                             final EntityPlayerMP player = (EntityPlayerMP) e;
                             if (player.ridingEntity == null && player.riddenByEntity == null) {
-                                final MinecraftServer mServer =
-                                        FMLCommonHandler.instance().getMinecraftServerInstance();
+                                final MinecraftServer mServer = FMLCommonHandler.instance()
+                                        .getMinecraftServerInstance();
                                 if (player.timeUntilPortal > 0) {
                                     player.timeUntilPortal = 10;
                                 } else if (player.dimension != ThaumicHorizons.dimensionPocketId) {
                                     player.timeUntilPortal = 10;
-                                    player.mcServer
-                                            .getConfigurationManager()
-                                            .transferPlayerToDimension(
-                                                    player, ThaumicHorizons.dimensionPocketId, (Teleporter)
-                                                            new VortexTeleporter(
-                                                                    mServer.worldServerForDimension(
-                                                                            ThaumicHorizons.dimensionPocketId),
-                                                                    this.dimensionID));
+                                    player.mcServer.getConfigurationManager().transferPlayerToDimension(
+                                            player,
+                                            ThaumicHorizons.dimensionPocketId,
+                                            (Teleporter) new VortexTeleporter(
+                                                    mServer.worldServerForDimension(ThaumicHorizons.dimensionPocketId),
+                                                    this.dimensionID));
                                 } else {
                                     player.timeUntilPortal = 10;
-                                    player.mcServer
-                                            .getConfigurationManager()
-                                            .transferPlayerToDimension(
-                                                    player, this.returnID, (Teleporter) new VortexTeleporter(
-                                                            mServer.worldServerForDimension(this.returnID),
-                                                            this.dimensionID));
+                                    player.mcServer.getConfigurationManager().transferPlayerToDimension(
+                                            player,
+                                            this.returnID,
+                                            (Teleporter) new VortexTeleporter(
+                                                    mServer.worldServerForDimension(this.returnID),
+                                                    this.dimensionID));
                                 }
                             }
                         }
@@ -196,20 +198,18 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
         final List ents = this.worldObj.getEntitiesWithinAABB(
                 (Class) Entity.class,
                 AxisAlignedBB.getBoundingBox(
-                                (double) this.xCoord,
-                                (double) this.yCoord,
-                                (double) this.zCoord,
-                                (double) (this.xCoord + 1),
-                                (double) (this.yCoord + 1),
-                                (double) (this.zCoord + 1))
-                        .expand(1.0, 1.0, 1.0));
+                        (double) this.xCoord,
+                        (double) this.yCoord,
+                        (double) this.zCoord,
+                        (double) (this.xCoord + 1),
+                        (double) (this.yCoord + 1),
+                        (double) (this.zCoord + 1)).expand(1.0, 1.0, 1.0));
         if (ents != null && ents.size() > 0) {
             for (final Object ent : ents) {
                 final Entity eo = (Entity) ent;
                 if (eo instanceof EntityItem) {
                     final EntityItem item = (EntityItem) eo;
-                    if (ThaumicHorizons.enablePocket
-                            && item.getEntityItem().getItem() == ConfigItems.itemEldritchObject
+                    if (ThaumicHorizons.enablePocket && item.getEntityItem().getItem() == ConfigItems.itemEldritchObject
                             && item.getEntityItem().getItemDamage() == 3) {
                         this.createDimension(item);
                         item.setDead();
@@ -222,44 +222,58 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
     }
 
     void handleVoidCrafting(final EntityItem item) {
-        if (item.getEntityItem().getItem() == ConfigItems.itemResource
-                && item.getEntityItem().getItemDamage() == 16) {
+        if (item.getEntityItem().getItem() == ConfigItems.itemResource && item.getEntityItem().getItemDamage() == 16) {
             this.items.add(new ItemStack(ThaumicHorizons.itemVoidPutty, item.getEntityItem().stackSize));
             item.setDead();
         } else if (item.getEntityItem().getItem() == ConfigItems.itemResource
                 && item.getEntityItem().getItemDamage() == 14) {
-            for (int i = 0; i < item.getEntityItem().stackSize; ++i) {
-                this.spawnWisps();
-            }
-            item.setDead();
-        } else if (item.getEntityItem().getItem() == ThaumicHorizons.itemCrystalWand) {
-            final ItemStack theWand = new ItemStack(ThaumicHorizons.itemWandCastingDisposable);
-            ((ItemWandCasting) theWand.getItem()).setRod(theWand, ThaumicHorizons.ROD_CRYSTAL);
-            ((ItemWandCasting) theWand.getItem()).setCap(theWand, ThaumicHorizons.CAP_CRYSTAL);
-            ((ItemWandCasting) theWand.getItem()).storeVis(theWand, Aspect.EARTH, 25000);
-            ((ItemWandCasting) theWand.getItem()).storeVis(theWand, Aspect.AIR, 25000);
-            ((ItemWandCasting) theWand.getItem()).storeVis(theWand, Aspect.FIRE, 25000);
-            ((ItemWandCasting) theWand.getItem()).storeVis(theWand, Aspect.WATER, 25000);
-            ((ItemWandCasting) theWand.getItem()).storeVis(theWand, Aspect.ORDER, 25000);
-            ((ItemWandCasting) theWand.getItem()).storeVis(theWand, Aspect.ENTROPY, 25000);
-            this.items.add(theWand);
-            item.setDead();
-        } else if (item.getEntityItem().getItem() == ThaumicHorizons.itemGolemPowder && item.func_145800_j() != null) {
-            if (!this.worldObj.isRemote) {
-                for (int i = 0; i < item.getEntityItem().stackSize; ++i) {
-                    final EntityGolemTH golem = new EntityGolemTH(this.worldObj);
-                    golem.setOwner(item.func_145800_j());
-                    golem.loadGolem(
-                            this.xCoord + 0.5, this.yCoord, this.zCoord + 0.5, null, 0, -420, false, false, false);
-                    this.worldObj.playSoundEffect(
-                            this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5, "thaumcraft:wand", 1.0f, 1.0f);
-                    golem.setHomeArea((int) golem.posX, (int) golem.posY, (int) golem.posZ, 32);
-                    this.worldObj.spawnEntityInWorld((Entity) golem);
-                    this.worldObj.setEntityState((Entity) golem, (byte) 7);
+                    for (int i = 0; i < item.getEntityItem().stackSize; ++i) {
+                        this.spawnWisps();
+                    }
+                    item.setDead();
+                } else
+            if (item.getEntityItem().getItem() == ThaumicHorizons.itemCrystalWand) {
+                final ItemStack theWand = new ItemStack(ThaumicHorizons.itemWandCastingDisposable);
+                ((ItemWandCasting) theWand.getItem()).setRod(theWand, ThaumicHorizons.ROD_CRYSTAL);
+                ((ItemWandCasting) theWand.getItem()).setCap(theWand, ThaumicHorizons.CAP_CRYSTAL);
+                ((ItemWandCasting) theWand.getItem()).storeVis(theWand, Aspect.EARTH, 25000);
+                ((ItemWandCasting) theWand.getItem()).storeVis(theWand, Aspect.AIR, 25000);
+                ((ItemWandCasting) theWand.getItem()).storeVis(theWand, Aspect.FIRE, 25000);
+                ((ItemWandCasting) theWand.getItem()).storeVis(theWand, Aspect.WATER, 25000);
+                ((ItemWandCasting) theWand.getItem()).storeVis(theWand, Aspect.ORDER, 25000);
+                ((ItemWandCasting) theWand.getItem()).storeVis(theWand, Aspect.ENTROPY, 25000);
+                this.items.add(theWand);
+                item.setDead();
+            } else
+                if (item.getEntityItem().getItem() == ThaumicHorizons.itemGolemPowder && item.func_145800_j() != null) {
+                    if (!this.worldObj.isRemote) {
+                        for (int i = 0; i < item.getEntityItem().stackSize; ++i) {
+                            final EntityGolemTH golem = new EntityGolemTH(this.worldObj);
+                            golem.setOwner(item.func_145800_j());
+                            golem.loadGolem(
+                                    this.xCoord + 0.5,
+                                    this.yCoord,
+                                    this.zCoord + 0.5,
+                                    null,
+                                    0,
+                                    -420,
+                                    false,
+                                    false,
+                                    false);
+                            this.worldObj.playSoundEffect(
+                                    this.xCoord + 0.5,
+                                    this.yCoord + 0.5,
+                                    this.zCoord + 0.5,
+                                    "thaumcraft:wand",
+                                    1.0f,
+                                    1.0f);
+                            golem.setHomeArea((int) golem.posX, (int) golem.posY, (int) golem.posZ, 32);
+                            this.worldObj.spawnEntityInWorld((Entity) golem);
+                            this.worldObj.setEntityState((Entity) golem, (byte) 7);
+                        }
+                    }
+                    item.setDead();
                 }
-            }
-            item.setDead();
-        }
     }
 
     void spawnWisps() {
@@ -294,7 +308,8 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
         this.generating = true;
         if (!this.worldObj.isRemote) {
             this.returnID = this.worldObj.provider.dimensionId;
-            (this.ppThread = new Thread(new PocketPlaneThread(
+            (this.ppThread = new Thread(
+                    new PocketPlaneThread(
                             data,
                             this.aspects,
                             (World) MinecraftServer.getServer()
@@ -302,8 +317,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                             this.xCoord,
                             this.yCoord,
                             this.zCoord,
-                            this.returnID)))
-                    .run();
+                            this.returnID))).run();
         }
         this.markDirty();
     }
@@ -319,19 +333,18 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                 }
                 final Vec3 v1 = Vec3.createVectorHelper(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5);
                 final Vec3 v2 = Vec3.createVectorHelper(tx + 0.5, ty + 0.5, tz + 0.5);
-                final MovingObjectPosition mop =
-                        ThaumcraftApiHelper.rayTraceIgnoringSource(this.worldObj, v1, v2, true, false, false);
-                if (mop != null
-                        && this.getDistanceFrom((double) mop.blockX, (double) mop.blockY, (double) mop.blockZ)
-                                < 256.0) {
+                final MovingObjectPosition mop = ThaumcraftApiHelper
+                        .rayTraceIgnoringSource(this.worldObj, v1, v2, true, false, false);
+                if (mop != null && this.getDistanceFrom((double) mop.blockX, (double) mop.blockY, (double) mop.blockZ)
+                        < 256.0) {
                     tx = mop.blockX;
                     ty = mop.blockY;
                     tz = mop.blockZ;
                     final Block bi = this.worldObj.getBlock(tx, ty, tz);
                     final int md = this.worldObj.getBlockMetadata(tx, ty, tz);
                     if (!bi.isAir((IBlockAccess) this.worldObj, tx, ty, tz)) {
-                        Thaumcraft.proxy.hungryNodeFX(
-                                this.worldObj, tx, ty, tz, this.xCoord, this.yCoord, this.zCoord, bi, md);
+                        Thaumcraft.proxy
+                                .hungryNodeFX(this.worldObj, tx, ty, tz, this.xCoord, this.yCoord, this.zCoord, bi, md);
                     }
                 }
             }
@@ -339,13 +352,12 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
         final List ents = this.worldObj.getEntitiesWithinAABB(
                 (Class) Entity.class,
                 AxisAlignedBB.getBoundingBox(
-                                (double) this.xCoord,
-                                (double) this.yCoord,
-                                (double) this.zCoord,
-                                (double) (this.xCoord + 1),
-                                (double) (this.yCoord + 1),
-                                (double) (this.zCoord + 1))
-                        .expand(15.0, 15.0, 15.0));
+                        (double) this.xCoord,
+                        (double) this.yCoord,
+                        (double) this.zCoord,
+                        (double) (this.xCoord + 1),
+                        (double) (this.yCoord + 1),
+                        (double) (this.zCoord + 1)).expand(15.0, 15.0, 15.0));
         if (ents != null && ents.size() > 0) {
             for (final Object ent : ents) {
                 final Entity eo = (Entity) ent;
@@ -389,8 +401,8 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                 }
                 final Vec3 v3 = Vec3.createVectorHelper(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5);
                 final Vec3 v4 = Vec3.createVectorHelper(tx2 + 0.5, ty2 + 0.5, tz2 + 0.5);
-                final MovingObjectPosition mop2 =
-                        ThaumcraftApiHelper.rayTraceIgnoringSource(this.worldObj, v3, v4, true, false, false);
+                final MovingObjectPosition mop2 = ThaumcraftApiHelper
+                        .rayTraceIgnoringSource(this.worldObj, v3, v4, true, false, false);
                 if (mop2 != null
                         && this.getDistanceFrom((double) mop2.blockX, (double) mop2.blockY, (double) mop2.blockZ)
                                 < 256.0) {
@@ -478,15 +490,8 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
     }
 
     @Override
-    public int onWandRightClick(
-            final World world,
-            final ItemStack wandstack,
-            final EntityPlayer player,
-            final int x,
-            final int y,
-            final int z,
-            final int side,
-            final int md) {
+    public int onWandRightClick(final World world, final ItemStack wandstack, final EntityPlayer player, final int x,
+            final int y, final int z, final int side, final int md) {
         if (!this.worldObj.isRemote && this.items.size() > 0) {
             final ItemStack item = this.items.get(0);
             final EntityItem key = new EntityItem(this.worldObj);
@@ -527,8 +532,8 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
     public void onUsingWandTick(final ItemStack wandstack, final EntityPlayer player, final int count) {}
 
     @Override
-    public void onWandStoppedUsing(
-            final ItemStack wandstack, final World world, final EntityPlayer player, final int count) {}
+    public void onWandStoppedUsing(final ItemStack wandstack, final World world, final EntityPlayer player,
+            final int count) {}
 
     @Override
     public AspectList getAspects() {

@@ -4,23 +4,27 @@
 
 package com.kentington.thaumichorizons.client.gui;
 
-import com.kentington.thaumichorizons.common.container.ContainerInjector;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.common.container.ContainerInjector;
+
 public class GuiInjector extends GuiContainer {
+
     public GuiInjector(final EntityPlayer p) {
         super((Container) new ContainerInjector(p));
         this.xSize = 175;
         this.ySize = 191;
     }
 
-    protected void drawGuiContainerBackgroundLayer(
-            final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
+    protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_,
+            final int p_146976_3_) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         UtilsFX.bindTexture(new ResourceLocation("thaumichorizons", "textures/gui/guiinjector.png"));

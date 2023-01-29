@@ -4,12 +4,9 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.tiles.TileSoulJar;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -23,7 +20,14 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileSoulJar;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockSoulJar extends BlockContainer {
+
     public IIcon iconJarBottom;
     public IIcon iconJarSide;
     public IIcon iconJarTop;
@@ -71,14 +75,8 @@ public class BlockSoulJar extends BlockContainer {
         super.setBlockBoundsBasedOnState(world, i, j, k);
     }
 
-    public void addCollisionBoxesToList(
-            final World world,
-            final int i,
-            final int j,
-            final int k,
-            final AxisAlignedBB axisalignedbb,
-            final List arraylist,
-            final Entity par7Entity) {
+    public void addCollisionBoxesToList(final World world, final int i, final int j, final int k,
+            final AxisAlignedBB axisalignedbb, final List arraylist, final Entity par7Entity) {
         this.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
         super.addCollisionBoxesToList(world, i, j, k, axisalignedbb, arraylist, par7Entity);
     }
@@ -92,19 +90,14 @@ public class BlockSoulJar extends BlockContainer {
         return te;
     }
 
-    public void onBlockHarvested(
-            final World par1World,
-            final int par2,
-            final int par3,
-            final int par4,
-            final int par5,
+    public void onBlockHarvested(final World par1World, final int par2, final int par3, final int par4, final int par5,
             final EntityPlayer par6EntityPlayer) {
         this.dropBlockAsItem(par1World, par2, par3, par4, par5, 0);
         super.onBlockHarvested(par1World, par2, par3, par4, par5, par6EntityPlayer);
     }
 
-    public ArrayList<ItemStack> getDrops(
-            final World world, final int x, final int y, final int z, final int metadata, final int fortune) {
+    public ArrayList<ItemStack> getDrops(final World world, final int x, final int y, final int z, final int metadata,
+            final int fortune) {
         final ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
         final TileEntity te = world.getTileEntity(x, y, z);
         if (te != null && te instanceof TileSoulJar) {

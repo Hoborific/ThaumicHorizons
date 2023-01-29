@@ -4,14 +4,18 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+
 import thaumcraft.common.config.Config;
 import thaumcraft.common.config.ConfigItems;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class BlockBrain extends Block {
+
     public BlockBrain() {
         super(Config.taintMaterial);
         this.setHardness(0.5f);

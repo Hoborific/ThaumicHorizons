@@ -16,16 +16,17 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.MathHelper;
+
 import org.apache.commons.lang3.StringUtils;
 
 public abstract class EntityAITargetTH extends EntityAIBase {
+
     protected EntityLiving taskOwner;
     protected boolean shouldCheckSight;
     private boolean nearbyOnly;
     private int targetSearchStatus;
     private int targetSearchDelay;
     private int field_75298_g;
-    private static final String __OBFID = "CL_00001626";
 
     public EntityAITargetTH(final EntityLiving p_i1669_1_, final boolean p_i1669_2_) {
         this(p_i1669_1_, p_i1669_2_, false);
@@ -61,8 +62,8 @@ public abstract class EntityAITargetTH extends EntityAIBase {
     }
 
     protected double getTargetDistance() {
-        final IAttributeInstance iattributeinstance =
-                this.taskOwner.getEntityAttribute(SharedMonsterAttributes.followRange);
+        final IAttributeInstance iattributeinstance = this.taskOwner
+                .getEntityAttribute(SharedMonsterAttributes.followRange);
         return (iattributeinstance == null) ? 16.0 : iattributeinstance.getAttributeValue();
     }
 
@@ -91,20 +92,17 @@ public abstract class EntityAITargetTH extends EntityAIBase {
         }
         if (this.taskOwner instanceof IEntityOwnable
                 && StringUtils.isNotEmpty((CharSequence) ((IEntityOwnable) this.taskOwner).func_152113_b())) {
-            if (p_75296_1_ instanceof IEntityOwnable
-                    && ((IEntityOwnable) this.taskOwner)
-                            .func_152113_b()
-                            .equals(((IEntityOwnable) p_75296_1_).func_152113_b())) {
+            if (p_75296_1_ instanceof IEntityOwnable && ((IEntityOwnable) this.taskOwner).func_152113_b()
+                    .equals(((IEntityOwnable) p_75296_1_).func_152113_b())) {
                 return false;
             }
             if (p_75296_1_ == ((IEntityOwnable) this.taskOwner).getOwner()) {
                 return false;
             }
-        } else if (p_75296_1_ instanceof EntityPlayer
-                && !p_75296_2_
+        } else if (p_75296_1_ instanceof EntityPlayer && !p_75296_2_
                 && ((EntityPlayer) p_75296_1_).capabilities.disableDamage) {
-            return false;
-        }
+                    return false;
+                }
         if (this.shouldCheckSight && !this.taskOwner.getEntitySenses().canSee((Entity) p_75296_1_)) {
             return false;
         }

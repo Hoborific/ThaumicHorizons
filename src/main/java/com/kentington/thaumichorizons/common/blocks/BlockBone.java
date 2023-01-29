@@ -4,14 +4,17 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class BlockBone extends Block {
+
     public BlockBone() {
         super(Material.rock);
         this.setHardness(2.5f);

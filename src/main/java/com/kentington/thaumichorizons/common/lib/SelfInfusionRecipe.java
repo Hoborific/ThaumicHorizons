@@ -5,22 +5,25 @@
 package com.kentington.thaumichorizons.common.lib;
 
 import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
 public class SelfInfusionRecipe {
+
     protected AspectList aspects;
     protected String research;
     private ItemStack[] components;
     protected int instability;
     protected int id;
 
-    public SelfInfusionRecipe(
-            final String research, final int inst, final AspectList aspects2, final ItemStack[] recipe, final int id) {
+    public SelfInfusionRecipe(final String research, final int inst, final AspectList aspects2,
+            final ItemStack[] recipe, final int id) {
         this.research = research;
         this.instability = inst;
         this.aspects = aspects2.copy();
@@ -75,7 +78,7 @@ public class SelfInfusionRecipe {
             final int od = OreDictionary.getOreID(stack0);
             if (od != -1) {
                 final ItemStack[] ores = OreDictionary.getOres(od).toArray(new ItemStack[0]);
-                if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[] {stack1}, ores)) {
+                if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[] { stack1 }, ores)) {
                     return true;
                 }
             }

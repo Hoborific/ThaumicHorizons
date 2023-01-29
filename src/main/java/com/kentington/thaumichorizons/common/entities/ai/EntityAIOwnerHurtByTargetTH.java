@@ -4,17 +4,18 @@
 
 package com.kentington.thaumichorizons.common.entities.ai;
 
-import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAITarget;
 
+import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
+
 public class EntityAIOwnerHurtByTargetTH extends EntityAITarget {
+
     EntityLiving theDefendingTameable;
     EntityLivingBase theOwnerAttacker;
     private int field_142051_e;
-    private static final String __OBFID = "CL_00001624";
 
     public EntityAIOwnerHurtByTargetTH(final EntityLiving p_i1667_1_) {
         super((EntityCreature) p_i1667_1_, false);
@@ -23,10 +24,10 @@ public class EntityAIOwnerHurtByTargetTH extends EntityAITarget {
     }
 
     public boolean shouldExecute() {
-        final EntityInfusionProperties prop =
-                (EntityInfusionProperties) this.theDefendingTameable.getExtendedProperties("CreatureInfusion");
-        final EntityLivingBase entitylivingbase =
-                (EntityLivingBase) this.theDefendingTameable.worldObj.getPlayerEntityByName(prop.getOwner());
+        final EntityInfusionProperties prop = (EntityInfusionProperties) this.theDefendingTameable
+                .getExtendedProperties("CreatureInfusion");
+        final EntityLivingBase entitylivingbase = (EntityLivingBase) this.theDefendingTameable.worldObj
+                .getPlayerEntityByName(prop.getOwner());
         if (entitylivingbase == null) {
             return false;
         }
@@ -37,10 +38,10 @@ public class EntityAIOwnerHurtByTargetTH extends EntityAITarget {
 
     public void startExecuting() {
         this.taskOwner.setAttackTarget(this.theOwnerAttacker);
-        final EntityInfusionProperties prop =
-                (EntityInfusionProperties) this.theDefendingTameable.getExtendedProperties("CreatureInfusion");
-        final EntityLivingBase entitylivingbase =
-                (EntityLivingBase) this.theDefendingTameable.worldObj.getPlayerEntityByName(prop.getOwner());
+        final EntityInfusionProperties prop = (EntityInfusionProperties) this.theDefendingTameable
+                .getExtendedProperties("CreatureInfusion");
+        final EntityLivingBase entitylivingbase = (EntityLivingBase) this.theDefendingTameable.worldObj
+                .getPlayerEntityByName(prop.getOwner());
         if (entitylivingbase != null) {
             this.field_142051_e = entitylivingbase.func_142015_aE();
         }

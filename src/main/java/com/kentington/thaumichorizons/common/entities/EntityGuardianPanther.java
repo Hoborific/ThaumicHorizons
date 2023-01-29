@@ -6,6 +6,7 @@ package com.kentington.thaumichorizons.common.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
@@ -34,6 +35,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class EntityGuardianPanther extends EntityOcelot implements IEntityInfusedStats {
+
     public EntityGuardianPanther(final World p_i1688_1_) {
         super(p_i1688_1_);
         this.setSize(1.2f, 1.6f);
@@ -53,7 +55,8 @@ public class EntityGuardianPanther extends EntityOcelot implements IEntityInfuse
         this.tasks.addTask(6, (EntityAIBase) new EntityAIMate((EntityAnimal) this, 0.8));
         this.tasks.addTask(7, (EntityAIBase) new EntityAIWander((EntityCreature) this, 0.8));
         this.tasks.addTask(
-                8, (EntityAIBase) new EntityAIWatchClosest((EntityLiving) this, (Class) EntityPlayer.class, 10.0f));
+                8,
+                (EntityAIBase) new EntityAIWatchClosest((EntityLiving) this, (Class) EntityPlayer.class, 10.0f));
         this.targetTasks.addTask(1, (EntityAIBase) new EntityAIOwnerHurtByTarget((EntityTameable) this));
         this.targetTasks.addTask(2, (EntityAIBase) new EntityAIOwnerHurtTarget((EntityTameable) this));
         this.targetTasks.addTask(3, (EntityAIBase) new EntityAIHurtByTarget((EntityCreature) this, true));
@@ -87,10 +90,8 @@ public class EntityGuardianPanther extends EntityOcelot implements IEntityInfuse
     }
 
     public String getCommandSenderName() {
-        return this.hasCustomNameTag()
-                ? this.getCustomNameTag()
-                : (this.isTamed()
-                        ? StatCollector.translateToLocal("entity.ThaumicHorizons.GuardianPanther.name")
+        return this.hasCustomNameTag() ? this.getCustomNameTag()
+                : (this.isTamed() ? StatCollector.translateToLocal("entity.ThaumicHorizons.GuardianPanther.name")
                         : super.getCommandSenderName());
     }
 

@@ -7,10 +7,12 @@ package com.kentington.thaumichorizons.common.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.tiles.TileMagicWorkbench;
 
 public class InventoryFingers extends TileMagicWorkbench implements IInventory {
+
     public int getSizeInventory() {
         return this.stackList.length;
     }
@@ -102,7 +104,7 @@ public class InventoryFingers extends TileMagicWorkbench implements IInventory {
     }
 
     public int[] getAccessibleSlotsFromSide(final int var1) {
-        return new int[] {10};
+        return new int[] { 10 };
     }
 
     public boolean canInsertItem(final int i, final ItemStack itemstack, final int j) {

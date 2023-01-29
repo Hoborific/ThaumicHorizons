@@ -4,9 +4,6 @@
 
 package com.kentington.thaumichorizons.common.lib;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldProvider;
@@ -16,7 +13,13 @@ import net.minecraft.world.biome.WorldChunkManagerHell;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class WorldProviderPocketPlane extends WorldProvider {
+
     public void registerWorldChunkManager() {
         this.worldChunkMgr = (WorldChunkManager) new WorldChunkManagerHell(BiomeGenBase.hell, 0.0f);
         this.dimensionId = ThaumicHorizons.dimensionPocketId;

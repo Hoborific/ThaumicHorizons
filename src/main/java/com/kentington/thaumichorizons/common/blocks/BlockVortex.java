@@ -4,12 +4,9 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.tiles.TileVortex;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -25,11 +22,19 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.config.Config;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileVortex;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockVortex extends BlockContainer {
+
     IIcon icon;
 
     public BlockVortex() {
@@ -45,15 +50,8 @@ public class BlockVortex extends BlockContainer {
         return -1.0f;
     }
 
-    public float getExplosionResistance(
-            final Entity par1Entity,
-            final World world,
-            final int x,
-            final int y,
-            final int z,
-            final double explosionX,
-            final double explosionY,
-            final double explosionZ) {
+    public float getExplosionResistance(final Entity par1Entity, final World world, final int x, final int y,
+            final int z, final double explosionX, final double explosionY, final double explosionZ) {
         return 20000.0f;
     }
 
@@ -110,12 +108,7 @@ public class BlockVortex extends BlockContainer {
         return this.icon;
     }
 
-    public void onBlockPlacedBy(
-            final World world,
-            final int x,
-            final int y,
-            final int z,
-            final EntityLivingBase entity,
+    public void onBlockPlacedBy(final World world, final int x, final int y, final int z, final EntityLivingBase entity,
             final ItemStack stack) {
         if (entity instanceof EntityPlayer) {
             final TileVortex tile = (TileVortex) world.getTileEntity(x, y, z);
@@ -123,15 +116,11 @@ public class BlockVortex extends BlockContainer {
             for (int numAspects = world.rand.nextInt(4) + 1, a = 0; a < numAspects; ++a) {
                 if (world.rand.nextInt(3) == 0) {
                     tile.aspects.add(
-                            Aspect.getCompoundAspects()
-                                    .get(world.rand.nextInt(
-                                            Aspect.getCompoundAspects().size())),
+                            Aspect.getCompoundAspects().get(world.rand.nextInt(Aspect.getCompoundAspects().size())),
                             world.rand.nextInt(30));
                 } else {
                     tile.aspects.add(
-                            Aspect.getPrimalAspects()
-                                    .get(world.rand.nextInt(
-                                            Aspect.getPrimalAspects().size())),
+                            Aspect.getPrimalAspects().get(world.rand.nextInt(Aspect.getPrimalAspects().size())),
                             world.rand.nextInt(30));
                 }
             }
@@ -150,8 +139,7 @@ public class BlockVortex extends BlockContainer {
 
     public void breakBlock(final World world, final int x, final int y, final int z, final Block block, final int md) {
         final TileVortex tco = (TileVortex) world.getTileEntity(x, y, z);
-        MinecraftServer.getServer()
-                .worldServerForDimension(ThaumicHorizons.dimensionPocketId)
+        MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId)
                 .setBlockToAir(0, 129, tco.dimensionID * 256);
     }
 }

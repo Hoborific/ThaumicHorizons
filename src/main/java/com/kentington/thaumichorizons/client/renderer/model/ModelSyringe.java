@@ -4,16 +4,20 @@
 
 package com.kentington.thaumichorizons.client.renderer.model;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntitySyringe;
 import java.awt.Color;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntitySyringe;
+
 public class ModelSyringe extends ModelBase {
+
     ModelRenderer Body;
     ModelRenderer Needle;
     ModelRenderer PlungerA;
@@ -44,15 +48,8 @@ public class ModelSyringe extends ModelBase {
         this.setRotation(this.PlungerB, 0.0f, 0.0f, 0.0f);
     }
 
-    public void render(
-            final Entity entity,
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5,
-            final ItemStack item) {
+    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3,
+            final float f4, final float f5, final ItemStack item) {
         if (item != null) {
             final Color col = new Color(ThaumicHorizons.itemSyringeInjection.getColorFromItemStack(item, 0));
             final float red = col.getRed() / 255.0f;
@@ -84,14 +81,8 @@ public class ModelSyringe extends ModelBase {
         model.rotateAngleZ = z;
     }
 
-    public void setRotationAngles(
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5,
-            final Entity ent) {
+    public void setRotationAngles(final float f, final float f1, final float f2, final float f3, final float f4,
+            final float f5, final Entity ent) {
         this.Body.rotateAngleX = ent.rotationPitch;
         this.Body.rotateAngleY = ent.rotationYaw;
         this.Needle.rotateAngleX = ent.rotationPitch;

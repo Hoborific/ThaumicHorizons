@@ -4,24 +4,30 @@
 
 package com.kentington.thaumichorizons.client.gui;
 
-import com.kentington.thaumichorizons.common.container.ContainerVisDynamo;
-import com.kentington.thaumichorizons.common.tiles.TileVisDynamo;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.awt.Color;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.client.fx.ParticleEngine;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.config.Config;
 
+import com.kentington.thaumichorizons.common.container.ContainerVisDynamo;
+import com.kentington.thaumichorizons.common.tiles.TileVisDynamo;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @SideOnly(Side.CLIENT)
 public class GuiVisDynamo extends GuiContainer {
+
     TileVisDynamo tile;
     int flashX;
     int flashY;

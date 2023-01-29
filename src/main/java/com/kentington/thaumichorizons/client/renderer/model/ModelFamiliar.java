@@ -12,6 +12,7 @@ import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.util.MathHelper;
 
 public class ModelFamiliar extends ModelBase {
+
     ModelRenderer Body;
     ModelRenderer Tail1;
     ModelRenderer Tail2;
@@ -116,14 +117,8 @@ public class ModelFamiliar extends ModelBase {
         this.setRotation(this.LegFrontR, 0.0f, 0.0f, 0.0f);
     }
 
-    public void render(
-            final Entity entity,
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5) {
+    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3,
+            final float f4, final float f5) {
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         this.Body.render(f5);
         this.Tail1.render(f5);
@@ -149,14 +144,8 @@ public class ModelFamiliar extends ModelBase {
         model.rotateAngleZ = z;
     }
 
-    public void setRotationAngles(
-            final float p_78087_1_,
-            final float p_78087_2_,
-            final float p_78087_3_,
-            final float p_78087_4_,
-            final float p_78087_5_,
-            final float p_78087_6_,
-            final Entity p_78087_7_) {
+    public void setRotationAngles(final float p_78087_1_, final float p_78087_2_, final float p_78087_3_,
+            final float p_78087_4_, final float p_78087_5_, final float p_78087_6_, final Entity p_78087_7_) {
         this.Main.rotateAngleX = p_78087_5_ / 57.295776f;
         this.Main.rotateAngleY = p_78087_4_ / 57.295776f;
         this.Nose.rotateAngleX = p_78087_5_ / 57.295776f;
@@ -180,8 +169,8 @@ public class ModelFamiliar extends ModelBase {
             if (this.field_78163_i == 2) {
                 this.LegBackL.rotateAngleX = MathHelper.cos(p_78087_1_ * 0.6662f) * 1.0f * p_78087_2_;
                 this.LegBackR.rotateAngleX = MathHelper.cos(p_78087_1_ * 0.6662f + 0.3f) * 1.0f * p_78087_2_;
-                this.LegFrontL.rotateAngleX =
-                        MathHelper.cos(p_78087_1_ * 0.6662f + 3.1415927f + 0.3f) * 1.0f * p_78087_2_;
+                this.LegFrontL.rotateAngleX = MathHelper.cos(p_78087_1_ * 0.6662f + 3.1415927f + 0.3f) * 1.0f
+                        * p_78087_2_;
                 this.LegFrontR.rotateAngleX = MathHelper.cos(p_78087_1_ * 0.6662f + 3.1415927f) * 1.0f * p_78087_2_;
                 this.Tail2.rotateAngleX = 1.7278761f + 0.31415927f * MathHelper.cos(p_78087_1_) * p_78087_2_;
             } else {
@@ -198,8 +187,8 @@ public class ModelFamiliar extends ModelBase {
         }
     }
 
-    public void setLivingAnimations(
-            final EntityLivingBase p_78086_1_, final float p_78086_2_, final float p_78086_3_, final float p_78086_4_) {
+    public void setLivingAnimations(final EntityLivingBase p_78086_1_, final float p_78086_2_, final float p_78086_3_,
+            final float p_78086_4_) {
         final EntityOcelot entityocelot = (EntityOcelot) p_78086_1_;
         this.Body.rotationPointY = 12.0f;
         this.Body.rotationPointZ = -10.0f;

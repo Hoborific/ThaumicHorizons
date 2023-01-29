@@ -4,14 +4,16 @@
 
 package com.kentington.thaumichorizons.common.lib.networking;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 
 public class PacketFXBlocksplosion implements IMessage, IMessageHandler<PacketFXBlocksplosion, IMessage> {
+
     int x;
     int y;
     int z;
@@ -29,8 +31,7 @@ public class PacketFXBlocksplosion implements IMessage, IMessageHandler<PacketFX
     }
 
     public IMessage onMessage(final PacketFXBlocksplosion message, final MessageContext ctx) {
-        Minecraft.getMinecraft()
-                .effectRenderer
+        Minecraft.getMinecraft().effectRenderer
                 .addBlockDestroyEffects(message.x, message.y, message.z, Block.getBlockById(message.id), message.md);
         return null;
     }

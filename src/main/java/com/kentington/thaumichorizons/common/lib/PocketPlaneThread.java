@@ -5,9 +5,11 @@
 package com.kentington.thaumichorizons.common.lib;
 
 import net.minecraft.world.World;
+
 import thaumcraft.api.aspects.AspectList;
 
 public class PocketPlaneThread implements Runnable {
+
     PocketPlaneData data;
     AspectList aspects;
     World world;
@@ -16,14 +18,8 @@ public class PocketPlaneThread implements Runnable {
     int z;
     int returnID;
 
-    public PocketPlaneThread(
-            final PocketPlaneData data,
-            final AspectList aspects,
-            final World world,
-            final int x,
-            final int y,
-            final int z,
-            final int returnID) {
+    public PocketPlaneThread(final PocketPlaneData data, final AspectList aspects, final World world, final int x,
+            final int y, final int z, final int returnID) {
         this.data = data;
         this.aspects = aspects;
         this.world = world;

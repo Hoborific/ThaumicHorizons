@@ -4,10 +4,9 @@
 
 package com.kentington.thaumichorizons.client.gui;
 
-import com.kentington.thaumichorizons.common.container.ContainerBloodInfuser;
-import com.kentington.thaumichorizons.common.tiles.TileBloodInfuser;
 import java.awt.Color;
 import java.util.HashMap;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
@@ -16,7 +15,9 @@ import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.fx.ParticleEngine;
@@ -24,7 +25,11 @@ import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.config.Config;
 
+import com.kentington.thaumichorizons.common.container.ContainerBloodInfuser;
+import com.kentington.thaumichorizons.common.tiles.TileBloodInfuser;
+
 public class GuiBloodInfuser extends GuiContainer {
+
     TileBloodInfuser tile;
     AspectList aspectsKnown;
     Aspect[] aspectsSelected;
@@ -69,8 +74,8 @@ public class GuiBloodInfuser extends GuiContainer {
         this.cachedEffects = tile.getCurrentEffects();
     }
 
-    protected void drawGuiContainerBackgroundLayer(
-            final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
+    protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_,
+            final int p_146976_3_) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         UtilsFX.bindTexture(new ResourceLocation("thaumichorizons", "textures/gui/guibloodinfuser.png"));
@@ -147,9 +152,17 @@ public class GuiBloodInfuser extends GuiContainer {
                             this.mc.getTextureManager().bindTexture(GuiBloodInfuser.field_147001_a);
                             final int l = potion.getStatusIconIndex();
                             this.drawTexturedModalRect(
-                                    j * 18 + 171, k * 18 + 72, 0 + l % 8 * 18, 198 + l / 8 * 18, 18, 18);
+                                    j * 18 + 171,
+                                    k * 18 + 72,
+                                    0 + l % 8 * 18,
+                                    198 + l / 8 * 18,
+                                    18,
+                                    18);
                             this.fontRendererObj.drawString(
-                                    "" + this.mousedEffects.get(key), j * 18 + 171, k * 18 + 72, Color.GRAY.getRGB());
+                                    "" + this.mousedEffects.get(key),
+                                    j * 18 + 171,
+                                    k * 18 + 72,
+                                    Color.GRAY.getRGB());
                             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
                             if (j == 0) {
                                 j = 1;
@@ -158,8 +171,7 @@ public class GuiBloodInfuser extends GuiContainer {
                                 ++k;
                             }
                         } else {
-                            this.mc
-                                    .getTextureManager()
+                            this.mc.getTextureManager()
                                     .bindTexture(new ResourceLocation("thaumichorizons", "textures/misc/potions.png"));
                             int ecks2 = 0;
                             final int why2 = 216;
@@ -172,7 +184,10 @@ public class GuiBloodInfuser extends GuiContainer {
                             }
                             this.drawTexturedModalRect(j * 18 + 171, k * 18 + 72, ecks2, why2, 18, 18);
                             this.fontRendererObj.drawString(
-                                    "" + this.mousedEffects.get(key), j * 18 + 171, k * 18 + 72, Color.GRAY.getRGB());
+                                    "" + this.mousedEffects.get(key),
+                                    j * 18 + 171,
+                                    k * 18 + 72,
+                                    Color.GRAY.getRGB());
                             GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
                             if (j == 0) {
                                 j = 1;
@@ -271,8 +286,7 @@ public class GuiBloodInfuser extends GuiContainer {
         for (int i = 0; i < 16; ++i) {
             x = par1 - (gx + 14 + 18 * (i / 2));
             y = par2 - (gy + 83 + ((i % 2 == 0) ? 18 : 0));
-            if (this.offset + i < this.aspectsKnown.getAspectsSorted().length
-                    && this.numSelected < 8
+            if (this.offset + i < this.aspectsKnown.getAspectsSorted().length && this.numSelected < 8
                     && x >= 0
                     && x <= 16
                     && y >= 0
@@ -298,16 +312,15 @@ public class GuiBloodInfuser extends GuiContainer {
         for (int i = 0; i < 8; ++i) {
             x = par1 - (gx + 54 + ((i % 2 == 1) ? 17 : 0));
             y = par2 - (gy + 12 + 17 * (i / 2));
-            if (this.numSelected > i
-                    && x >= 0
+            if (this.numSelected > i && x >= 0
                     && x <= 16
                     && y >= 0
                     && y <= 16
-                    && Thaumcraft.proxy.playerKnowledge.hasDiscoveredAspect(
-                            this.mc.thePlayer.getCommandSenderName(), this.aspectsSelected[i])) {
+                    && Thaumcraft.proxy.playerKnowledge
+                            .hasDiscoveredAspect(this.mc.thePlayer.getCommandSenderName(), this.aspectsSelected[i])) {
                 this.tile.aspectsSelected.remove(this.aspectsSelected[i], 1);
-                this.mc.playerController.sendEnchantPacket(
-                        this.inventorySlots.windowId, 3 + this.findInList(this.aspectsSelected[i]));
+                this.mc.playerController
+                        .sendEnchantPacket(this.inventorySlots.windowId, 3 + this.findInList(this.aspectsSelected[i]));
                 this.flashTimer = 8;
                 this.flashColor = new Color(this.aspectsSelected[i].getColor());
                 this.flashX = par1 - gx - 8;
@@ -390,8 +403,8 @@ public class GuiBloodInfuser extends GuiContainer {
         for (int i = 0; i < this.numSelected; ++i) {
             final Aspect asp = this.aspectsSelected[i];
             alreadyUsed.add(asp, 1);
-            if (Thaumcraft.proxy.playerKnowledge.hasDiscoveredAspect(
-                    this.mc.thePlayer.getCommandSenderName(), this.aspectsSelected[i])) {
+            if (Thaumcraft.proxy.playerKnowledge
+                    .hasDiscoveredAspect(this.mc.thePlayer.getCommandSenderName(), this.aspectsSelected[i])) {
                 UtilsFX.drawTag(
                         54 + ((i % 2 == 1) ? 17 : 0),
                         12 + 17 * (i / 2),

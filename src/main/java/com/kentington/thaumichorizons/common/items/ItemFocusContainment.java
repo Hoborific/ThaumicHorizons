@@ -4,16 +4,9 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntitySoul;
-import com.kentington.thaumichorizons.common.lib.networking.PacketFXContainment;
-import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.HashMap;
 import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -36,6 +29,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.FocusUpgradeType;
@@ -47,7 +41,18 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.utils.BlockUtils;
 import thaumcraft.common.lib.utils.InventoryUtils;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntitySoul;
+import com.kentington.thaumichorizons.common.lib.networking.PacketFXContainment;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
+
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemFocusContainment extends ItemFocusBasic {
+
     public static FocusUpgradeType slow;
     public static HashMap<String, Object> beam;
     public static HashMap<String, Entity> hitCritters;
@@ -95,23 +100,21 @@ public class ItemFocusContainment extends ItemFocusBasic {
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
             case 1: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal, FocusUpgradeType.potency};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
             }
             case 2: {
-                return new FocusUpgradeType[] {
-                    FocusUpgradeType.frugal, FocusUpgradeType.potency, ItemFocusContainment.slow
-                };
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
+                        ItemFocusContainment.slow };
             }
             case 3: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal, FocusUpgradeType.potency};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
             }
             case 4: {
-                return new FocusUpgradeType[] {
-                    FocusUpgradeType.frugal, FocusUpgradeType.potency, ItemFocusContainment.slow
-                };
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
+                        ItemFocusContainment.slow };
             }
             case 5: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal, FocusUpgradeType.potency};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
             }
             default: {
                 return null;
@@ -120,10 +123,7 @@ public class ItemFocusContainment extends ItemFocusBasic {
     }
 
     @Override
-    public ItemStack onFocusRightClick(
-            final ItemStack itemstack,
-            final World world,
-            final EntityPlayer p,
+    public ItemStack onFocusRightClick(final ItemStack itemstack, final World world, final EntityPlayer p,
             final MovingObjectPosition movingobjectposition) {
         final ItemWandCasting wand = (ItemWandCasting) itemstack.getItem();
         p.setItemInUse(itemstack, Integer.MAX_VALUE);
@@ -135,8 +135,11 @@ public class ItemFocusContainment extends ItemFocusBasic {
         final ItemWandCasting wand = (ItemWandCasting) stack.getItem();
         if (!this.canJarEntity(p)) {
             if (p.ticksExisted % 5 == 0) {
-                p.addChatMessage((IChatComponent) new ChatComponentText(EnumChatFormatting.ITALIC + ""
-                        + EnumChatFormatting.GRAY + StatCollector.translateToLocal("thaumichorizons.noJar")));
+                p.addChatMessage(
+                        (IChatComponent) new ChatComponentText(
+                                EnumChatFormatting.ITALIC + ""
+                                        + EnumChatFormatting.GRAY
+                                        + StatCollector.translateToLocal("thaumichorizons.noJar")));
             }
             p.stopUsingItem();
             return;
@@ -158,8 +161,7 @@ public class ItemFocusContainment extends ItemFocusBasic {
             ty = ent.posY + (ent.boundingBox.maxY - ent.boundingBox.minY) / 2.0;
             tz = ent.posZ;
             impact = 5;
-            if (p != null
-                    && p.worldObj != null
+            if (p != null && p.worldObj != null
                     && !p.worldObj.isRemote
                     && (ItemFocusContainment.soundDelay.get(pp) == null
                             || ItemFocusContainment.soundDelay.get(pp) < System.currentTimeMillis())) {
@@ -190,37 +192,39 @@ public class ItemFocusContainment extends ItemFocusBasic {
                             ItemFocusContainment.beam.get(pp),
                             (int) impact));
         }
-        if (ent != null
-                && ent instanceof EntityLiving
+        if (ent != null && ent instanceof EntityLiving
                 && !(ent instanceof EntityPlayer)
                 && !ent.isDead
                 && !(ent instanceof IBossDisplayData)
                 && !(ent instanceof EntityGolemBase)
                 && wand.consumeAllVis(stack, p, this.getVisCost(stack), true, false)) {
             if (this.getUpgradeLevel(wand.getFocusItem(stack), ItemFocusContainment.slow) > 0) {
-                ((EntityLiving) ent)
-                        .addPotionEffect(new PotionEffect(
+                ((EntityLiving) ent).addPotionEffect(
+                        new PotionEffect(
                                 Potion.moveSlowdown.id,
                                 40,
                                 this.getUpgradeLevel(wand.getFocusItem(stack), ItemFocusContainment.slow) - 1));
             }
             if (ItemFocusContainment.hitCritters.get(pp) == null
-                    || ent.getEntityId()
-                            != ItemFocusContainment.hitCritters.get(pp).getEntityId()) {
+                    || ent.getEntityId() != ItemFocusContainment.hitCritters.get(pp).getEntityId()) {
                 ItemFocusContainment.hitCritters.put(pp, ent);
                 ItemFocusContainment.contain.put(pp, 2.0f + wand.getFocusPotency(stack) / 2.0f);
             } else {
-                ItemFocusContainment.contain.put(
-                        pp, ItemFocusContainment.contain.get(pp) + 2.0f + wand.getFocusPotency(stack) / 3);
+                ItemFocusContainment.contain
+                        .put(pp, ItemFocusContainment.contain.get(pp) + 2.0f + wand.getFocusPotency(stack) / 3);
             }
-            if (!p.worldObj.isRemote
-                    && ItemFocusContainment.contain.get(pp) > ((EntityLiving) ent).getHealth() * 20.0f
+            if (!p.worldObj.isRemote && ItemFocusContainment.contain.get(pp) > ((EntityLiving) ent).getHealth() * 20.0f
                     && !(ent instanceof EntitySoul)) {
                 final NBTTagCompound entityData = new NBTTagCompound();
                 entityData.setString("id", EntityList.getEntityString(ent));
                 ent.writeToNBT(entityData);
                 this.jarEntity(
-                        p, entityData, ent.getCommandSenderName(), ent.posX, ent.posY + ent.height / 2.0f, ent.posZ);
+                        p,
+                        entityData,
+                        ent.getCommandSenderName(),
+                        ent.posX,
+                        ent.posY + ent.height / 2.0f,
+                        ent.posZ);
                 p.worldObj.playSoundEffect(
                         ent.posX,
                         ent.posY + (ent.boundingBox.maxY - ent.boundingBox.minY) / 2.0,
@@ -233,60 +237,62 @@ public class ItemFocusContainment extends ItemFocusBasic {
                 p.worldObj.removeEntity(ent);
             } else if (!p.worldObj.isRemote
                     && ItemFocusContainment.contain.get(pp) > ((EntityLiving) ent).getHealth() * 20.0f) {
-                p.worldObj.playSoundEffect(
-                        ent.posX,
-                        ent.posY + (ent.boundingBox.maxY - ent.boundingBox.minY) / 2.0,
-                        ent.posZ,
-                        "thaumcraft:craftfail",
-                        1.0f,
-                        1.0f);
-                p.inventory.decrStackSize(
-                        InventoryUtils.isPlayerCarrying(p, new ItemStack(ConfigBlocks.blockJar, 1, 0)), 1);
-                final ItemStack jar = new ItemStack(ThaumicHorizons.blockJar);
-                jar.setTagCompound(new NBTTagCompound());
-                jar.getTagCompound().setBoolean("isSoul", true);
-                if (!p.inventory.addItemStackToInventory(jar)) {
-                    p.entityDropItem(jar, 1.0f);
-                }
-                if (!p.worldObj.isRemote) {
-                    PacketHandler.INSTANCE.sendToAllAround(
-                            (IMessage) new PacketFXContainment(ent.posX, ent.posY, ent.posZ),
-                            new NetworkRegistry.TargetPoint(
-                                    p.worldObj.provider.dimensionId, ent.posX, ent.posY, ent.posZ, 32.0));
-                }
-                ItemFocusContainment.contain.remove(pp);
-                ItemFocusContainment.hitCritters.remove(pp);
-                p.worldObj.removeEntity(ent);
-            }
+                        p.worldObj.playSoundEffect(
+                                ent.posX,
+                                ent.posY + (ent.boundingBox.maxY - ent.boundingBox.minY) / 2.0,
+                                ent.posZ,
+                                "thaumcraft:craftfail",
+                                1.0f,
+                                1.0f);
+                        p.inventory.decrStackSize(
+                                InventoryUtils.isPlayerCarrying(p, new ItemStack(ConfigBlocks.blockJar, 1, 0)),
+                                1);
+                        final ItemStack jar = new ItemStack(ThaumicHorizons.blockJar);
+                        jar.setTagCompound(new NBTTagCompound());
+                        jar.getTagCompound().setBoolean("isSoul", true);
+                        if (!p.inventory.addItemStackToInventory(jar)) {
+                            p.entityDropItem(jar, 1.0f);
+                        }
+                        if (!p.worldObj.isRemote) {
+                            PacketHandler.INSTANCE.sendToAllAround(
+                                    (IMessage) new PacketFXContainment(ent.posX, ent.posY, ent.posZ),
+                                    new NetworkRegistry.TargetPoint(
+                                            p.worldObj.provider.dimensionId,
+                                            ent.posX,
+                                            ent.posY,
+                                            ent.posZ,
+                                            32.0));
+                        }
+                        ItemFocusContainment.contain.remove(pp);
+                        ItemFocusContainment.hitCritters.remove(pp);
+                        p.worldObj.removeEntity(ent);
+                    }
         }
     }
 
     public static Entity getPointedEntity(final World world, final EntityLivingBase entityplayer, final double range) {
         Entity pointedEntity = null;
         final Vec3 vec3d = Vec3.createVectorHelper(
-                entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ);
+                entityplayer.posX,
+                entityplayer.posY + entityplayer.getEyeHeight(),
+                entityplayer.posZ);
         final Vec3 vec3d2 = entityplayer.getLookVec();
         final Vec3 vec3d3 = vec3d.addVector(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range);
         final float f1 = 1.1f;
         final List list = world.getEntitiesWithinAABBExcludingEntity(
                 (Entity) entityplayer,
-                entityplayer
-                        .boundingBox
-                        .addCoord(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range)
+                entityplayer.boundingBox.addCoord(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range)
                         .expand((double) f1, (double) f1, (double) f1));
         double d2 = 0.0;
         for (int i = 0; i < list.size(); ++i) {
             final Entity entity = (Entity) list.get(i);
-            if (entity.canBeCollidedWith()
-                    && world.rayTraceBlocks(
-                                    Vec3.createVectorHelper(
-                                            entityplayer.posX,
-                                            entityplayer.posY + entityplayer.getEyeHeight(),
-                                            entityplayer.posZ),
-                                    Vec3.createVectorHelper(
-                                            entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ),
-                                    false)
-                            == null) {
+            if (entity.canBeCollidedWith() && world.rayTraceBlocks(
+                    Vec3.createVectorHelper(
+                            entityplayer.posX,
+                            entityplayer.posY + entityplayer.getEyeHeight(),
+                            entityplayer.posZ),
+                    Vec3.createVectorHelper(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ),
+                    false) == null) {
                 final float f2 = Math.max(0.8f, entity.getCollisionBorderSize());
                 final AxisAlignedBB axisalignedbb = entity.boundingBox.expand((double) f2, (double) f2, (double) f2);
                 final MovingObjectPosition movingobjectposition = axisalignedbb.calculateIntercept(vec3d, vec3d3);
@@ -309,18 +315,20 @@ public class ItemFocusContainment extends ItemFocusBasic {
 
     boolean canJarEntity(final EntityPlayer p) {
         return InventoryUtils.inventoryContains(
-                        (IInventory) p.inventory, new ItemStack(ConfigBlocks.blockJar, 1, 0), 0, true, true, false)
+                (IInventory) p.inventory,
+                new ItemStack(ConfigBlocks.blockJar, 1, 0),
+                0,
+                true,
+                true,
+                false)
                 && InventoryUtils.placeItemStackIntoInventory(
-                                new ItemStack(ThaumicHorizons.blockJar), (IInventory) p.inventory, 0, false)
-                        == null;
+                        new ItemStack(ThaumicHorizons.blockJar),
+                        (IInventory) p.inventory,
+                        0,
+                        false) == null;
     }
 
-    void jarEntity(
-            final EntityPlayer p,
-            final NBTTagCompound tag,
-            final String name,
-            final double x,
-            final double y,
+    void jarEntity(final EntityPlayer p, final NBTTagCompound tag, final String name, final double x, final double y,
             final double z) {
         p.inventory.decrStackSize(InventoryUtils.isPlayerCarrying(p, new ItemStack(ConfigBlocks.blockJar, 1, 0)), 1);
         final ItemStack jar = new ItemStack(ThaumicHorizons.blockJar);

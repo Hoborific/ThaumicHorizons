@@ -6,6 +6,7 @@ package com.kentington.thaumichorizons.common.tiles;
 
 import java.awt.Color;
 import java.util.ArrayList;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,6 +17,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.nodes.INode;
@@ -31,6 +33,7 @@ import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.lib.utils.EntityUtils;
 
 public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
+
     AspectList aspects;
     AspectList fractionalAspects;
     AspectList aspectsMax;
@@ -153,15 +156,8 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
     }
 
     @Override
-    public int onWandRightClick(
-            final World world,
-            final ItemStack wandstack,
-            final EntityPlayer player,
-            final int x,
-            final int y,
-            final int z,
-            final int side,
-            final int md) {
+    public int onWandRightClick(final World world, final ItemStack wandstack, final EntityPlayer player, final int x,
+            final int y, final int z, final int side, final int md) {
         return -1;
     }
 
@@ -177,8 +173,8 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
     public void onUsingWandTick(final ItemStack wandstack, final EntityPlayer player, final int count) {
         boolean mfu = false;
         final ItemWandCasting wand = (ItemWandCasting) wandstack.getItem();
-        final MovingObjectPosition movingobjectposition =
-                EntityUtils.getMovingObjectPositionFromPlayer(this.worldObj, player, true);
+        final MovingObjectPosition movingobjectposition = EntityUtils
+                .getMovingObjectPositionFromPlayer(this.worldObj, player, true);
         if (movingobjectposition == null
                 || movingobjectposition.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
             player.stopUsingItem();
@@ -267,8 +263,8 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
     }
 
     @Override
-    public void onWandStoppedUsing(
-            final ItemStack wandstack, final World world, final EntityPlayer player, final int count) {
+    public void onWandStoppedUsing(final ItemStack wandstack, final World world, final EntityPlayer player,
+            final int count) {
         this.drainEntity = null;
         this.drainCollision = null;
     }
@@ -324,18 +320,18 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
                 if (aspect != null) {
                     if (this.aspects.getAmount(aspect) < this.aspectsMax.getAmount(aspect)) {
                         if (aspect.isPrimal()) {
-                            final int drained = VisNetHandler.drainVis(
-                                    this.worldObj, this.xCoord, this.yCoord, this.zCoord, aspect, 10);
+                            final int drained = VisNetHandler
+                                    .drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, aspect, 10);
                             if (drained > 0) {
                                 this.addFractionalToContainer(aspect, drained);
                             }
                         } else {
-                            final AspectList primalComponents =
-                                    ResearchManager.reduceToPrimals(new AspectList().add(aspect, 1));
+                            final AspectList primalComponents = ResearchManager
+                                    .reduceToPrimals(new AspectList().add(aspect, 1));
                             int actuallyDrained = 100;
                             for (final Aspect primal : primalComponents.getAspects()) {
-                                final int drained2 = VisNetHandler.drainVis(
-                                        this.worldObj, this.xCoord, this.yCoord, this.zCoord, primal, 10);
+                                final int drained2 = VisNetHandler
+                                        .drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, primal, 10);
                                 if (drained2 < actuallyDrained) {
                                     actuallyDrained = drained2;
                                 }
@@ -444,8 +440,7 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
         if (essence == ConfigItems.itemWispEssence
                 && ((ItemWispEssence) essence).getAspects(player.getHeldItem()) != null
                 && ((ItemWispEssence) essence).getAspects(player.getHeldItem()).getAspects().length > 0) {
-            final Aspect asp =
-                    ((ItemWispEssence) essence).getAspects(player.getHeldItem()).getAspects()[0];
+            final Aspect asp = ((ItemWispEssence) essence).getAspects(player.getHeldItem()).getAspects()[0];
             this.aspectsMax.add(asp, 4);
             this.aspects.add(asp, 0);
             this.fractionalAspects.add(asp, 0);

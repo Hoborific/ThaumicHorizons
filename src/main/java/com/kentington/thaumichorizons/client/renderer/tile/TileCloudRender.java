@@ -4,8 +4,8 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.common.tiles.TileCloud;
 import java.util.Random;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -14,9 +14,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
+
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.common.tiles.TileCloud;
+
 public class TileCloudRender extends TileEntitySpecialRenderer {
+
     private Minecraft mc;
     Random random;
     private int rendererUpdateCount;
@@ -29,20 +33,16 @@ public class TileCloudRender extends TileEntitySpecialRenderer {
         this.random = new Random();
     }
 
-    public void renderTileEntityAt(
-            final TileEntity tile, final double x, final double y, final double z, final float partial) {
+    public void renderTileEntityAt(final TileEntity tile, final double x, final double y, final double z,
+            final float partial) {
         if (TileCloud.raining) {
             this.renderRainSnowToo((TileCloud) tile, x, y, z, partial);
             ++this.rendererUpdateCount;
         }
     }
 
-    public void renderRainSnowToo(
-            final TileCloud tco,
-            final double p_147500_2_,
-            final double p_147500_4_,
-            final double p_147500_6_,
-            final float p_147500_8_) {
+    public void renderRainSnowToo(final TileCloud tco, final double p_147500_2_, final double p_147500_4_,
+            final double p_147500_6_, final float p_147500_8_) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) p_147500_2_ + 0.5f, (float) p_147500_4_ + 1.5f, (float) p_147500_6_ + 0.5f);
         GL11.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);

@@ -4,14 +4,18 @@
 
 package com.kentington.thaumichorizons.client.renderer.model;
 
-import com.kentington.thaumichorizons.common.lib.PocketPlaneData;
 import java.awt.Color;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.common.lib.PocketPlaneData;
+
 public class ModelReceptacle extends ModelBase {
+
     ModelRenderer Corner1;
     ModelRenderer Corner2;
     ModelRenderer Corner3;
@@ -144,16 +148,8 @@ public class ModelReceptacle extends ModelBase {
         this.setRotation(this.Keystone, 0.0f, 0.0f, 0.0f);
     }
 
-    public void render(
-            final Entity entity,
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5,
-            final boolean keystone,
-            final int plane) {
+    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3,
+            final float f4, final float f5, final boolean keystone, final int plane) {
         super.render(entity, f, f1, f2, f3, f4, f5);
         this.setRotationAngles(f, f1, f2, f3, f4, f5);
         this.Corner1.render(f5);
@@ -196,8 +192,8 @@ public class ModelReceptacle extends ModelBase {
         model.rotateAngleZ = z;
     }
 
-    public void setRotationAngles(
-            final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void setRotationAngles(final float f, final float f1, final float f2, final float f3, final float f4,
+            final float f5) {
         super.setRotationAngles(f, f1, f2, f3, f4, f5, (Entity) null);
     }
 }

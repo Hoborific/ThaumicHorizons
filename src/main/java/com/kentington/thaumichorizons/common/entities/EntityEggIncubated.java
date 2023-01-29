@@ -13,6 +13,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class EntityEggIncubated extends EntityEgg {
+
     public EntityEggIncubated(final World p_i1779_1_) {
         super(p_i1779_1_);
     }
@@ -21,15 +22,15 @@ public class EntityEggIncubated extends EntityEgg {
         super(p_i1780_1_, p_i1780_2_);
     }
 
-    public EntityEggIncubated(
-            final World p_i1781_1_, final double p_i1781_2_, final double p_i1781_4_, final double p_i1781_6_) {
+    public EntityEggIncubated(final World p_i1781_1_, final double p_i1781_2_, final double p_i1781_4_,
+            final double p_i1781_6_) {
         super(p_i1781_1_, p_i1781_2_, p_i1781_4_, p_i1781_6_);
     }
 
     protected void onImpact(final MovingObjectPosition p_70184_1_) {
         if (p_70184_1_.entityHit != null) {
-            p_70184_1_.entityHit.attackEntityFrom(
-                    DamageSource.causeThrownDamage((Entity) this, (Entity) this.getThrower()), 0.0f);
+            p_70184_1_.entityHit
+                    .attackEntityFrom(DamageSource.causeThrownDamage((Entity) this, (Entity) this.getThrower()), 0.0f);
         }
         if (!this.worldObj.isRemote) {
             final EntityChicken entitychicken = new EntityChicken(this.worldObj);

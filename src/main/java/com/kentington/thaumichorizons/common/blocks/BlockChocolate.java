@@ -4,13 +4,15 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class BlockChocolate extends Block {
+
     public IIcon coloredGrass;
 
     public BlockChocolate() {

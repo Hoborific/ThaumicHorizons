@@ -4,12 +4,6 @@
 
 package com.kentington.thaumichorizons.common.items.lenses;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
-import com.kentington.thaumichorizons.common.lib.networking.PacketRemoveNightvision;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -21,7 +15,16 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.networking.PacketRemoveNightvision;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemLensWater extends Item implements ILens {
+
     IIcon icon;
 
     public ItemLensWater() {
@@ -36,10 +39,7 @@ public class ItemLensWater extends Item implements ILens {
         final boolean inWater = mc.thePlayer.isInsideOfMaterial(Material.water);
         if (inWater
                 && (mc.thePlayer.getActivePotionEffect(Potion.nightVision) == null
-                        || mc.thePlayer
-                                        .getActivePotionEffect(Potion.nightVision)
-                                        .getDuration()
-                                < 242)
+                        || mc.thePlayer.getActivePotionEffect(Potion.nightVision).getDuration() < 242)
                 && Minecraft.getSystemTime() > LensManager.nightVisionOffTime) {
             LensManager.nightVisionOffTime = Minecraft.getSystemTime();
             mc.thePlayer.addPotionEffect(new PotionEffect(Potion.nightVision.id, 255, 0, true));

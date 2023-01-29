@@ -4,14 +4,9 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.items.ItemSyringeInjection;
-import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import io.netty.buffer.ByteBuf;
 import java.awt.Color;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -36,7 +31,16 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.items.ItemSyringeInjection;
+
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import io.netty.buffer.ByteBuf;
+
 public class EntitySyringe extends Entity implements IProjectile, IEntityAdditionalSpawnData {
+
     public int color;
     public NBTTagCompound effects;
     private boolean inGround;
@@ -64,8 +68,8 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
         this.setSize(0.5f, 0.5f);
     }
 
-    public EntitySyringe(
-            final World p_i1754_1_, final double p_i1754_2_, final double p_i1754_4_, final double p_i1754_6_) {
+    public EntitySyringe(final World p_i1754_1_, final double p_i1754_2_, final double p_i1754_4_,
+            final double p_i1754_6_) {
         super(p_i1754_1_);
         this.color = Color.RED.getRGB();
         this.field_145791_d = -1;
@@ -78,13 +82,8 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
         this.yOffset = 0.0f;
     }
 
-    public EntitySyringe(
-            final World p_i1755_1_,
-            final EntityLivingBase p_i1755_2_,
-            final EntityLivingBase p_i1755_3_,
-            final float p_i1755_4_,
-            final float p_i1755_5_,
-            final NBTTagCompound tag) {
+    public EntitySyringe(final World p_i1755_1_, final EntityLivingBase p_i1755_2_, final EntityLivingBase p_i1755_3_,
+            final float p_i1755_4_, final float p_i1755_5_, final NBTTagCompound tag) {
         super(p_i1755_1_);
         this.color = Color.RED.getRGB();
         this.field_145791_d = -1;
@@ -115,10 +114,7 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
         }
     }
 
-    public EntitySyringe(
-            final World p_i1756_1_,
-            final EntityLivingBase p_i1756_2_,
-            final float p_i1756_3_,
+    public EntitySyringe(final World p_i1756_1_, final EntityLivingBase p_i1756_2_, final float p_i1756_3_,
             final NBTTagCompound tag) {
         super(p_i1756_1_);
         this.color = Color.RED.getRGB();
@@ -194,8 +190,8 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
             final EntityLivingBase ent = (EntityLivingBase) entityHit;
             final ItemStack psuedoPotion = new ItemStack(ThaumicHorizons.itemSyringeInjection);
             psuedoPotion.setTagCompound(this.effects);
-            final List<PotionEffect> list =
-                    ((ItemSyringeInjection) ThaumicHorizons.itemSyringeInjection).getEffects(psuedoPotion);
+            final List<PotionEffect> list = ((ItemSyringeInjection) ThaumicHorizons.itemSyringeInjection)
+                    .getEffects(psuedoPotion);
             if (list != null) {
                 for (final PotionEffect potioneffect : list) {
                     ent.addPotionEffect(new PotionEffect(potioneffect));
@@ -206,8 +202,8 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
 
     public void onCollideWithPlayer(final EntityPlayer p_70100_1_) {
         if (!this.worldObj.isRemote && this.inGround && this.arrowShake <= 0) {
-            boolean flag =
-                    this.canBePickedUp == 1 || (this.canBePickedUp == 2 && p_70100_1_.capabilities.isCreativeMode);
+            boolean flag = this.canBePickedUp == 1
+                    || (this.canBePickedUp == 2 && p_70100_1_.capabilities.isCreativeMode);
             final ItemStack psuedoPotion = new ItemStack(ThaumicHorizons.itemSyringeInjection);
             psuedoPotion.setTagCompound(this.effects);
             if (this.canBePickedUp == 1 && !p_70100_1_.inventory.addItemStackToInventory(psuedoPotion)) {
@@ -215,9 +211,12 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
             }
             if (flag) {
                 this.playSound(
-                        "random.pop", 0.2f, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7f + 1.0f) * 2.0f);
+                        "random.pop",
+                        0.2f,
+                        ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7f + 1.0f) * 2.0f);
                 p_70100_1_.onItemPickup(
-                        (Entity) new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, psuedoPotion), 1);
+                        (Entity) new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, psuedoPotion),
+                        1);
                 this.setDead();
             }
         }
@@ -237,9 +236,15 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
         final Block block = this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
         if (block.getMaterial() != Material.air) {
             block.setBlockBoundsBasedOnState(
-                    (IBlockAccess) this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
+                    (IBlockAccess) this.worldObj,
+                    this.field_145791_d,
+                    this.field_145792_e,
+                    this.field_145789_f);
             final AxisAlignedBB axisalignedbb = block.getCollisionBoundingBoxFromPool(
-                    this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
+                    this.worldObj,
+                    this.field_145791_d,
+                    this.field_145792_e,
+                    this.field_145789_f);
             if (axisalignedbb != null
                     && axisalignedbb.isVecInside(Vec3.createVectorHelper(this.posX, this.posY, this.posZ))) {
                 this.inGround = true;
@@ -266,12 +271,12 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
         } else {
             ++this.ticksInAir;
             Vec3 vec31 = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
-            Vec3 vec32 = Vec3.createVectorHelper(
-                    this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+            Vec3 vec32 = Vec3
+                    .createVectorHelper(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
             MovingObjectPosition movingobjectposition = this.worldObj.func_147447_a(vec31, vec32, false, true, false);
             vec31 = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
-            vec32 = Vec3.createVectorHelper(
-                    this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+            vec32 = Vec3
+                    .createVectorHelper(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
             if (movingobjectposition != null) {
                 vec32 = Vec3.createVectorHelper(
                         movingobjectposition.hitVec.xCoord,
@@ -281,16 +286,14 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
             Entity entity = null;
             final List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(
                     (Entity) this,
-                    this.boundingBox
-                            .addCoord(this.motionX, this.motionY, this.motionZ)
-                            .expand(1.0, 1.0, 1.0));
+                    this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0, 1.0, 1.0));
             double d0 = 0.0;
             for (int i = 0; i < list.size(); ++i) {
                 final Entity entity2 = (Entity) list.get(i);
                 if (entity2.canBeCollidedWith() && (entity2 != this.shootingEntity || this.ticksInAir >= 5)) {
                     final float f2 = 0.3f;
-                    final AxisAlignedBB axisalignedbb2 =
-                            entity2.boundingBox.expand((double) f2, (double) f2, (double) f2);
+                    final AxisAlignedBB axisalignedbb2 = entity2.boundingBox
+                            .expand((double) f2, (double) f2, (double) f2);
                     final MovingObjectPosition movingobjectposition2 = axisalignedbb2.calculateIntercept(vec31, vec32);
                     if (movingobjectposition2 != null) {
                         final double d2 = vec31.distanceTo(movingobjectposition2.hitVec);
@@ -304,13 +307,11 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
             if (entity != null) {
                 movingobjectposition = new MovingObjectPosition(entity);
             }
-            if (movingobjectposition != null
-                    && movingobjectposition.entityHit != null
+            if (movingobjectposition != null && movingobjectposition.entityHit != null
                     && movingobjectposition.entityHit instanceof EntityPlayer) {
                 final EntityPlayer entityplayer = (EntityPlayer) movingobjectposition.entityHit;
-                if (entityplayer.capabilities.disableDamage
-                        || (this.shootingEntity instanceof EntityPlayer
-                                && !((EntityPlayer) this.shootingEntity).canAttackPlayer(entityplayer))) {
+                if (entityplayer.capabilities.disableDamage || (this.shootingEntity instanceof EntityPlayer
+                        && !((EntityPlayer) this.shootingEntity).canAttackPlayer(entityplayer))) {
                     movingobjectposition = null;
                 }
             }
@@ -338,8 +339,8 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
                                 entitylivingbase.setArrowCountInEntity(entitylivingbase.getArrowCountInEntity() + 1);
                             }
                             if (this.knockbackStrength > 0) {
-                                final float f4 = MathHelper.sqrt_double(
-                                        this.motionX * this.motionX + this.motionZ * this.motionZ);
+                                final float f4 = MathHelper
+                                        .sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
                                 if (f4 > 0.0f) {
                                     movingobjectposition.entityHit.addVelocity(
                                             this.motionX * this.knockbackStrength * 0.6000000238418579 / f4,
@@ -351,12 +352,11 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
                                 EnchantmentHelper.func_151384_a(entitylivingbase, (Entity) this.shootingEntity);
                                 EnchantmentHelper.func_151385_b(this.shootingEntity, (Entity) entitylivingbase);
                             }
-                            if (this.shootingEntity != null
-                                    && movingobjectposition.entityHit != this.shootingEntity
+                            if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity
                                     && movingobjectposition.entityHit instanceof EntityPlayer
                                     && this.shootingEntity instanceof EntityPlayerMP) {
-                                ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.sendPacket((Packet)
-                                        new S2BPacketChangeGameState(6, 0.0f));
+                                ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler
+                                        .sendPacket((Packet) new S2BPacketChangeGameState(6, 0.0f));
                             }
                         }
                         this.playSound("random.bowhit", 1.0f, 1.2f / (this.rand.nextFloat() * 0.2f + 0.9f));
@@ -376,10 +376,10 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
                     this.field_145791_d = movingobjectposition.blockX;
                     this.field_145792_e = movingobjectposition.blockY;
                     this.field_145789_f = movingobjectposition.blockZ;
-                    this.field_145790_g =
-                            this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
-                    this.inData = this.worldObj.getBlockMetadata(
-                            this.field_145791_d, this.field_145792_e, this.field_145789_f);
+                    this.field_145790_g = this.worldObj
+                            .getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
+                    this.inData = this.worldObj
+                            .getBlockMetadata(this.field_145791_d, this.field_145792_e, this.field_145789_f);
                     this.motionX = (float) (movingobjectposition.hitVec.xCoord - this.posX);
                     this.motionY = (float) (movingobjectposition.hitVec.yCoord - this.posY);
                     this.motionZ = (float) (movingobjectposition.hitVec.zCoord - this.posZ);
@@ -394,8 +394,11 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
                     this.setIsCritical(false);
                     if (this.field_145790_g.getMaterial() != Material.air) {
                         this.field_145790_g.onEntityCollidedWithBlock(
-                                this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f, (Entity)
-                                        this);
+                                this.worldObj,
+                                this.field_145791_d,
+                                this.field_145792_e,
+                                this.field_145789_f,
+                                (Entity) this);
                     }
                 }
             }
@@ -459,10 +462,10 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
         }
     }
 
-    public void setThrowableHeading(
-            double p_70186_1_, double p_70186_3_, double p_70186_5_, final float p_70186_7_, final float p_70186_8_) {
-        final float f2 =
-                MathHelper.sqrt_double(p_70186_1_ * p_70186_1_ + p_70186_3_ * p_70186_3_ + p_70186_5_ * p_70186_5_);
+    public void setThrowableHeading(double p_70186_1_, double p_70186_3_, double p_70186_5_, final float p_70186_7_,
+            final float p_70186_8_) {
+        final float f2 = MathHelper
+                .sqrt_double(p_70186_1_ * p_70186_1_ + p_70186_3_ * p_70186_3_ + p_70186_5_ * p_70186_5_);
         p_70186_1_ /= f2;
         p_70186_3_ /= f2;
         p_70186_5_ /= f2;
@@ -486,13 +489,8 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
     }
 
     @SideOnly(Side.CLIENT)
-    public void setPositionAndRotation2(
-            final double p_70056_1_,
-            final double p_70056_3_,
-            final double p_70056_5_,
-            final float p_70056_7_,
-            final float p_70056_8_,
-            final int p_70056_9_) {}
+    public void setPositionAndRotation2(final double p_70056_1_, final double p_70056_3_, final double p_70056_5_,
+            final float p_70056_7_, final float p_70056_8_, final int p_70056_9_) {}
 
     @SideOnly(Side.CLIENT)
     public void setVelocity(final double p_70016_1_, final double p_70016_3_, final double p_70016_5_) {

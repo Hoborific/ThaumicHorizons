@@ -10,6 +10,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
 public class RecipeEnchantClay implements IRecipe {
+
     public boolean matches(final InventoryCrafting p_77569_1_, final World p_77569_2_) {
         return false;
     }

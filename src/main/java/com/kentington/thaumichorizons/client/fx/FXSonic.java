@@ -12,10 +12,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
 public class FXSonic extends EntityFX {
+
     float yaw;
     float pitch;
     public static IModelCustom model;
@@ -69,14 +72,8 @@ public class FXSonic extends EntityFX {
         this.prevPosZ = this.posZ;
     }
 
-    public void renderParticle(
-            final Tessellator tessellator,
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5) {
+    public void renderParticle(final Tessellator tessellator, final float f, final float f1, final float f2,
+            final float f3, final float f4, final float f5) {
         tessellator.draw();
         GL11.glPushMatrix();
         GL11.glDisable(2884);

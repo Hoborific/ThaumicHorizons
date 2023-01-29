@@ -4,9 +4,8 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
@@ -29,7 +28,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class EntitySheeder extends EntitySpider implements IShearable {
+
     private int sheepTimer;
     private EntityAIEatGrass field_146087_bs;
 
@@ -43,14 +46,14 @@ public class EntitySheeder extends EntitySpider implements IShearable {
         this.tasks.addTask(5, (EntityAIBase) this.field_146087_bs);
         this.tasks.addTask(6, (EntityAIBase) new EntityAIWander((EntityCreature) this, 0.4));
         this.tasks.addTask(
-                7, (EntityAIBase) new EntityAIWatchClosest((EntityLiving) this, (Class) EntityPlayer.class, 6.0f));
+                7,
+                (EntityAIBase) new EntityAIWatchClosest((EntityLiving) this, (Class) EntityPlayer.class, 6.0f));
         this.tasks.addTask(8, (EntityAIBase) new EntityAILookIdle((EntityLiving) this));
     }
 
     public void onUpdate() {
         super.onUpdate();
-        if (this.isDead
-                && !this.worldObj.isRemote
+        if (this.isDead && !this.worldObj.isRemote
                 && this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL
                 && this.getHealth() > 0.0f) {
             this.isDead = false;
@@ -69,8 +72,8 @@ public class EntitySheeder extends EntitySpider implements IShearable {
         return !this.getSheared() && !this.isChild();
     }
 
-    public ArrayList<ItemStack> onSheared(
-            final ItemStack item, final IBlockAccess world, final int x, final int y, final int z, final int fortune) {
+    public ArrayList<ItemStack> onSheared(final ItemStack item, final IBlockAccess world, final int x, final int y,
+            final int z, final int fortune) {
         final ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
         this.setSheared(true);
         for (int i = 2 + this.rand.nextInt(4), j = 0; j < i; ++j) {

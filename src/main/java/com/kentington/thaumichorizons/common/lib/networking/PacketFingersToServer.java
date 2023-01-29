@@ -4,16 +4,19 @@
 
 package com.kentington.thaumichorizons.common.lib.networking;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import io.netty.buffer.ByteBuf;
+
 public class PacketFingersToServer implements IMessage, IMessageHandler<PacketFingersToServer, IMessage> {
+
     private int playerid;
     private int dim;
 
@@ -38,8 +41,12 @@ public class PacketFingersToServer implements IMessage, IMessageHandler<PacketFi
         final World world = (World) DimensionManager.getWorld(message.dim);
         final EntityPlayer player = (EntityPlayer) world.getEntityByID(message.playerid);
         player.openGui(
-                (Object) ThaumicHorizons.instance, 9, player.worldObj, (int) player.posX, (int) player.posY, (int)
-                        player.posZ);
+                (Object) ThaumicHorizons.instance,
+                9,
+                player.worldObj,
+                (int) player.posX,
+                (int) player.posY,
+                (int) player.posZ);
         return null;
     }
 }

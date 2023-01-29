@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.kentington.thaumichorizons.common.entities.ai.EntityAIEatStone;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.init.Blocks;
@@ -12,10 +11,14 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+
 import thaumcraft.common.config.Config;
 import thaumcraft.common.config.ConfigItems;
 
+import com.kentington.thaumichorizons.common.entities.ai.EntityAIEatStone;
+
 public class EntityOrePig extends EntityPig {
+
     int nuggetPercent;
 
     public EntityOrePig(final World p_i1689_1_) {

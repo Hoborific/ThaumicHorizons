@@ -4,11 +4,8 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.tiles.TileSlot;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -18,9 +15,17 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import thaumcraft.common.config.ConfigBlocks;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileSlot;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockGatewayPortal extends Block {
+
     public IIcon CornerTR;
     public IIcon CornerTL;
     public IIcon CornerBR;
@@ -153,8 +158,7 @@ public class BlockGatewayPortal extends Block {
                 || world.getBlock(x + 1, y, z) == ThaumicHorizons.blockPortal
                 || world.getBlock(x - 1, y, z) == ThaumicHorizons.blockGateway
                 || world.getBlock(x - 1, y, z) == ThaumicHorizons.blockPortal;
-        Label_0410:
-        {
+        Label_0410: {
             switch (world.getBlockMetadata(x, y, z)) {
                 case 0: {
                     switch (side) {

@@ -4,11 +4,6 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityBlastPhial;
-import com.kentington.thaumichorizons.common.entities.EntitySyringe;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -25,9 +20,18 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
 import thaumcraft.api.IRepairable;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityBlastPhial;
+import com.kentington.thaumichorizons.common.entities.EntitySyringe;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemInjector extends ItemBow implements IRepairable {
+
     public ItemInjector() {
         this.maxStackSize = 1;
         this.setMaxDamage(1000);
@@ -47,8 +51,8 @@ public class ItemInjector extends ItemBow implements IRepairable {
         return EnumAction.none;
     }
 
-    public void onPlayerStoppedUsing(
-            final ItemStack p_77615_1_, final World p_77615_2_, final EntityPlayer p_77615_3_, final int p_77615_4_) {
+    public void onPlayerStoppedUsing(final ItemStack p_77615_1_, final World p_77615_2_, final EntityPlayer p_77615_3_,
+            final int p_77615_4_) {
         final int j = this.getMaxItemUseDuration(null) - p_77615_4_;
         if (this.getAmmo(p_77615_1_, 0) != null) {
             float f = j / 30.0f;
@@ -84,7 +88,10 @@ public class ItemInjector extends ItemBow implements IRepairable {
                 projectile = (IProjectile) entityarrow;
             } else {
                 projectile = (IProjectile) new EntityBlastPhial(
-                        p_77615_2_, (EntityLivingBase) p_77615_3_, f * 2.0f, this.getAmmo(p_77615_1_, 0));
+                        p_77615_2_,
+                        (EntityLivingBase) p_77615_3_,
+                        f * 2.0f,
+                        this.getAmmo(p_77615_1_, 0));
             }
             p_77615_1_.damageItem(1, (EntityLivingBase) p_77615_3_);
             p_77615_2_.playSoundAtEntity(
@@ -97,17 +104,17 @@ public class ItemInjector extends ItemBow implements IRepairable {
                 this.rotateAmmo(p_77615_1_);
             }
             p_77615_1_.stackTagCompound.setInteger("usetime", 0);
-            p_77615_1_.stackTagCompound.setInteger(
-                    "rotationTarget", p_77615_1_.stackTagCompound.getInteger("rotationTarget") + 90);
+            p_77615_1_.stackTagCompound
+                    .setInteger("rotationTarget", p_77615_1_.stackTagCompound.getInteger("rotationTarget") + 90);
             if (p_77615_1_.stackTagCompound.getInteger("rotationTarget") > 360) {
-                p_77615_1_.stackTagCompound.setInteger(
-                        "rotationTarget", p_77615_1_.stackTagCompound.getInteger("rotationTarget") - 360);
+                p_77615_1_.stackTagCompound
+                        .setInteger("rotationTarget", p_77615_1_.stackTagCompound.getInteger("rotationTarget") - 360);
             }
         }
     }
 
-    public ItemStack onItemRightClick(
-            final ItemStack p_77659_1_, final World p_77659_2_, final EntityPlayer p_77659_3_) {
+    public ItemStack onItemRightClick(final ItemStack p_77659_1_, final World p_77659_2_,
+            final EntityPlayer p_77659_3_) {
         if (p_77659_3_.isSneaking()) {
             p_77659_3_.openGui(
                     (Object) ThaumicHorizons.instance,

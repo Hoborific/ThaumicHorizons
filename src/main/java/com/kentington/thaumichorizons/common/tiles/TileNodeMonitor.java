@@ -4,17 +4,20 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.blocks.BlockNodeMonitor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.nodes.INode;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.blocks.BlockNodeMonitor;
+
 public class TileNodeMonitor extends TileThaumcraft {
+
     public byte direction;
     public boolean activated;
     boolean lastActivated;
@@ -49,26 +52,33 @@ public class TileNodeMonitor extends TileThaumcraft {
             this.activated = this.aspectCritical(this.xCoord, this.yCoord - 1, this.zCoord);
         } else if (dir == ForgeDirection.DOWN
                 && this.worldObj.getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord) instanceof INode) {
-            this.activated = this.aspectCritical(this.xCoord, this.yCoord + 1, this.zCoord);
-        } else if (dir == ForgeDirection.NORTH
-                && this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1) instanceof INode) {
-            this.activated = this.aspectCritical(this.xCoord, this.yCoord, this.zCoord + 1);
-        } else if (dir == ForgeDirection.SOUTH
-                && this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1) instanceof INode) {
-            this.activated = this.aspectCritical(this.xCoord, this.yCoord, this.zCoord - 1);
-        } else if (dir == ForgeDirection.WEST
-                && this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord) instanceof INode) {
-            this.activated = this.aspectCritical(this.xCoord + 1, this.yCoord, this.zCoord);
-        } else if (dir == ForgeDirection.EAST
-                && this.worldObj.getTileEntity(this.xCoord - 1, this.yCoord, this.zCoord) instanceof INode) {
-            this.activated = this.aspectCritical(this.xCoord - 1, this.yCoord, this.zCoord);
-        } else {
-            ((BlockNodeMonitor) ThaumicHorizons.blockNodeMonitor)
-                    .killMe(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
-        }
+                    this.activated = this.aspectCritical(this.xCoord, this.yCoord + 1, this.zCoord);
+                } else
+            if (dir == ForgeDirection.NORTH
+                    && this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1) instanceof INode) {
+                        this.activated = this.aspectCritical(this.xCoord, this.yCoord, this.zCoord + 1);
+                    } else
+                if (dir == ForgeDirection.SOUTH
+                        && this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1) instanceof INode) {
+                            this.activated = this.aspectCritical(this.xCoord, this.yCoord, this.zCoord - 1);
+                        } else
+                    if (dir == ForgeDirection.WEST && this.worldObj
+                            .getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord) instanceof INode) {
+                                this.activated = this.aspectCritical(this.xCoord + 1, this.yCoord, this.zCoord);
+                            } else
+                        if (dir == ForgeDirection.EAST && this.worldObj
+                                .getTileEntity(this.xCoord - 1, this.yCoord, this.zCoord) instanceof INode) {
+                                    this.activated = this.aspectCritical(this.xCoord - 1, this.yCoord, this.zCoord);
+                                } else {
+                                    ((BlockNodeMonitor) ThaumicHorizons.blockNodeMonitor)
+                                            .killMe(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+                                }
         if (this.activated != this.lastActivated) {
             this.worldObj.notifyBlocksOfNeighborChange(
-                    this.xCoord, this.yCoord, this.zCoord, ThaumicHorizons.blockNodeMonitor);
+                    this.xCoord,
+                    this.yCoord,
+                    this.zCoord,
+                    ThaumicHorizons.blockNodeMonitor);
         }
         this.lastActivated = this.activated;
     }

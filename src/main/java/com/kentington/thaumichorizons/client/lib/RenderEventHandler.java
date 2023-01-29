@@ -4,23 +4,10 @@
 
 package com.kentington.thaumichorizons.client.lib;
 
-import baubles.api.BaublesApi;
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityBoatThaumium;
-import com.kentington.thaumichorizons.common.items.lenses.ILens;
-import com.kentington.thaumichorizons.common.items.lenses.ItemLensCase;
-import com.kentington.thaumichorizons.common.items.lenses.LensManager;
-import com.kentington.thaumichorizons.common.lib.THKeyHandler;
-import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
-import com.kentington.thaumichorizons.common.lib.networking.PacketLensChangeToServer;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -41,14 +28,33 @@ import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.api.nodes.IRevealer;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.Thaumcraft;
+import baubles.api.BaublesApi;
+
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityBoatThaumium;
+import com.kentington.thaumichorizons.common.items.lenses.ILens;
+import com.kentington.thaumichorizons.common.items.lenses.ItemLensCase;
+import com.kentington.thaumichorizons.common.items.lenses.LensManager;
+import com.kentington.thaumichorizons.common.lib.THKeyHandler;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.networking.PacketLensChangeToServer;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class RenderEventHandler {
+
     static float radialHudScale;
     TreeMap<String, Integer> foci;
     HashMap<String, ItemStack> fociItem;
@@ -92,16 +98,14 @@ public class RenderEventHandler {
             this.handleFociRadial(mc, time, event);
             final ItemStack goggles = mc.thePlayer.inventory.armorItemInSlot(3);
             if (LensManager.nightVisionOffTime > 0L
-                    && (goggles == null
-                            || !(goggles.getItem() instanceof IRevealer)
+                    && (goggles == null || !(goggles.getItem() instanceof IRevealer)
                             || goggles.stackTagCompound == null)
                     && mc.thePlayer.getActivePotionEffect(Potion.nightVision) != null
                     && mc.thePlayer.getActivePotionEffect(Potion.nightVision).getIsAmbient()) {
                 mc.thePlayer.removePotionEffect(Potion.nightVision.id);
                 LensManager.nightVisionOffTime = 0L;
             }
-            if (goggles != null
-                    && goggles.getItem() instanceof IRevealer
+            if (goggles != null && goggles.getItem() instanceof IRevealer
                     && goggles.stackTagCompound != null
                     && goggles.stackTagCompound.getString("Lens") != null
                     && !goggles.stackTagCompound.getString("Lens").equals("")) {
@@ -266,7 +270,13 @@ public class RenderEventHandler {
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         UtilsFX.renderQuadCenteredFromTexture(
-                width * 2.75f * RenderEventHandler.radialHudScale, 0.5f, 0.5f, 0.5f, 200, 771, 0.5f);
+                width * 2.75f * RenderEventHandler.radialHudScale,
+                0.5f,
+                0.5f,
+                0.5f,
+                200,
+                771,
+                0.5f);
         GL11.glDisable(3042);
         GL11.glAlphaFunc(516, 0.1f);
         GL11.glPopMatrix();
@@ -277,7 +287,13 @@ public class RenderEventHandler {
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         UtilsFX.renderQuadCenteredFromTexture(
-                width * 2.55f * RenderEventHandler.radialHudScale, 0.5f, 0.5f, 0.5f, 200, 771, 0.5f);
+                width * 2.55f * RenderEventHandler.radialHudScale,
+                0.5f,
+                0.5f,
+                0.5f,
+                200,
+                771,
+                0.5f);
         GL11.glDisable(3042);
         GL11.glAlphaFunc(516, 0.1f);
         GL11.glPopMatrix();
@@ -297,8 +313,10 @@ public class RenderEventHandler {
                 tt = new ItemStack((Item) lens);
             }
         }
-        GL11.glScaled((double) RenderEventHandler.radialHudScale, (double) RenderEventHandler.radialHudScale, (double)
-                RenderEventHandler.radialHudScale);
+        GL11.glScaled(
+                (double) RenderEventHandler.radialHudScale,
+                (double) RenderEventHandler.radialHudScale,
+                (double) RenderEventHandler.radialHudScale);
         float currentRot = -90.0f * RenderEventHandler.radialHudScale;
         final float pieSlice = 360.0f / this.fociItem.size();
         String key = this.foci.firstKey();
@@ -309,7 +327,9 @@ public class RenderEventHandler {
             GL11.glPushMatrix();
             GL11.glTranslated(xx, yy, 100.0);
             GL11.glScalef(
-                    (float) this.fociScale.get(key), (float) this.fociScale.get(key), (float) this.fociScale.get(key));
+                    (float) this.fociScale.get(key),
+                    (float) this.fociScale.get(key),
+                    (float) this.fociScale.get(key));
             GL11.glEnable(32826);
             RenderHelper.enableGUIStandardItemLighting();
             final ItemStack item2 = this.fociItem.get(key).copy();
@@ -365,17 +385,13 @@ public class RenderEventHandler {
                     && !goggles.stackTagCompound.getString("Lens").equals("")) {
                 final ILens theLens = (ILens) LensManager.getLens(goggles.stackTagCompound.getString("Lens"));
                 if (theLens == ThaumicHorizons.itemLensEarth) {
-                    if (this.cacheX != event.target.blockX
-                            || this.cacheY != event.target.blockY
+                    if (this.cacheX != event.target.blockX || this.cacheY != event.target.blockY
                             || this.cacheZ != event.target.blockZ
                             || this.tempDir != ForgeDirection.getOrientation(event.target.sideHit)) {
                         this.resetBlocks((EntityPlayer) mc.thePlayer);
                     }
-                    if (event.player
-                                    .worldObj
-                                    .getBlock(event.target.blockX, event.target.blockY, event.target.blockZ)
-                                    .getMaterial()
-                            != Material.air) {
+                    if (event.player.worldObj.getBlock(event.target.blockX, event.target.blockY, event.target.blockZ)
+                            .getMaterial() != Material.air) {
                         this.cacheX = event.target.blockX;
                         this.cacheY = event.target.blockY;
                         this.cacheZ = event.target.blockZ;
@@ -396,14 +412,12 @@ public class RenderEventHandler {
 
     void setBlocksEvanescent(final EntityPlayer p) {
         if (p.isSwingInProgress) {
-            this.breakProgress += p.worldObj
-                    .getBlock(this.cacheX, this.cacheY, this.cacheZ)
+            this.breakProgress += p.worldObj.getBlock(this.cacheX, this.cacheY, this.cacheZ)
                     .getPlayerRelativeBlockHardness(p, p.worldObj, this.cacheX, this.cacheY, this.cacheZ);
             if (this.breakProgress > 1.0f) {
-                Minecraft.getMinecraft().getNetHandler().addToSendQueue((Packet)
-                        new C07PacketPlayerDigging(2, p.getEntityId(), this.cacheX, this.cacheY, this.cacheZ));
-                Minecraft.getMinecraft()
-                        .playerController
+                Minecraft.getMinecraft().getNetHandler().addToSendQueue(
+                        (Packet) new C07PacketPlayerDigging(2, p.getEntityId(), this.cacheX, this.cacheY, this.cacheZ));
+                Minecraft.getMinecraft().playerController
                         .onPlayerDestroyBlock(p.getEntityId(), this.cacheX, this.cacheY, this.cacheZ);
                 this.breakProgress = 0.0f;
                 return;
@@ -413,81 +427,76 @@ public class RenderEventHandler {
             for (int j = -1; j < 2; ++j) {
                 if (this.tempDir == ForgeDirection.UP || this.tempDir == ForgeDirection.DOWN) {
                     if (p.worldObj.getTileEntity(this.cacheX + i, this.cacheY, this.cacheZ + j) == null
-                            && p.worldObj
-                                            .getBlock(this.cacheX + i, this.cacheY, this.cacheZ + j)
-                                            .getLightValue()
-                                    == 0
-                            && p.worldObj
-                                    .getBlock(this.cacheX + i, this.cacheY, this.cacheZ + j)
-                                    .canCollideCheck(
-                                            p.worldObj.getBlockMetadata(this.cacheX + i, this.cacheY, this.cacheZ + j),
-                                            false)) {
+                            && p.worldObj.getBlock(this.cacheX + i, this.cacheY, this.cacheZ + j).getLightValue() == 0
+                            && p.worldObj.getBlock(this.cacheX + i, this.cacheY, this.cacheZ + j).canCollideCheck(
+                                    p.worldObj.getBlockMetadata(this.cacheX + i, this.cacheY, this.cacheZ + j),
+                                    false)) {
                         if (p.worldObj.getBlock(this.cacheX + i, this.cacheY, this.cacheZ + j)
                                 != ThaumicHorizons.blockEvanescent) {
-                            this.tempBlock[i + 1][j + 1] =
-                                    p.worldObj.getBlock(this.cacheX + i, this.cacheY, this.cacheZ + j);
-                            this.tempMD[i + 1][j + 1] =
-                                    p.worldObj.getBlockMetadata(this.cacheX + i, this.cacheY, this.cacheZ + j);
+                            this.tempBlock[i + 1][j + 1] = p.worldObj
+                                    .getBlock(this.cacheX + i, this.cacheY, this.cacheZ + j);
+                            this.tempMD[i + 1][j + 1] = p.worldObj
+                                    .getBlockMetadata(this.cacheX + i, this.cacheY, this.cacheZ + j);
                         }
                         if (this.tempBlock[i + 1][j + 1].getMaterial() != Material.air) {
                             p.worldObj.setBlock(
-                                    this.cacheX + i, this.cacheY, this.cacheZ + j, ThaumicHorizons.blockEvanescent);
+                                    this.cacheX + i,
+                                    this.cacheY,
+                                    this.cacheZ + j,
+                                    ThaumicHorizons.blockEvanescent);
                         }
                     } else if (p.worldObj.getBlock(this.cacheX + i, this.cacheY, this.cacheZ + j)
                             != ThaumicHorizons.blockEvanescent) {
-                        this.tempBlock[i + 1][j + 1] = null;
-                    }
+                                this.tempBlock[i + 1][j + 1] = null;
+                            }
                 } else if (this.tempDir == ForgeDirection.NORTH || this.tempDir == ForgeDirection.SOUTH) {
                     if (p.worldObj.getTileEntity(this.cacheX + i, this.cacheY + j, this.cacheZ) == null
-                            && p.worldObj
-                                            .getBlock(this.cacheX + i, this.cacheY + j, this.cacheZ)
-                                            .getLightValue()
-                                    == 0
-                            && p.worldObj
-                                    .getBlock(this.cacheX + i, this.cacheY + j, this.cacheZ)
-                                    .canCollideCheck(
-                                            p.worldObj.getBlockMetadata(this.cacheX + i, this.cacheY + j, this.cacheZ),
-                                            false)) {
+                            && p.worldObj.getBlock(this.cacheX + i, this.cacheY + j, this.cacheZ).getLightValue() == 0
+                            && p.worldObj.getBlock(this.cacheX + i, this.cacheY + j, this.cacheZ).canCollideCheck(
+                                    p.worldObj.getBlockMetadata(this.cacheX + i, this.cacheY + j, this.cacheZ),
+                                    false)) {
                         if (p.worldObj.getBlock(this.cacheX + i, this.cacheY + j, this.cacheZ)
                                 != ThaumicHorizons.blockEvanescent) {
-                            this.tempBlock[i + 1][j + 1] =
-                                    p.worldObj.getBlock(this.cacheX + i, this.cacheY + j, this.cacheZ);
-                            this.tempMD[i + 1][j + 1] =
-                                    p.worldObj.getBlockMetadata(this.cacheX + i, this.cacheY + j, this.cacheZ);
+                            this.tempBlock[i + 1][j + 1] = p.worldObj
+                                    .getBlock(this.cacheX + i, this.cacheY + j, this.cacheZ);
+                            this.tempMD[i + 1][j + 1] = p.worldObj
+                                    .getBlockMetadata(this.cacheX + i, this.cacheY + j, this.cacheZ);
                         }
                         if (this.tempBlock[i + 1][j + 1].getMaterial() != Material.air) {
                             p.worldObj.setBlock(
-                                    this.cacheX + i, this.cacheY + j, this.cacheZ, ThaumicHorizons.blockEvanescent);
+                                    this.cacheX + i,
+                                    this.cacheY + j,
+                                    this.cacheZ,
+                                    ThaumicHorizons.blockEvanescent);
                         }
                     } else if (p.worldObj.getBlock(this.cacheX + i, this.cacheY + j, this.cacheZ)
                             != ThaumicHorizons.blockEvanescent) {
-                        this.tempBlock[i + 1][j + 1] = null;
-                    }
+                                this.tempBlock[i + 1][j + 1] = null;
+                            }
                 } else if (p.worldObj.getTileEntity(this.cacheX, this.cacheY + j, this.cacheZ + i) == null
-                        && p.worldObj
-                                        .getBlock(this.cacheX, this.cacheY + j, this.cacheZ + i)
-                                        .getLightValue()
-                                == 0
-                        && p.worldObj
-                                .getBlock(this.cacheX, this.cacheY + j, this.cacheZ + i)
-                                .canCollideCheck(
-                                        p.worldObj.getBlockMetadata(this.cacheX, this.cacheY + j, this.cacheZ + i),
-                                        false)) {
+                        && p.worldObj.getBlock(this.cacheX, this.cacheY + j, this.cacheZ + i).getLightValue() == 0
+                        && p.worldObj.getBlock(this.cacheX, this.cacheY + j, this.cacheZ + i).canCollideCheck(
+                                p.worldObj.getBlockMetadata(this.cacheX, this.cacheY + j, this.cacheZ + i),
+                                false)) {
+                                    if (p.worldObj.getBlock(this.cacheX, this.cacheY + j, this.cacheZ + i)
+                                            != ThaumicHorizons.blockEvanescent) {
+                                        this.tempBlock[i + 1][j + 1] = p.worldObj
+                                                .getBlock(this.cacheX, this.cacheY + j, this.cacheZ + i);
+                                        this.tempMD[i + 1][j + 1] = p.worldObj
+                                                .getBlockMetadata(this.cacheX, this.cacheY + j, this.cacheZ + i);
+                                    }
+                                    if (this.tempBlock[i + 1][j + 1].getMaterial() != Material.air) {
+                                        p.worldObj.setBlock(
+                                                this.cacheX,
+                                                this.cacheY + j,
+                                                this.cacheZ + i,
+                                                ThaumicHorizons.blockEvanescent);
+                                    }
+                                } else
                     if (p.worldObj.getBlock(this.cacheX, this.cacheY + j, this.cacheZ + i)
                             != ThaumicHorizons.blockEvanescent) {
-                        this.tempBlock[i + 1][j + 1] =
-                                p.worldObj.getBlock(this.cacheX, this.cacheY + j, this.cacheZ + i);
-                        this.tempMD[i + 1][j + 1] =
-                                p.worldObj.getBlockMetadata(this.cacheX, this.cacheY + j, this.cacheZ + i);
-                    }
-                    if (this.tempBlock[i + 1][j + 1].getMaterial() != Material.air) {
-                        p.worldObj.setBlock(
-                                this.cacheX, this.cacheY + j, this.cacheZ + i, ThaumicHorizons.blockEvanescent);
-                    }
-                } else if (p.worldObj.getBlock(this.cacheX, this.cacheY + j, this.cacheZ + i)
-                        != ThaumicHorizons.blockEvanescent) {
-                    this.tempBlock[i + 1][j + 1] = null;
-                }
+                                this.tempBlock[i + 1][j + 1] = null;
+                            }
             }
         }
         this.evanescentStage = 2;
@@ -524,14 +533,14 @@ public class RenderEventHandler {
                 } else if (this.tempBlock[i + 1][j + 1] != null
                         && p.worldObj.getBlock(this.cacheX, this.cacheY + j, this.cacheZ + i)
                                 == ThaumicHorizons.blockEvanescent) {
-                    p.worldObj.setBlock(
-                            this.cacheX,
-                            this.cacheY + j,
-                            this.cacheZ + i,
-                            this.tempBlock[i + 1][j + 1],
-                            this.tempMD[i + 1][j + 1],
-                            4);
-                }
+                                    p.worldObj.setBlock(
+                                            this.cacheX,
+                                            this.cacheY + j,
+                                            this.cacheZ + i,
+                                            this.tempBlock[i + 1][j + 1],
+                                            this.tempMD[i + 1][j + 1],
+                                            4);
+                                }
             }
         }
         this.tempBlock = new Block[3][3];
@@ -546,8 +555,7 @@ public class RenderEventHandler {
             return;
         }
         final ItemStack goggles = mc.thePlayer.inventory.armorItemInSlot(3);
-        if (goggles != null
-                && goggles.getItem() instanceof IRevealer
+        if (goggles != null && goggles.getItem() instanceof IRevealer
                 && goggles.stackTagCompound != null
                 && goggles.stackTagCompound.getString("Lens") != null
                 && !goggles.stackTagCompound.getString("Lens").equals("")) {
@@ -586,8 +594,7 @@ public class RenderEventHandler {
     public void clearWater(final RenderBlockOverlayEvent event) {
         final Minecraft mc = Minecraft.getMinecraft();
         final ItemStack goggles = mc.thePlayer.inventory.armorItemInSlot(3);
-        if (goggles != null
-                && goggles.getItem() instanceof IRevealer
+        if (goggles != null && goggles.getItem() instanceof IRevealer
                 && goggles.stackTagCompound != null
                 && goggles.stackTagCompound.getString("Lens") != null
                 && !goggles.stackTagCompound.getString("Lens").equals("")) {
@@ -596,8 +603,7 @@ public class RenderEventHandler {
                 event.setCanceled(true);
             }
         }
-        if (event.overlayType == RenderBlockOverlayEvent.OverlayType.FIRE
-                && mc.thePlayer.ridingEntity != null
+        if (event.overlayType == RenderBlockOverlayEvent.OverlayType.FIRE && mc.thePlayer.ridingEntity != null
                 && mc.thePlayer.ridingEntity instanceof EntityBoatThaumium) {
             event.setCanceled(true);
         }

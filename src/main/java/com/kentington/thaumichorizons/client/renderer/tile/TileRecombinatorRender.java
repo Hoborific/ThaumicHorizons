@@ -4,21 +4,26 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.client.renderer.model.ModelRecombinator;
-import com.kentington.thaumichorizons.common.tiles.TileRecombinator;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.tiles.TileNode;
 
+import com.kentington.thaumichorizons.client.renderer.model.ModelRecombinator;
+import com.kentington.thaumichorizons.common.tiles.TileRecombinator;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @SideOnly(Side.CLIENT)
 public class TileRecombinatorRender extends TileEntitySpecialRenderer {
+
     static String tx1;
     static String tx2;
     private ModelRecombinator base;

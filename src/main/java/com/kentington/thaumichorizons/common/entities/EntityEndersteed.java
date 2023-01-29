@@ -4,9 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,7 +16,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+import cpw.mods.fml.common.eventhandler.Event;
+
 public class EntityEndersteed extends EntityHorse {
+
     boolean initialized;
 
     public EntityEndersteed(final World p_i1685_1_) {
@@ -60,8 +62,12 @@ public class EntityEndersteed extends EntityHorse {
     }
 
     protected boolean teleportTo(final double p_70825_1_, final double p_70825_3_, final double p_70825_5_) {
-        final EnderTeleportEvent event =
-                new EnderTeleportEvent((EntityLivingBase) this, p_70825_1_, p_70825_3_, p_70825_5_, 0.0f);
+        final EnderTeleportEvent event = new EnderTeleportEvent(
+                (EntityLivingBase) this,
+                p_70825_1_,
+                p_70825_3_,
+                p_70825_5_,
+                0.0f);
         if (MinecraftForge.EVENT_BUS.post((Event) event)) {
             return false;
         }
@@ -75,9 +81,8 @@ public class EntityEndersteed extends EntityHorse {
         final int i = MathHelper.floor_double(this.posX);
         int j = MathHelper.floor_double(this.posY);
         final int k = MathHelper.floor_double(this.posZ);
-        for (boolean foundGround = false, foundAir = false;
-                (!foundGround || !foundAir) && j < d4 + 4.0;
-                ++j, ++this.posY) {
+        for (boolean foundGround = false, foundAir = false; (!foundGround || !foundAir)
+                && j < d4 + 4.0; ++j, ++this.posY) {
             final Block block = this.worldObj.getBlock(i, j - 1, k);
             if (block.getMaterial().blocksMovement()) {
                 foundGround = true;
@@ -87,9 +92,7 @@ public class EntityEndersteed extends EntityHorse {
             }
             if (foundGround) {
                 this.setPosition(this.posX, this.posY, this.posZ);
-                if (this.worldObj
-                                .getCollidingBoundingBoxes((Entity) this, this.boundingBox)
-                                .isEmpty()
+                if (this.worldObj.getCollidingBoundingBoxes((Entity) this, this.boundingBox).isEmpty()
                         && !this.worldObj.isAnyLiquid(this.boundingBox)) {
                     flag = true;
                     foundAir = true;

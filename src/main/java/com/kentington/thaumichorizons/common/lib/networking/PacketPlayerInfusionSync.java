@@ -4,19 +4,23 @@
 
 package com.kentington.thaumichorizons.common.lib.networking;
 
-import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
+import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import io.netty.buffer.ByteBuf;
+
 public class PacketPlayerInfusionSync implements IMessage, IMessageHandler<PacketPlayerInfusionSync, IMessage> {
+
     int[] infusions;
     String name;
     boolean toggleClimb;
@@ -29,8 +33,8 @@ public class PacketPlayerInfusionSync implements IMessage, IMessageHandler<Packe
         this.toggleInvisible = false;
     }
 
-    public PacketPlayerInfusionSync(
-            final String name, final int[] infusions, final boolean toggleClimb, final boolean toggleInvisible) {
+    public PacketPlayerInfusionSync(final String name, final int[] infusions, final boolean toggleClimb,
+            final boolean toggleInvisible) {
         this.infusions = new int[EntityInfusionProperties.NUM_INFUSIONS];
         this.name = "";
         this.name = name;
@@ -42,11 +46,8 @@ public class PacketPlayerInfusionSync implements IMessage, IMessageHandler<Packe
     public IMessage onMessage(final PacketPlayerInfusionSync message, final MessageContext ctx) {
         if (Minecraft.getMinecraft().theWorld != null
                 && Minecraft.getMinecraft().theWorld.getPlayerEntityByName(message.name) != null
-                && Minecraft.getMinecraft()
-                                .theWorld
-                                .getPlayerEntityByName(message.name)
-                                .getExtendedProperties("CreatureInfusion")
-                        != null) {
+                && Minecraft.getMinecraft().theWorld.getPlayerEntityByName(message.name)
+                        .getExtendedProperties("CreatureInfusion") != null) {
             EntityPlayer player = Minecraft.getMinecraft().theWorld.getPlayerEntityByName(message.name);
             EntityInfusionProperties prop = (EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion");
             prop.playerInfusions = message.infusions;

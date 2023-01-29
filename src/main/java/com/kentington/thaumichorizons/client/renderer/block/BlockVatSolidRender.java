@@ -4,28 +4,24 @@
 
 package com.kentington.thaumichorizons.client.renderer.block;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.blocks.BlockVatSolid;
-import com.kentington.thaumichorizons.common.tiles.TileVat;
-import com.kentington.thaumichorizons.common.tiles.TileVatSlave;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockVatSolidRender implements ISimpleBlockRenderingHandler {
-    public void renderInventoryBlock(
-            final Block block, final int metadata, final int modelId, final RenderBlocks renderer) {}
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.blocks.BlockVatSolid;
+import com.kentington.thaumichorizons.common.tiles.TileVat;
+import com.kentington.thaumichorizons.common.tiles.TileVatSlave;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
-    public boolean renderWorldBlock(
-            final IBlockAccess world,
-            final int x,
-            final int y,
-            final int z,
-            final Block block,
-            final int modelId,
-            final RenderBlocks renderer) {
+public class BlockVatSolidRender implements ISimpleBlockRenderingHandler {
+
+    public void renderInventoryBlock(final Block block, final int metadata, final int modelId,
+            final RenderBlocks renderer) {}
+
+    public boolean renderWorldBlock(final IBlockAccess world, final int x, final int y, final int z, final Block block,
+            final int modelId, final RenderBlocks renderer) {
         if (world.getTileEntity(x, y, z) instanceof TileVatSlave) {
             final TileVatSlave tco = (TileVatSlave) world.getTileEntity(x, y, z);
             final TileVat boss = tco.getBoss(-1);

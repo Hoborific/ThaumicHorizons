@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
@@ -15,6 +16,7 @@ import thaumcraft.api.visnet.TileVisNode;
 import thaumcraft.api.wands.IWandable;
 
 public class TileVatMatrix extends TileVisNode implements IWandable, IAspectContainer {
+
     public TileVat getVat() {
         if (this.worldObj == null) {
             return null;
@@ -71,15 +73,8 @@ public class TileVatMatrix extends TileVisNode implements IWandable, IAspectCont
     }
 
     @Override
-    public int onWandRightClick(
-            final World world,
-            final ItemStack wandstack,
-            final EntityPlayer player,
-            final int x,
-            final int y,
-            final int z,
-            final int side,
-            final int md) {
+    public int onWandRightClick(final World world, final ItemStack wandstack, final EntityPlayer player, final int x,
+            final int y, final int z, final int side, final int md) {
         this.onWandRightClick(world, wandstack, player);
         return 0;
     }
@@ -97,8 +92,8 @@ public class TileVatMatrix extends TileVisNode implements IWandable, IAspectCont
     public void onUsingWandTick(final ItemStack wandstack, final EntityPlayer player, final int count) {}
 
     @Override
-    public void onWandStoppedUsing(
-            final ItemStack wandstack, final World world, final EntityPlayer player, final int count) {}
+    public void onWandStoppedUsing(final ItemStack wandstack, final World world, final EntityPlayer player,
+            final int count) {}
 
     @Override
     public int getRange() {

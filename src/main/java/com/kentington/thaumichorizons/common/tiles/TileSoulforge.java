@@ -4,9 +4,8 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.common.registry.VillagerRegistry;
 import java.util.Iterator;
+
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,6 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
@@ -24,7 +24,11 @@ import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.lib.utils.InventoryUtils;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import cpw.mods.fml.common.registry.VillagerRegistry;
+
 public class TileSoulforge extends TileThaumcraft implements ISoulReceiver, IEssentiaTransport, IAspectContainer {
+
     int progress;
     static final int PROGRESS_MAX = 9600;
     public int souls;
@@ -41,8 +45,7 @@ public class TileSoulforge extends TileThaumcraft implements ISoulReceiver, IEss
     }
 
     public boolean activate(final World world, final EntityPlayer player) {
-        if (player.getHeldItem() == null
-                || player.getHeldItem().getItemDamage() != 0
+        if (player.getHeldItem() == null || player.getHeldItem().getItemDamage() != 0
                 || player.getHeldItem().getItem() != Item.getItemFromBlock(ConfigBlocks.blockJar)) {
             return false;
         }
@@ -50,11 +53,9 @@ public class TileSoulforge extends TileThaumcraft implements ISoulReceiver, IEss
             final ItemStack soul = new ItemStack(ThaumicHorizons.blockJar);
             soul.setTagCompound(new NBTTagCompound());
             soul.getTagCompound().setBoolean("isSoul", true);
-            final Integer[] newVillagerTypes =
-                    new Integer[VillagerRegistry.getRegisteredVillagers().size()];
+            final Integer[] newVillagerTypes = new Integer[VillagerRegistry.getRegisteredVillagers().size()];
             int pointer = 0;
-            final Iterator<Integer> it =
-                    VillagerRegistry.getRegisteredVillagers().iterator();
+            final Iterator<Integer> it = VillagerRegistry.getRegisteredVillagers().iterator();
             while (it.hasNext()) {
                 newVillagerTypes[pointer] = it.next();
                 ++pointer;
@@ -72,7 +73,8 @@ public class TileSoulforge extends TileThaumcraft implements ISoulReceiver, IEss
             dummyVillager.setProfession((int) villagerTypes[which]);
             soul.getTagCompound().setString("jarredCritterName", dummyVillager.getCommandSenderName());
             player.inventory.decrStackSize(
-                    InventoryUtils.isPlayerCarrying(player, new ItemStack(ConfigBlocks.blockJar, 1, 0)), 1);
+                    InventoryUtils.isPlayerCarrying(player, new ItemStack(ConfigBlocks.blockJar, 1, 0)),
+                    1);
             if (!player.inventory.addItemStackToInventory(soul)) {
                 player.entityDropItem(soul, 1.0f);
             }
@@ -121,8 +123,8 @@ public class TileSoulforge extends TileThaumcraft implements ISoulReceiver, IEss
 
     void drawEssentia() {
         final ForgeDirection dir = ForgeDirection.UP;
-        final TileEntity te =
-                ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, dir);
+        final TileEntity te = ThaumcraftApiHelper
+                .getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, dir);
         if (te != null) {
             final ForgeDirection opposite = ForgeDirection.DOWN;
             final IEssentiaTransport ic = (IEssentiaTransport) te;
@@ -130,8 +132,7 @@ public class TileSoulforge extends TileThaumcraft implements ISoulReceiver, IEss
                 return;
             }
             Aspect ta = null;
-            if (ic.getEssentiaAmount(opposite) > 0
-                    && ic.getSuctionAmount(opposite) < this.getSuctionAmount(dir)
+            if (ic.getEssentiaAmount(opposite) > 0 && ic.getSuctionAmount(opposite) < this.getSuctionAmount(dir)
                     && this.getSuctionAmount(dir) >= ic.getMinimumSuction()) {
                 ta = ic.getEssentiaType(opposite);
             }

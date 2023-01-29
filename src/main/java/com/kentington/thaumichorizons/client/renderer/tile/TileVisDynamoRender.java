@@ -4,8 +4,6 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.client.renderer.model.ModelQuarterBlock;
-import com.kentington.thaumichorizons.common.tiles.TileVisDynamo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
@@ -17,10 +15,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.client.renderer.model.ModelQuarterBlock;
+import com.kentington.thaumichorizons.common.tiles.TileVisDynamo;
+
 public class TileVisDynamoRender extends TileEntitySpecialRenderer {
+
     private IModelCustom model;
     private static final ResourceLocation SCANNER;
     static String tx1;
@@ -73,10 +77,10 @@ public class TileVisDynamoRender extends TileEntitySpecialRenderer {
                     f2 = MathHelper.sin(iiud / 10.0f) * 10.0f;
                 }
                 final Vec3 vec3 = Vec3.createVectorHelper(-0.1, -0.1, 0.5);
-                vec3.rotateAroundX(-(drainEntity.prevRotationPitch
-                                + (drainEntity.rotationPitch - drainEntity.prevRotationPitch) * f)
-                        * 3.141593f
-                        / 180.0f);
+                vec3.rotateAroundX(
+                        -(drainEntity.prevRotationPitch
+                                + (drainEntity.rotationPitch - drainEntity.prevRotationPitch) * f) * 3.141593f
+                                / 180.0f);
                 vec3.rotateAroundY(
                         -(drainEntity.prevRotationYaw + (drainEntity.rotationYaw - drainEntity.prevRotationYaw) * f)
                                 * 3.141593f
@@ -86,8 +90,8 @@ public class TileVisDynamoRender extends TileEntitySpecialRenderer {
                 final double d3 = drainEntity.prevPosX + (drainEntity.posX - drainEntity.prevPosX) * f + vec3.xCoord;
                 final double d4 = drainEntity.prevPosY + (drainEntity.posY - drainEntity.prevPosY) * f + vec3.yCoord;
                 final double d5 = drainEntity.prevPosZ + (drainEntity.posZ - drainEntity.prevPosZ) * f + vec3.zCoord;
-                final double d6 =
-                        (drainEntity == Minecraft.getMinecraft().thePlayer) ? 0.0 : drainEntity.getEyeHeight();
+                final double d6 = (drainEntity == Minecraft.getMinecraft().thePlayer) ? 0.0
+                        : drainEntity.getEyeHeight();
                 UtilsFX.drawFloatyLine(
                         drainCollision.blockX + 0.5,
                         drainCollision.blockY + 0.5,

@@ -10,6 +10,7 @@ import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderScholarChicken extends RenderChicken {
+
     ResourceLocation rl;
 
     public RenderScholarChicken(final ModelBase p_i1252_1_, final float p_i1252_2_) {

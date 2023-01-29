@@ -4,13 +4,15 @@
 
 package com.kentington.thaumichorizons.common.container;
 
-import com.kentington.thaumichorizons.common.items.lenses.ILens;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
+import com.kentington.thaumichorizons.common.items.lenses.ILens;
+
 public class InventoryCase implements IInventory {
+
     public ItemStack[] stackList;
     private Container eventHandler;
 

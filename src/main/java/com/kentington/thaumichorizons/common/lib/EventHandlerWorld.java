@@ -4,10 +4,12 @@
 
 package com.kentington.thaumichorizons.common.lib;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 public class EventHandlerWorld {
+
     @SubscribeEvent
     public void worldLoad(final WorldEvent.Load event) {
         if (!event.world.isRemote && event.world.provider.dimensionId == 0) {

@@ -4,10 +4,6 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -23,7 +19,14 @@ import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.world.BlockEvent;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemGolemPowder extends Item {
+
     @SideOnly(Side.CLIENT)
     public IIcon icon;
 
@@ -46,17 +49,9 @@ public class ItemGolemPowder extends Item {
         return "item.golemPowder";
     }
 
-    public boolean onItemUse(
-            final ItemStack p_77648_1_,
-            final EntityPlayer player,
-            final World world,
-            final int p_77648_4_,
-            final int p_77648_5_,
-            final int p_77648_6_,
-            final int p_77648_7_,
-            final float p_77648_8_,
-            final float p_77648_9_,
-            final float p_77648_10_) {
+    public boolean onItemUse(final ItemStack p_77648_1_, final EntityPlayer player, final World world,
+            final int p_77648_4_, final int p_77648_5_, final int p_77648_6_, final int p_77648_7_,
+            final float p_77648_8_, final float p_77648_9_, final float p_77648_10_) {
         final Block blocky = world.getBlock(p_77648_4_, p_77648_5_, p_77648_6_);
         final int md = world.getBlockMetadata(p_77648_4_, p_77648_5_, p_77648_6_);
         if (!player.canPlayerEdit(p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_1_)) {
@@ -65,8 +60,7 @@ public class ItemGolemPowder extends Item {
         if (world.isRemote) {
             return true;
         }
-        if (!blocky.hasTileEntity(md)
-                && !blocky.isAir((IBlockAccess) world, p_77648_4_, p_77648_5_, p_77648_6_)
+        if (!blocky.hasTileEntity(md) && !blocky.isAir((IBlockAccess) world, p_77648_4_, p_77648_5_, p_77648_6_)
                 && (blocky.isOpaqueCube() || ItemFocusAnimation.isWhitelisted(blocky, md))
                 && blocky.getBlockHardness(world, p_77648_4_, p_77648_5_, p_77648_6_) != -1.0f) {
             WorldSettings.GameType gt = WorldSettings.GameType.SURVIVAL;
@@ -81,21 +75,30 @@ public class ItemGolemPowder extends Item {
                 final EntityGolemTH golem = new EntityGolemTH(world);
                 golem.loadGolem(p_77648_4_ + 0.5, p_77648_5_, p_77648_6_ + 0.5, blocky, md, 1200, false, false, false);
                 final BlockEvent.BreakEvent event = ForgeHooks.onBlockBreakEvent(
-                        player.worldObj, gt, (EntityPlayerMP) player, p_77648_4_, p_77648_5_, p_77648_6_);
+                        player.worldObj,
+                        gt,
+                        (EntityPlayerMP) player,
+                        p_77648_4_,
+                        p_77648_5_,
+                        p_77648_6_);
                 if (event.isCanceled()) {
                     golem.setDead();
                     return false;
                 }
                 world.setBlockToAir(p_77648_4_, p_77648_5_, p_77648_6_);
                 world.playSoundEffect(
-                        p_77648_4_ + 0.5, p_77648_5_ + 0.5, p_77648_6_ + 0.5, "thaumcraft:wand", 1.0f, 1.0f);
+                        p_77648_4_ + 0.5,
+                        p_77648_5_ + 0.5,
+                        p_77648_6_ + 0.5,
+                        "thaumcraft:wand",
+                        1.0f,
+                        1.0f);
                 golem.setHomeArea((int) golem.posX, (int) golem.posY, (int) golem.posZ, 32);
                 golem.setOwner(player.getCommandSenderName());
                 world.spawnEntityInWorld((Entity) golem);
                 world.setEntityState((Entity) golem, (byte) 7);
             } else {
-                Minecraft.getMinecraft()
-                        .effectRenderer
+                Minecraft.getMinecraft().effectRenderer
                         .addBlockDestroyEffects(p_77648_4_, p_77648_5_, p_77648_6_, blocky, md);
                 player.swingItem();
             }

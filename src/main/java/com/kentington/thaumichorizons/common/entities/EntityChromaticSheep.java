@@ -8,6 +8,7 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.world.World;
 
 public class EntityChromaticSheep extends EntitySheep {
+
     public EntityChromaticSheep(final World p_i1691_1_) {
         super(p_i1691_1_);
     }

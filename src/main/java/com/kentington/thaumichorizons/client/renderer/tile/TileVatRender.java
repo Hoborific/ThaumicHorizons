@@ -4,13 +4,17 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.client.renderer.model.ModelVat;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.client.renderer.model.ModelVat;
+
 public class TileVatRender extends TileEntitySpecialRenderer {
+
     private static ModelVat model;
     private String tx1;
 

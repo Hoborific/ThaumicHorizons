@@ -5,6 +5,7 @@
 package com.kentington.thaumichorizons.common.entities;
 
 import java.awt.Color;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -14,9 +15,11 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
 import thaumcraft.common.Thaumcraft;
 
 public class EntitySoul extends EntityFlying implements IMob {
+
     public int courseChangeCooldown;
     public double waypointX;
     public double waypointY;
@@ -109,9 +112,7 @@ public class EntitySoul extends EntityFlying implements IMob {
         final AxisAlignedBB axisalignedbb = this.boundingBox.copy();
         for (int i = 1; i < d3; ++i) {
             axisalignedbb.offset(d4, d5, d6);
-            if (!this.worldObj
-                    .getCollidingBoundingBoxes((Entity) this, axisalignedbb)
-                    .isEmpty()) {
+            if (!this.worldObj.getCollidingBoundingBoxes((Entity) this, axisalignedbb).isEmpty()) {
                 return false;
             }
         }

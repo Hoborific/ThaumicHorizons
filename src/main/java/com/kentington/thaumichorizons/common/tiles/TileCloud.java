@@ -4,15 +4,8 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityItemInvulnerable;
-import com.kentington.thaumichorizons.common.entities.EntityLightningBoltFinite;
-import com.kentington.thaumichorizons.common.items.ItemFocusLiquefaction;
-import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
-import com.kentington.thaumichorizons.common.lib.networking.PacketRainState;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityXPOrb;
@@ -31,6 +24,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.damagesource.DamageSourceThaumcraft;
@@ -40,7 +34,18 @@ import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.EntityAspectOrb;
 import thaumcraft.common.entities.monster.EntityFireBat;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityItemInvulnerable;
+import com.kentington.thaumichorizons.common.entities.EntityLightningBoltFinite;
+import com.kentington.thaumichorizons.common.items.ItemFocusLiquefaction;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.networking.PacketRainState;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class TileCloud extends TileThaumcraft {
+
     public int md;
     int dropTimer;
     public static boolean raining;
@@ -58,11 +63,9 @@ public class TileCloud extends TileThaumcraft {
     }
 
     public boolean isRaining() {
-        if (!worldObj.isRemote)
-            PacketHandler.INSTANCE.sendToDimension(
-                    new PacketRainState(DimensionManager.getWorld(0) != null
-                            && DimensionManager.getWorld(0).isRaining()),
-                    this.worldObj.provider.dimensionId);
+        if (!worldObj.isRemote) PacketHandler.INSTANCE.sendToDimension(
+                new PacketRainState(DimensionManager.getWorld(0) != null && DimensionManager.getWorld(0).isRaining()),
+                this.worldObj.provider.dimensionId);
         return TileCloud.raining;
     }
 
@@ -82,8 +85,7 @@ public class TileCloud extends TileThaumcraft {
             }
         }
         if (timer > 200) timer = 0;
-        Label_4978:
-        {
+        Label_4978: {
             if (this.rainstate) {
                 if (this.worldObj.getTotalWorldTime() % 10L == 0L) {
                     this.findBlockBelow();
@@ -93,7 +95,10 @@ public class TileCloud extends TileThaumcraft {
                                     .isMeltableBlock(this.cachedBlock, this.cachedMD);
                             if (meltable == 1) {
                                 this.worldObj.setBlock(
-                                        this.xCoord, this.yCoord - this.howManyDown, this.zCoord, (Block) Blocks.fire);
+                                        this.xCoord,
+                                        this.yCoord - this.howManyDown,
+                                        this.zCoord,
+                                        (Block) Blocks.fire);
                                 ThaumicHorizons.proxy.smeltFX(
                                         this.xCoord,
                                         this.yCoord - this.howManyDown,
@@ -129,9 +134,13 @@ public class TileCloud extends TileThaumcraft {
                                 }
                                 if (meltable == 4) {
                                     Blocks.tnt.onBlockDestroyedByPlayer(
-                                            this.worldObj, this.xCoord, this.yCoord - this.howManyDown, this.zCoord, 1);
-                                    this.worldObj.setBlockToAir(
-                                            this.xCoord, this.yCoord - this.howManyDown, this.zCoord);
+                                            this.worldObj,
+                                            this.xCoord,
+                                            this.yCoord - this.howManyDown,
+                                            this.zCoord,
+                                            1);
+                                    this.worldObj
+                                            .setBlockToAir(this.xCoord, this.yCoord - this.howManyDown, this.zCoord);
                                     break;
                                 }
                                 if (this.cachedBlock.isFlammable(
@@ -141,8 +150,10 @@ public class TileCloud extends TileThaumcraft {
                                         this.zCoord,
                                         ForgeDirection.UNKNOWN)) {
                                     this.worldObj.setBlock(
-                                            this.xCoord, this.yCoord - this.howManyDown, this.zCoord, (Block)
-                                                    Blocks.fire);
+                                            this.xCoord,
+                                            this.yCoord - this.howManyDown,
+                                            this.zCoord,
+                                            (Block) Blocks.fire);
                                     ThaumicHorizons.proxy.smeltFX(
                                             this.xCoord,
                                             this.yCoord - this.howManyDown,
@@ -160,8 +171,8 @@ public class TileCloud extends TileThaumcraft {
                             final int meltable = ((ItemFocusLiquefaction) ThaumicHorizons.itemFocusLiquefaction)
                                     .isMeltableBlock(this.cachedBlock, this.cachedMD);
                             if (meltable == 1) {
-                                this.worldObj.setBlock(
-                                        this.xCoord, this.yCoord - this.howManyDown, this.zCoord, Blocks.air);
+                                this.worldObj
+                                        .setBlock(this.xCoord, this.yCoord - this.howManyDown, this.zCoord, Blocks.air);
                                 ThaumicHorizons.proxy.disintegrateExplodeFX(
                                         this.worldObj,
                                         this.xCoord + 0.5,
@@ -171,7 +182,12 @@ public class TileCloud extends TileThaumcraft {
                             }
                             if (meltable == 3) {
                                 this.worldObj.setBlock(
-                                        this.xCoord, this.yCoord - this.howManyDown, this.zCoord, Blocks.dirt, 0, 3);
+                                        this.xCoord,
+                                        this.yCoord - this.howManyDown,
+                                        this.zCoord,
+                                        Blocks.dirt,
+                                        0,
+                                        3);
                                 break;
                             }
                             if (this.cachedBlock.isFlammable(
@@ -180,8 +196,8 @@ public class TileCloud extends TileThaumcraft {
                                     this.yCoord - this.howManyDown,
                                     this.zCoord,
                                     ForgeDirection.UNKNOWN)) {
-                                this.worldObj.setBlock(
-                                        this.xCoord, this.yCoord - this.howManyDown, this.zCoord, Blocks.air);
+                                this.worldObj
+                                        .setBlock(this.xCoord, this.yCoord - this.howManyDown, this.zCoord, Blocks.air);
                                 ThaumicHorizons.proxy.disintegrateExplodeFX(
                                         this.worldObj,
                                         this.xCoord + 0.5,
@@ -196,7 +212,10 @@ public class TileCloud extends TileThaumcraft {
                                     .isMeltableBlock(this.cachedBlock, this.cachedMD);
                             if (meltable == 1) {
                                 this.worldObj.setBlock(
-                                        this.xCoord, this.yCoord - this.howManyDown, this.zCoord, (Block) Blocks.fire);
+                                        this.xCoord,
+                                        this.yCoord - this.howManyDown,
+                                        this.zCoord,
+                                        (Block) Blocks.fire);
                                 ThaumicHorizons.proxy.smeltFX(
                                         this.xCoord,
                                         this.yCoord - this.howManyDown,
@@ -232,9 +251,13 @@ public class TileCloud extends TileThaumcraft {
                                 }
                                 if (meltable == 4) {
                                     Blocks.tnt.onBlockDestroyedByPlayer(
-                                            this.worldObj, this.xCoord, this.yCoord - this.howManyDown, this.zCoord, 1);
-                                    this.worldObj.setBlockToAir(
-                                            this.xCoord, this.yCoord - this.howManyDown, this.zCoord);
+                                            this.worldObj,
+                                            this.xCoord,
+                                            this.yCoord - this.howManyDown,
+                                            this.zCoord,
+                                            1);
+                                    this.worldObj
+                                            .setBlockToAir(this.xCoord, this.yCoord - this.howManyDown, this.zCoord);
                                     break;
                                 }
                                 if (this.cachedBlock.isFlammable(
@@ -244,8 +267,10 @@ public class TileCloud extends TileThaumcraft {
                                         this.zCoord,
                                         ForgeDirection.UNKNOWN)) {
                                     this.worldObj.setBlock(
-                                            this.xCoord, this.yCoord - this.howManyDown, this.zCoord, (Block)
-                                                    Blocks.fire);
+                                            this.xCoord,
+                                            this.yCoord - this.howManyDown,
+                                            this.zCoord,
+                                            (Block) Blocks.fire);
                                     ThaumicHorizons.proxy.smeltFX(
                                             this.xCoord,
                                             this.yCoord - this.howManyDown,
@@ -260,34 +285,40 @@ public class TileCloud extends TileThaumcraft {
                             // break;
                         }
                         default: {
-                            if (this.worldObj
-                                            .getBiomeGenForCoords(this.xCoord, this.zCoord)
-                                            .getFloatTemperature(this.xCoord, this.yCoord, this.zCoord)
-                                    >= 0.15) {
-                                if (this.cachedBlock == Blocks.farmland
-                                        && this.worldObj.getBlockMetadata(
-                                                        this.xCoord, this.yCoord - this.howManyDown, this.zCoord)
-                                                != 7) {
+                            if (this.worldObj.getBiomeGenForCoords(this.xCoord, this.zCoord)
+                                    .getFloatTemperature(this.xCoord, this.yCoord, this.zCoord) >= 0.15) {
+                                if (this.cachedBlock == Blocks.farmland && this.worldObj
+                                        .getBlockMetadata(this.xCoord, this.yCoord - this.howManyDown, this.zCoord)
+                                        != 7) {
                                     this.worldObj.setBlockMetadataWithNotify(
-                                            this.xCoord, this.yCoord - this.howManyDown, this.zCoord, 7, 3);
+                                            this.xCoord,
+                                            this.yCoord - this.howManyDown,
+                                            this.zCoord,
+                                            7,
+                                            3);
                                     break;
                                 }
                                 if (this.worldObj.getBlock(this.xCoord, this.yCoord - this.howManyDown + 1, this.zCoord)
                                         == Blocks.fire) {
                                     this.worldObj.setBlockToAir(
-                                            this.xCoord, this.yCoord - this.howManyDown + 1, this.zCoord);
+                                            this.xCoord,
+                                            this.yCoord - this.howManyDown + 1,
+                                            this.zCoord);
                                     break;
                                 }
                                 if (this.cachedBlock == Blocks.cauldron) {
                                     this.worldObj.setBlockMetadataWithNotify(
-                                            this.xCoord, this.yCoord - this.howManyDown, this.zCoord, 3, 3);
+                                            this.xCoord,
+                                            this.yCoord - this.howManyDown,
+                                            this.zCoord,
+                                            3,
+                                            3);
                                     break;
                                 }
                                 break;
                             } else {
-                                if (this.cachedBlock.isOpaqueCube()
-                                        && this.worldObj.isAirBlock(
-                                                this.xCoord, this.yCoord - this.howManyDown + 1, this.zCoord)) {
+                                if (this.cachedBlock.isOpaqueCube() && this.worldObj
+                                        .isAirBlock(this.xCoord, this.yCoord - this.howManyDown + 1, this.zCoord)) {
                                     this.worldObj.setBlock(
                                             this.xCoord,
                                             this.yCoord - this.howManyDown + 1,
@@ -324,28 +355,28 @@ public class TileCloud extends TileThaumcraft {
                         break;
                     }
                     default: {
-                        if (this.worldObj
-                                        .getBiomeGenForCoords(this.xCoord, this.zCoord)
-                                        .getFloatTemperature(this.xCoord, this.yCoord, this.zCoord)
-                                >= 0.15) {
+                        if (this.worldObj.getBiomeGenForCoords(this.xCoord, this.zCoord)
+                                .getFloatTemperature(this.xCoord, this.yCoord, this.zCoord) >= 0.15) {
                             final List<Entity> critters = this.getCrittersBelow();
                             for (final Entity ent : critters) {
-                                if (ent instanceof EntityEnderman
-                                        || ent instanceof EntityBlaze
+                                if (ent instanceof EntityEnderman || ent instanceof EntityBlaze
                                         || ent instanceof EntityFireBat) {
                                     ent.attackEntityFrom(DamageSource.drown, 1.0f);
                                 }
                                 if (ent.isBurning()) {
                                     ent.extinguish();
                                 }
-                                if (!this.worldObj.isRemote
-                                        && this.md == 8
+                                if (!this.worldObj.isRemote && this.md == 8
                                         && ent instanceof EntityCow
                                         && !(ent instanceof EntityMooshroom)) {
                                     ent.setDead();
                                     final EntityMooshroom entitycow = new EntityMooshroom(this.worldObj);
                                     entitycow.setLocationAndAngles(
-                                            ent.posX, ent.posY, ent.posZ, ent.rotationYaw, ent.rotationPitch);
+                                            ent.posX,
+                                            ent.posY,
+                                            ent.posZ,
+                                            ent.rotationYaw,
+                                            ent.rotationPitch);
                                     entitycow.setHealth(((EntityCow) ent).getHealth());
                                     entitycow.renderYawOffset = ((EntityCow) ent).renderYawOffset;
                                     this.worldObj.spawnEntityInWorld((Entity) entitycow);
@@ -371,13 +402,14 @@ public class TileCloud extends TileThaumcraft {
                                 + this.worldObj.rand.nextInt(TileCloud.dropTimers[this.md] / 2);
                         switch (this.md) {
                             case 2: {
-                                this.worldObj.spawnEntityInWorld((Entity) new EntityLightningBoltFinite(
-                                        this.worldObj,
-                                        this.xCoord + 0.5,
-                                        this.yCoord - this.howManyDown,
-                                        this.zCoord + 0.5,
-                                        this.howManyDown,
-                                        false));
+                                this.worldObj.spawnEntityInWorld(
+                                        (Entity) new EntityLightningBoltFinite(
+                                                this.worldObj,
+                                                this.xCoord + 0.5,
+                                                this.yCoord - this.howManyDown,
+                                                this.zCoord + 0.5,
+                                                this.howManyDown,
+                                                false));
                                 break;
                             }
                             case 4: {
@@ -512,8 +544,8 @@ public class TileCloud extends TileThaumcraft {
                             }
                             case 8: {
                                 this.findBlockBelow();
-                                if (!this.worldObj.isAirBlock(
-                                        this.xCoord, this.yCoord - this.howManyDown + 1, this.zCoord)) {
+                                if (!this.worldObj
+                                        .isAirBlock(this.xCoord, this.yCoord - this.howManyDown + 1, this.zCoord)) {
                                     break;
                                 }
                                 if (this.cachedBlock == Blocks.farmland) {
@@ -551,21 +583,28 @@ public class TileCloud extends TileThaumcraft {
                                         }
                                     }
                                     this.worldObj.setBlock(
-                                            this.xCoord, this.yCoord - this.howManyDown + 1, this.zCoord, Blocks.wheat);
+                                            this.xCoord,
+                                            this.yCoord - this.howManyDown + 1,
+                                            this.zCoord,
+                                            Blocks.wheat);
                                     break;
                                 }
                                 if (this.cachedBlock == Blocks.dirt) {
                                     switch (this.worldObj.rand.nextInt(10)) {
                                         case 4: {
                                             this.worldObj.setBlock(
-                                                    this.xCoord, this.yCoord - this.howManyDown, this.zCoord, (Block)
-                                                            Blocks.mycelium);
+                                                    this.xCoord,
+                                                    this.yCoord - this.howManyDown,
+                                                    this.zCoord,
+                                                    (Block) Blocks.mycelium);
                                             break Label_4978;
                                         }
                                         default: {
                                             this.worldObj.setBlock(
-                                                    this.xCoord, this.yCoord - this.howManyDown, this.zCoord, (Block)
-                                                            Blocks.grass);
+                                                    this.xCoord,
+                                                    this.yCoord - this.howManyDown,
+                                                    this.zCoord,
+                                                    (Block) Blocks.grass);
                                             break Label_4978;
                                         }
                                     }
@@ -598,7 +637,11 @@ public class TileCloud extends TileThaumcraft {
                                                     this.zCoord,
                                                     ConfigBlocks.blockCustomPlant);
                                             this.worldObj.setBlockMetadataWithNotify(
-                                                    this.xCoord, this.yCoord - this.howManyDown + 1, this.zCoord, 1, 3);
+                                                    this.xCoord,
+                                                    this.yCoord - this.howManyDown + 1,
+                                                    this.zCoord,
+                                                    1,
+                                                    3);
                                         } else if (plant < 750) {
                                             switch (this.worldObj.rand.nextInt(14)) {
                                                 case 0: {
@@ -857,7 +900,11 @@ public class TileCloud extends TileThaumcraft {
                                                     this.zCoord,
                                                     ConfigBlocks.blockCustomPlant);
                                             this.worldObj.setBlockMetadataWithNotify(
-                                                    this.xCoord, this.yCoord - this.howManyDown + 1, this.zCoord, 2, 3);
+                                                    this.xCoord,
+                                                    this.yCoord - this.howManyDown + 1,
+                                                    this.zCoord,
+                                                    2,
+                                                    3);
                                         } else {
                                             this.worldObj.setBlock(
                                                     this.xCoord,
@@ -865,7 +912,11 @@ public class TileCloud extends TileThaumcraft {
                                                     this.zCoord,
                                                     ConfigBlocks.blockCustomPlant);
                                             this.worldObj.setBlockMetadataWithNotify(
-                                                    this.xCoord, this.yCoord - this.howManyDown + 1, this.zCoord, 5, 3);
+                                                    this.xCoord,
+                                                    this.yCoord - this.howManyDown + 1,
+                                                    this.zCoord,
+                                                    5,
+                                                    3);
                                         }
                                         break;
                                     }
@@ -909,13 +960,14 @@ public class TileCloud extends TileThaumcraft {
                                 // break;
                             }
                             case 9: {
-                                this.worldObj.spawnEntityInWorld((Entity) new EntityLightningBoltFinite(
-                                        this.worldObj,
-                                        this.xCoord + 0.5,
-                                        this.yCoord - this.howManyDown,
-                                        this.zCoord + 0.5,
-                                        this.howManyDown,
-                                        true));
+                                this.worldObj.spawnEntityInWorld(
+                                        (Entity) new EntityLightningBoltFinite(
+                                                this.worldObj,
+                                                this.xCoord + 0.5,
+                                                this.yCoord - this.howManyDown,
+                                                this.zCoord + 0.5,
+                                                this.howManyDown,
+                                                true));
                                 break;
                             }
                         }
@@ -992,6 +1044,6 @@ public class TileCloud extends TileThaumcraft {
     }
 
     static {
-        TileCloud.dropTimers = new int[] {-1, -1, 120, -1, 480, 480, 80, 360, 280, 550};
+        TileCloud.dropTimers = new int[] { -1, -1, 120, -1, 480, 480, 80, 360, 280, 550 };
     }
 }

@@ -4,21 +4,25 @@
 
 package com.kentington.thaumichorizons.client.renderer.block;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.blocks.BlockSoulJar;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.renderers.block.BlockRenderer;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.blocks.BlockSoulJar;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+
 public class BlockJarTHRenderer extends BlockRenderer implements ISimpleBlockRenderingHandler {
-    public void renderInventoryBlock(
-            final Block block, final int metadata, final int modelID, final RenderBlocks renderer) {
+
+    public void renderInventoryBlock(final Block block, final int metadata, final int modelID,
+            final RenderBlocks renderer) {
         GL11.glPushMatrix();
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
@@ -46,14 +50,8 @@ public class BlockJarTHRenderer extends BlockRenderer implements ISimpleBlockRen
         GL11.glPopMatrix();
     }
 
-    public boolean renderWorldBlock(
-            final IBlockAccess world,
-            final int x,
-            final int y,
-            final int z,
-            final Block block,
-            final int modelId,
-            final RenderBlocks renderer) {
+    public boolean renderWorldBlock(final IBlockAccess world, final int x, final int y, final int z, final Block block,
+            final int modelId, final RenderBlocks renderer) {
         final int bb = setBrightness(world, x, y, z, block);
         final int metadata = world.getBlockMetadata(x, y, z);
         block.setBlockBounds(

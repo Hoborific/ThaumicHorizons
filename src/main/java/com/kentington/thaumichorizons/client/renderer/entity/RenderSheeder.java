@@ -4,12 +4,14 @@
 
 package com.kentington.thaumichorizons.client.renderer.entity;
 
-import com.kentington.thaumichorizons.common.entities.EntitySheeder;
 import net.minecraft.client.renderer.entity.RenderSpider;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.util.ResourceLocation;
 
+import com.kentington.thaumichorizons.common.entities.EntitySheeder;
+
 public class RenderSheeder extends RenderSpider {
+
     private static final ResourceLocation spiderTextures;
     private static final ResourceLocation spiderEyesTextures;
 

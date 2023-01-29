@@ -11,12 +11,13 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityBlastPhial extends EntityPotion {
+
     public EntityBlastPhial(final World p_i1790_1_) {
         super(p_i1790_1_);
     }
 
-    public EntityBlastPhial(
-            final World p_i1790_1_, final EntityLivingBase p_i1790_2_, final float power, final ItemStack p_i1790_3_) {
+    public EntityBlastPhial(final World p_i1790_1_, final EntityLivingBase p_i1790_2_, final float power,
+            final ItemStack p_i1790_3_) {
         super(p_i1790_1_, p_i1790_2_, p_i1790_3_);
         this.setSize(0.25f, 0.25f);
         this.setSize(0.5f, 0.5f);

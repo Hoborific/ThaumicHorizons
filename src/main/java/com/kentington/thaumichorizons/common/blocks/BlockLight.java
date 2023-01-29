@@ -4,11 +4,8 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.tiles.TileLight;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,9 +16,17 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import thaumcraft.common.config.Config;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileLight;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockLight extends BlockContainer {
+
     public IIcon blankIcon;
 
     public BlockLight() {
@@ -44,15 +49,8 @@ public class BlockLight extends BlockContainer {
         return 0.0f;
     }
 
-    public float getExplosionResistance(
-            final Entity par1Entity,
-            final World world,
-            final int x,
-            final int y,
-            final int z,
-            final double explosionX,
-            final double explosionY,
-            final double explosionZ) {
+    public float getExplosionResistance(final Entity par1Entity, final World world, final int x, final int y,
+            final int z, final double explosionX, final double explosionY, final double explosionZ) {
         return 0.0f;
     }
 

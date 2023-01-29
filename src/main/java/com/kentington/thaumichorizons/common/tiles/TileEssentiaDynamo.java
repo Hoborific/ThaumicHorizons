@@ -6,11 +6,13 @@ package com.kentington.thaumichorizons.common.tiles;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.WorldCoordinates;
 import thaumcraft.api.aspects.Aspect;
@@ -22,6 +24,7 @@ import thaumcraft.api.visnet.VisNetHandler;
 import thaumcraft.common.lib.research.ResearchManager;
 
 public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer, IEssentiaTransport {
+
     AspectList primalsActuallyProvided;
     AspectList primalsProvided;
     public Aspect essentia;
@@ -147,36 +150,32 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
         this.essentia = aspect;
         if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId) == null) {
             VisNetHandler.sources.put(
-                    this.worldObj.provider.dimensionId, new HashMap<WorldCoordinates, WeakReference<TileVisNode>>());
+                    this.worldObj.provider.dimensionId,
+                    new HashMap<WorldCoordinates, WeakReference<TileVisNode>>());
         }
-        if (VisNetHandler.sources
-                        .get(this.worldObj.provider.dimensionId)
-                        .get(new WorldCoordinates(
-                                this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
+        if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId)
+                .get(new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
                 == null) {
-            VisNetHandler.sources
-                    .get(this.worldObj.provider.dimensionId)
-                    .put(
+            VisNetHandler.sources.get(this.worldObj.provider.dimensionId).put(
+                    new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId),
+                    new WeakReference<TileVisNode>(this));
+        } else if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId)
+                .get(new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
+                .get() == null) {
+                    VisNetHandler.sources.get(this.worldObj.provider.dimensionId).remove(
                             new WorldCoordinates(
-                                    this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId),
-                            new WeakReference<TileVisNode>(this));
-        } else if (VisNetHandler.sources
-                        .get(this.worldObj.provider.dimensionId)
-                        .get(new WorldCoordinates(
-                                this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
-                        .get()
-                == null) {
-            VisNetHandler.sources
-                    .get(this.worldObj.provider.dimensionId)
-                    .remove(new WorldCoordinates(
-                            this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId));
-            VisNetHandler.sources
-                    .get(this.worldObj.provider.dimensionId)
-                    .put(
+                                    this.xCoord,
+                                    this.yCoord,
+                                    this.zCoord,
+                                    this.worldObj.provider.dimensionId));
+                    VisNetHandler.sources.get(this.worldObj.provider.dimensionId).put(
                             new WorldCoordinates(
-                                    this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId),
+                                    this.xCoord,
+                                    this.yCoord,
+                                    this.zCoord,
+                                    this.worldObj.provider.dimensionId),
                             new WeakReference<TileVisNode>(this));
-        }
+                }
         this.markDirty();
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         return 1;
@@ -246,8 +245,7 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
                 this.markDirty();
             }
         } else if (this.ticksProvided == 0) {
-            if (!this.worldObj.isRemote
-                    && !this.drawEssentia()
+            if (!this.worldObj.isRemote && !this.drawEssentia()
                     && VisNetHandler.sources.get(this.worldObj.provider.dimensionId) != null) {
                 --this.ticksProvided;
                 this.killMe();
@@ -262,21 +260,18 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
     }
 
     public void killMe() {
-        if (VisNetHandler.sources != null
-                && this.worldObj != null
+        if (VisNetHandler.sources != null && this.worldObj != null
                 && this.worldObj.provider != null
                 && VisNetHandler.sources.get(this.worldObj.provider.dimensionId) != null) {
-            VisNetHandler.sources
-                    .get(this.worldObj.provider.dimensionId)
-                    .remove(new WorldCoordinates(
-                            this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId));
+            VisNetHandler.sources.get(this.worldObj.provider.dimensionId).remove(
+                    new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId));
             this.removeThisNode();
         }
     }
 
     boolean drawEssentia() {
-        final TileEntity te = ThaumcraftApiHelper.getConnectableTile(
-                this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.DOWN);
+        final TileEntity te = ThaumcraftApiHelper
+                .getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.DOWN);
         if (te != null) {
             final IEssentiaTransport ic = (IEssentiaTransport) te;
             if (!ic.canOutputTo(ForgeDirection.UP)) {

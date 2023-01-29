@@ -4,21 +4,25 @@
 
 package com.kentington.thaumichorizons.common.lib.networking;
 
-import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
+import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import io.netty.buffer.ByteBuf;
+
 public class PacketToggleInvisibleToServer
         implements IMessage, IMessageHandler<PacketToggleInvisibleToServer, IMessage> {
+
     private int playerid;
     private int dim;
 
@@ -42,8 +46,9 @@ public class PacketToggleInvisibleToServer
     public IMessage onMessage(final PacketToggleInvisibleToServer message, final MessageContext ctx) {
         final World world = (World) DimensionManager.getWorld(message.dim);
         final EntityPlayer player = (EntityPlayer) world.getEntityByID(message.playerid);
-        ((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion")).toggleInvisible =
-                !((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion")).toggleInvisible;
+        ((EntityInfusionProperties) player
+                .getExtendedProperties("CreatureInfusion")).toggleInvisible = !((EntityInfusionProperties) player
+                        .getExtendedProperties("CreatureInfusion")).toggleInvisible;
         if (((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion")).toggleInvisible) {
             player.removePotionEffect(Potion.invisibility.id);
             player.setInvisible(false);

@@ -4,22 +4,27 @@
 
 package com.kentington.thaumichorizons.client.gui;
 
-import com.kentington.thaumichorizons.common.container.ContainerCase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
+
+import com.kentington.thaumichorizons.common.container.ContainerCase;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiCase extends GuiContainer {
+
     private int blockSlot;
 
-    public GuiCase(
-            final InventoryPlayer par1InventoryPlayer, final World world, final int x, final int y, final int z) {
+    public GuiCase(final InventoryPlayer par1InventoryPlayer, final World world, final int x, final int y,
+            final int z) {
         super((Container) new ContainerCase(par1InventoryPlayer, world, x, y, z));
         this.blockSlot = par1InventoryPlayer.currentItem;
         this.xSize = 175;

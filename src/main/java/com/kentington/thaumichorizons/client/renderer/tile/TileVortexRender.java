@@ -4,9 +4,6 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.common.tiles.TileVortex;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.Tessellator;
@@ -17,19 +14,27 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.lib.QuadHelper;
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.common.tiles.TileVortex;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @SideOnly(Side.CLIENT)
 public class TileVortexRender extends TileEntitySpecialRenderer {
+
     public static final ResourceLocation nodetex;
     public static final ResourceLocation vortextex;
 
-    public void renderTileEntityAt(
-            final TileEntity tile, final double x, final double y, final double z, final float partialTicks) {
+    public void renderTileEntityAt(final TileEntity tile, final double x, final double y, final double z,
+            final float partialTicks) {
         if (!(tile instanceof TileVortex)) {
             return;
         }
@@ -57,22 +62,10 @@ public class TileVortexRender extends TileEntitySpecialRenderer {
                 node.cheat);
     }
 
-    public static void renderNode(
-            final EntityLivingBase viewer,
-            final double viewDistance,
-            final boolean visible,
-            final boolean depthIgnore,
-            final float size,
-            final int x,
-            final int y,
-            final int z,
-            final float partialTicks,
-            final AspectList aspects,
-            final int timeOpen,
-            final boolean collapsing,
-            final int beams,
-            final boolean plane,
-            final boolean cheat) {
+    public static void renderNode(final EntityLivingBase viewer, final double viewDistance, final boolean visible,
+            final boolean depthIgnore, final float size, final int x, final int y, final int z,
+            final float partialTicks, final AspectList aspects, final int timeOpen, final boolean collapsing,
+            final int beams, final boolean plane, final boolean cheat) {
         final long nt = System.nanoTime();
         final int frames = 32;
         if (aspects.size() > 0 && visible) {
@@ -173,7 +166,17 @@ public class TileVortexRender extends TileEntitySpecialRenderer {
             } else {
                 UtilsFX.bindTexture(TileVortexRender.nodetex);
                 UtilsFX.renderFacingStrip(
-                        x + 0.5, y + 0.5, z + 0.5, angle, scale * 0.75f, alpha, frames, 2, i, partialTicks, 16777215);
+                        x + 0.5,
+                        y + 0.5,
+                        z + 0.5,
+                        angle,
+                        scale * 0.75f,
+                        alpha,
+                        frames,
+                        2,
+                        i,
+                        partialTicks,
+                        16777215);
             }
             GL11.glDisable(3042);
             GL11.glPopMatrix();
@@ -224,15 +227,8 @@ public class TileVortexRender extends TileEntitySpecialRenderer {
         }
     }
 
-    static void renderVortex(
-            final double px,
-            final double py,
-            final double pz,
-            final float angle,
-            final float scale,
-            final float alpha,
-            final float partialTicks,
-            final int color) {
+    static void renderVortex(final double px, final double py, final double pz, final float angle, final float scale,
+            final float alpha, final float partialTicks, final int color) {
         final Tessellator tessellator = Tessellator.instance;
         final float arX = ActiveRenderInfo.rotationX;
         final float arZ = ActiveRenderInfo.rotationZ;
@@ -247,16 +243,22 @@ public class TileVortexRender extends TileEntitySpecialRenderer {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(220);
         tessellator.setColorRGBA_I(color, (int) (alpha * 255.0f));
-        final Vec3 v1 =
-                Vec3.createVectorHelper((double) (-arX * scale - arYZ * scale), (double) (-arXZ * scale), (double)
-                        (-arZ * scale - arXY * scale));
-        final Vec3 v2 =
-                Vec3.createVectorHelper((double) (-arX * scale + arYZ * scale), (double) (arXZ * scale), (double)
-                        (-arZ * scale + arXY * scale));
+        final Vec3 v1 = Vec3.createVectorHelper(
+                (double) (-arX * scale - arYZ * scale),
+                (double) (-arXZ * scale),
+                (double) (-arZ * scale - arXY * scale));
+        final Vec3 v2 = Vec3.createVectorHelper(
+                (double) (-arX * scale + arYZ * scale),
+                (double) (arXZ * scale),
+                (double) (-arZ * scale + arXY * scale));
         final Vec3 v3 = Vec3.createVectorHelper(
-                (double) (arX * scale + arYZ * scale), (double) (arXZ * scale), (double) (arZ * scale + arXY * scale));
+                (double) (arX * scale + arYZ * scale),
+                (double) (arXZ * scale),
+                (double) (arZ * scale + arXY * scale));
         final Vec3 v4 = Vec3.createVectorHelper(
-                (double) (arX * scale - arYZ * scale), (double) (-arXZ * scale), (double) (arZ * scale - arXY * scale));
+                (double) (arX * scale - arYZ * scale),
+                (double) (-arXZ * scale),
+                (double) (arZ * scale - arXY * scale));
         if (angle != 0.0f) {
             final Vec3 pvec = Vec3.createVectorHelper(iPX, iPY, iPZ);
             final Vec3 tvec = Vec3.createVectorHelper(px, py, pz);

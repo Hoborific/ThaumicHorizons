@@ -4,9 +4,6 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.client.fx.FXEssentiaTrail;
-import com.kentington.thaumichorizons.client.renderer.model.ModelQuarterBlock;
-import com.kentington.thaumichorizons.common.tiles.TileEssentiaDynamo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -14,11 +11,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.fx.ParticleEngine;
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.client.fx.FXEssentiaTrail;
+import com.kentington.thaumichorizons.client.renderer.model.ModelQuarterBlock;
+import com.kentington.thaumichorizons.common.tiles.TileEssentiaDynamo;
+
 public class TileEssentiaDynamoRender extends TileEntitySpecialRenderer {
+
     private IModelCustom model;
     private static final ResourceLocation SCANNER;
     static String tx1;

@@ -4,12 +4,8 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,11 +24,20 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+
 import thaumcraft.api.IRunicArmor;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.tiles.TileMirror;
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
+
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemAmuletMirror extends Item implements IBauble, IRunicArmor {
+
     public IIcon icon;
 
     public ItemAmuletMirror() {
@@ -91,17 +96,8 @@ public class ItemAmuletMirror extends Item implements IBauble, IRunicArmor {
         return par1ItemStack.hasTagCompound();
     }
 
-    public boolean onItemUseFirst(
-            final ItemStack itemstack,
-            final EntityPlayer player,
-            final World world,
-            final int x,
-            final int y,
-            final int z,
-            final int par7,
-            final float par8,
-            final float par9,
-            final float par10) {
+    public boolean onItemUseFirst(final ItemStack itemstack, final EntityPlayer player, final World world, final int x,
+            final int y, final int z, final int par7, final float par8, final float par9, final float par10) {
         final Block bi = world.getBlock(x, y, z);
         if (bi != ConfigBlocks.blockMirror) {
             return false;
@@ -116,27 +112,31 @@ public class ItemAmuletMirror extends Item implements IBauble, IRunicArmor {
             itemstack.setTagInfo("linkY", (NBTBase) new NBTTagInt(tm.yCoord));
             itemstack.setTagInfo("linkZ", (NBTBase) new NBTTagInt(tm.zCoord));
             itemstack.setTagInfo("linkDim", (NBTBase) new NBTTagInt(world.provider.dimensionId));
-            itemstack.setTagInfo("dimname", (NBTBase) new NBTTagString(
-                    DimensionManager.getProvider(world.provider.dimensionId).getDimensionName()));
+            itemstack.setTagInfo(
+                    "dimname",
+                    (NBTBase) new NBTTagString(
+                            DimensionManager.getProvider(world.provider.dimensionId).getDimensionName()));
             world.playSoundEffect((double) x, (double) y, (double) z, "thaumcraft:jar", 1.0f, 2.0f);
-            player.addChatMessage((IChatComponent) new ChatComponentText(
-                    EnumChatFormatting.GRAY + StatCollector.translateToLocal("tc.handmirrorlinked")));
+            player.addChatMessage(
+                    (IChatComponent) new ChatComponentText(
+                            EnumChatFormatting.GRAY + StatCollector.translateToLocal("tc.handmirrorlinked")));
             player.inventoryContainer.detectAndSendChanges();
         }
         return true;
     }
 
     @SideOnly(Side.CLIENT)
-    public void addInformation(
-            final ItemStack item, final EntityPlayer par2EntityPlayer, final List list, final boolean par4) {
+    public void addInformation(final ItemStack item, final EntityPlayer par2EntityPlayer, final List list,
+            final boolean par4) {
         if (item.hasTagCompound()) {
             final int lx = item.stackTagCompound.getInteger("linkX");
             final int ly = item.stackTagCompound.getInteger("linkY");
             final int lz = item.stackTagCompound.getInteger("linkZ");
             final int ldim = item.stackTagCompound.getInteger("linkDim");
             final String dimname = item.stackTagCompound.getString("dimname");
-            list.add(StatCollector.translateToLocal("tc.handmirrorlinkedto") + " " + lx + "," + ly + "," + lz + " in "
-                    + dimname);
+            list.add(
+                    StatCollector.translateToLocal(
+                            "tc.handmirrorlinkedto") + " " + lx + "," + ly + "," + lz + " in " + dimname);
         }
     }
 }

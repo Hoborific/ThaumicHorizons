@@ -4,11 +4,8 @@
 
 package com.kentington.thaumichorizons.common.items.lenses;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
@@ -23,9 +20,17 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
+
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemLensAir extends Item implements ILens {
+
     ResourceLocation tex;
     ResourceLocation tex2;
     IIcon icon;
@@ -81,7 +86,9 @@ public class ItemLensAir extends Item implements ILens {
                 }
                 final Vec3 proj = Vec3.createVectorHelper(look.xCoord * dot, look.yCoord * dot, look.zCoord * dot);
                 final Vec3 rej = Vec3.createVectorHelper(
-                        pos.xCoord - proj.xCoord, pos.yCoord - proj.yCoord, pos.zCoord - proj.zCoord);
+                        pos.xCoord - proj.xCoord,
+                        pos.yCoord - proj.yCoord,
+                        pos.zCoord - proj.zCoord);
                 Vec3 right = look.crossProduct(Vec3.createVectorHelper(1.0E-4, -1.0, 1.0E-4));
                 right = right.normalize();
                 Vec3 up = right.crossProduct(look);
@@ -92,8 +99,8 @@ public class ItemLensAir extends Item implements ILens {
                 final int var6 = var5.getScaledWidth();
                 final int var7 = var5.getScaledHeight();
                 final float minScreen = Math.min(var6, var7);
-                final double hScale =
-                        proj.lengthVector() * Math.tan(Math.toRadians(mc.gameSettings.fovSetting) / 2.0) * 2.0;
+                final double hScale = proj.lengthVector() * Math.tan(Math.toRadians(mc.gameSettings.fovSetting) / 2.0)
+                        * 2.0;
                 horiz /= hScale;
                 vert = vert / hScale / var7 * var6;
                 GL11.glPushMatrix();

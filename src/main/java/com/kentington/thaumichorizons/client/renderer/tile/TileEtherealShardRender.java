@@ -4,9 +4,9 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.common.tiles.TileSyntheticNode;
 import java.awt.Color;
 import java.util.Random;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -16,12 +16,17 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.models.ModelCrystal;
 
+import com.kentington.thaumichorizons.common.tiles.TileSyntheticNode;
+
 public class TileEtherealShardRender extends TileEntitySpecialRenderer {
+
     private ModelCrystal model;
     static String tx1;
     static String tx2;
@@ -38,8 +43,7 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer {
         long blue = 255;
         long numPoints = 0;
         long numPointsFilled = 0;
-        if (tco != null
-                && tco.getAspectsBase() != null
+        if (tco != null && tco.getAspectsBase() != null
                 && tco.getAspects() != null
                 && tco.getAspects().size() > 0
                 && tco.getAspectsBase().size() > 0) {
@@ -69,8 +73,7 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer {
             UtilsFX.bindTexture(TileEtherealShardRender.tx2);
             final int frames = 32;
             final int i = (int) ((nt / 40000000L + x) % frames);
-            if (tco != null
-                    && tco.getAspectsBase() != null
+            if (tco != null && tco.getAspectsBase() != null
                     && tco.getAspects() != null
                     && tco.getAspectsBase().size() > 0
                     && tco.getAspects().getAspects()[0] != null
@@ -123,10 +126,10 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer {
                     f2 = MathHelper.sin(iiud / 10.0f) * 10.0f;
                 }
                 final Vec3 vec3 = Vec3.createVectorHelper(-0.1, -0.1, 0.5);
-                vec3.rotateAroundX(-(drainEntity.prevRotationPitch
-                                + (drainEntity.rotationPitch - drainEntity.prevRotationPitch) * f)
-                        * 3.141593f
-                        / 180.0f);
+                vec3.rotateAroundX(
+                        -(drainEntity.prevRotationPitch
+                                + (drainEntity.rotationPitch - drainEntity.prevRotationPitch) * f) * 3.141593f
+                                / 180.0f);
                 vec3.rotateAroundY(
                         -(drainEntity.prevRotationYaw + (drainEntity.rotationYaw - drainEntity.prevRotationYaw) * f)
                                 * 3.141593f
@@ -136,8 +139,8 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer {
                 final double d3 = drainEntity.prevPosX + (drainEntity.posX - drainEntity.prevPosX) * f + vec3.xCoord;
                 final double d4 = drainEntity.prevPosY + (drainEntity.posY - drainEntity.prevPosY) * f + vec3.yCoord;
                 final double d5 = drainEntity.prevPosZ + (drainEntity.posZ - drainEntity.prevPosZ) * f + vec3.zCoord;
-                final double d6 =
-                        (drainEntity == Minecraft.getMinecraft().thePlayer) ? 0.0 : drainEntity.getEyeHeight();
+                final double d6 = (drainEntity == Minecraft.getMinecraft().thePlayer) ? 0.0
+                        : drainEntity.getEyeHeight();
                 UtilsFX.drawFloatyLine(
                         d3,
                         d4 + d6,
@@ -161,19 +164,11 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer {
         }
     }
 
-    private void drawCrystal(
-            final int ori,
-            final float x,
-            final float y,
-            final float z,
-            final float a1,
-            final float a2,
-            final Random rand,
-            final int color,
-            final float size) {
+    private void drawCrystal(final int ori, final float x, final float y, final float z, final float a1, final float a2,
+            final Random rand, final int color, final float size) {
         final EntityPlayer p = (EntityPlayer) Minecraft.getMinecraft().thePlayer;
-        final float shade =
-                MathHelper.sin((p.ticksExisted + rand.nextInt(10)) / (5.0f + rand.nextFloat())) * 0.075f + 0.925f;
+        final float shade = MathHelper.sin((p.ticksExisted + rand.nextInt(10)) / (5.0f + rand.nextFloat())) * 0.075f
+                + 0.925f;
         final Color c = new Color(color);
         final float r = c.getRed() / 220.0f;
         final float g = c.getGreen() / 220.0f;

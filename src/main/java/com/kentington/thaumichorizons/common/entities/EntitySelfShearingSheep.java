@@ -6,6 +6,7 @@ package com.kentington.thaumichorizons.common.entities;
 
 import java.util.ArrayList;
 import java.util.Random;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Items;
@@ -15,6 +16,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class EntitySelfShearingSheep extends EntitySheep {
+
     public EntitySelfShearingSheep(final World p_i1691_1_) {
         super(p_i1691_1_);
     }

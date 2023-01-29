@@ -4,6 +4,43 @@
 
 package com.kentington.thaumichorizons.client;
 
+import java.awt.Color;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelChicken;
+import net.minecraft.client.model.ModelCow;
+import net.minecraft.client.model.ModelHorse;
+import net.minecraft.client.model.ModelOcelot;
+import net.minecraft.client.model.ModelPig;
+import net.minecraft.client.model.ModelSlime;
+import net.minecraft.client.model.ModelWolf;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.particle.EntityFlameFX;
+import net.minecraft.client.particle.EntitySpellParticleFX;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.resources.IResourceManagerReloadListener;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.world.World;
+import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
+
+import thaumcraft.api.wands.IWandTriggerManager;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.fx.particles.FXBurst;
+import thaumcraft.client.fx.particles.FXSparkle;
+import thaumcraft.client.fx.particles.FXWisp;
+import thaumcraft.client.renderers.item.ItemWandRenderer;
+import thaumcraft.common.Thaumcraft;
+
 import com.kentington.thaumichorizons.client.fx.FXSonic;
 import com.kentington.thaumichorizons.client.gui.GuiBloodInfuser;
 import com.kentington.thaumichorizons.client.gui.GuiCase;
@@ -134,47 +171,15 @@ import com.kentington.thaumichorizons.common.tiles.TileVatSlave;
 import com.kentington.thaumichorizons.common.tiles.TileVisDynamo;
 import com.kentington.thaumichorizons.common.tiles.TileVortex;
 import com.kentington.thaumichorizons.common.tiles.TileVortexStabilizer;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
-import java.awt.Color;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelChicken;
-import net.minecraft.client.model.ModelCow;
-import net.minecraft.client.model.ModelHorse;
-import net.minecraft.client.model.ModelOcelot;
-import net.minecraft.client.model.ModelPig;
-import net.minecraft.client.model.ModelSlime;
-import net.minecraft.client.model.ModelWolf;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.particle.EntityFX;
-import net.minecraft.client.particle.EntityFlameFX;
-import net.minecraft.client.particle.EntitySpellParticleFX;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.client.resources.IReloadableResourceManager;
-import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.client.resources.IResourceManagerReloadListener;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.world.World;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.MinecraftForge;
-import thaumcraft.api.wands.IWandTriggerManager;
-import thaumcraft.client.fx.ParticleEngine;
-import thaumcraft.client.fx.particles.FXBurst;
-import thaumcraft.client.fx.particles.FXSparkle;
-import thaumcraft.client.fx.particles.FXWisp;
-import thaumcraft.client.renderers.item.ItemWandRenderer;
-import thaumcraft.common.Thaumcraft;
 
 public class ClientProxy extends CommonProxy {
+
     public IWandTriggerManager wandManager;
 
     public ClientProxy() {
@@ -187,6 +192,7 @@ public class ClientProxy extends CommonProxy {
         final IResourceManager resourceManager = Minecraft.getMinecraft().getResourceManager();
         if (resourceManager instanceof IReloadableResourceManager) {
             ((IReloadableResourceManager) resourceManager).registerReloadListener(new IResourceManagerReloadListener() {
+
                 @Override
                 public void onResourceManagerReload(IResourceManager ignored) {
                     FXSonic.model = null;
@@ -203,110 +209,151 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerRenderers() {
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileNodeMonitor.class, (TileEntitySpecialRenderer) new TileNodeMonitorRender());
+                (Class) TileNodeMonitor.class,
+                (TileEntitySpecialRenderer) new TileNodeMonitorRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileSyntheticNode.class, (TileEntitySpecialRenderer) new TileEtherealShardRender());
+                (Class) TileSyntheticNode.class,
+                (TileEntitySpecialRenderer) new TileEtherealShardRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileVisDynamo.class, (TileEntitySpecialRenderer) new TileVisDynamoRender());
+                (Class) TileVisDynamo.class,
+                (TileEntitySpecialRenderer) new TileVisDynamoRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileEssentiaDynamo.class, (TileEntitySpecialRenderer) new TileEssentiaDynamoRender());
+                (Class) TileEssentiaDynamo.class,
+                (TileEntitySpecialRenderer) new TileEssentiaDynamoRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileSoulExtractor.class, (TileEntitySpecialRenderer) new TileSoulSieveRender());
+                (Class) TileSoulExtractor.class,
+                (TileEntitySpecialRenderer) new TileSoulSieveRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileInspiratron.class, (TileEntitySpecialRenderer) new TileInspiratronRender());
+                (Class) TileInspiratron.class,
+                (TileEntitySpecialRenderer) new TileInspiratronRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileSoulforge.class, (TileEntitySpecialRenderer) new TileSoulforgeRender());
+                (Class) TileSoulforge.class,
+                (TileEntitySpecialRenderer) new TileSoulforgeRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileVatSlave.class, (TileEntitySpecialRenderer) new TileVatSlaveRender());
+                (Class) TileVatSlave.class,
+                (TileEntitySpecialRenderer) new TileVatSlaveRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileVatMatrix.class, (TileEntitySpecialRenderer) new TileVatMatrixRender(0));
+                (Class) TileVatMatrix.class,
+                (TileEntitySpecialRenderer) new TileVatMatrixRender(0));
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileBloodInfuser.class, (TileEntitySpecialRenderer) new TileBloodInfuserRender());
+                (Class) TileBloodInfuser.class,
+                (TileEntitySpecialRenderer) new TileBloodInfuserRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileSoulBeacon.class, (TileEntitySpecialRenderer) new TileSoulBeaconRender());
+                (Class) TileSoulBeacon.class,
+                (TileEntitySpecialRenderer) new TileSoulBeaconRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
                 (Class) TileTransductionAmplifier.class,
                 (TileEntitySpecialRenderer) new TileTransductionAmplifierRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileRecombinator.class, (TileEntitySpecialRenderer) new TileRecombinatorRender());
+                (Class) TileRecombinator.class,
+                (TileEntitySpecialRenderer) new TileRecombinatorRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileVortexStabilizer.class, (TileEntitySpecialRenderer) new TileVortexStabilizerRender());
+                (Class) TileVortexStabilizer.class,
+                (TileEntitySpecialRenderer) new TileVortexStabilizerRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileVortex.class, (TileEntitySpecialRenderer) new TileVortexRender());
+                (Class) TileVortex.class,
+                (TileEntitySpecialRenderer) new TileVortexRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileSpike.class, (TileEntitySpecialRenderer) new TileSpikeRender());
+                (Class) TileSpike.class,
+                (TileEntitySpecialRenderer) new TileSpikeRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileCloud.class, (TileEntitySpecialRenderer) new TileCloudRender());
+                (Class) TileCloud.class,
+                (TileEntitySpecialRenderer) new TileCloudRender());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileSlot.class, (TileEntitySpecialRenderer) new TileSlotRender());
+                (Class) TileSlot.class,
+                (TileEntitySpecialRenderer) new TileSlotRender());
         RenderingRegistry.registerEntityRenderingHandler(
-                (Class) EntityAlchemitePrimed.class, (Render) new RenderAlchemitePrimed());
+                (Class) EntityAlchemitePrimed.class,
+                (Render) new RenderAlchemitePrimed());
         RenderingRegistry.registerEntityRenderingHandler((Class) EntitySyringe.class, (Render) new RenderSyringe());
+        RenderingRegistry
+                .registerEntityRenderingHandler((Class) EntityBlastPhial.class, (Render) new BlastPhialRender());
         RenderingRegistry.registerEntityRenderingHandler(
-                (Class) EntityBlastPhial.class, (Render) new BlastPhialRender());
+                (Class) EntityChocolateCow.class,
+                (Render) new RenderChocolateCow((ModelBase) new ModelCow(), 0.7f));
         RenderingRegistry.registerEntityRenderingHandler(
-                (Class) EntityChocolateCow.class, (Render) new RenderChocolateCow((ModelBase) new ModelCow(), 0.7f));
-        RenderingRegistry.registerEntityRenderingHandler((Class) EntityOrePig.class, (Render)
-                new RenderOreBoar((ModelBase) new ModelPig(), (ModelBase) new ModelPig(0.5f), 0.7f));
-        RenderingRegistry.registerEntityRenderingHandler((Class) EntityGuardianPanther.class, (Render)
-                new RenderGuardianPanther((ModelBase) new ModelOcelot(), 1.0f));
+                (Class) EntityOrePig.class,
+                (Render) new RenderOreBoar((ModelBase) new ModelPig(), (ModelBase) new ModelPig(0.5f), 0.7f));
         RenderingRegistry.registerEntityRenderingHandler(
-                (Class) EntityFamiliar.class, (Render) new RenderFamiliar(new ModelFamiliar(), 0.5f));
+                (Class) EntityGuardianPanther.class,
+                (Render) new RenderGuardianPanther((ModelBase) new ModelOcelot(), 1.0f));
         RenderingRegistry.registerEntityRenderingHandler(
-                (Class) EntityGravekeeper.class, (Render) new RenderGravekeeper((ModelBase) new ModelOcelot(), 0.5f));
+                (Class) EntityFamiliar.class,
+                (Render) new RenderFamiliar(new ModelFamiliar(), 0.5f));
         RenderingRegistry.registerEntityRenderingHandler(
-                (Class) EntityGoldChicken.class, (Render) new RenderGoldChicken((ModelBase) new ModelChicken(), 0.5f));
-        RenderingRegistry.registerEntityRenderingHandler((Class) EntityScholarChicken.class, (Render)
-                new RenderScholarChicken((ModelBase) new ModelChicken(), 0.5f));
-        RenderingRegistry.registerEntityRenderingHandler((Class) EntityTaintPig.class, (Render)
-                new RenderTaintfeeder((ModelBase) new ModelPig(), (ModelBase) new ModelPig(0.5f), 0.5f));
-        RenderingRegistry.registerEntityRenderingHandler((Class) EntityNetherHound.class, (Render)
-                new RenderNetherHound((ModelBase) new ModelWolf(), (ModelBase) new ModelWolf(), 0.5f));
-        RenderingRegistry.registerEntityRenderingHandler((Class) EntitySeawolf.class, (Render)
-                new RenderSeawolf((ModelBase) new ModelWolf(), (ModelBase) new ModelWolf(), 0.5f));
-        RenderingRegistry.registerEntityRenderingHandler((Class) EntityLunarWolf.class, (Render)
-                new RenderLunarWolf((ModelBase) new ModelWolf(), (ModelBase) new ModelWolf(), 0.5f));
+                (Class) EntityGravekeeper.class,
+                (Render) new RenderGravekeeper((ModelBase) new ModelOcelot(), 0.5f));
         RenderingRegistry.registerEntityRenderingHandler(
-                (Class) EntityGolemTH.class, (Render) new RenderGolemTH((ModelBase) new ModelGolemTH(false)));
+                (Class) EntityGoldChicken.class,
+                (Render) new RenderGoldChicken((ModelBase) new ModelChicken(), 0.5f));
         RenderingRegistry.registerEntityRenderingHandler(
-                (Class) EntityEndersteed.class, (Render) new RenderEndersteed((ModelBase) new ModelHorse(), 0.75f));
+                (Class) EntityScholarChicken.class,
+                (Render) new RenderScholarChicken((ModelBase) new ModelChicken(), 0.5f));
         RenderingRegistry.registerEntityRenderingHandler(
-                (Class) EntityNightmare.class, (Render) new RenderNightmare((ModelBase) new ModelHorse(), 0.75f));
+                (Class) EntityTaintPig.class,
+                (Render) new RenderTaintfeeder((ModelBase) new ModelPig(), (ModelBase) new ModelPig(0.5f), 0.5f));
         RenderingRegistry.registerEntityRenderingHandler(
-                (Class) EntityBoatGreatwood.class, (Render) new RenderBoatGreatwood());
+                (Class) EntityNetherHound.class,
+                (Render) new RenderNetherHound((ModelBase) new ModelWolf(), (ModelBase) new ModelWolf(), 0.5f));
         RenderingRegistry.registerEntityRenderingHandler(
-                (Class) EntityBoatThaumium.class, (Render) new RenderBoatThaumium());
-        RenderingRegistry.registerEntityRenderingHandler((Class) EntityMeatSlime.class, (Render)
-                new RenderMeatSlime((ModelBase) new ModelSlime(16), (ModelBase) new ModelSlime(0), 0.25f));
-        RenderingRegistry.registerEntityRenderingHandler((Class) EntityMercurialSlime.class, (Render)
-                new RenderMercurialSlime((ModelBase) new ModelSlime(16), (ModelBase) new ModelSlime(0), 0.25f));
-        RenderingRegistry.registerEntityRenderingHandler((Class) EntityVoltSlime.class, (Render)
-                new RenderVoltSlime((ModelBase) new ModelSlime(16), (ModelBase) new ModelSlime(0), 0.25f));
-        RenderingRegistry.registerEntityRenderingHandler((Class) EntityMedSlime.class, (Render)
-                new RenderMedSlime((ModelBase) new ModelSlime(16), (ModelBase) new ModelSlime(0), 0.25f));
+                (Class) EntitySeawolf.class,
+                (Render) new RenderSeawolf((ModelBase) new ModelWolf(), (ModelBase) new ModelWolf(), 0.5f));
+        RenderingRegistry.registerEntityRenderingHandler(
+                (Class) EntityLunarWolf.class,
+                (Render) new RenderLunarWolf((ModelBase) new ModelWolf(), (ModelBase) new ModelWolf(), 0.5f));
+        RenderingRegistry.registerEntityRenderingHandler(
+                (Class) EntityGolemTH.class,
+                (Render) new RenderGolemTH((ModelBase) new ModelGolemTH(false)));
+        RenderingRegistry.registerEntityRenderingHandler(
+                (Class) EntityEndersteed.class,
+                (Render) new RenderEndersteed((ModelBase) new ModelHorse(), 0.75f));
+        RenderingRegistry.registerEntityRenderingHandler(
+                (Class) EntityNightmare.class,
+                (Render) new RenderNightmare((ModelBase) new ModelHorse(), 0.75f));
+        RenderingRegistry
+                .registerEntityRenderingHandler((Class) EntityBoatGreatwood.class, (Render) new RenderBoatGreatwood());
+        RenderingRegistry
+                .registerEntityRenderingHandler((Class) EntityBoatThaumium.class, (Render) new RenderBoatThaumium());
+        RenderingRegistry.registerEntityRenderingHandler(
+                (Class) EntityMeatSlime.class,
+                (Render) new RenderMeatSlime((ModelBase) new ModelSlime(16), (ModelBase) new ModelSlime(0), 0.25f));
+        RenderingRegistry.registerEntityRenderingHandler(
+                (Class) EntityMercurialSlime.class,
+                (Render) new RenderMercurialSlime(
+                        (ModelBase) new ModelSlime(16),
+                        (ModelBase) new ModelSlime(0),
+                        0.25f));
+        RenderingRegistry.registerEntityRenderingHandler(
+                (Class) EntityVoltSlime.class,
+                (Render) new RenderVoltSlime((ModelBase) new ModelSlime(16), (ModelBase) new ModelSlime(0), 0.25f));
+        RenderingRegistry.registerEntityRenderingHandler(
+                (Class) EntityMedSlime.class,
+                (Render) new RenderMedSlime((ModelBase) new ModelSlime(16), (ModelBase) new ModelSlime(0), 0.25f));
         RenderingRegistry.registerEntityRenderingHandler((Class) EntitySheeder.class, (Render) new RenderSheeder());
         RenderingRegistry.registerEntityRenderingHandler((Class) EntitySoul.class, (Render) new RenderSoul());
         RenderingRegistry.registerEntityRenderingHandler(
-                (Class) EntityLightningBoltFinite.class, (Render) new RenderLightningBoltFinite());
+                (Class) EntityLightningBoltFinite.class,
+                (Render) new RenderLightningBoltFinite());
+        MinecraftForgeClient
+                .registerItemRenderer(ThaumicHorizons.itemSyringeBloodSample, (IItemRenderer) new ItemSyringeRender());
+        MinecraftForgeClient
+                .registerItemRenderer(ThaumicHorizons.itemSyringeHuman, (IItemRenderer) new ItemSyringeRender());
+        MinecraftForgeClient
+                .registerItemRenderer(ThaumicHorizons.itemSyringeEmpty, (IItemRenderer) new ItemSyringeRender());
+        MinecraftForgeClient
+                .registerItemRenderer(ThaumicHorizons.itemSyringeInjection, (IItemRenderer) new ItemSyringeRender());
+        MinecraftForgeClient
+                .registerItemRenderer(ThaumicHorizons.itemCorpseEffigy, (IItemRenderer) new ItemCorpseEffigyRender());
+        MinecraftForgeClient
+                .registerItemRenderer(ThaumicHorizons.itemInjector, (IItemRenderer) new ItemInjectorRender());
         MinecraftForgeClient.registerItemRenderer(
-                ThaumicHorizons.itemSyringeBloodSample, (IItemRenderer) new ItemSyringeRender());
-        MinecraftForgeClient.registerItemRenderer(
-                ThaumicHorizons.itemSyringeHuman, (IItemRenderer) new ItemSyringeRender());
-        MinecraftForgeClient.registerItemRenderer(
-                ThaumicHorizons.itemSyringeEmpty, (IItemRenderer) new ItemSyringeRender());
-        MinecraftForgeClient.registerItemRenderer(
-                ThaumicHorizons.itemSyringeInjection, (IItemRenderer) new ItemSyringeRender());
-        MinecraftForgeClient.registerItemRenderer(
-                ThaumicHorizons.itemCorpseEffigy, (IItemRenderer) new ItemCorpseEffigyRender());
-        MinecraftForgeClient.registerItemRenderer(
-                ThaumicHorizons.itemInjector, (IItemRenderer) new ItemInjectorRender());
-        MinecraftForgeClient.registerItemRenderer(
-                ThaumicHorizons.itemWandCastingDisposable, (IItemRenderer) new ItemWandRenderer());
+                ThaumicHorizons.itemWandCastingDisposable,
+                (IItemRenderer) new ItemWandRenderer());
     }
 
     @Override
-    public Object getClientGuiElement(
-            final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
+    public Object getClientGuiElement(final int ID, final EntityPlayer player, final World world, final int x,
+            final int y, final int z) {
         if (world instanceof WorldClient) {
             switch (ID) {
                 case 1: {
@@ -345,10 +392,12 @@ public class ClientProxy extends CommonProxy {
     public void registerDisplayInformation() {
         ThaumicHorizons.blockJarRI = RenderingRegistry.getNextAvailableRenderId();
         MinecraftForgeClient.registerItemRenderer(
-                Item.getItemFromBlock(ThaumicHorizons.blockJar), (IItemRenderer) new ItemJarTHRenderer());
+                Item.getItemFromBlock(ThaumicHorizons.blockJar),
+                (IItemRenderer) new ItemJarTHRenderer());
         RenderingRegistry.registerBlockHandler((ISimpleBlockRenderingHandler) new BlockJarTHRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(
-                (Class) TileSoulJar.class, (TileEntitySpecialRenderer) new TileJarTHRenderer());
+                (Class) TileSoulJar.class,
+                (TileEntitySpecialRenderer) new TileJarTHRenderer());
         ThaumicHorizons.blockSyntheticNodeRI = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler((ISimpleBlockRenderingHandler) new BlockSyntheticNodeRender());
         ThaumicHorizons.blockNodeMonRI = RenderingRegistry.getNextAvailableRenderId();
@@ -388,28 +437,26 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void disintegrateFX(
-            final double blockX,
-            final double blockY,
-            final double blockZ,
-            final EntityPlayer p,
-            final int howMany,
-            final boolean enlarged) {
+    public void disintegrateFX(final double blockX, final double blockY, final double blockZ, final EntityPlayer p,
+            final int howMany, final boolean enlarged) {
         if (enlarged) {
             for (int x = -1; x < 2; ++x) {
                 for (int y = -1; y < 2; ++y) {
                     for (int z = -1; z < 2; ++z) {
                         for (int i = 0; i < howMany; ++i) {
-                            final FXSparkle fx =
-                                    new FXSparkle(p.worldObj, blockX + 0.5, blockY + 0.5, blockZ + 0.5, 1.0f, 0, 6);
+                            final FXSparkle fx = new FXSparkle(
+                                    p.worldObj,
+                                    blockX + 0.5,
+                                    blockY + 0.5,
+                                    blockZ + 0.5,
+                                    1.0f,
+                                    0,
+                                    6);
                             fx.motionX = (p.worldObj.rand.nextDouble() - 0.5) / 4.0;
                             fx.motionY = (p.worldObj.rand.nextDouble() - 0.5) / 4.0;
                             fx.motionZ = (p.worldObj.rand.nextDouble() - 0.5) / 4.0;
                             fx.noClip = true;
-                            FMLClientHandler.instance()
-                                    .getClient()
-                                    .effectRenderer
-                                    .addEffect((EntityFX) fx);
+                            FMLClientHandler.instance().getClient().effectRenderer.addEffect((EntityFX) fx);
                         }
                     }
                 }
@@ -427,12 +474,7 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void smeltFX(
-            final double blockX,
-            final double blockY,
-            final double blockZ,
-            final World w,
-            final int howMany,
+    public void smeltFX(final double blockX, final double blockY, final double blockZ, final World w, final int howMany,
             final boolean enlarged) {
         if (enlarged) {
             for (int x = -1; x < 2; ++x) {
@@ -448,10 +490,7 @@ public class ClientProxy extends CommonProxy {
                                     (w.rand.nextDouble() - 0.5) * 0.25,
                                     (w.rand.nextDouble() - 0.5) * 0.25);
                             fx.noClip = true;
-                            FMLClientHandler.instance()
-                                    .getClient()
-                                    .effectRenderer
-                                    .addEffect((EntityFX) fx);
+                            FMLClientHandler.instance().getClient().effectRenderer.addEffect((EntityFX) fx);
                         }
                     }
                 }
@@ -489,13 +528,8 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void containmentFX(
-            final double blockX,
-            final double blockY,
-            final double blockZ,
-            final EntityPlayer p,
-            final Entity ent,
-            final int times) {
+    public void containmentFX(final double blockX, final double blockY, final double blockZ, final EntityPlayer p,
+            final Entity ent, final int times) {
         final double xSize = ent.boundingBox.maxX - ent.boundingBox.minX;
         final double ySize = ent.boundingBox.maxY - ent.boundingBox.minY;
         final double zSize = ent.boundingBox.maxZ - ent.boundingBox.minZ;
@@ -536,8 +570,8 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void illuminationFX(
-            final World world, final int xCoord, final int yCoord, final int zCoord, final int md, final Color col) {
+    public void illuminationFX(final World world, final int xCoord, final int yCoord, final int zCoord, final int md,
+            final Color col) {
         if (world.rand.nextInt(9 - Thaumcraft.proxy.particleCount(2)) == 0) {
             final FXWisp ef = new FXWisp(
                     world,
@@ -579,8 +613,8 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void lightningBolt(
-            final World worldObj, final double x, final double y, final double z, final int boltLength) {
+    public void lightningBolt(final World worldObj, final double x, final double y, final double z,
+            final int boltLength) {
         Thaumcraft.proxy.arcLightning(
                 worldObj,
                 x + worldObj.rand.nextFloat() - 0.5,

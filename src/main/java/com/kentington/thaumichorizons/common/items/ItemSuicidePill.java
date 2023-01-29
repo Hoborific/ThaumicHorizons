@@ -4,10 +4,8 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,7 +14,13 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemSuicidePill extends Item {
+
     @SideOnly(Side.CLIENT)
     public IIcon icon;
 
@@ -43,10 +47,7 @@ public class ItemSuicidePill extends Item {
         return p_77659_1_;
     }
 
-    public void addInformation(
-            final ItemStack par1ItemStack,
-            final EntityPlayer par2EntityPlayer,
-            final List par3List,
+    public void addInformation(final ItemStack par1ItemStack, final EntityPlayer par2EntityPlayer, final List par3List,
             final boolean par4) {
         if (par1ItemStack.getItemDamage() == 0) {
             par3List.add("For testing purposes only");

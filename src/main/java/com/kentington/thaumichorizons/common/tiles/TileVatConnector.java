@@ -8,10 +8,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.IEssentiaTransport;
 
 public class TileVatConnector extends TileVatSlave implements IEssentiaTransport, ISidedInventory {
+
     public int getSizeInventory() {
         final TileVat boss = this.getBoss(-1);
         if (boss != null) {

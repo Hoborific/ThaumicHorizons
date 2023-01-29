@@ -5,15 +5,18 @@
 package com.kentington.thaumichorizons.common.lib;
 
 import java.util.ArrayList;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
 public class CreatureInfusionRecipe {
+
     protected AspectList aspects;
     protected String research;
     private ItemStack[] components;
@@ -22,14 +25,8 @@ public class CreatureInfusionRecipe {
     protected int instability;
     protected int id;
 
-    public CreatureInfusionRecipe(
-            final String research,
-            final Object output,
-            final int inst,
-            final AspectList aspects2,
-            final Class input,
-            final ItemStack[] recipe,
-            final int id) {
+    public CreatureInfusionRecipe(final String research, final Object output, final int inst, final AspectList aspects2,
+            final Class input, final ItemStack[] recipe, final int id) {
         this.research = research;
         this.recipeOutput = output;
         this.recipeInput = (Class<EntityLivingBase>) input;
@@ -39,8 +36,8 @@ public class CreatureInfusionRecipe {
         this.id = id;
     }
 
-    public boolean matches(
-            final ArrayList<ItemStack> input, final Class central, final World world, final EntityPlayer player) {
+    public boolean matches(final ArrayList<ItemStack> input, final Class central, final World world,
+            final EntityPlayer player) {
         if (this.research.length() > 0
                 && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), this.research)) {
             return false;
@@ -90,7 +87,7 @@ public class CreatureInfusionRecipe {
             final int od = OreDictionary.getOreID(stack0);
             if (od != -1) {
                 final ItemStack[] ores = OreDictionary.getOres(od).toArray(new ItemStack[0]);
-                if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[] {stack1}, ores)) {
+                if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[] { stack1 }, ores)) {
                     return true;
                 }
             }

@@ -4,11 +4,8 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.tiles.TileSoulJar;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -26,7 +23,14 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileSoulJar;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockSoulJarItem extends ItemBlock {
+
     @SideOnly(Side.CLIENT)
     public IIcon icon;
 
@@ -71,43 +75,33 @@ public class BlockSoulJarItem extends ItemBlock {
         return par1;
     }
 
-    public boolean onItemUse(
-            final ItemStack stack,
-            final EntityPlayer player,
-            final World world,
-            int x,
-            int y,
-            int z,
-            int side,
-            final float par8,
-            final float par9,
-            final float par10) {
+    public boolean onItemUse(final ItemStack stack, final EntityPlayer player, final World world, int x, int y, int z,
+            int side, final float par8, final float par9, final float par10) {
         final Block block = world.getBlock(x, y, z);
         if (block == Blocks.snow_layer && (world.getBlockMetadata(x, y, z) & 0x7) < 1) {
             side = 1;
-        } else if (block != Blocks.vine
-                && block != Blocks.tallgrass
+        } else if (block != Blocks.vine && block != Blocks.tallgrass
                 && block != Blocks.deadbush
                 && !block.isReplaceable((IBlockAccess) world, x, y, z)) {
-            if (side == 0) {
-                --y;
-            }
-            if (side == 1) {
-                ++y;
-            }
-            if (side == 2) {
-                --z;
-            }
-            if (side == 3) {
-                ++z;
-            }
-            if (side == 4) {
-                --x;
-            }
-            if (side == 5) {
-                ++x;
-            }
-        }
+                    if (side == 0) {
+                        --y;
+                    }
+                    if (side == 1) {
+                        ++y;
+                    }
+                    if (side == 2) {
+                        --z;
+                    }
+                    if (side == 3) {
+                        ++z;
+                    }
+                    if (side == 4) {
+                        --x;
+                    }
+                    if (side == 5) {
+                        ++x;
+                    }
+                }
         if (stack.stackSize == 0) {
             return false;
         }
@@ -137,17 +131,8 @@ public class BlockSoulJarItem extends ItemBlock {
         return false;
     }
 
-    public boolean placeBlockAt(
-            final ItemStack stack,
-            final EntityPlayer player,
-            final World world,
-            final int x,
-            final int y,
-            final int z,
-            final int side,
-            final float hitX,
-            final float hitY,
-            final float hitZ,
+    public boolean placeBlockAt(final ItemStack stack, final EntityPlayer player, final World world, final int x,
+            final int y, final int z, final int side, final float hitX, final float hitY, final float hitZ,
             final int metadata) {
         if (!world.setBlock(x, y, z, ThaumicHorizons.blockJar, metadata, 3)) {
             return false;

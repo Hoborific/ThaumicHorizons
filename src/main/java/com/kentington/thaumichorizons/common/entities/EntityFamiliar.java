@@ -4,30 +4,31 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import baubles.api.BaublesApi;
 import java.util.List;
+
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.baubles.ItemAmuletVis;
 import thaumcraft.common.items.wands.ItemWandCasting;
+import baubles.api.BaublesApi;
 
 public class EntityFamiliar extends EntityOcelot {
+
     public EntityFamiliar(final World p_i1688_1_) {
         super(p_i1688_1_);
     }
 
     public String getCommandSenderName() {
-        return this.hasCustomNameTag()
-                ? this.getCustomNameTag()
-                : (this.isTamed()
-                        ? StatCollector.translateToLocal("entity.ThaumicHorizons.Familiar.name")
+        return this.hasCustomNameTag() ? this.getCustomNameTag()
+                : (this.isTamed() ? StatCollector.translateToLocal("entity.ThaumicHorizons.Familiar.name")
                         : super.getCommandSenderName());
     }
 
@@ -45,8 +46,7 @@ public class EntityFamiliar extends EntityOcelot {
                             this.posZ + 5.0));
             for (final EntityPlayer player : players) {
                 if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemWandCasting) {
-                    final ItemWandCasting wand =
-                            (ItemWandCasting) player.getHeldItem().getItem();
+                    final ItemWandCasting wand = (ItemWandCasting) player.getHeldItem().getItem();
                     final AspectList al = wand.getAspectsWithRoom(player.getHeldItem());
                     for (final Aspect aspect : al.getAspects()) {
                         if (aspect != null) {

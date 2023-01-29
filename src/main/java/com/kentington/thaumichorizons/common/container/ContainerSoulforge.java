@@ -4,11 +4,13 @@
 
 package com.kentington.thaumichorizons.common.container;
 
-import com.kentington.thaumichorizons.common.tiles.TileSoulforge;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 
+import com.kentington.thaumichorizons.common.tiles.TileSoulforge;
+
 public class ContainerSoulforge extends Container {
+
     private EntityPlayer player;
     private TileSoulforge tile;
 

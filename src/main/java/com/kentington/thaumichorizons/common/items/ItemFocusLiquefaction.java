@@ -4,11 +4,9 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.HashMap;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -34,6 +32,7 @@ import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.world.BlockEvent;
+
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -44,7 +43,13 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.utils.BlockUtils;
 import thaumcraft.common.lib.utils.Utils;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemFocusLiquefaction extends ItemFocusBasic {
+
     public static FocusUpgradeType nuggets;
     public static FocusUpgradeType purity;
     private static final AspectList cost;
@@ -79,8 +84,8 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
     }
 
     @Override
-    public ItemStack onFocusRightClick(
-            final ItemStack itemstack, final World world, final EntityPlayer p, final MovingObjectPosition mop) {
+    public ItemStack onFocusRightClick(final ItemStack itemstack, final World world, final EntityPlayer p,
+            final MovingObjectPosition mop) {
         p.setItemInUse(itemstack, Integer.MAX_VALUE);
         return itemstack;
     }
@@ -118,10 +123,8 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
             double ty = p.posY + v.yCoord * 10.0;
             double tz = p.posZ + v.zCoord * 10.0;
             byte impact = 0;
-            if ((ent == null
-                            || (ent instanceof EntityItem
-                                    && FurnaceRecipes.smelting().getSmeltingResult(((EntityItem) ent).getEntityItem())
-                                            == null))
+            if ((ent == null || (ent instanceof EntityItem
+                    && FurnaceRecipes.smelting().getSmeltingResult(((EntityItem) ent).getEntityItem()) == null))
                     && mop != null) {
                 tx = mop.hitVec.xCoord;
                 ty = mop.hitVec.yCoord;
@@ -159,28 +162,30 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                                 ItemFocusLiquefaction.beam.get(pp),
                                 5));
             }
-            if ((ent == null
-                            || (!(ent instanceof EntityLiving)
-                                    && (!(ent instanceof EntityItem)
-                                            || FurnaceRecipes.smelting()
-                                                            .getSmeltingResult(((EntityItem) ent).getEntityItem())
-                                                    == null)))
+            if ((ent == null || (!(ent instanceof EntityLiving) && (!(ent instanceof EntityItem)
+                    || FurnaceRecipes.smelting().getSmeltingResult(((EntityItem) ent).getEntityItem()) == null)))
                     && mop != null
                     && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                 final Block bi = p.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
                 final int md = p.worldObj.getBlockMetadata(mop.blockX, mop.blockY, mop.blockZ);
                 final int meltable = this.isMeltableBlock(bi, md);
                 final boolean flammable = bi.isFlammable(
-                        (IBlockAccess) p.worldObj, mop.blockX, mop.blockY, mop.blockZ, ForgeDirection.UNKNOWN);
-                if (meltable > 0
-                        || flammable
+                        (IBlockAccess) p.worldObj,
+                        mop.blockX,
+                        mop.blockY,
+                        mop.blockZ,
+                        ForgeDirection.UNKNOWN);
+                if (meltable > 0 || flammable
                         || FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(bi, 1, md)) != null) {
                     final int pot = wand.getFocusPotency(stack);
                     final float speed = 0.15f + pot * 0.05f;
                     float hardness = 2.0f;
-                    if (meltable > 0
-                            || bi.isFlammable(
-                                    (IBlockAccess) p.worldObj, mop.blockX, mop.blockY, mop.blockZ, ForgeDirection.UP)) {
+                    if (meltable > 0 || bi.isFlammable(
+                            (IBlockAccess) p.worldObj,
+                            mop.blockX,
+                            mop.blockY,
+                            mop.blockZ,
+                            ForgeDirection.UP)) {
                         hardness = 0.25f;
                     }
                     if (meltable == 6) {
@@ -231,28 +236,29 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                         ItemFocusLiquefaction.breakcount.put(pp, 0.0f);
                     }
                 }
-            } else if (ent != null
-                    && ent instanceof EntityLiving
+            } else if (ent != null && ent instanceof EntityLiving
                     && wand.consumeAllVis(stack, p, ItemFocusLiquefaction.costCritter, true, true)) {
-                ThaumicHorizons.proxy.smeltFX(ent.posX - 0.5, ent.posY, ent.posZ - 0.5, p.worldObj, 5, false);
-                ((EntityLiving) ent).attackEntityFrom(DamageSource.inFire, 1.0f + 0.5f * wand.getFocusPotency(stack));
-            } else if (ent != null
-                    && ent instanceof EntityItem
-                    && FurnaceRecipes.smelting().getSmeltingResult(((EntityItem) ent).getEntityItem()) != null) {
-                final int num = ((EntityItem) ent).getEntityItem().stackSize;
-                if (wand.consumeAllVis(stack, p, this.getVisCost(stack), true, true)) {
-                    ThaumicHorizons.proxy.smeltFX(ent.posX - 0.5, ent.posY, ent.posZ - 0.5, p.worldObj, 5 * num, false);
-                    final ItemStack stacky =
-                            FurnaceRecipes.smelting().getSmeltingResult(((EntityItem) ent).getEntityItem());
-                    stacky.stackSize = num;
-                    ((EntityItem) ent).setEntityItemStack(stacky);
-                }
-            } else {
-                ItemFocusLiquefaction.lastX.put(pp, Integer.MAX_VALUE);
-                ItemFocusLiquefaction.lastY.put(pp, Integer.MAX_VALUE);
-                ItemFocusLiquefaction.lastZ.put(pp, Integer.MAX_VALUE);
-                ItemFocusLiquefaction.breakcount.put(pp, 0.0f);
-            }
+                        ThaumicHorizons.proxy.smeltFX(ent.posX - 0.5, ent.posY, ent.posZ - 0.5, p.worldObj, 5, false);
+                        ((EntityLiving) ent)
+                                .attackEntityFrom(DamageSource.inFire, 1.0f + 0.5f * wand.getFocusPotency(stack));
+                    } else
+                if (ent != null && ent instanceof EntityItem
+                        && FurnaceRecipes.smelting().getSmeltingResult(((EntityItem) ent).getEntityItem()) != null) {
+                            final int num = ((EntityItem) ent).getEntityItem().stackSize;
+                            if (wand.consumeAllVis(stack, p, this.getVisCost(stack), true, true)) {
+                                ThaumicHorizons.proxy
+                                        .smeltFX(ent.posX - 0.5, ent.posY, ent.posZ - 0.5, p.worldObj, 5 * num, false);
+                                final ItemStack stacky = FurnaceRecipes.smelting()
+                                        .getSmeltingResult(((EntityItem) ent).getEntityItem());
+                                stacky.stackSize = num;
+                                ((EntityItem) ent).setEntityItemStack(stacky);
+                            }
+                        } else {
+                            ItemFocusLiquefaction.lastX.put(pp, Integer.MAX_VALUE);
+                            ItemFocusLiquefaction.lastY.put(pp, Integer.MAX_VALUE);
+                            ItemFocusLiquefaction.lastZ.put(pp, Integer.MAX_VALUE);
+                            ItemFocusLiquefaction.breakcount.put(pp, 0.0f);
+                        }
         }
     }
 
@@ -302,8 +308,7 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
         if (mat == Material.ice || mat == Material.packedIce) {
             return 2;
         }
-        if (mat == Material.craftedSnow
-                || mat == Material.leaves
+        if (mat == Material.craftedSnow || mat == Material.leaves
                 || mat == Material.plants
                 || mat == Material.snow
                 || mat == Material.vine
@@ -327,29 +332,24 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
             case 1: {
-                return new FocusUpgradeType[] {
-                    FocusUpgradeType.frugal, FocusUpgradeType.potency, ItemFocusLiquefaction.nuggets
-                };
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
+                        ItemFocusLiquefaction.nuggets };
             }
             case 2: {
-                return new FocusUpgradeType[] {
-                    FocusUpgradeType.frugal, FocusUpgradeType.potency, ItemFocusLiquefaction.nuggets
-                };
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
+                        ItemFocusLiquefaction.nuggets };
             }
             case 3: {
-                return new FocusUpgradeType[] {
-                    FocusUpgradeType.frugal, FocusUpgradeType.potency, FocusUpgradeType.enlarge
-                };
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
+                        FocusUpgradeType.enlarge };
             }
             case 4: {
-                return new FocusUpgradeType[] {
-                    FocusUpgradeType.frugal, FocusUpgradeType.potency, ItemFocusLiquefaction.nuggets
-                };
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
+                        ItemFocusLiquefaction.nuggets };
             }
             case 5: {
-                return new FocusUpgradeType[] {
-                    FocusUpgradeType.frugal, FocusUpgradeType.potency, ItemFocusLiquefaction.purity
-                };
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
+                        ItemFocusLiquefaction.purity };
             }
             default: {
                 return null;
@@ -364,27 +364,26 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
     public static Entity getPointedEntity(final World world, final EntityLivingBase entityplayer, final double range) {
         Entity pointedEntity = null;
         final Vec3 vec3d = Vec3.createVectorHelper(
-                entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ);
+                entityplayer.posX,
+                entityplayer.posY + entityplayer.getEyeHeight(),
+                entityplayer.posZ);
         final Vec3 vec3d2 = entityplayer.getLookVec();
         final Vec3 vec3d3 = vec3d.addVector(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range);
         final float f1 = 1.1f;
         final List list = world.getEntitiesWithinAABBExcludingEntity(
                 (Entity) entityplayer,
-                entityplayer
-                        .boundingBox
-                        .addCoord(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range)
+                entityplayer.boundingBox.addCoord(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range)
                         .expand((double) f1, (double) f1, (double) f1));
         double d2 = 0.0;
         for (int i = 0; i < list.size(); ++i) {
             final Entity entity = (Entity) list.get(i);
             if (world.rayTraceBlocks(
-                            Vec3.createVectorHelper(
-                                    entityplayer.posX,
-                                    entityplayer.posY + entityplayer.getEyeHeight(),
-                                    entityplayer.posZ),
-                            Vec3.createVectorHelper(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ),
-                            false)
-                    == null) {
+                    Vec3.createVectorHelper(
+                            entityplayer.posX,
+                            entityplayer.posY + entityplayer.getEyeHeight(),
+                            entityplayer.posZ),
+                    Vec3.createVectorHelper(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ),
+                    false) == null) {
                 final float f2 = Math.max(0.8f, entity.getCollisionBorderSize());
                 final AxisAlignedBB axisalignedbb = entity.boundingBox.expand((double) f2, (double) f2, (double) f2);
                 final MovingObjectPosition movingobjectposition = axisalignedbb.calculateIntercept(vec3d, vec3d3);
@@ -405,14 +404,8 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
         return pointedEntity;
     }
 
-    void processBlock(
-            final int x,
-            final int y,
-            final int z,
-            final ItemWandCasting wand,
-            final ItemStack stack,
-            final EntityPlayer p,
-            final String pp) {
+    void processBlock(final int x, final int y, final int z, final ItemWandCasting wand, final ItemStack stack,
+            final EntityPlayer p, final String pp) {
         WorldSettings.GameType gt = WorldSettings.GameType.SURVIVAL;
         if (p.capabilities.allowEdit) {
             if (p.capabilities.isCreativeMode) {
@@ -436,19 +429,17 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
         if (result != null && wand.consumeAllVis(stack, p, this.getVisCost(stack), true, true)) {
             if (this.getUpgradeLevel(wand.getFocusItem(stack), ItemFocusLiquefaction.purity) > 0
                     && Utils.findSpecialMiningResult(new ItemStack(bi, 1, md), 9999.0f, p.worldObj.rand) != null) {
-                final ItemStack pure =
-                        Utils.findSpecialMiningResult(new ItemStack(bi, 1, md), 9999.0f, p.worldObj.rand);
+                final ItemStack pure = Utils
+                        .findSpecialMiningResult(new ItemStack(bi, 1, md), 9999.0f, p.worldObj.rand);
                 if (FurnaceRecipes.smelting().getSmeltingResult(pure) != null) {
                     result = FurnaceRecipes.smelting().getSmeltingResult(pure);
                 }
             }
             if (this.getUpgradeLevel(wand.getFocusItem(stack), ItemFocusLiquefaction.nuggets) > 0
                     && ThaumcraftApi.getSmeltingBonus(new ItemStack(bi, 1, md)) != null) {
-                final ItemStack bonus =
-                        ThaumcraftApi.getSmeltingBonus(new ItemStack(bi, 1, md)).copy();
-                for (int i = 0;
-                        i < this.getUpgradeLevel(wand.getFocusItem(stack), ItemFocusLiquefaction.nuggets);
-                        ++i) {
+                final ItemStack bonus = ThaumcraftApi.getSmeltingBonus(new ItemStack(bi, 1, md)).copy();
+                for (int i = 0; i
+                        < this.getUpgradeLevel(wand.getFocusItem(stack), ItemFocusLiquefaction.nuggets); ++i) {
                     if (p.worldObj.rand.nextFloat() < 0.45f) {
                         final ItemStack itemStack = bonus;
                         ++itemStack.stackSize;
@@ -456,7 +447,11 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                 }
                 if (bonus.stackSize > 0) {
                     final EntityItem bonusEntity = new EntityItem(
-                            p.worldObj, (double) (x + 0.5f), (double) (y + 0.5f), (double) (z + 0.5f), bonus);
+                            p.worldObj,
+                            (double) (x + 0.5f),
+                            (double) (y + 0.5f),
+                            (double) (z + 0.5f),
+                            bonus);
                     p.worldObj.spawnEntityInWorld((Entity) bonusEntity);
                 }
             }
@@ -465,8 +460,11 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                 p.worldObj.setBlockMetadataWithNotify(x, y, z, result.getItemDamage(), 3);
             } else {
                 p.worldObj.setBlockToAir(x, y, z);
-                final EntityItem theItem =
-                        new EntityItem(p.worldObj, (double) (x + 0.5f), (double) (y + 0.5f), (double) (z + 0.5f));
+                final EntityItem theItem = new EntityItem(
+                        p.worldObj,
+                        (double) (x + 0.5f),
+                        (double) (y + 0.5f),
+                        (double) (z + 0.5f));
                 theItem.setEntityItemStack(result.copy());
                 p.worldObj.spawnEntityInWorld((Entity) theItem);
             }

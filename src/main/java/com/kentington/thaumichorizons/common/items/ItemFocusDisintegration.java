@@ -4,13 +4,10 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityItemInvulnerable;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -32,6 +29,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.world.BlockEvent;
+
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -45,7 +43,14 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.lib.utils.BlockUtils;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityItemInvulnerable;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemFocusDisintegration extends ItemFocusBasic {
+
     public static FocusUpgradeType enervation;
     private static final AspectList cost;
     private static final AspectList costCritter;
@@ -79,8 +84,8 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
     }
 
     @Override
-    public ItemStack onFocusRightClick(
-            final ItemStack itemstack, final World world, final EntityPlayer p, final MovingObjectPosition mop) {
+    public ItemStack onFocusRightClick(final ItemStack itemstack, final World world, final EntityPlayer p,
+            final MovingObjectPosition mop) {
         p.setItemInUse(itemstack, Integer.MAX_VALUE);
         return itemstack;
     }
@@ -118,25 +123,12 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
             double ty = p.posY + v.yCoord * 10.0;
             double tz = p.posZ + v.zCoord * 10.0;
             byte impact = 0;
-            if ((ent == null
-                            || (ent instanceof EntityItem
-                                    && (this.getAspects(
-                                                            ((EntityItem) ent)
-                                                                    .getEntityItem()
-                                                                    .getItem(),
-                                                            ((EntityItem) ent)
-                                                                    .getEntityItem()
-                                                                    .getItemDamage())
-                                                    == null
-                                            || this.getAspects(
-                                                                    ((EntityItem) ent)
-                                                                            .getEntityItem()
-                                                                            .getItem(),
-                                                                    ((EntityItem) ent)
-                                                                            .getEntityItem()
-                                                                            .getItemDamage())
-                                                            .size()
-                                                    == 0)))
+            if ((ent == null || (ent instanceof EntityItem && (this.getAspects(
+                    ((EntityItem) ent).getEntityItem().getItem(),
+                    ((EntityItem) ent).getEntityItem().getItemDamage()) == null
+                    || this.getAspects(
+                            ((EntityItem) ent).getEntityItem().getItem(),
+                            ((EntityItem) ent).getEntityItem().getItemDamage()).size() == 0)))
                     && mop != null) {
                 tx = mop.hitVec.xCoord;
                 ty = mop.hitVec.yCoord;
@@ -172,30 +164,14 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                                 ItemFocusDisintegration.beam.get(pp),
                                 5));
             }
-            if ((ent == null
-                            || (!(ent instanceof EntityLiving)
-                                    && (!(ent instanceof EntityItem)
-                                            || ((EntityItem) ent)
-                                                            .getEntityItem()
-                                                            .getItem()
-                                                    == ConfigItems.itemCrystalEssence
-                                            || this.getAspects(
-                                                            ((EntityItem) ent)
-                                                                    .getEntityItem()
-                                                                    .getItem(),
-                                                            ((EntityItem) ent)
-                                                                    .getEntityItem()
-                                                                    .getItemDamage())
-                                                    == null
-                                            || this.getAspects(
-                                                                    ((EntityItem) ent)
-                                                                            .getEntityItem()
-                                                                            .getItem(),
-                                                                    ((EntityItem) ent)
-                                                                            .getEntityItem()
-                                                                            .getItemDamage())
-                                                            .size()
-                                                    == 0)))
+            if ((ent == null || (!(ent instanceof EntityLiving) && (!(ent instanceof EntityItem)
+                    || ((EntityItem) ent).getEntityItem().getItem() == ConfigItems.itemCrystalEssence
+                    || this.getAspects(
+                            ((EntityItem) ent).getEntityItem().getItem(),
+                            ((EntityItem) ent).getEntityItem().getItemDamage()) == null
+                    || this.getAspects(
+                            ((EntityItem) ent).getEntityItem().getItem(),
+                            ((EntityItem) ent).getEntityItem().getItemDamage()).size() == 0)))
                     && mop != null
                     && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                 final Block bi = p.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
@@ -252,58 +228,70 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                         ItemFocusDisintegration.breakcount.put(pp, 0.0f);
                     }
                 }
-            } else if (ent != null
-                    && ent instanceof EntityLiving
+            } else if (ent != null && ent instanceof EntityLiving
                     && wand.consumeAllVis(stack, p, ItemFocusDisintegration.costCritter, true, true)) {
-                if (this.getUpgradeLevel(wand.getFocusItem(stack), ItemFocusDisintegration.enervation) > 0) {
-                    ((EntityLiving) ent).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 40, 0));
-                }
-                ThaumicHorizons.proxy.disintegrateFX(ent.posX - 0.5, ent.posY, ent.posZ - 0.5, p, 5, false);
-                ((EntityLiving) ent)
-                        .attackEntityFrom(
-                                DamageSourceThaumcraft.dissolve,
-                                0.5f
-                                        + 0.25f * wand.getFocusPotency(stack)
-                                        + 0.5f
-                                                * this.getUpgradeLevel(
-                                                        wand.getFocusItem(stack), ItemFocusDisintegration.enervation));
-            } else if (ent != null
-                    && ent instanceof EntityItem
-                    && this.getAspects(
-                                    ((EntityItem) ent).getEntityItem().getItem(),
-                                    ((EntityItem) ent).getEntityItem().getItemDamage())
-                            != null
-                    && this.getAspects(
-                                            ((EntityItem) ent).getEntityItem().getItem(),
-                                            ((EntityItem) ent).getEntityItem().getItemDamage())
-                                    .size()
-                            > 0) {
-                final int num = ((EntityItem) ent).getEntityItem().stackSize;
-                if (wand.consumeAllVis(stack, p, this.getVisCost(stack), true, true)) {
-                    ThaumicHorizons.proxy.disintegrateFX(ent.posX - 0.5, ent.posY, ent.posZ - 0.5, p, 5 * num, false);
-                    final AspectList aspects = this.getAspects(
-                            ((EntityItem) ent).getEntityItem().getItem(),
-                            ((EntityItem) ent).getEntityItem().getItemDamage());
-                    if (aspects != null && !p.worldObj.isRemote) {
-                        if (!p.worldObj.isRemote) {
-                            for (final Aspect asp : aspects.getAspects()) {
-                                stack = new ItemStack(ConfigItems.itemCrystalEssence, aspects.getAmount(asp) * num);
-                                ((ItemCrystalEssence) stack.getItem()).setAspects(stack, new AspectList().add(asp, 1));
-                                p.worldObj.spawnEntityInWorld((Entity)
-                                        new EntityItemInvulnerable(p.worldObj, ent.posX, ent.posY, ent.posZ, stack));
-                            }
-                        } else {
-                            ThaumicHorizons.proxy.disintegrateExplodeFX(p.worldObj, ent.posX, ent.posY, ent.posZ);
+                        if (this.getUpgradeLevel(wand.getFocusItem(stack), ItemFocusDisintegration.enervation) > 0) {
+                            ((EntityLiving) ent).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 40, 0));
                         }
-                    }
-                }
-                ent.setDead();
-            } else {
-                ItemFocusDisintegration.lastX.put(pp, Integer.MAX_VALUE);
-                ItemFocusDisintegration.lastY.put(pp, Integer.MAX_VALUE);
-                ItemFocusDisintegration.lastZ.put(pp, Integer.MAX_VALUE);
-                ItemFocusDisintegration.breakcount.put(pp, 0.0f);
-            }
+                        ThaumicHorizons.proxy.disintegrateFX(ent.posX - 0.5, ent.posY, ent.posZ - 0.5, p, 5, false);
+                        ((EntityLiving) ent).attackEntityFrom(
+                                DamageSourceThaumcraft.dissolve,
+                                0.5f + 0.25f * wand.getFocusPotency(stack)
+                                        + 0.5f * this.getUpgradeLevel(
+                                                wand.getFocusItem(stack),
+                                                ItemFocusDisintegration.enervation));
+                    } else
+                if (ent != null && ent instanceof EntityItem
+                        && this.getAspects(
+                                ((EntityItem) ent).getEntityItem().getItem(),
+                                ((EntityItem) ent).getEntityItem().getItemDamage()) != null
+                        && this.getAspects(
+                                ((EntityItem) ent).getEntityItem().getItem(),
+                                ((EntityItem) ent).getEntityItem().getItemDamage()).size() > 0) {
+                                    final int num = ((EntityItem) ent).getEntityItem().stackSize;
+                                    if (wand.consumeAllVis(stack, p, this.getVisCost(stack), true, true)) {
+                                        ThaumicHorizons.proxy.disintegrateFX(
+                                                ent.posX - 0.5,
+                                                ent.posY,
+                                                ent.posZ - 0.5,
+                                                p,
+                                                5 * num,
+                                                false);
+                                        final AspectList aspects = this.getAspects(
+                                                ((EntityItem) ent).getEntityItem().getItem(),
+                                                ((EntityItem) ent).getEntityItem().getItemDamage());
+                                        if (aspects != null && !p.worldObj.isRemote) {
+                                            if (!p.worldObj.isRemote) {
+                                                for (final Aspect asp : aspects.getAspects()) {
+                                                    stack = new ItemStack(
+                                                            ConfigItems.itemCrystalEssence,
+                                                            aspects.getAmount(asp) * num);
+                                                    ((ItemCrystalEssence) stack.getItem())
+                                                            .setAspects(stack, new AspectList().add(asp, 1));
+                                                    p.worldObj.spawnEntityInWorld(
+                                                            (Entity) new EntityItemInvulnerable(
+                                                                    p.worldObj,
+                                                                    ent.posX,
+                                                                    ent.posY,
+                                                                    ent.posZ,
+                                                                    stack));
+                                                }
+                                            } else {
+                                                ThaumicHorizons.proxy.disintegrateExplodeFX(
+                                                        p.worldObj,
+                                                        ent.posX,
+                                                        ent.posY,
+                                                        ent.posZ);
+                                            }
+                                        }
+                                    }
+                                    ent.setDead();
+                                } else {
+                                    ItemFocusDisintegration.lastX.put(pp, Integer.MAX_VALUE);
+                                    ItemFocusDisintegration.lastY.put(pp, Integer.MAX_VALUE);
+                                    ItemFocusDisintegration.lastZ.put(pp, Integer.MAX_VALUE);
+                                    ItemFocusDisintegration.breakcount.put(pp, 0.0f);
+                                }
         }
     }
 
@@ -353,23 +341,21 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
             case 1: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal, FocusUpgradeType.potency};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
             }
             case 2: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal, FocusUpgradeType.potency};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
             }
             case 3: {
-                return new FocusUpgradeType[] {
-                    FocusUpgradeType.frugal, FocusUpgradeType.potency, FocusUpgradeType.enlarge
-                };
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
+                        FocusUpgradeType.enlarge };
             }
             case 4: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal, FocusUpgradeType.potency};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
             }
             case 5: {
-                return new FocusUpgradeType[] {
-                    FocusUpgradeType.frugal, FocusUpgradeType.potency, ItemFocusDisintegration.enervation
-                };
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
+                        ItemFocusDisintegration.enervation };
             }
             default: {
                 return null;
@@ -384,15 +370,15 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
     public static Entity getPointedEntity(final World world, final EntityLivingBase entityplayer, final double range) {
         Entity pointedEntity = null;
         final Vec3 vec3d = Vec3.createVectorHelper(
-                entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ);
+                entityplayer.posX,
+                entityplayer.posY + entityplayer.getEyeHeight(),
+                entityplayer.posZ);
         final Vec3 vec3d2 = entityplayer.getLookVec();
         final Vec3 vec3d3 = vec3d.addVector(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range);
         final float f1 = 1.1f;
         final List list = world.getEntitiesWithinAABBExcludingEntity(
                 (Entity) entityplayer,
-                entityplayer
-                        .boundingBox
-                        .addCoord(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range)
+                entityplayer.boundingBox.addCoord(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range)
                         .expand((double) f1, (double) f1, (double) f1));
         double d2 = 0.0;
         for (int i = 0; i < list.size(); ++i) {
@@ -400,16 +386,15 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
             if (!(entity instanceof EntityItem)
                     || ((EntityItem) entity).getEntityItem().getItem() != ConfigItems.itemCrystalEssence) {
                 if (world.rayTraceBlocks(
-                                Vec3.createVectorHelper(
-                                        entityplayer.posX,
-                                        entityplayer.posY + entityplayer.getEyeHeight(),
-                                        entityplayer.posZ),
-                                Vec3.createVectorHelper(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ),
-                                false)
-                        == null) {
+                        Vec3.createVectorHelper(
+                                entityplayer.posX,
+                                entityplayer.posY + entityplayer.getEyeHeight(),
+                                entityplayer.posZ),
+                        Vec3.createVectorHelper(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ),
+                        false) == null) {
                     final float f2 = Math.max(0.8f, entity.getCollisionBorderSize());
-                    final AxisAlignedBB axisalignedbb =
-                            entity.boundingBox.expand((double) f2, (double) f2, (double) f2);
+                    final AxisAlignedBB axisalignedbb = entity.boundingBox
+                            .expand((double) f2, (double) f2, (double) f2);
                     final MovingObjectPosition movingobjectposition = axisalignedbb.calculateIntercept(vec3d, vec3d3);
                     if (axisalignedbb.isVecInside(vec3d)) {
                         if (0.0 < d2 || d2 == 0.0) {
@@ -429,14 +414,8 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
         return pointedEntity;
     }
 
-    void processBlock(
-            final int x,
-            final int y,
-            final int z,
-            final ItemWandCasting wand,
-            ItemStack stack,
-            final EntityPlayer p,
-            final String pp) {
+    void processBlock(final int x, final int y, final int z, final ItemWandCasting wand, ItemStack stack,
+            final EntityPlayer p, final String pp) {
         WorldSettings.GameType gt = WorldSettings.GameType.SURVIVAL;
         if (p.capabilities.allowEdit) {
             if (p.capabilities.isCreativeMode) {
@@ -454,12 +433,12 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
             return;
         }
         final int md = p.worldObj.getBlockMetadata(x, y, z);
-        if (Item.getItemFromBlock(bi) != null
-                && this.getAspects(Item.getItemFromBlock(bi), md) != null
+        if (Item.getItemFromBlock(bi) != null && this.getAspects(Item.getItemFromBlock(bi), md) != null
                 && this.getAspects(Item.getItemFromBlock(bi), md).size() > 0
                 && wand.consumeAllVis(stack, p, this.getVisCost(stack), true, true)) {
             final AspectList aspects = this.getAspects(
-                    Item.getItemFromBlock(p.worldObj.getBlock(x, y, z)), p.worldObj.getBlockMetadata(x, y, z));
+                    Item.getItemFromBlock(p.worldObj.getBlock(x, y, z)),
+                    p.worldObj.getBlockMetadata(x, y, z));
             if (aspects != null) {
                 for (final Aspect asp : aspects.getAspects()) {
                     stack = new ItemStack(ConfigItems.itemCrystalEssence, aspects.getAmount(asp));
@@ -502,8 +481,7 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                 "focus.upgrade.enervation.text",
                 new AspectList().add(Aspect.DEATH, 8));
         cost = new AspectList().add(Aspect.FIRE, 30).add(Aspect.ENTROPY, 30).add(Aspect.EARTH, 30);
-        costCritter =
-                new AspectList().add(Aspect.FIRE, 12).add(Aspect.ENTROPY, 12).add(Aspect.EARTH, 12);
+        costCritter = new AspectList().add(Aspect.FIRE, 12).add(Aspect.ENTROPY, 12).add(Aspect.EARTH, 12);
         ItemFocusDisintegration.soundDelay = new HashMap<String, Long>();
         ItemFocusDisintegration.beam = new HashMap<String, Object>();
         ItemFocusDisintegration.breakcount = new HashMap<String, Float>();

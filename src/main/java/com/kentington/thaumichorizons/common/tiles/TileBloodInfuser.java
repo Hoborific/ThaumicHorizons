@@ -4,9 +4,9 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import java.awt.Color;
 import java.util.HashMap;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -16,6 +16,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
@@ -24,7 +25,10 @@ import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.common.config.Config;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer, IEssentiaTransport, ISidedInventory {
+
     public AspectList aspectsSelected;
     public AspectList aspectsAcquired;
     Aspect currentlySucking;
@@ -368,11 +372,9 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
                     break;
                 }
             }
-            if (this.currentlySucking == null
-                    && this.aspectsAcquired != null
+            if (this.currentlySucking == null && this.aspectsAcquired != null
                     && ((this.aspectsAcquired.size() > 0 && this.aspectsAcquired.getAspects()[0] != null)
-                            || (this.aspectsAcquired.size() > 1
-                                    && this.aspectsAcquired.getAspects()[1] != null))) {
+                            || (this.aspectsAcquired.size() > 1 && this.aspectsAcquired.getAspects()[1] != null))) {
                 final ItemStack theInjection = new ItemStack(ThaumicHorizons.itemSyringeInjection);
                 theInjection.setItemDamage(this.syringe.getItemDamage());
                 this.decrStackSize(0, 1);
@@ -414,13 +416,9 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
                         effects.put(
                                 in,
                                 effects.get(in)
-                                        + this.aspectsSelected.getAmount(asp)
-                                                * this.effectWeights.get(asp).get(in));
+                                        + this.aspectsSelected.getAmount(asp) * this.effectWeights.get(asp).get(in));
                     } else {
-                        effects.put(
-                                in,
-                                this.aspectsSelected.getAmount(asp)
-                                        * this.effectWeights.get(asp).get(in));
+                        effects.put(in, this.aspectsSelected.getAmount(asp) * this.effectWeights.get(asp).get(in));
                     }
                 }
                 totalEssentia += this.aspectsSelected.getAmount(asp);
@@ -773,7 +771,7 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
     }
 
     public int[] getAccessibleSlotsFromSide(final int p_94128_1_) {
-        return new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     }
 
     public boolean canInsertItem(final int p_102007_1_, final ItemStack p_102007_2_, final int p_102007_3_) {

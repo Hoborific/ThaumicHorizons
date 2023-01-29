@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 public class EntityMeatSlime extends EntitySlime {
+
     public EntityMeatSlime(final World p_i1742_1_) {
         super(p_i1742_1_);
     }
@@ -31,7 +32,11 @@ public class EntityMeatSlime extends EntitySlime {
                 final EntityMeatSlime entityslime = this.createInstance();
                 entityslime.setSlimeSize(i / 2);
                 entityslime.setLocationAndAngles(
-                        this.posX + f, this.posY + 0.5, this.posZ + f2, this.rand.nextFloat() * 360.0f, 0.0f);
+                        this.posX + f,
+                        this.posY + 0.5,
+                        this.posZ + f2,
+                        this.rand.nextFloat() * 360.0f,
+                        0.0f);
                 this.worldObj.spawnEntityInWorld((Entity) entityslime);
             }
         }

@@ -4,10 +4,6 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -25,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.world.BlockEvent;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.FocusUpgradeType;
@@ -32,7 +29,14 @@ import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemFocusAnimation extends ItemFocusBasic {
+
     private static final AspectList cost;
     public static FocusUpgradeType berserk;
     public static FocusUpgradeType detonation;
@@ -72,23 +76,21 @@ public class ItemFocusAnimation extends ItemFocusBasic {
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
             case 1: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal, FocusUpgradeType.extend};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend };
             }
             case 2: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal, FocusUpgradeType.extend};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend };
             }
             case 3: {
-                return new FocusUpgradeType[] {
-                    FocusUpgradeType.frugal, FocusUpgradeType.extend, ItemFocusAnimation.berserk
-                };
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend,
+                        ItemFocusAnimation.berserk };
             }
             case 4: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal, FocusUpgradeType.extend};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend };
             }
             case 5: {
-                return new FocusUpgradeType[] {
-                    FocusUpgradeType.frugal, FocusUpgradeType.extend, ItemFocusAnimation.detonation
-                };
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend,
+                        ItemFocusAnimation.detonation };
             }
             default: {
                 return null;
@@ -97,8 +99,8 @@ public class ItemFocusAnimation extends ItemFocusBasic {
     }
 
     @Override
-    public ItemStack onFocusRightClick(
-            final ItemStack itemstack, final World world, final EntityPlayer player, final MovingObjectPosition mop) {
+    public ItemStack onFocusRightClick(final ItemStack itemstack, final World world, final EntityPlayer player,
+            final MovingObjectPosition mop) {
         final ItemWandCasting wand = (ItemWandCasting) itemstack.getItem();
         if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
             final int x = mop.blockX;
@@ -106,8 +108,7 @@ public class ItemFocusAnimation extends ItemFocusBasic {
             final int z = mop.blockZ;
             final Block blocky = world.getBlock(x, y, z);
             final int md = world.getBlockMetadata(x, y, z);
-            if (!blocky.hasTileEntity(md)
-                    && !blocky.isAir((IBlockAccess) world, x, y, z)
+            if (!blocky.hasTileEntity(md) && !blocky.isAir((IBlockAccess) world, x, y, z)
                     && (blocky.isOpaqueCube() || isWhitelisted(blocky, md))
                     && blocky.getBlockHardness(world, x, y, z) != -1.0f) {
                 WorldSettings.GameType gt = WorldSettings.GameType.SURVIVAL;
@@ -130,19 +131,16 @@ public class ItemFocusAnimation extends ItemFocusBasic {
                             false,
                             this.getUpgradeLevel(wand.getFocusItem(itemstack), ItemFocusAnimation.berserk) > 0,
                             this.getUpgradeLevel(wand.getFocusItem(itemstack), ItemFocusAnimation.detonation) > 0);
-                    final AspectList cost = new AspectList()
-                            .add(Aspect.FIRE, golem.type.visCost)
-                            .add(Aspect.ORDER, golem.type.visCost)
-                            .add(Aspect.AIR, golem.type.visCost)
-                            .add(Aspect.EARTH, golem.type.visCost)
-                            .add(Aspect.ENTROPY, golem.type.visCost)
+                    final AspectList cost = new AspectList().add(Aspect.FIRE, golem.type.visCost)
+                            .add(Aspect.ORDER, golem.type.visCost).add(Aspect.AIR, golem.type.visCost)
+                            .add(Aspect.EARTH, golem.type.visCost).add(Aspect.ENTROPY, golem.type.visCost)
                             .add(Aspect.WATER, golem.type.visCost);
                     if (!wand.consumeAllVis(itemstack, player, cost, false, false)) {
                         golem.setDead();
                         return itemstack;
                     }
-                    final BlockEvent.BreakEvent event =
-                            ForgeHooks.onBlockBreakEvent(player.worldObj, gt, (EntityPlayerMP) player, x, y, z);
+                    final BlockEvent.BreakEvent event = ForgeHooks
+                            .onBlockBreakEvent(player.worldObj, gt, (EntityPlayerMP) player, x, y, z);
                     if (event.isCanceled() || !wand.consumeAllVis(itemstack, player, cost, true, false)) {
                         golem.setDead();
                         return itemstack;
@@ -163,8 +161,7 @@ public class ItemFocusAnimation extends ItemFocusBasic {
     }
 
     public static boolean isWhitelisted(final Block blocky, final int md) {
-        return blocky == Blocks.cake
-                || blocky == Blocks.cactus
+        return blocky == Blocks.cake || blocky == Blocks.cactus
                 || blocky == Blocks.glass
                 || blocky == Blocks.packed_ice
                 || blocky == Blocks.ice
@@ -175,13 +172,8 @@ public class ItemFocusAnimation extends ItemFocusBasic {
     }
 
     static {
-        cost = new AspectList()
-                .add(Aspect.FIRE, 1000)
-                .add(Aspect.AIR, 1000)
-                .add(Aspect.ORDER, 1000)
-                .add(Aspect.WATER, 1000)
-                .add(Aspect.EARTH, 1000)
-                .add(Aspect.ENTROPY, 1000);
+        cost = new AspectList().add(Aspect.FIRE, 1000).add(Aspect.AIR, 1000).add(Aspect.ORDER, 1000)
+                .add(Aspect.WATER, 1000).add(Aspect.EARTH, 1000).add(Aspect.ENTROPY, 1000);
         ItemFocusAnimation.berserk = new FocusUpgradeType(
                 FocusUpgradeType.types.length,
                 new ResourceLocation("thaumichorizons", "textures/foci/berserk.png"),

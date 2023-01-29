@@ -9,6 +9,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class ModelBloodInfuser extends ModelBase {
+
     ModelRenderer Body;
     ModelRenderer SyringeSlot;
     ModelRenderer Pipe1A;
@@ -75,14 +76,8 @@ public class ModelBloodInfuser extends ModelBase {
         this.setRotation(this.Pipe4B, 0.0f, 0.0f, 0.0f);
     }
 
-    public void render(
-            final Entity entity,
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5) {
+    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3,
+            final float f4, final float f5) {
         super.render(entity, f, f1, f2, f3, f4, f5);
         this.Body.render(f5);
         this.SyringeSlot.render(f5);

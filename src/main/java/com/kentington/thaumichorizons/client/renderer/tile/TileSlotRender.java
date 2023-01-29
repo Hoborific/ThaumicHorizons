@@ -4,17 +4,22 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.client.renderer.model.ModelReceptacle;
-import com.kentington.thaumichorizons.common.tiles.TileSlot;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
+
+import com.kentington.thaumichorizons.client.renderer.model.ModelReceptacle;
+import com.kentington.thaumichorizons.common.tiles.TileSlot;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class TileSlotRender extends TileEntitySpecialRenderer {
+
     static String tx1;
     private ModelReceptacle base;
 

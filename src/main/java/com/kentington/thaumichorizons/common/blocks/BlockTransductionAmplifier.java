@@ -4,10 +4,6 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.tiles.TileTransductionAmplifier;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -17,9 +13,17 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import thaumcraft.common.tiles.TileNodeEnergized;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileTransductionAmplifier;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockTransductionAmplifier extends BlockContainer {
+
     IIcon icon;
 
     public BlockTransductionAmplifier() {
@@ -36,8 +40,8 @@ public class BlockTransductionAmplifier extends BlockContainer {
         return new TileTransductionAmplifier();
     }
 
-    public boolean canPlaceBlockAt(
-            final World p_149742_1_, final int p_149742_2_, final int p_149742_3_, final int p_149742_4_) {
+    public boolean canPlaceBlockAt(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,
+            final int p_149742_4_) {
         return p_149742_1_.getTileEntity(p_149742_2_ - 1, p_149742_3_, p_149742_4_) instanceof TileNodeEnergized
                 || p_149742_1_.getTileEntity(p_149742_2_ + 1, p_149742_3_, p_149742_4_) instanceof TileNodeEnergized
                 || p_149742_1_.getTileEntity(p_149742_2_, p_149742_3_, p_149742_4_ - 1) instanceof TileNodeEnergized
@@ -46,37 +50,22 @@ public class BlockTransductionAmplifier extends BlockContainer {
                 || p_149742_1_.getTileEntity(p_149742_2_, p_149742_3_ + 1, p_149742_4_) instanceof TileNodeEnergized;
     }
 
-    public boolean canPlaceBlockOnSide(
-            final World p_149742_1_,
-            final int p_149742_2_,
-            final int p_149742_3_,
-            final int p_149742_4_,
-            final int p_149742_5_) {
+    public boolean canPlaceBlockOnSide(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,
+            final int p_149742_4_, final int p_149742_5_) {
         final ForgeDirection dir = ForgeDirection.getOrientation(p_149742_5_);
         return (dir == ForgeDirection.NORTH
-                        && p_149742_1_.getTileEntity(p_149742_2_, p_149742_3_, p_149742_4_ + 1)
-                                instanceof TileNodeEnergized)
-                || (dir == ForgeDirection.SOUTH
-                        && p_149742_1_.getTileEntity(p_149742_2_, p_149742_3_, p_149742_4_ - 1)
-                                instanceof TileNodeEnergized)
-                || (dir == ForgeDirection.WEST
-                        && p_149742_1_.getTileEntity(p_149742_2_ + 1, p_149742_3_, p_149742_4_)
-                                instanceof TileNodeEnergized)
-                || (dir == ForgeDirection.EAST
-                        && p_149742_1_.getTileEntity(p_149742_2_ - 1, p_149742_3_, p_149742_4_)
-                                instanceof TileNodeEnergized);
+                && p_149742_1_.getTileEntity(p_149742_2_, p_149742_3_, p_149742_4_ + 1) instanceof TileNodeEnergized)
+                || (dir == ForgeDirection.SOUTH && p_149742_1_
+                        .getTileEntity(p_149742_2_, p_149742_3_, p_149742_4_ - 1) instanceof TileNodeEnergized)
+                || (dir == ForgeDirection.WEST && p_149742_1_
+                        .getTileEntity(p_149742_2_ + 1, p_149742_3_, p_149742_4_) instanceof TileNodeEnergized)
+                || (dir == ForgeDirection.EAST && p_149742_1_
+                        .getTileEntity(p_149742_2_ - 1, p_149742_3_, p_149742_4_) instanceof TileNodeEnergized);
     }
 
-    public int onBlockPlaced(
-            final World p_149742_1_,
-            final int p_149742_2_,
-            final int p_149742_3_,
-            final int p_149742_4_,
-            final int p_149660_5_,
-            final float p_149660_6_,
-            final float p_149660_7_,
-            final float p_149660_8_,
-            final int p_149660_9_) {
+    public int onBlockPlaced(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,
+            final int p_149742_4_, final int p_149660_5_, final float p_149660_6_, final float p_149660_7_,
+            final float p_149660_8_, final int p_149660_9_) {
         if (p_149660_5_ == 0
                 && p_149742_1_.getTileEntity(p_149742_2_, p_149742_3_ + 1, p_149742_4_) instanceof TileNodeEnergized) {
             return 0;
@@ -152,8 +141,8 @@ public class BlockTransductionAmplifier extends BlockContainer {
         }
     }
 
-    public boolean isSideSolid(
-            final IBlockAccess world, final int x, final int y, final int z, final ForgeDirection side) {
+    public boolean isSideSolid(final IBlockAccess world, final int x, final int y, final int z,
+            final ForgeDirection side) {
         switch (world.getBlockMetadata(x, y, z)) {
             case 0: {
                 return side == ForgeDirection.DOWN;

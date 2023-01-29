@@ -9,6 +9,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class ModelInspiratron extends ModelBase {
+
     ModelRenderer Jar;
     ModelRenderer BottomA;
     ModelRenderer Bottom1B;
@@ -39,14 +40,8 @@ public class ModelInspiratron extends ModelBase {
         this.setRotation(this.Top, 0.0f, 0.0f, 0.0f);
     }
 
-    public void render(
-            final Entity entity,
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5) {
+    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3,
+            final float f4, final float f5) {
         super.render(entity, f, f1, f2, f3, f4, f5);
         this.Jar.render(f5);
         this.BottomA.render(f5);

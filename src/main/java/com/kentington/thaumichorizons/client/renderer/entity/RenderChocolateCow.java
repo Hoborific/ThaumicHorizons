@@ -10,6 +10,7 @@ import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderChocolateCow extends RenderCow {
+
     private static final ResourceLocation cowTextures;
 
     public RenderChocolateCow(final ModelBase p_i1253_1_, final float p_i1253_2_) {

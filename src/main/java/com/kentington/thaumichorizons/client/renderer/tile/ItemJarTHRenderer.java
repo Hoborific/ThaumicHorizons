@@ -4,8 +4,6 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.tiles.TileSoulJar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -17,20 +15,24 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.config.ConfigBlocks;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileSoulJar;
+
 public class ItemJarTHRenderer implements IItemRenderer {
+
     static String tx3;
 
     public boolean handleRenderType(final ItemStack item, final IItemRenderer.ItemRenderType type) {
         return true;
     }
 
-    public boolean shouldUseRenderHelper(
-            final IItemRenderer.ItemRenderType type,
-            final ItemStack item,
+    public boolean shouldUseRenderHelper(final IItemRenderer.ItemRenderType type, final ItemStack item,
             final IItemRenderer.ItemRendererHelper helper) {
         return helper != IItemRenderer.ItemRendererHelper.EQUIPPED_BLOCK;
     }

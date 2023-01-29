@@ -4,15 +4,9 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.lib.CreatureInfusionRecipe;
-import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Set;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -30,10 +24,21 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.entities.golems.EntityGolemBase;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.lib.CreatureInfusionRecipe;
+import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemInfusionCheat extends Item {
+
     @SideOnly(Side.CLIENT)
     public IIcon icon1;
 
@@ -178,16 +183,28 @@ public class ItemInfusionCheat extends Item {
                     final NBTTagCompound tagMods = (NBTTagCompound) recipe.getRecipeOutput();
                     final Multimap map = (Multimap) HashMultimap.create();
                     if (tagMods.getDouble("generic.movementSpeed") > 0.0) {
-                        map.put((Object) "generic.movementSpeed", (Object) new AttributeModifier(
-                                "generic.movementSpeed", tagMods.getDouble("generic.movementSpeed") / 10.0, 1));
+                        map.put(
+                                (Object) "generic.movementSpeed",
+                                (Object) new AttributeModifier(
+                                        "generic.movementSpeed",
+                                        tagMods.getDouble("generic.movementSpeed") / 10.0,
+                                        1));
                     }
                     if (tagMods.getDouble("generic.maxHealth") > 0.0) {
-                        map.put((Object) "generic.maxHealth", (Object)
-                                new AttributeModifier("generic.maxHealth", tagMods.getDouble("generic.maxHealth"), 1));
+                        map.put(
+                                (Object) "generic.maxHealth",
+                                (Object) new AttributeModifier(
+                                        "generic.maxHealth",
+                                        tagMods.getDouble("generic.maxHealth"),
+                                        1));
                     }
                     if (tagMods.getDouble("generic.attackDamage") > 0.0) {
-                        map.put((Object) "generic.attackDamage", (Object) new AttributeModifier(
-                                "generic.attackDamage", tagMods.getDouble("generic.attackDamage"), 1));
+                        map.put(
+                                (Object) "generic.attackDamage",
+                                (Object) new AttributeModifier(
+                                        "generic.attackDamage",
+                                        tagMods.getDouble("generic.attackDamage"),
+                                        1));
                     }
                     if (map.size() > 0) {
                         critter.getAttributeMap().applyAttributeModifiers(map);
@@ -215,8 +232,8 @@ public class ItemInfusionCheat extends Item {
                                 .addCost(recipe.getAspects());
                         critter.func_110163_bv();
                         ThaumicHorizons.instance.eventHandlerEntity.applyInfusions((EntityLivingBase) critter);
-                        Thaumcraft.proxy.burst(
-                                world, critter.posX, critter.posY + critter.getEyeHeight(), critter.posZ, 1.0f);
+                        Thaumcraft.proxy
+                                .burst(world, critter.posX, critter.posY + critter.getEyeHeight(), critter.posZ, 1.0f);
                     }
                     return p_77659_1_;
                 }
@@ -226,8 +243,7 @@ public class ItemInfusionCheat extends Item {
     }
 
     public boolean isValidInfusionTarget(final EntityLiving ent) {
-        if (ent != null
-                && ent.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD
+        if (ent != null && ent.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD
                 && !(ent instanceof EntityGolem)
                 && !(ent instanceof EntityGolemBase)
                 && !(ent instanceof IMerchant)

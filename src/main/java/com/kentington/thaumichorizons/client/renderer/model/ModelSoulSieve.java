@@ -7,9 +7,11 @@ package com.kentington.thaumichorizons.client.renderer.model;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 public class ModelSoulSieve extends ModelBase {
+
     ModelRenderer TopSide1;
     ModelRenderer TopSide2;
     ModelRenderer TopSide3;
@@ -160,16 +162,8 @@ public class ModelSoulSieve extends ModelBase {
         this.setRotation(this.SieveOuter1A, 0.0f, 0.0f, 0.0f);
     }
 
-    public void render(
-            final Entity entity,
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5,
-            final float sieveMovement,
-            final float sandScale) {
+    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3,
+            final float f4, final float f5, final float sieveMovement, final float sandScale) {
         super.render(entity, f, f1, f2, f3, f4, f5);
         this.TopSide1.render(f5);
         this.TopSide2.render(f5);

@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.common.tiles.TileVat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -13,10 +12,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.common.tiles.TileVat;
+
 public class TileVatSlaveRender extends TileEntitySpecialRenderer {
+
     ModelBiped corpse;
     static String tx1;
     static String tx2;
@@ -44,8 +48,8 @@ public class TileVatSlaveRender extends TileEntitySpecialRenderer {
                     final double d0 = p_147936_1_.lastTickPosX + (p_147936_1_.posX - p_147936_1_.lastTickPosX) * f;
                     final double d2 = p_147936_1_.lastTickPosY + (p_147936_1_.posY - p_147936_1_.lastTickPosY) * f;
                     final double d3 = p_147936_1_.lastTickPosZ + (p_147936_1_.posZ - p_147936_1_.lastTickPosZ) * f;
-                    final float f2 =
-                            p_147936_1_.prevRotationYaw + (p_147936_1_.rotationYaw - p_147936_1_.prevRotationYaw) * f;
+                    final float f2 = p_147936_1_.prevRotationYaw
+                            + (p_147936_1_.rotationYaw - p_147936_1_.prevRotationYaw) * f;
                     final RenderManager instance = RenderManager.instance;
                     final Entity entity = p_147936_1_;
                     final double n2 = d0;
@@ -70,11 +74,9 @@ public class TileVatSlaveRender extends TileEntitySpecialRenderer {
                 GL11.glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
                 GL11.glTranslatef(
                         (float) (-x) - 0.5f,
-                        (float) (-y)
-                                - 1.5f
-                                + 0.1f
-                                        * (float) Math.cos(
-                                                Math.toRadians(Minecraft.getMinecraft().thePlayer.ticksExisted)),
+                        (float) (-y) - 1.5f
+                                + 0.1f * (float) Math
+                                        .cos(Math.toRadians(Minecraft.getMinecraft().thePlayer.ticksExisted)),
                         (float) z + 0.5f);
                 UtilsFX.bindTexture("thaumichorizons", TileVatSlaveRender.tx1);
                 this.corpse.render((Entity) null, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.1f);
@@ -82,19 +84,20 @@ public class TileVatSlaveRender extends TileEntitySpecialRenderer {
                 GL11.glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
                 GL11.glTranslatef(
                         (float) (-x) - 0.5f,
-                        (float) (-y)
-                                - 1.5f
-                                + 0.1f
-                                        * (float) Math.cos(
-                                                Math.toRadians(Minecraft.getMinecraft().thePlayer.ticksExisted)),
+                        (float) (-y) - 1.5f
+                                + 0.1f * (float) Math
+                                        .cos(Math.toRadians(Minecraft.getMinecraft().thePlayer.ticksExisted)),
                         (float) z + 0.5f);
                 UtilsFX.bindTexture("thaumichorizons", TileVatSlaveRender.tx2);
                 this.corpse.render((Entity) null, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.1f);
             } else if (tco.sample != null) {
-                if (this.stack == null
-                        || tco.sample.getItem() != this.stack.getEntityItem().getItem()) {
+                if (this.stack == null || tco.sample.getItem() != this.stack.getEntityItem().getItem()) {
                     this.stack = new EntityItem(
-                            tco.getWorldObj(), tco.xCoord + 0.5, tco.yCoord - 1.0, tco.zCoord + 0.5, tco.sample);
+                            tco.getWorldObj(),
+                            tco.xCoord + 0.5,
+                            tco.yCoord - 1.0,
+                            tco.zCoord + 0.5,
+                            tco.sample);
                 }
                 GL11.glTranslatef(
                         0.0f,

@@ -4,12 +4,14 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class EntityGoldChicken extends EntityChicken {
+
     public EntityGoldChicken(final World p_i1682_1_) {
         super(p_i1682_1_);
     }

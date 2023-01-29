@@ -4,12 +4,15 @@
 
 package com.kentington.thaumichorizons.common.lib;
 
-import cpw.mods.fml.client.IModGuiFactory;
 import java.util.Set;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 
+import cpw.mods.fml.client.IModGuiFactory;
+
 public class THGuiFactory implements IModGuiFactory {
+
     public void initialize(final Minecraft minecraftInstance) {}
 
     public Class<? extends GuiScreen> mainConfigGuiClass() {

@@ -4,14 +4,17 @@
 
 package com.kentington.thaumichorizons.common.lib;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+
 import thaumcraft.common.config.ConfigBlocks;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BiomeGenPocket extends BiomeGenBase {
+
     public BiomeGenPocket(final int inty) {
         super(inty);
         this.spawnableMonsterList.clear();

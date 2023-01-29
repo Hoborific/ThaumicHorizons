@@ -4,8 +4,6 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -14,10 +12,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.common.config.ConfigItems;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileInspiratron extends TileThaumcraft implements ISoulReceiver, ISidedInventory {
+
     public ItemStack paper;
     public ItemStack knowledge;
     public int progress;
@@ -105,8 +107,7 @@ public class TileInspiratron extends TileThaumcraft implements ISoulReceiver, IS
 
     @Override
     public boolean canAcceptSouls() {
-        return this.paper != null
-                && this.paper.stackSize > 0
+        return this.paper != null && this.paper.stackSize > 0
                 && (this.knowledge == null || this.knowledge.stackSize < 64);
     }
 
@@ -187,7 +188,7 @@ public class TileInspiratron extends TileThaumcraft implements ISoulReceiver, IS
     }
 
     public int[] getAccessibleSlotsFromSide(final int p_94128_1_) {
-        return new int[] {0, 1};
+        return new int[] { 0, 1 };
     }
 
     public boolean canInsertItem(final int p_102007_1_, final ItemStack p_102007_2_, final int p_102007_3_) {

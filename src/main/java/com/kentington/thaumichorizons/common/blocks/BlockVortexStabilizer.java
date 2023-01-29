@@ -4,10 +4,6 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.tiles.TileVortexStabilizer;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -16,7 +12,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileVortexStabilizer;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockVortexStabilizer extends BlockContainer {
+
     IIcon icon;
 
     public BlockVortexStabilizer() {
@@ -26,16 +29,9 @@ public class BlockVortexStabilizer extends BlockContainer {
         this.setCreativeTab(ThaumicHorizons.tabTH);
     }
 
-    public int onBlockPlaced(
-            final World p_149742_1_,
-            final int p_149742_2_,
-            final int p_149742_3_,
-            final int p_149742_4_,
-            final int p_149660_5_,
-            final float p_149660_6_,
-            final float p_149660_7_,
-            final float p_149660_8_,
-            final int p_149660_9_) {
+    public int onBlockPlaced(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,
+            final int p_149742_4_, final int p_149660_5_, final float p_149660_6_, final float p_149660_7_,
+            final float p_149660_8_, final int p_149660_9_) {
         return p_149660_5_;
     }
 

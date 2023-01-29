@@ -4,10 +4,8 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,11 +15,18 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.Thaumcraft;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemSyringeBloodSample extends Item {
+
     @SideOnly(Side.CLIENT)
     public IIcon icon;
 
@@ -53,13 +58,10 @@ public class ItemSyringeBloodSample extends Item {
     public void addInformation(final ItemStack sample, final EntityPlayer player, final List list, final boolean par4) {
         list.add("Essentia required to clone:");
         final AspectList asp = new AspectList().add(Aspect.LIFE, 4);
-        if (sample.hasTagCompound()
-                && sample.stackTagCompound.getCompoundTag("critter") != null
+        if (sample.hasTagCompound() && sample.stackTagCompound.getCompoundTag("critter") != null
                 && sample.stackTagCompound.getCompoundTag("critter").getCompoundTag("CreatureInfusion") != null) {
-            final NBTTagCompound tlist = sample.stackTagCompound
-                    .getCompoundTag("critter")
-                    .getCompoundTag("CreatureInfusion")
-                    .getCompoundTag("InfusionCosts");
+            final NBTTagCompound tlist = sample.stackTagCompound.getCompoundTag("critter")
+                    .getCompoundTag("CreatureInfusion").getCompoundTag("InfusionCosts");
             if (tlist != null && tlist.hasKey("Aspects")) {
                 final NBTTagList aspex = tlist.getTagList("Aspects", 10);
                 for (int j = 0; j < aspex.tagCount(); ++j) {

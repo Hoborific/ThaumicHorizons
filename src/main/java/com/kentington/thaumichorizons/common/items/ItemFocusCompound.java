@@ -4,11 +4,9 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.awt.Color;
 import java.util.ArrayList;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +16,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.nodes.INode;
@@ -28,7 +27,13 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.lib.utils.BlockUtils;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemFocusCompound extends ItemFocusBasic {
+
     public static FocusUpgradeType fission;
     private static final AspectList cost;
 
@@ -62,22 +67,19 @@ public class ItemFocusCompound extends ItemFocusBasic {
 
     @Override
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
-        return new FocusUpgradeType[] {ItemFocusCompound.fission};
+        return new FocusUpgradeType[] { ItemFocusCompound.fission };
     }
 
     @Override
-    public ItemStack onFocusRightClick(
-            final ItemStack itemstack,
-            final World world,
-            final EntityPlayer p,
+    public ItemStack onFocusRightClick(final ItemStack itemstack, final World world, final EntityPlayer p,
             final MovingObjectPosition movingobjectposition) {
         final ItemWandCasting wand = (ItemWandCasting) itemstack.getItem();
         p.setItemInUse(itemstack, Integer.MAX_VALUE);
         return itemstack;
     }
 
-    public Aspect chooseRandomFilteredFromSource(
-            final AspectList filter, final boolean preserve, final AspectList nodeAspects, final World world) {
+    public Aspect chooseRandomFilteredFromSource(final AspectList filter, final boolean preserve,
+            final AspectList nodeAspects, final World world) {
         final int min = preserve ? 1 : 0;
         final ArrayList<Aspect> validaspects = new ArrayList<Aspect>();
         for (final Aspect prim : nodeAspects.getAspects()) {
@@ -99,8 +101,8 @@ public class ItemFocusCompound extends ItemFocusBasic {
     public void onUsingFocusTick(final ItemStack wandstack, final EntityPlayer player, final int count) {
         boolean mfu = false;
         final ItemWandCasting wand = (ItemWandCasting) wandstack.getItem();
-        final MovingObjectPosition movingobjectposition =
-                BlockUtils.getTargetBlock(player.worldObj, (Entity) player, true);
+        final MovingObjectPosition movingobjectposition = BlockUtils
+                .getTargetBlock(player.worldObj, (Entity) player, true);
         int i = 0;
         int j = 0;
         int k = 0;
@@ -136,8 +138,10 @@ public class ItemFocusCompound extends ItemFocusBasic {
             boolean success = false;
             Aspect aspect = null;
             if ((aspect = this.chooseRandomFilteredFromSource(
-                            wand.getAspectsWithRoom(wandstack), preserve, nodeAsp, player.worldObj))
-                    != null) {
+                    wand.getAspectsWithRoom(wandstack),
+                    preserve,
+                    nodeAsp,
+                    player.worldObj)) != null) {
                 final int amt = nodeAsp.getAmount(aspect);
                 if (tap > amt) {
                     tap = amt;
@@ -187,12 +191,7 @@ public class ItemFocusCompound extends ItemFocusBasic {
                 "focus.upgrade.fission.name",
                 "focus.upgrade.fission.text",
                 new AspectList().add(Aspect.EXCHANGE, 8));
-        cost = new AspectList()
-                .add(Aspect.FIRE, 0)
-                .add(Aspect.WATER, 0)
-                .add(Aspect.AIR, 0)
-                .add(Aspect.EARTH, 0)
-                .add(Aspect.ORDER, 0)
-                .add(Aspect.ENTROPY, 0);
+        cost = new AspectList().add(Aspect.FIRE, 0).add(Aspect.WATER, 0).add(Aspect.AIR, 0).add(Aspect.EARTH, 0)
+                .add(Aspect.ORDER, 0).add(Aspect.ENTROPY, 0);
     }
 }

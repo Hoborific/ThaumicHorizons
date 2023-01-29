@@ -4,9 +4,6 @@
 
 package com.kentington.thaumichorizons.common.container;
 
-import com.kentington.thaumichorizons.common.tiles.TileInspiratron;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
@@ -15,9 +12,16 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
 import thaumcraft.common.config.ConfigItems;
 
+import com.kentington.thaumichorizons.common.tiles.TileInspiratron;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ContainerInspiratron extends Container {
+
     TileInspiratron tile;
     int progress;
 
@@ -25,8 +29,13 @@ public class ContainerInspiratron extends Container {
         this.tile = p_i1812_2_;
         this.addSlotToContainer(
                 (Slot) new SlotRestricted((IInventory) p_i1812_2_, 0, 15, 42, new ItemStack(Items.paper)));
-        this.addSlotToContainer((Slot)
-                new SlotRestricted((IInventory) p_i1812_2_, 1, 146, 42, new ItemStack(ConfigItems.itemResource, 1, 9)));
+        this.addSlotToContainer(
+                (Slot) new SlotRestricted(
+                        (IInventory) p_i1812_2_,
+                        1,
+                        146,
+                        42,
+                        new ItemStack(ConfigItems.itemResource, 1, 9)));
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 this.addSlotToContainer(new Slot((IInventory) p_i1812_1_, j + i * 9 + 9, 8 + j * 18, 137 + i * 18));

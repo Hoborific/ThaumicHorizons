@@ -4,11 +4,13 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class ItemCorpseEffigy extends Item {
+
     public ItemCorpseEffigy() {
         this.setMaxStackSize(1);
         this.setCreativeTab(ThaumicHorizons.tabTH);

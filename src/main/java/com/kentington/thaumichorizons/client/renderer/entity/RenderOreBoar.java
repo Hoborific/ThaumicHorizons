@@ -10,6 +10,7 @@ import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderOreBoar extends RenderPig {
+
     private static final ResourceLocation pigTextures;
 
     public RenderOreBoar(final ModelBase p_i1265_1_, final ModelBase p_i1265_2_, final float p_i1265_3_) {

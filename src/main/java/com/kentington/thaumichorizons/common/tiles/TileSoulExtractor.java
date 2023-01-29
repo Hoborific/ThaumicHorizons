@@ -4,9 +4,6 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -19,13 +16,20 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.visnet.TileVisNode;
 import thaumcraft.api.visnet.VisNetHandler;
 import thaumcraft.common.lib.utils.InventoryUtils;
 import thaumcraft.common.tiles.TileJarBrain;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class TileSoulExtractor extends TileVisNode implements ISidedInventory {
+
     public ItemStack soulsand;
     public int ticksLeft;
     public boolean extracting;
@@ -113,7 +117,7 @@ public class TileSoulExtractor extends TileVisNode implements ISidedInventory {
     }
 
     public int[] getAccessibleSlotsFromSide(final int p_94128_1_) {
-        return new int[] {0};
+        return new int[] { 0 };
     }
 
     public boolean canInsertItem(final int p_102007_1_, final ItemStack p_102007_2_, final int p_102007_3_) {
@@ -147,8 +151,8 @@ public class TileSoulExtractor extends TileVisNode implements ISidedInventory {
                 || (above instanceof ISoulReceiver && ((ISoulReceiver) above).canAcceptSouls())) {
             this.extracting = true;
             if (!this.worldObj.isRemote && this.ticksLeft > 0) {
-                final int visBoost =
-                        VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, Aspect.AIR, 10);
+                final int visBoost = VisNetHandler
+                        .drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, Aspect.AIR, 10);
                 this.ticksLeft -= 1 + visBoost;
                 if (above instanceof TileJarBrain) {
                     for (int i = 0; i < 1 + visBoost; ++i) {
@@ -168,8 +172,8 @@ public class TileSoulExtractor extends TileVisNode implements ISidedInventory {
                     final ItemStack sand = new ItemStack((Block) Blocks.sand);
                     if (below != null && below instanceof ISidedInventory) {
                         final int[] accessibleSlotsFromSide;
-                        final int[] slots =
-                                accessibleSlotsFromSide = ((ISidedInventory) below).getAccessibleSlotsFromSide(1);
+                        final int[] slots = accessibleSlotsFromSide = ((ISidedInventory) below)
+                                .getAccessibleSlotsFromSide(1);
                         for (final int j : accessibleSlotsFromSide) {
                             if (((ISidedInventory) below).canInsertItem(j, sand, 1)) {
                                 InventoryUtils.placeItemStackIntoInventory(sand, (IInventory) below, 1, true);
@@ -186,7 +190,11 @@ public class TileSoulExtractor extends TileVisNode implements ISidedInventory {
                         }
                     } else {
                         final EntityItem fallenSand = new EntityItem(
-                                this.worldObj, this.xCoord + 0.5, (double) this.yCoord, this.zCoord + 0.5, sand);
+                                this.worldObj,
+                                this.xCoord + 0.5,
+                                (double) this.yCoord,
+                                this.zCoord + 0.5,
+                                sand);
                         this.worldObj.spawnEntityInWorld((Entity) fallenSand);
                     }
                 }
@@ -197,7 +205,13 @@ public class TileSoulExtractor extends TileVisNode implements ISidedInventory {
                 if (this.sieveMotion >= 360) {
                     this.sieveMotion -= 360;
                     this.worldObj.playSound(
-                            this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5, "dig.sand", 1.0f, 0.0f, false);
+                            this.xCoord + 0.5,
+                            this.yCoord + 0.5,
+                            this.zCoord + 0.5,
+                            "dig.sand",
+                            1.0f,
+                            0.0f,
+                            false);
                     final ThaumicHorizons instance = ThaumicHorizons.instance;
                     ThaumicHorizons.proxy.soulParticles(this.xCoord, this.yCoord, this.zCoord, this.worldObj);
                 }

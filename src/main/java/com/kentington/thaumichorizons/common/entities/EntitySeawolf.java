@@ -8,6 +8,7 @@ import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.world.World;
 
 public class EntitySeawolf extends EntityWolf {
+
     public EntitySeawolf(final World p_i1696_1_) {
         super(p_i1696_1_);
         this.getNavigator().setAvoidsWater(false);

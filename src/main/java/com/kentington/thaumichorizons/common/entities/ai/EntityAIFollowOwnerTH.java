@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities.ai;
 
-import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,7 +13,10 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
+
 public class EntityAIFollowOwnerTH extends EntityAIBase {
+
     private EntityLiving thePet;
     private EntityLivingBase theOwner;
     World theWorld;
@@ -24,10 +26,9 @@ public class EntityAIFollowOwnerTH extends EntityAIBase {
     float maxDist;
     float minDist;
     private boolean field_75344_i;
-    private static final String __OBFID = "CL_00001585";
 
-    public EntityAIFollowOwnerTH(
-            final EntityLiving p_i1625_1_, final double p_i1625_2_, final float p_i1625_4_, final float p_i1625_5_) {
+    public EntityAIFollowOwnerTH(final EntityLiving p_i1625_1_, final double p_i1625_2_, final float p_i1625_4_,
+            final float p_i1625_5_) {
         this.thePet = p_i1625_1_;
         this.theWorld = p_i1625_1_.worldObj;
         this.field_75336_f = p_i1625_2_;
@@ -38,10 +39,10 @@ public class EntityAIFollowOwnerTH extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        final EntityInfusionProperties prop =
-                (EntityInfusionProperties) this.thePet.getExtendedProperties("CreatureInfusion");
-        final EntityLivingBase entitylivingbase =
-                (EntityLivingBase) this.thePet.worldObj.getPlayerEntityByName(prop.getOwner());
+        final EntityInfusionProperties prop = (EntityInfusionProperties) this.thePet
+                .getExtendedProperties("CreatureInfusion");
+        final EntityLivingBase entitylivingbase = (EntityLivingBase) this.thePet.worldObj
+                .getPlayerEntityByName(prop.getOwner());
         if (entitylivingbase == null) {
             return false;
         }
@@ -56,8 +57,8 @@ public class EntityAIFollowOwnerTH extends EntityAIBase {
     }
 
     public boolean continueExecuting() {
-        final EntityInfusionProperties prop =
-                (EntityInfusionProperties) this.thePet.getExtendedProperties("CreatureInfusion");
+        final EntityInfusionProperties prop = (EntityInfusionProperties) this.thePet
+                .getExtendedProperties("CreatureInfusion");
         return !this.petPathfinder.noPath()
                 && this.thePet.getDistanceSqToEntity((Entity) this.theOwner) > this.maxDist * this.maxDist
                 && !prop.isSitting();
@@ -76,10 +77,10 @@ public class EntityAIFollowOwnerTH extends EntityAIBase {
     }
 
     public void updateTask() {
-        this.thePet.getLookHelper().setLookPositionWithEntity((Entity) this.theOwner, 10.0f, (float)
-                this.thePet.getVerticalFaceSpeed());
-        final EntityInfusionProperties prop =
-                (EntityInfusionProperties) this.thePet.getExtendedProperties("CreatureInfusion");
+        this.thePet.getLookHelper()
+                .setLookPositionWithEntity((Entity) this.theOwner, 10.0f, (float) this.thePet.getVerticalFaceSpeed());
+        final EntityInfusionProperties prop = (EntityInfusionProperties) this.thePet
+                .getExtendedProperties("CreatureInfusion");
         if (!prop.isSitting() && --this.field_75343_h <= 0) {
             this.field_75343_h = 10;
             if (!this.petPathfinder.tryMoveToEntityLiving((Entity) this.theOwner, this.field_75336_f)
@@ -90,9 +91,8 @@ public class EntityAIFollowOwnerTH extends EntityAIBase {
                 final int k = MathHelper.floor_double(this.theOwner.boundingBox.minY);
                 for (int l = 0; l <= 4; ++l) {
                     for (int i2 = 0; i2 <= 4; ++i2) {
-                        if ((l < 1 || i2 < 1 || l > 3 || i2 > 3)
-                                && World.doesBlockHaveSolidTopSurface(
-                                        (IBlockAccess) this.theWorld, i + l, k - 1, j + i2)
+                        if ((l < 1 || i2 < 1 || l > 3 || i2 > 3) && World
+                                .doesBlockHaveSolidTopSurface((IBlockAccess) this.theWorld, i + l, k - 1, j + i2)
                                 && !this.theWorld.getBlock(i + l, k, j + i2).isNormalCube()
                                 && !this.theWorld.getBlock(i + l, k + 1, j + i2).isNormalCube()) {
                             this.thePet.setLocationAndAngles(

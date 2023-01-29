@@ -4,8 +4,6 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.tiles.TileSlot;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -16,9 +14,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import thaumcraft.common.items.wands.ItemWandCasting;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileSlot;
+
 public class BlockSlot extends BlockContainer {
+
     public BlockSlot() {
         super(Material.rock);
         this.setHardness(2.5f);
@@ -44,16 +47,8 @@ public class BlockSlot extends BlockContainer {
         }
     }
 
-    public boolean onBlockActivated(
-            final World world,
-            final int x,
-            final int y,
-            final int z,
-            final EntityPlayer player,
-            final int p_149727_6_,
-            final float p_149727_7_,
-            final float p_149727_8_,
-            final float p_149727_9_) {
+    public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player,
+            final int p_149727_6_, final float p_149727_7_, final float p_149727_8_, final float p_149727_9_) {
         final TileSlot tco = (TileSlot) world.getTileEntity(x, y, z);
         final ItemStack theItem = player.getHeldItem();
         if (tco.hasKeystone) {
@@ -68,13 +63,12 @@ public class BlockSlot extends BlockContainer {
             } else if (!tco.portalOpen && player.getHeldItem().getItem() instanceof ItemWandCasting) {
                 tco.makePortal(player);
             }
-        } else if (theItem != null
-                && theItem.getItem() == ThaumicHorizons.itemKeystone
+        } else if (theItem != null && theItem.getItem() == ThaumicHorizons.itemKeystone
                 && theItem.stackTagCompound != null) {
-            tco.insertKeystone(theItem.stackTagCompound.getInteger("dimension"));
-            final ItemStack itemStack = theItem;
-            --itemStack.stackSize;
-        }
+                    tco.insertKeystone(theItem.stackTagCompound.getInteger("dimension"));
+                    final ItemStack itemStack = theItem;
+                    --itemStack.stackSize;
+                }
         world.markBlockForUpdate(x, y, z);
         return false;
     }

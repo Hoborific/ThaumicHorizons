@@ -4,13 +4,15 @@
 
 package com.kentington.thaumichorizons.common.container;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class InventoryInjector implements IInventory {
+
     private ItemStack[] stackList;
     private Container eventHandler;
 

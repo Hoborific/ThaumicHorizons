@@ -4,10 +4,8 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,13 +16,20 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemFocusIllumination extends ItemFocusBasic {
+
     public static FocusUpgradeType solar;
     public static final int[] colors;
     private static final AspectList cost;
@@ -85,19 +90,19 @@ public class ItemFocusIllumination extends ItemFocusBasic {
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
             case 1: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal };
             }
             case 2: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal };
             }
             case 3: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal, ItemFocusIllumination.solar};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal, ItemFocusIllumination.solar };
             }
             case 4: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal };
             }
             case 5: {
-                return new FocusUpgradeType[] {FocusUpgradeType.frugal};
+                return new FocusUpgradeType[] { FocusUpgradeType.frugal };
             }
             default: {
                 return null;
@@ -106,8 +111,8 @@ public class ItemFocusIllumination extends ItemFocusBasic {
     }
 
     @Override
-    public ItemStack onFocusRightClick(
-            final ItemStack itemstack, final World world, final EntityPlayer player, final MovingObjectPosition mop) {
+    public ItemStack onFocusRightClick(final ItemStack itemstack, final World world, final EntityPlayer player,
+            final MovingObjectPosition mop) {
         final ItemWandCasting wand = (ItemWandCasting) itemstack.getItem();
         if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
             int x = mop.blockX;
@@ -174,10 +179,8 @@ public class ItemFocusIllumination extends ItemFocusBasic {
                 "focus.upgrade.solar.name",
                 "focus.upgrade.solar.text",
                 new AspectList().add(Aspect.ORDER, 8).add(Aspect.VOID, 4));
-        colors = new int[] {
-            1973019, 11743532, 3887386, 5320730, 2437522, 8073150, 2651799, 11250603, 4408131, 14188952, 4312372,
-            14602026, 6719955, 12801229, 15435844, 15790320
-        };
+        colors = new int[] { 1973019, 11743532, 3887386, 5320730, 2437522, 8073150, 2651799, 11250603, 4408131,
+                14188952, 4312372, 14602026, 6719955, 12801229, 15435844, 15790320 };
         cost = new AspectList().add(Aspect.FIRE, 100).add(Aspect.AIR, 100);
         icons = new IIcon[16];
     }

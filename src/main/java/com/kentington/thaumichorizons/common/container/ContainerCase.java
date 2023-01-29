@@ -4,8 +4,6 @@
 
 package com.kentington.thaumichorizons.common.container;
 
-import com.kentington.thaumichorizons.common.items.lenses.ILens;
-import com.kentington.thaumichorizons.common.items.lenses.ItemLensCase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -13,9 +11,14 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
 import thaumcraft.common.container.SlotLimitedByClass;
 
+import com.kentington.thaumichorizons.common.items.lenses.ILens;
+import com.kentington.thaumichorizons.common.items.lenses.ItemLensCase;
+
 public class ContainerCase extends Container {
+
     private World worldObj;
     private int posX;
     private int posY;
@@ -25,8 +28,8 @@ public class ContainerCase extends Container {
     ItemStack pouch;
     EntityPlayer player;
 
-    public ContainerCase(
-            final InventoryPlayer iinventory, final World par2World, final int par3, final int par4, final int par5) {
+    public ContainerCase(final InventoryPlayer iinventory, final World par2World, final int par3, final int par4,
+            final int par5) {
         this.input = (IInventory) new InventoryCase(this);
         this.pouch = null;
         this.player = null;
@@ -38,15 +41,19 @@ public class ContainerCase extends Container {
         this.pouch = iinventory.getCurrentItem();
         this.blockSlot = iinventory.currentItem + 45;
         for (int a = 0; a < 18; ++a) {
-            this.addSlotToContainer((Slot)
-                    new SlotLimitedByClass((Class) ILens.class, this.input, a, 37 + a % 6 * 18, 51 + a / 6 * 18));
+            this.addSlotToContainer(
+                    (Slot) new SlotLimitedByClass(
+                            (Class) ILens.class,
+                            this.input,
+                            a,
+                            37 + a % 6 * 18,
+                            51 + a / 6 * 18));
         }
         this.bindPlayerInventory(iinventory);
         if (!par2World.isRemote) {
             try {
                 ((InventoryCase) this.input).stackList = ((ItemLensCase) this.pouch.getItem()).getInventory(this.pouch);
-            } catch (Exception ex) {
-            }
+            } catch (Exception ex) {}
         }
         this.onCraftMatrixChanged(this.input);
     }
@@ -79,8 +86,8 @@ public class ContainerCase extends Container {
                 }
             } else if (!this.input.isItemValidForSlot(slot, stackInSlot)
                     || !this.mergeItemStack(stackInSlot, 0, 18, false)) {
-                return null;
-            }
+                        return null;
+                    }
             if (stackInSlot.stackSize == 0) {
                 slotObject.putStack((ItemStack) null);
             } else {

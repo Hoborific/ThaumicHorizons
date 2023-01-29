@@ -7,11 +7,13 @@ package com.kentington.thaumichorizons.common.lib;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 
 public class WorldChunkManagerPocketPlane extends WorldChunkManager {
+
     private BiomeGenBase biomeGenerator;
     private float rainfall;
 
@@ -24,12 +26,8 @@ public class WorldChunkManagerPocketPlane extends WorldChunkManager {
         return this.biomeGenerator;
     }
 
-    public BiomeGenBase[] getBiomesForGeneration(
-            BiomeGenBase[] p_76937_1_,
-            final int p_76937_2_,
-            final int p_76937_3_,
-            final int p_76937_4_,
-            final int p_76937_5_) {
+    public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] p_76937_1_, final int p_76937_2_, final int p_76937_3_,
+            final int p_76937_4_, final int p_76937_5_) {
         if (p_76937_1_ == null || p_76937_1_.length < p_76937_4_ * p_76937_5_) {
             p_76937_1_ = new BiomeGenBase[p_76937_4_ * p_76937_5_];
         }
@@ -37,11 +35,7 @@ public class WorldChunkManagerPocketPlane extends WorldChunkManager {
         return p_76937_1_;
     }
 
-    public float[] getRainfall(
-            float[] p_76936_1_,
-            final int p_76936_2_,
-            final int p_76936_3_,
-            final int p_76936_4_,
+    public float[] getRainfall(float[] p_76936_1_, final int p_76936_2_, final int p_76936_3_, final int p_76936_4_,
             final int p_76936_5_) {
         if (p_76936_1_ == null || p_76936_1_.length < p_76936_4_ * p_76936_5_) {
             p_76936_1_ = new float[p_76936_4_ * p_76936_5_];
@@ -50,12 +44,8 @@ public class WorldChunkManagerPocketPlane extends WorldChunkManager {
         return p_76936_1_;
     }
 
-    public BiomeGenBase[] loadBlockGeneratorData(
-            BiomeGenBase[] p_76933_1_,
-            final int p_76933_2_,
-            final int p_76933_3_,
-            final int p_76933_4_,
-            final int p_76933_5_) {
+    public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] p_76933_1_, final int p_76933_2_, final int p_76933_3_,
+            final int p_76933_4_, final int p_76933_5_) {
         if (p_76933_1_ == null || p_76933_1_.length < p_76933_4_ * p_76933_5_) {
             p_76933_1_ = new BiomeGenBase[p_76933_4_ * p_76933_5_];
         }
@@ -63,22 +53,13 @@ public class WorldChunkManagerPocketPlane extends WorldChunkManager {
         return p_76933_1_;
     }
 
-    public BiomeGenBase[] getBiomeGenAt(
-            final BiomeGenBase[] p_76931_1_,
-            final int p_76931_2_,
-            final int p_76931_3_,
-            final int p_76931_4_,
-            final int p_76931_5_,
-            final boolean p_76931_6_) {
+    public BiomeGenBase[] getBiomeGenAt(final BiomeGenBase[] p_76931_1_, final int p_76931_2_, final int p_76931_3_,
+            final int p_76931_4_, final int p_76931_5_, final boolean p_76931_6_) {
         return this.loadBlockGeneratorData(p_76931_1_, p_76931_2_, p_76931_3_, p_76931_4_, p_76931_5_);
     }
 
-    public ChunkPosition findBiomePosition(
-            final int p_150795_1_,
-            final int p_150795_2_,
-            final int p_150795_3_,
-            final List p_150795_4_,
-            final Random p_150795_5_) {
+    public ChunkPosition findBiomePosition(final int p_150795_1_, final int p_150795_2_, final int p_150795_3_,
+            final List p_150795_4_, final Random p_150795_5_) {
         return p_150795_4_.contains(this.biomeGenerator)
                 ? new ChunkPosition(
                         p_150795_1_ - p_150795_3_ + p_150795_5_.nextInt(p_150795_3_ * 2 + 1),
@@ -87,8 +68,8 @@ public class WorldChunkManagerPocketPlane extends WorldChunkManager {
                 : null;
     }
 
-    public boolean areBiomesViable(
-            final int p_76940_1_, final int p_76940_2_, final int p_76940_3_, final List p_76940_4_) {
+    public boolean areBiomesViable(final int p_76940_1_, final int p_76940_2_, final int p_76940_3_,
+            final List p_76940_4_) {
         return p_76940_4_.contains(this.biomeGenerator);
     }
 }

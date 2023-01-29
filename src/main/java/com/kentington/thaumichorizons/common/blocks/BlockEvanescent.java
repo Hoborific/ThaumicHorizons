@@ -4,16 +4,19 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockEvanescent extends Block {
+
     public BlockEvanescent() {
         super(Material.glass);
         this.setHardness(Float.MAX_VALUE);
@@ -40,8 +43,8 @@ public class BlockEvanescent extends Block {
         ThaumicHorizons.instance.renderEventHandler.resetBlocks((EntityPlayer) Minecraft.getMinecraft().thePlayer);
     }
 
-    public boolean canPlaceBlockAt(
-            final World p_149742_1_, final int p_149742_2_, final int p_149742_3_, final int p_149742_4_) {
+    public boolean canPlaceBlockAt(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,
+            final int p_149742_4_) {
         return false;
     }
 }

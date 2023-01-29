@@ -4,12 +4,12 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.IWandTriggerManager;
@@ -17,17 +17,13 @@ import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.research.ResearchManager;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class WandManagerTH implements IWandTriggerManager {
+
     @Override
-    public boolean performTrigger(
-            final World world,
-            final ItemStack wand,
-            final EntityPlayer player,
-            final int x,
-            final int y,
-            final int z,
-            final int side,
-            final int event) {
+    public boolean performTrigger(final World world, final ItemStack wand, final EntityPlayer player, final int x,
+            final int y, final int z, final int side, final int event) {
         switch (event) {
             case 0: {
                 if (ResearchManager.isResearchComplete(player.getCommandSenderName(), "healingVat")) {
@@ -39,28 +35,18 @@ public class WandManagerTH implements IWandTriggerManager {
         return false;
     }
 
-    boolean constructVat(
-            final World world,
-            final ItemStack itemstack,
-            final EntityPlayer player,
-            final int x,
-            final int y,
-            final int z,
-            final int side) {
+    boolean constructVat(final World world, final ItemStack itemstack, final EntityPlayer player, final int x,
+            final int y, final int z, final int side) {
         final ItemWandCasting wand = (ItemWandCasting) itemstack.getItem();
         for (int xx = x - 2; xx <= x; ++xx) {
             for (int yy = y - 3; yy <= y; ++yy) {
                 int zz = z - 2;
                 while (zz <= z) {
-                    if (this.fitVat(world, xx, yy, zz)
-                            && wand.consumeAllVisCrafting(
-                                    itemstack,
-                                    player,
-                                    new AspectList()
-                                            .add(Aspect.WATER, 50)
-                                            .add(Aspect.EARTH, 50)
-                                            .add(Aspect.ORDER, 50),
-                                    true)) {
+                    if (this.fitVat(world, xx, yy, zz) && wand.consumeAllVisCrafting(
+                            itemstack,
+                            player,
+                            new AspectList().add(Aspect.WATER, 50).add(Aspect.EARTH, 50).add(Aspect.ORDER, 50),
+                            true)) {
                         if (!world.isRemote) {
                             this.replaceVat(world, xx, yy, zz);
                             return true;
@@ -80,12 +66,9 @@ public class WandManagerTH implements IWandTriggerManager {
         final Block w = Blocks.water;
         final Block p = ConfigBlocks.blockWoodenDevice;
         final Block a = ConfigBlocks.blockMetalDevice;
-        final Block[][][] blueprint = {
-            {{p, p, p}, {p, a, p}, {p, p, p}},
-            {{g, g, g}, {g, w, g}, {g, g, g}},
-            {{g, g, g}, {g, w, g}, {g, g, g}},
-            {{p, p, p}, {p, a, p}, {p, p, p}}
-        };
+        final Block[][][] blueprint = { { { p, p, p }, { p, a, p }, { p, p, p } },
+                { { g, g, g }, { g, w, g }, { g, g, g } }, { { g, g, g }, { g, w, g }, { g, g, g } },
+                { { p, p, p }, { p, a, p }, { p, p, p } } };
         for (int yy = 0; yy < 4; ++yy) {
             for (int xx = 0; xx < 3; ++xx) {
                 for (int zz = 0; zz < 3; ++zz) {
@@ -115,11 +98,9 @@ public class WandManagerTH implements IWandTriggerManager {
                     } else if (world.getBlock(x + xx, y + yy, z + zz) == Blocks.glass) {
                         md = 10;
                     } else if (world.getBlock(x + xx, y + yy, z + zz) == ConfigBlocks.blockWoodenDevice) {
-                        if (yy == 0
-                                && ((xx == 1 && zz == 0)
-                                        || (xx == 1 && zz == 2)
-                                        || (xx == 0 && zz == 1)
-                                        || (xx == 2 && zz == 1))) {
+                        if (yy == 0 && ((xx == 1 && zz == 0) || (xx == 1 && zz == 2)
+                                || (xx == 0 && zz == 1)
+                                || (xx == 2 && zz == 1))) {
                             md = 4;
                         } else {
                             md = 5;

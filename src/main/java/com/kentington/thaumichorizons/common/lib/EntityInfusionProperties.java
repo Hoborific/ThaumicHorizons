@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.common.lib;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,9 +11,13 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
+
 import thaumcraft.api.aspects.AspectList;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class EntityInfusionProperties implements IExtendedEntityProperties {
+
     public static final String EXT_PROP_NAME = "CreatureInfusion";
     public static final int NUM_INFUSIONS = 12;
     public int[] infusions;
@@ -78,13 +81,11 @@ public class EntityInfusionProperties implements IExtendedEntityProperties {
             this.toggleClimb = properties.getBoolean("toggleClimb");
             this.toggleInvisible = properties.getBoolean("toggleInvisible");
             this.infusionCosts.readFromNBT(properties.getCompoundTag("InfusionCosts"));
-            if (!this.infusionsApplied
-                    && this.entity instanceof EntityLivingBase
+            if (!this.infusionsApplied && this.entity instanceof EntityLivingBase
                     && !(this.entity instanceof EntityPlayer)) {
                 ThaumicHorizons.instance.eventHandlerEntity.applyInfusions((EntityLivingBase) this.entity);
                 this.infusionsApplied = true;
-            } else if (this.infusionsApplied || this.entity instanceof EntityPlayer) {
-            }
+            } else if (this.infusionsApplied || this.entity instanceof EntityPlayer) {}
         }
     }
 

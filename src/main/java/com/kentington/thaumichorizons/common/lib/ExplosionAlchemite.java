@@ -4,8 +4,6 @@
 
 package com.kentington.thaumichorizons.common.lib;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityItemInvulnerable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentProtection;
@@ -29,6 +28,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -41,7 +41,11 @@ import thaumcraft.common.items.ItemCrystalEssence;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.TileNode;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityItemInvulnerable;
+
 public class ExplosionAlchemite extends Explosion {
+
     public boolean isFlaming;
     public boolean isSmoking;
     private int field_77289_h;
@@ -54,15 +58,9 @@ public class ExplosionAlchemite extends Explosion {
     public float explosionSize;
     public List<ChunkPosition> affectedBlockPositions;
     private Map field_77288_k;
-    private static final String __OBFID = "CL_00000134";
 
-    public ExplosionAlchemite(
-            final World p_i1948_1_,
-            final Entity p_i1948_2_,
-            final double p_i1948_3_,
-            final double p_i1948_5_,
-            final double p_i1948_7_,
-            final float p_i1948_9_) {
+    public ExplosionAlchemite(final World p_i1948_1_, final Entity p_i1948_2_, final double p_i1948_3_,
+            final double p_i1948_5_, final double p_i1948_7_, final float p_i1948_9_) {
         super(p_i1948_1_, p_i1948_2_, p_i1948_3_, p_i1948_5_, p_i1948_7_, p_i1948_9_);
         this.isSmoking = true;
         this.field_77289_h = 16;
@@ -83,8 +81,7 @@ public class ExplosionAlchemite extends Explosion {
         for (int i = 0; i < this.field_77289_h; ++i) {
             for (int j = 0; j < this.field_77289_h; ++j) {
                 for (int k = 0; k < this.field_77289_h; ++k) {
-                    if (i == 0
-                            || i == this.field_77289_h - 1
+                    if (i == 0 || i == this.field_77289_h - 1
                             || j == 0
                             || j == this.field_77289_h - 1
                             || k == 0
@@ -110,8 +107,8 @@ public class ExplosionAlchemite extends Explosion {
                                 hashset.add(new ChunkPosition(j2, k2, l1));
                             } else if (block.getMaterial() != Material.air) {
                                 final float f4 = (this.exploder != null)
-                                        ? this.exploder.func_145772_a(
-                                                (Explosion) this, this.worldObj, j2, k2, l1, block)
+                                        ? this.exploder
+                                                .func_145772_a((Explosion) this, this.worldObj, j2, k2, l1, block)
                                         : block.getExplosionResistance(
                                                 this.exploder,
                                                 this.worldObj,
@@ -123,10 +120,8 @@ public class ExplosionAlchemite extends Explosion {
                                                 this.explosionZ);
                                 f2 -= (f4 + 0.3f) * f3;
                             }
-                            if (f2 > 0.0f
-                                    && (this.exploder == null
-                                            || this.exploder.func_145774_a(
-                                                    (Explosion) this, this.worldObj, j2, k2, l1, block, f2))) {
+                            if (f2 > 0.0f && (this.exploder == null || this.exploder
+                                    .func_145774_a((Explosion) this, this.worldObj, j2, k2, l1, block, f2))) {
                                 hashset.add(new ChunkPosition(j2, k2, l1));
                             }
                             d5 += d0 * f3;
@@ -151,8 +146,8 @@ public class ExplosionAlchemite extends Explosion {
         final Vec3 vec3 = Vec3.createVectorHelper(this.explosionX, this.explosionY, this.explosionZ);
         for (int i3 = 0; i3 < list.size(); ++i3) {
             final Entity entity = (Entity) list.get(i3);
-            final double d8 =
-                    entity.getDistance(this.explosionX, this.explosionY, this.explosionZ) / this.explosionSize;
+            final double d8 = entity.getDistance(this.explosionX, this.explosionY, this.explosionZ)
+                    / this.explosionSize;
             if (d8 <= 1.0) {
                 double d5 = entity.posX - this.explosionX;
                 double d6 = entity.posY + entity.getEyeHeight() - this.explosionY;
@@ -164,8 +159,9 @@ public class ExplosionAlchemite extends Explosion {
                     d7 /= d9;
                     final double d10 = this.worldObj.getBlockDensity(vec3, entity.boundingBox);
                     final double d11 = (1.0 - d8) * d10;
-                    entity.attackEntityFrom(DamageSourceThaumcraft.dissolve, (float)
-                            (int) ((d11 * d11 + d11) / 2.0 * 16.0 * this.explosionSize + 1.0));
+                    entity.attackEntityFrom(
+                            DamageSourceThaumcraft.dissolve,
+                            (float) (int) ((d11 * d11 + d11) / 2.0 * 16.0 * this.explosionSize + 1.0));
                     final double d12 = EnchantmentProtection.func_92092_a(entity, d11);
                     final Entity entity2 = entity;
                     entity2.motionX += d5 * d12;
@@ -191,11 +187,11 @@ public class ExplosionAlchemite extends Explosion {
                 4.0f,
                 (1.0f + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.2f) * 0.7f);
         if (this.explosionSize >= 2.0f && this.isSmoking) {
-            this.worldObj.spawnParticle(
-                    "hugeexplosion", this.explosionX, this.explosionY, this.explosionZ, 1.0, 0.0, 0.0);
+            this.worldObj
+                    .spawnParticle("hugeexplosion", this.explosionX, this.explosionY, this.explosionZ, 1.0, 0.0, 0.0);
         } else {
-            this.worldObj.spawnParticle(
-                    "largeexplode", this.explosionX, this.explosionY, this.explosionZ, 1.0, 0.0, 0.0);
+            this.worldObj
+                    .spawnParticle("largeexplode", this.explosionX, this.explosionY, this.explosionZ, 1.0, 0.0, 0.0);
         }
         ThaumicHorizons.proxy.alchemiteFX(this.worldObj, this.explosionX, this.explosionY, this.explosionZ);
         if (this.isSmoking) {
@@ -212,8 +208,9 @@ public class ExplosionAlchemite extends Explosion {
                         final AspectList aspects = node.getAspects();
                         if (aspects != null) {
                             for (final Aspect asp : aspects.getAspects()) {
-                                final ItemStack stack =
-                                        new ItemStack(ConfigItems.itemCrystalEssence, aspects.getAmount(asp));
+                                final ItemStack stack = new ItemStack(
+                                        ConfigItems.itemCrystalEssence,
+                                        aspects.getAmount(asp));
                                 ((ItemCrystalEssence) stack.getItem()).setAspects(stack, new AspectList().add(asp, 1));
                                 this.worldObj.spawnEntityInWorld(
                                         (Entity) new EntityItemInvulnerable(this.worldObj, i, j, k, stack));
@@ -231,12 +228,13 @@ public class ExplosionAlchemite extends Explosion {
                     if (block.getMaterial() == Material.air) {
                         continue;
                     }
-                    final AspectList aspects =
-                            this.getAspects(Item.getItemFromBlock(block), this.worldObj.getBlockMetadata(i, j, k));
+                    final AspectList aspects = this
+                            .getAspects(Item.getItemFromBlock(block), this.worldObj.getBlockMetadata(i, j, k));
                     if (aspects != null && aspects.size() > 0) {
                         for (final Aspect asp2 : aspects.getAspects()) {
-                            final ItemStack stack =
-                                    new ItemStack(ConfigItems.itemCrystalEssence, aspects.getAmount(asp2));
+                            final ItemStack stack = new ItemStack(
+                                    ConfigItems.itemCrystalEssence,
+                                    aspects.getAmount(asp2));
                             ((ItemCrystalEssence) stack.getItem()).setAspects(stack, new AspectList().add(asp2, 1));
                             this.worldObj.spawnEntityInWorld(
                                     (Entity) new EntityItemInvulnerable(this.worldObj, i, j, k, stack));
@@ -244,7 +242,13 @@ public class ExplosionAlchemite extends Explosion {
                         ThaumicHorizons.proxy.disintegrateExplodeFX(this.worldObj, i, j, k);
                     } else {
                         block.dropBlockAsItemWithChance(
-                                this.worldObj, i, j, k, this.worldObj.getBlockMetadata(i, j, k), 1.0f, 0);
+                                this.worldObj,
+                                i,
+                                j,
+                                k,
+                                this.worldObj.getBlockMetadata(i, j, k),
+                                1.0f,
+                                0);
                     }
                     block.onBlockExploded(this.worldObj, i, j, k, (Explosion) this);
                 }
@@ -257,8 +261,7 @@ public class ExplosionAlchemite extends Explosion {
                 final int k = chunkposition.chunkPosZ;
                 final Block block = this.worldObj.getBlock(i, j, k);
                 final Block block2 = this.worldObj.getBlock(i, j - 1, k);
-                if (block.getMaterial() == Material.air
-                        && block2.func_149730_j()
+                if (block.getMaterial() == Material.air && block2.func_149730_j()
                         && this.explosionRNG.nextInt(3) == 0) {
                     this.worldObj.setBlock(i, j, k, (Block) Blocks.fire);
                 }
@@ -287,11 +290,9 @@ public class ExplosionAlchemite extends Explosion {
     }
 
     public EntityLivingBase getExplosivePlacedBy() {
-        return (this.exploder == null)
-                ? null
-                : (EntityLivingBase)
-                        ((this.exploder instanceof EntityTNTPrimed)
-                                ? ((EntityTNTPrimed) this.exploder).getTntPlacedBy()
-                                : ((this.exploder instanceof EntityLivingBase) ? this.exploder : null));
+        return (this.exploder == null) ? null
+                : (EntityLivingBase) ((this.exploder instanceof EntityTNTPrimed)
+                        ? ((EntityTNTPrimed) this.exploder).getTntPlacedBy()
+                        : ((this.exploder instanceof EntityLivingBase) ? this.exploder : null));
     }
 }

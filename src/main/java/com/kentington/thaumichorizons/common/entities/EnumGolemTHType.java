@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum EnumGolemTHType {
+
     GRASS(10, 0, 0.38f, false, 2, 1, 75, 0, 750),
     DIRT(10, 0, 0.38f, false, 1, 1, 75, 0, 500),
     WOOD(20, 6, 0.35f, false, 2, 4, 75, 1, 750),
@@ -36,16 +37,8 @@ public enum EnumGolemTHType {
     public final int visCost;
     private static Map<Integer, EnumGolemTHType> codeToTypeMapping;
 
-    private EnumGolemTHType(
-            final int health,
-            final int armor,
-            final float speed,
-            final boolean fireResist,
-            final int upgrades,
-            final int carry,
-            final int regenDelay,
-            final int strength,
-            final int special) {
+    private EnumGolemTHType(final int health, final int armor, final float speed, final boolean fireResist,
+            final int upgrades, final int carry, final int regenDelay, final int strength, final int special) {
         this.health = health;
         this.armor = armor;
         this.speed = speed;

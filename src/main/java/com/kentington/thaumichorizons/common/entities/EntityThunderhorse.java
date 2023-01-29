@@ -4,8 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -18,7 +16,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 public class EntityThunderhorse extends EntityHorse {
+
     boolean initialized;
     boolean flying;
 
@@ -106,8 +108,8 @@ public class EntityThunderhorse extends EntityHorse {
             this.stepHeight = 1.0f;
             this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1f;
             if (!this.worldObj.isRemote) {
-                this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.movementSpeed)
-                        .getAttributeValue());
+                this.setAIMoveSpeed(
+                        (float) this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
                 super.moveEntityWithHeading(p_70612_1_, p_70612_2_);
             }
             if (this.onGround) {

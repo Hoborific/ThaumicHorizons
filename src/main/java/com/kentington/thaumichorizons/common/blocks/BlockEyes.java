@@ -4,14 +4,18 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+
 import thaumcraft.common.config.Config;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class BlockEyes extends Block {
+
     public BlockEyes() {
         super(Config.taintMaterial);
         this.setHardness(0.5f);

@@ -11,10 +11,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
 public class ItemCorpseEffigyRender implements IItemRenderer {
+
     private ModelBiped corpse;
     private String tx1;
 
@@ -27,9 +30,7 @@ public class ItemCorpseEffigyRender implements IItemRenderer {
         return true;
     }
 
-    public boolean shouldUseRenderHelper(
-            final IItemRenderer.ItemRenderType type,
-            final ItemStack item,
+    public boolean shouldUseRenderHelper(final IItemRenderer.ItemRenderType type, final ItemStack item,
             final IItemRenderer.ItemRendererHelper helper) {
         return helper != IItemRenderer.ItemRendererHelper.BLOCK_3D;
     }

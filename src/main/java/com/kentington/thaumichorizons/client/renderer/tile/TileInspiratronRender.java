@@ -4,18 +4,22 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.client.renderer.model.ModelInspiratron;
-import com.kentington.thaumichorizons.common.tiles.TileInspiratron;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.models.ModelBrain;
 import thaumcraft.client.renderers.models.ModelJar;
 
+import com.kentington.thaumichorizons.client.renderer.model.ModelInspiratron;
+import com.kentington.thaumichorizons.common.tiles.TileInspiratron;
+
 public class TileInspiratronRender extends TileEntitySpecialRenderer {
+
     private ModelJar model;
     private ModelBrain brain;
     private ModelInspiratron inspiratron;
@@ -27,8 +31,8 @@ public class TileInspiratronRender extends TileEntitySpecialRenderer {
         this.inspiratron = new ModelInspiratron();
     }
 
-    public void renderTileEntityAt(
-            final TileEntity tile, final double x, final double y, final double z, final float f) {
+    public void renderTileEntityAt(final TileEntity tile, final double x, final double y, final double z,
+            final float f) {
         GL11.glPushMatrix();
         GL11.glDisable(2884);
         GL11.glTranslatef((float) x + 0.5f, (float) y, (float) z + 0.5f);

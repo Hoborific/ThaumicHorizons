@@ -8,6 +8,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 
 public class MaterialPortalTH extends Material {
+
     public MaterialPortalTH(final MapColor p_i2118_1_) {
         super(p_i2118_1_);
         this.setImmovableMobility();

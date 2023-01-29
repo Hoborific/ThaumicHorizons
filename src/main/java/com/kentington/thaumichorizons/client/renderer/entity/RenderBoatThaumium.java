@@ -4,12 +4,14 @@
 
 package com.kentington.thaumichorizons.client.renderer.entity;
 
-import com.kentington.thaumichorizons.common.entities.EntityBoatThaumium;
 import net.minecraft.client.renderer.entity.RenderBoat;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
+import com.kentington.thaumichorizons.common.entities.EntityBoatThaumium;
+
 public class RenderBoatThaumium extends RenderBoat {
+
     private static final ResourceLocation boatTextures;
 
     protected ResourceLocation getEntityTexture(final EntityBoatThaumium p_110775_1_) {

@@ -4,9 +4,6 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.common.tiles.TileTransductionAmplifier;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -16,11 +13,19 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
+
+import com.kentington.thaumichorizons.common.tiles.TileTransductionAmplifier;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
+
     private IModelCustom model;
     private static final ResourceLocation MODEL;
 
@@ -28,18 +33,16 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
         this.model = AdvancedModelLoader.loadModel(TileTransductionAmplifierRender.MODEL);
     }
 
-    public void renderTileEntityAt(
-            final TileTransductionAmplifier tile,
-            final double par2,
-            final double par4,
-            final double par6,
-            final float par8) {
+    public void renderTileEntityAt(final TileTransductionAmplifier tile, final double par2, final double par4,
+            final double par6, final float par8) {
         int bright = 20;
         GL11.glPushMatrix();
         if (tile.getWorldObj() != null) {
-            bright = tile.getBlockType()
-                    .getMixedBrightnessForBlock(
-                            (IBlockAccess) tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
+            bright = tile.getBlockType().getMixedBrightnessForBlock(
+                    (IBlockAccess) tile.getWorldObj(),
+                    tile.xCoord,
+                    tile.yCoord,
+                    tile.zCoord);
             tile.direction = (byte) tile.getBlockMetadata();
             if (tile.direction == 3) {
                 GL11.glTranslatef((float) par2 + 0.5f, (float) par4 + 0.5f, (float) par6 + 1.0f);
@@ -63,8 +66,8 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
         this.model.renderPart("lock");
         GL11.glColor4f(0.8f, 0.8f, 0.0f, 1.0f);
         if (tile.getWorldObj() != null) {
-            final float scale =
-                    MathHelper.sin(Minecraft.getMinecraft().renderViewEntity.ticksExisted / 3.0f) * 0.1f + 0.9f;
+            final float scale = MathHelper.sin(Minecraft.getMinecraft().renderViewEntity.ticksExisted / 3.0f) * 0.1f
+                    + 0.9f;
             final int j = 50 + (int) (170.0f * (v * 2.5f * scale));
             final int k = j % 65536;
             final int l = j / 65536;
@@ -88,9 +91,8 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
             this.model.renderPart("piston");
             GL11.glColor4f(0.8f, 0.8f, 0.0f, 1.0f);
             if (tile.getWorldObj() != null) {
-                final float scale2 =
-                        MathHelper.sin((Minecraft.getMinecraft().renderViewEntity.ticksExisted + a * 5) / 3.0f) * 0.1f
-                                + 0.9f;
+                final float scale2 = MathHelper
+                        .sin((Minecraft.getMinecraft().renderViewEntity.ticksExisted + a * 5) / 3.0f) * 0.1f + 0.9f;
                 final int i = 50 + (int) (170.0f * (v * 2.5f * scale2));
                 final int m = i % 65536;
                 final int l2 = i / 65536;
@@ -104,12 +106,8 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
         GL11.glPopMatrix();
     }
 
-    public void renderTileEntityAt(
-            final TileEntity par1TileEntity,
-            final double par2,
-            final double par4,
-            final double par6,
-            final float par8) {
+    public void renderTileEntityAt(final TileEntity par1TileEntity, final double par2, final double par4,
+            final double par6, final float par8) {
         this.renderTileEntityAt((TileTransductionAmplifier) par1TileEntity, par2, par4, par6, par8);
     }
 

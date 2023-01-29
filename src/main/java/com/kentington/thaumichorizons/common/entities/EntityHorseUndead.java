@@ -10,6 +10,7 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.world.World;
 
 public class EntityHorseUndead extends EntityHorse {
+
     public EntityHorseUndead(final World p_i1685_1_) {
         super(p_i1685_1_);
         this.setHorseType(3);
@@ -30,8 +31,6 @@ public class EntityHorseUndead extends EntityHorse {
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth)
-                .setBaseValue(this.getEntityAttribute(SharedMonsterAttributes.maxHealth)
-                                .getBaseValue()
-                        + 20.0);
+                .setBaseValue(this.getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue() + 20.0);
     }
 }

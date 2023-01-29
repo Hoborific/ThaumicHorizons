@@ -4,25 +4,31 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.common.tiles.TileVat;
-import com.kentington.thaumichorizons.common.tiles.TileVatMatrix;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.models.ModelCube;
 import thaumcraft.codechicken.lib.math.MathHelper;
 
+import com.kentington.thaumichorizons.common.tiles.TileVat;
+import com.kentington.thaumichorizons.common.tiles.TileVatMatrix;
+
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @SideOnly(Side.CLIENT)
 public class TileVatMatrixRender extends TileEntitySpecialRenderer {
+
     private ModelCube model;
     private ModelCube model_over;
     int type;
@@ -34,8 +40,8 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer {
         this.type = type;
     }
 
-    private void drawHalo(
-            final TileEntity is, final double x, final double y, final double z, final float par8, final int count) {
+    private void drawHalo(final TileEntity is, final double x, final double y, final double z, final float par8,
+            final int count) {
         GL11.glPushMatrix();
         GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
         final int q = FMLClientHandler.instance().getClient().gameSettings.fancyGraphics ? 20 : 10;
@@ -87,8 +93,8 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer {
         GL11.glPopMatrix();
     }
 
-    public void renderInfusionMatrix(
-            final TileVatMatrix tile, final double par2, final double par4, final double par6, final float par8) {
+    public void renderInfusionMatrix(final TileVatMatrix tile, final double par2, final double par4, final double par6,
+            final float par8) {
         final TileVat vat = tile.getVat();
         GL11.glPushMatrix();
         UtilsFX.bindTexture("textures/models/infuser.png");
@@ -185,10 +191,12 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer {
                     final int k = j % 65536;
                     final int l = j / 65536;
                     OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0f, l / 1.0f);
-                    GL11.glColor4f(0.8f, 0.1f, 1.0f, (float)
-                            ((MathHelper.sin((double) ((ticks + a * 2 + b4 * 3 + c * 4) / 4.0f)) * 0.10000000149011612
-                                            + 0.20000000298023224)
-                                    * startUp));
+                    GL11.glColor4f(
+                            0.8f,
+                            0.1f,
+                            1.0f,
+                            (float) ((MathHelper.sin((double) ((ticks + a * 2 + b4 * 3 + c * 4) / 4.0f))
+                                    * 0.10000000149011612 + 0.20000000298023224) * startUp));
                     this.model_over.render();
                     GL11.glPopMatrix();
                 }
@@ -203,12 +211,8 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer {
         }
     }
 
-    public void renderTileEntityAt(
-            final TileEntity par1TileEntity,
-            final double par2,
-            final double par4,
-            final double par6,
-            final float par8) {
+    public void renderTileEntityAt(final TileEntity par1TileEntity, final double par2, final double par4,
+            final double par6, final float par8) {
         this.renderInfusionMatrix((TileVatMatrix) par1TileEntity, par2, par4, par6, par8);
     }
 }

@@ -4,15 +4,19 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.client.renderer.model.ModelSoulforge;
-import com.kentington.thaumichorizons.common.tiles.TileSoulforge;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.models.ModelBrain;
 
+import com.kentington.thaumichorizons.client.renderer.model.ModelSoulforge;
+import com.kentington.thaumichorizons.common.tiles.TileSoulforge;
+
 public class TileSoulforgeRender extends TileEntitySpecialRenderer {
+
     private ModelBrain brain;
     private ModelSoulforge forge;
     static String tx1;
@@ -24,8 +28,8 @@ public class TileSoulforgeRender extends TileEntitySpecialRenderer {
         this.forge = new ModelSoulforge();
     }
 
-    public void renderTileEntityAt(
-            final TileEntity tile, final double x, final double y, final double z, final float f) {
+    public void renderTileEntityAt(final TileEntity tile, final double x, final double y, final double z,
+            final float f) {
         GL11.glPushMatrix();
         GL11.glDisable(2884);
         GL11.glTranslatef((float) x + 0.5f, (float) y, (float) z + 0.5f);

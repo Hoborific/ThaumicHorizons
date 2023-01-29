@@ -4,9 +4,6 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -24,7 +21,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemSyringeEmpty extends Item {
+
     @SideOnly(Side.CLIENT)
     public IIcon icon;
 
@@ -50,8 +53,7 @@ public class ItemSyringeEmpty extends Item {
         final Entity ent = ItemFocusContainment.getPointedEntity(world, (EntityLivingBase) p, 1.5);
         if (ent != null && ent instanceof EntityLiving && !(ent instanceof EntityPlayer)) {
             final EntityLiving critter = (EntityLiving) ent;
-            if (critter.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD
-                    && !(critter instanceof INpc)
+            if (critter.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD && !(critter instanceof INpc)
                     && !(critter instanceof IMerchant)
                     && (critter.isCreatureType(EnumCreatureType.creature, false)
                             || critter.isCreatureType(EnumCreatureType.ambient, false)

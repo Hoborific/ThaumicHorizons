@@ -9,6 +9,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class ModelSoulforge extends ModelBase {
+
     ModelRenderer BrainTank;
     ModelRenderer Neck;
     ModelRenderer SoulTank;
@@ -63,14 +64,8 @@ public class ModelSoulforge extends ModelBase {
         this.setRotation(this.Brine, 0.0f, 0.0f, 0.0f);
     }
 
-    public void render(
-            final Entity entity,
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5) {
+    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3,
+            final float f4, final float f5) {
         super.render(entity, f, f1, f2, f3, f4, f5);
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         this.BrainTank.render(f5);
@@ -88,14 +83,8 @@ public class ModelSoulforge extends ModelBase {
         model.rotateAngleZ = z;
     }
 
-    public void setRotationAngles(
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5,
-            final Entity entity) {
+    public void setRotationAngles(final float f, final float f1, final float f2, final float f3, final float f4,
+            final float f5, final Entity entity) {
         super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     }
 

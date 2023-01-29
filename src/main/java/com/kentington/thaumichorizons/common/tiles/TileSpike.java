@@ -5,9 +5,11 @@
 package com.kentington.thaumichorizons.common.tiles;
 
 import net.minecraft.nbt.NBTTagCompound;
+
 import thaumcraft.api.TileThaumcraft;
 
 public class TileSpike extends TileThaumcraft {
+
     public byte direction;
     public byte spikeType;
 

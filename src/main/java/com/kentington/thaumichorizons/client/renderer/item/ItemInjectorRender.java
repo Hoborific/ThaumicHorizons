@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.client.renderer.item;
 
-import com.kentington.thaumichorizons.client.renderer.model.ModelInjector;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -12,10 +11,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.client.renderer.model.ModelInjector;
+
 public class ItemInjectorRender implements IItemRenderer {
+
     private ModelBase injector;
     private String tx1;
 
@@ -28,9 +32,7 @@ public class ItemInjectorRender implements IItemRenderer {
         return true;
     }
 
-    public boolean shouldUseRenderHelper(
-            final IItemRenderer.ItemRenderType type,
-            final ItemStack item,
+    public boolean shouldUseRenderHelper(final IItemRenderer.ItemRenderType type, final ItemStack item,
             final IItemRenderer.ItemRendererHelper helper) {
         return helper != IItemRenderer.ItemRendererHelper.BLOCK_3D;
     }
@@ -77,7 +79,13 @@ public class ItemInjectorRender implements IItemRenderer {
         }
         UtilsFX.bindTexture(new ResourceLocation("thaumichorizons", this.tx1));
         this.injector.render(
-                (Entity) null, f * 3.1415927f / 16.0f, f * 3.1415927f / 4.0f, (float) rotation, f, 0.0f, 0.125f);
+                (Entity) null,
+                f * 3.1415927f / 16.0f,
+                f * 3.1415927f / 4.0f,
+                (float) rotation,
+                f,
+                0.0f,
+                0.125f);
         GL11.glPopMatrix();
     }
 }

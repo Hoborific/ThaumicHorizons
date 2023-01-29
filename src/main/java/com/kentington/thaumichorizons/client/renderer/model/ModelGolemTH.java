@@ -5,23 +5,20 @@
 package com.kentington.thaumichorizons.client.renderer.model;
 
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.renderers.models.entities.ModelGolem;
 import thaumcraft.common.entities.golems.EntityGolemBase;
 
 public class ModelGolemTH extends ModelGolem {
+
     public ModelGolemTH(final boolean p) {
         super(p);
     }
 
-    public void setRotationAngles(
-            final Entity en,
-            final float par1,
-            final float par2,
-            final float par3,
-            final float par4,
-            final float par5,
-            final float par6) {
+    public void setRotationAngles(final Entity en, final float par1, final float par2, final float par3,
+            final float par4, final float par5, final float par6) {
         int core = 0;
         if (en instanceof EntityGolemBase) {
             core = ((EntityGolemBase) en).getCore();

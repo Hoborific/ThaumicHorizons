@@ -4,19 +4,24 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.common.tiles.TileSoulJar;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.models.ModelJar;
 
+import com.kentington.thaumichorizons.common.tiles.TileSoulJar;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @SideOnly(Side.CLIENT)
 public class TileJarTHRenderer extends TileEntitySpecialRenderer {
+
     private ModelJar model;
     static String tx3;
 
@@ -24,8 +29,8 @@ public class TileJarTHRenderer extends TileEntitySpecialRenderer {
         this.model = new ModelJar();
     }
 
-    public void renderTileEntityAt(
-            final TileEntity tile, final double x, final double y, final double z, final float f) {
+    public void renderTileEntityAt(final TileEntity tile, final double x, final double y, final double z,
+            final float f) {
         if (!(tile instanceof TileSoulJar)) {
             return;
         }

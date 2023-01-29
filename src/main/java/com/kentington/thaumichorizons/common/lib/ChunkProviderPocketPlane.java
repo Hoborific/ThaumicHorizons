@@ -7,6 +7,7 @@ package com.kentington.thaumichorizons.common.lib;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.IProgressUpdate;
@@ -18,6 +19,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 
 public class ChunkProviderPocketPlane implements IChunkProvider {
+
     private Random rand;
     private World worldObj;
     private WorldType worldType;
@@ -46,8 +48,7 @@ public class ChunkProviderPocketPlane implements IChunkProvider {
                 }
             }
         }
-        this.biomesForGeneration = this.worldObj
-                .getWorldChunkManager()
+        this.biomesForGeneration = this.worldObj.getWorldChunkManager()
                 .loadBlockGeneratorData(this.biomesForGeneration, p_73154_1_ * 16, p_73154_2_ * 16, 16, 16);
         final Chunk chunk = new Chunk(this.worldObj, ablock, meta, p_73154_1_, p_73154_2_);
         final byte[] abyte = chunk.getBiomeArray();
@@ -80,17 +81,13 @@ public class ChunkProviderPocketPlane implements IChunkProvider {
         return "RandomLevelSource";
     }
 
-    public List getPossibleCreatures(
-            final EnumCreatureType p_73155_1_, final int p_73155_2_, final int p_73155_3_, final int p_73155_4_) {
+    public List getPossibleCreatures(final EnumCreatureType p_73155_1_, final int p_73155_2_, final int p_73155_3_,
+            final int p_73155_4_) {
         return new ArrayList();
     }
 
-    public ChunkPosition func_147416_a(
-            final World p_147416_1_,
-            final String p_147416_2_,
-            final int p_147416_3_,
-            final int p_147416_4_,
-            final int p_147416_5_) {
+    public ChunkPosition func_147416_a(final World p_147416_1_, final String p_147416_2_, final int p_147416_3_,
+            final int p_147416_4_, final int p_147416_5_) {
         return null;
     }
 

@@ -9,6 +9,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class BlockCloudItem extends ItemBlock {
+
     public BlockCloudItem(final Block block) {
         super(block);
         this.setHasSubtypes(true);

@@ -9,6 +9,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class ModelVortexAttenuator extends ModelBase {
+
     ModelRenderer Base;
     ModelRenderer Rod;
     ModelRenderer Ring_A1;
@@ -99,14 +100,8 @@ public class ModelVortexAttenuator extends ModelBase {
         this.setRotation(this.Ring_C4, 0.0f, 0.0f, 0.0f);
     }
 
-    public void render(
-            final Entity entity,
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5) {
+    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3,
+            final float f4, final float f5) {
         super.render(entity, f, f1, f2, f3, f4, f5);
         this.setRotationAngles(f, f1, f2, f3, f4, f5);
         this.Base.render(f5);
@@ -131,8 +126,8 @@ public class ModelVortexAttenuator extends ModelBase {
         model.rotateAngleZ = z;
     }
 
-    public void setRotationAngles(
-            final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+    public void setRotationAngles(final float f, final float f1, final float f2, final float f3, final float f4,
+            final float f5) {
         super.setRotationAngles(f, f1, f2, f3, f4, f5, (Entity) null);
     }
 }

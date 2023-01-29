@@ -4,14 +4,18 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.client.renderer.model.ModelVortexAttenuator;
-import com.kentington.thaumichorizons.common.tiles.TileVortexStabilizer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.client.renderer.model.ModelVortexAttenuator;
+import com.kentington.thaumichorizons.common.tiles.TileVortexStabilizer;
+
 public class TileVortexStabilizerRender extends TileEntitySpecialRenderer {
+
     private ModelVortexAttenuator model;
     static String tx1;
 
@@ -19,8 +23,8 @@ public class TileVortexStabilizerRender extends TileEntitySpecialRenderer {
         this.model = new ModelVortexAttenuator();
     }
 
-    public void renderTileEntityAt(
-            final TileEntity p_147500_1_, final double x, final double y, final double z, final float p_147500_8_) {
+    public void renderTileEntityAt(final TileEntity p_147500_1_, final double x, final double y, final double z,
+            final float p_147500_8_) {
         final TileVortexStabilizer te = (TileVortexStabilizer) p_147500_1_;
         GL11.glPushMatrix();
         GL11.glDisable(2884);

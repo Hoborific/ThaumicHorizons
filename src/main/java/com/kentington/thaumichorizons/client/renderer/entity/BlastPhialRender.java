@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.client.renderer.entity;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -14,9 +13,13 @@ import net.minecraft.item.Item;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class BlastPhialRender extends RenderSnowball {
+
     Item item;
 
     public BlastPhialRender() {
@@ -24,13 +27,8 @@ public class BlastPhialRender extends RenderSnowball {
         this.item = ThaumicHorizons.itemSyringeInjection;
     }
 
-    public void doRender(
-            final Entity p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final Entity p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         final IIcon iicon = this.item.getIconFromDamage(1);
         if (iicon != null) {
             GL11.glPushMatrix();

@@ -9,6 +9,7 @@ import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
 
 public class GatewayTeleporter extends Teleporter {
+
     private WorldServer worldServerInstance;
     private int x;
     private int y;
@@ -24,12 +25,8 @@ public class GatewayTeleporter extends Teleporter {
         this.yaw = yaw;
     }
 
-    public void placeInPortal(
-            final Entity p_77185_1_,
-            final double p_77185_2_,
-            final double p_77185_4_,
-            final double p_77185_6_,
-            final float p_77185_8_) {
+    public void placeInPortal(final Entity p_77185_1_, final double p_77185_2_, final double p_77185_4_,
+            final double p_77185_6_, final float p_77185_8_) {
         p_77185_1_.setPositionAndRotation(this.x + 0.5, (double) this.y, this.z + 0.5, this.yaw, 0.0f);
     }
 }

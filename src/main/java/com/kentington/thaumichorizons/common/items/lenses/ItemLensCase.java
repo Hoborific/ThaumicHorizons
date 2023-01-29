@@ -4,12 +4,8 @@
 
 package com.kentington.thaumichorizons.common.items.lenses;
 
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +19,16 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
+
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemLensCase extends Item implements IBauble {
+
     private IIcon icon;
 
     public ItemLensCase() {
@@ -54,8 +59,8 @@ public class ItemLensCase extends Item implements IBauble {
         return false;
     }
 
-    public ItemStack onItemRightClick(
-            final ItemStack par1ItemStack, final World par2World, final EntityPlayer par3EntityPlayer) {
+    public ItemStack onItemRightClick(final ItemStack par1ItemStack, final World par2World,
+            final EntityPlayer par3EntityPlayer) {
         if (!par2World.isRemote) {
             par3EntityPlayer.openGui(
                     (Object) ThaumicHorizons.instance,
@@ -69,8 +74,8 @@ public class ItemLensCase extends Item implements IBauble {
     }
 
     @SideOnly(Side.CLIENT)
-    public void addInformation(
-            final ItemStack item, final EntityPlayer par2EntityPlayer, final List list, final boolean par4) {
+    public void addInformation(final ItemStack item, final EntityPlayer par2EntityPlayer, final List list,
+            final boolean par4) {
         if (item.hasTagCompound()) {}
     }
 

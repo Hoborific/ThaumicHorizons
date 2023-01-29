@@ -4,11 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.lib.NightmareTeleporter;
-import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
-import com.kentington.thaumichorizons.common.lib.networking.PacketMountNightmare;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -23,7 +18,14 @@ import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.lib.NightmareTeleporter;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.networking.PacketMountNightmare;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+
 public class EntityNightmare extends EntityEndersteed {
+
     NightmareTeleporter nightmareTeleporterOverworld;
     NightmareTeleporter nightmareTeleporterNether;
 
@@ -31,10 +33,10 @@ public class EntityNightmare extends EntityEndersteed {
         super(p_i1685_1_);
         this.isImmuneToFire = true;
         if (!p_i1685_1_.isRemote) {
-            this.nightmareTeleporterOverworld =
-                    new NightmareTeleporter(MinecraftServer.getServer().worldServerForDimension(0));
-            this.nightmareTeleporterNether =
-                    new NightmareTeleporter(MinecraftServer.getServer().worldServerForDimension(-1));
+            this.nightmareTeleporterOverworld = new NightmareTeleporter(
+                    MinecraftServer.getServer().worldServerForDimension(0));
+            this.nightmareTeleporterNether = new NightmareTeleporter(
+                    MinecraftServer.getServer().worldServerForDimension(-1));
         }
     }
 
@@ -56,8 +58,8 @@ public class EntityNightmare extends EntityEndersteed {
     }
 
     private void netherport(final int dim) {
-        this.worldObj.newExplosion(
-                (Entity) this, this.posX, this.posY + this.height / 2.0f, this.posZ, 2.0f, true, true);
+        this.worldObj
+                .newExplosion((Entity) this, this.posX, this.posY + this.height / 2.0f, this.posZ, 2.0f, true, true);
         EntityPlayerMP player = (EntityPlayerMP) this.riddenByEntity;
         player.mountEntity((Entity) null);
         Entity newNightmare;
@@ -87,19 +89,23 @@ public class EntityNightmare extends EntityEndersteed {
             this.isDead = false;
             this.worldObj.theProfiler.startSection("reposition");
             if (p_71027_1_ == -1) {
-                minecraftserver
-                        .getConfigurationManager()
-                        .transferEntityToWorld((Entity) this, j, worldserver, worldserver2, (Teleporter)
-                                this.nightmareTeleporterNether);
+                minecraftserver.getConfigurationManager().transferEntityToWorld(
+                        (Entity) this,
+                        j,
+                        worldserver,
+                        worldserver2,
+                        (Teleporter) this.nightmareTeleporterNether);
             } else {
-                minecraftserver
-                        .getConfigurationManager()
-                        .transferEntityToWorld((Entity) this, j, worldserver, worldserver2, (Teleporter)
-                                this.nightmareTeleporterOverworld);
+                minecraftserver.getConfigurationManager().transferEntityToWorld(
+                        (Entity) this,
+                        j,
+                        worldserver,
+                        worldserver2,
+                        (Teleporter) this.nightmareTeleporterOverworld);
             }
             this.worldObj.theProfiler.endStartSection("reloading");
-            final Entity entity =
-                    EntityList.createEntityByName(EntityList.getEntityString((Entity) this), (World) worldserver2);
+            final Entity entity = EntityList
+                    .createEntityByName(EntityList.getEntityString((Entity) this), (World) worldserver2);
             if (entity != null) {
                 entity.copyDataFrom((Entity) this, true);
                 worldserver2.spawnEntityInWorld(entity);
@@ -116,11 +122,11 @@ public class EntityNightmare extends EntityEndersteed {
 
     public EntityPlayerMP playerTravelToDimension(final EntityPlayerMP player, final int p_71027_1_) {
         if (p_71027_1_ == -1) {
-            player.mcServer.getConfigurationManager().transferPlayerToDimension(player, p_71027_1_, (Teleporter)
-                    this.nightmareTeleporterNether);
+            player.mcServer.getConfigurationManager()
+                    .transferPlayerToDimension(player, p_71027_1_, (Teleporter) this.nightmareTeleporterNether);
         } else {
-            player.mcServer.getConfigurationManager().transferPlayerToDimension(player, p_71027_1_, (Teleporter)
-                    this.nightmareTeleporterOverworld);
+            player.mcServer.getConfigurationManager()
+                    .transferPlayerToDimension(player, p_71027_1_, (Teleporter) this.nightmareTeleporterOverworld);
         }
         return player;
     }
@@ -148,43 +154,39 @@ public class EntityNightmare extends EntityEndersteed {
             }
             this.onGround = true;
             this.fallDistance = 0.0f;
-        } else if (this.worldObj
-                        .getBlock((int) this.posX, (int) Math.floor(this.posY - 1.0), (int) this.posZ)
-                        .getMaterial()
-                == Material.lava) {
-            this.onGround = true;
-            this.fallDistance = 0.0f;
-            if (this.motionY < 0.0) {
-                this.motionY = 0.0;
-            }
-        }
+        } else if (this.worldObj.getBlock((int) this.posX, (int) Math.floor(this.posY - 1.0), (int) this.posZ)
+                .getMaterial() == Material.lava) {
+                    this.onGround = true;
+                    this.fallDistance = 0.0f;
+                    if (this.motionY < 0.0) {
+                        this.motionY = 0.0;
+                    }
+                }
         super.onUpdate();
         final Block underfoot = this.worldObj.getBlock((int) this.posX, (int) this.posY - 1, (int) this.posZ);
         final Block in = this.worldObj.getBlock((int) this.posX, (int) this.posY, (int) this.posZ);
         final Block up = this.worldObj.getBlock((int) this.posX, (int) this.posY + 1, (int) this.posZ);
         if (underfoot.getMaterial() == Material.grass) {
             this.worldObj.setBlock((int) this.posX, (int) this.posY - 1, (int) this.posZ, Blocks.dirt);
-            ThaumicHorizons.proxy.smeltFX(
-                    (int) this.posX, (int) this.posY - 1, (int) this.posZ, this.worldObj, 10, false);
+            ThaumicHorizons.proxy
+                    .smeltFX((int) this.posX, (int) this.posY - 1, (int) this.posZ, this.worldObj, 10, false);
         }
         if (this.worldObj.isRemote && underfoot.isBlockNormalCube() && this.moveForward > 0.0f) {
-            ThaumicHorizons.proxy.smeltFX(
-                    (int) this.posX, (int) this.posY - 1, (int) this.posZ, this.worldObj, 3, false);
+            ThaumicHorizons.proxy
+                    .smeltFX((int) this.posX, (int) this.posY - 1, (int) this.posZ, this.worldObj, 3, false);
         }
-        if (in.getMaterial() == Material.leaves
-                || in.getMaterial() == Material.web
+        if (in.getMaterial() == Material.leaves || in.getMaterial() == Material.web
                 || in.getMaterial() == Material.vine
                 || in.getMaterial() == Material.plants) {
             this.worldObj.setBlockToAir((int) this.posX, (int) this.posY, (int) this.posZ);
             ThaumicHorizons.proxy.smeltFX((int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, 15, false);
         }
-        if (up.getMaterial() == Material.leaves
-                || up.getMaterial() == Material.web
+        if (up.getMaterial() == Material.leaves || up.getMaterial() == Material.web
                 || up.getMaterial() == Material.vine
                 || up.getMaterial() == Material.plants) {
             this.worldObj.setBlockToAir((int) this.posX, (int) this.posY + 1, (int) this.posZ);
-            ThaumicHorizons.proxy.smeltFX(
-                    (int) this.posX, (int) this.posY + 1, (int) this.posZ, this.worldObj, 15, false);
+            ThaumicHorizons.proxy
+                    .smeltFX((int) this.posX, (int) this.posY + 1, (int) this.posZ, this.worldObj, 15, false);
         }
     }
 

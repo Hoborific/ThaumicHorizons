@@ -15,6 +15,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 public class EntityAIAttackOnCollideTH extends EntityAIBase {
+
     World worldObj;
     EntityLiving attacker;
     int attackTick;
@@ -26,11 +27,10 @@ public class EntityAIAttackOnCollideTH extends EntityAIBase {
     private double field_151497_i;
     private double field_151495_j;
     private double field_151496_k;
-    private static final String __OBFID = "CL_00001595";
     private int failedPathFindingPenalty;
 
-    public EntityAIAttackOnCollideTH(
-            final EntityLiving p_i1635_1_, final Class p_i1635_2_, final double p_i1635_3_, final boolean p_i1635_5_) {
+    public EntityAIAttackOnCollideTH(final EntityLiving p_i1635_1_, final Class p_i1635_2_, final double p_i1635_3_,
+            final boolean p_i1635_5_) {
         this(p_i1635_1_, p_i1635_3_, p_i1635_5_);
         this.classTarget = p_i1635_2_;
     }
@@ -64,8 +64,7 @@ public class EntityAIAttackOnCollideTH extends EntityAIBase {
 
     public boolean continueExecuting() {
         final EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
-        return entitylivingbase != null
-                && entitylivingbase.isEntityAlive()
+        return entitylivingbase != null && entitylivingbase.isEntityAlive()
                 && (this.longMemory || !this.attacker.getNavigator().noPath());
     }
 
@@ -81,8 +80,8 @@ public class EntityAIAttackOnCollideTH extends EntityAIBase {
     public void updateTask() {
         final EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
         this.attacker.getLookHelper().setLookPositionWithEntity((Entity) entitylivingbase, 30.0f, 30.0f);
-        final double d0 = this.attacker.getDistanceSq(
-                entitylivingbase.posX, entitylivingbase.boundingBox.minY, entitylivingbase.posZ);
+        final double d0 = this.attacker
+                .getDistanceSq(entitylivingbase.posX, entitylivingbase.boundingBox.minY, entitylivingbase.posZ);
         final double d2 = this.attacker.width * 2.0f * this.attacker.width * 2.0f + entitylivingbase.width;
         --this.field_75445_i;
         if ((this.longMemory || this.attacker.getEntitySenses().canSee((Entity) entitylivingbase))
@@ -94,16 +93,13 @@ public class EntityAIAttackOnCollideTH extends EntityAIBase {
             this.field_151497_i = entitylivingbase.posX;
             this.field_151495_j = entitylivingbase.boundingBox.minY;
             this.field_151496_k = entitylivingbase.posZ;
-            this.field_75445_i =
-                    this.failedPathFindingPenalty + 4 + this.attacker.getRNG().nextInt(7);
+            this.field_75445_i = this.failedPathFindingPenalty + 4 + this.attacker.getRNG().nextInt(7);
             if (this.attacker.getNavigator().getPath() != null) {
-                final PathPoint finalPathPoint =
-                        this.attacker.getNavigator().getPath().getFinalPathPoint();
-                if (finalPathPoint != null
-                        && entitylivingbase.getDistanceSq(
-                                        (double) finalPathPoint.xCoord, (double) finalPathPoint.yCoord, (double)
-                                                finalPathPoint.zCoord)
-                                < 1.0) {
+                final PathPoint finalPathPoint = this.attacker.getNavigator().getPath().getFinalPathPoint();
+                if (finalPathPoint != null && entitylivingbase.getDistanceSq(
+                        (double) finalPathPoint.xCoord,
+                        (double) finalPathPoint.yCoord,
+                        (double) finalPathPoint.zCoord) < 1.0) {
                     this.failedPathFindingPenalty = 0;
                 } else {
                     this.failedPathFindingPenalty += 10;
@@ -116,8 +112,7 @@ public class EntityAIAttackOnCollideTH extends EntityAIBase {
             } else if (d0 > 256.0) {
                 this.field_75445_i += 5;
             }
-            if (!this.attacker
-                    .getNavigator()
+            if (!this.attacker.getNavigator()
                     .tryMoveToEntityLiving((Entity) entitylivingbase, this.speedTowardsTarget)) {
                 this.field_75445_i += 15;
             }
@@ -130,8 +125,7 @@ public class EntityAIAttackOnCollideTH extends EntityAIBase {
             }
             float damage = 3.0f;
             if (this.attacker.getEntityAttribute(SharedMonsterAttributes.attackDamage) != null) {
-                damage += (float) this.attacker
-                        .getEntityAttribute(SharedMonsterAttributes.attackDamage)
+                damage += (float) this.attacker.getEntityAttribute(SharedMonsterAttributes.attackDamage)
                         .getAttributeValue();
             }
             entitylivingbase.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) this.attacker), damage);

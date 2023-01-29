@@ -4,14 +4,17 @@
 
 package com.kentington.thaumichorizons.client.renderer.entity;
 
-import com.google.common.collect.Maps;
 import java.util.Map;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderHorse;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.util.ResourceLocation;
 
+import com.google.common.collect.Maps;
+
 public class RenderEndersteed extends RenderHorse {
+
     ResourceLocation enderTex;
     ResourceLocation enderTexIron;
     ResourceLocation enderTexGold;

@@ -1,9 +1,11 @@
 package com.kentington.thaumichorizons.common.lib;
 
 import net.minecraft.client.resources.I18n;
+
 import thaumcraft.api.research.ResearchPage;
 
 public class PageFormatText extends ResearchPage {
+
     private Object[] args;
 
     public PageFormatText(String text, Object... args) {

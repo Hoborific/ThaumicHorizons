@@ -4,29 +4,23 @@
 
 package com.kentington.thaumichorizons.client.renderer.entity;
 
-import com.kentington.thaumichorizons.common.entities.EntityLightningBoltFinite;
 import java.util.Random;
+
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderLightningBolt;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
-public class RenderLightningBoltFinite extends RenderLightningBolt {
-    public void doRender(
-            final Entity p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {}
+import com.kentington.thaumichorizons.common.entities.EntityLightningBoltFinite;
 
-    public void doRender(
-            final EntityLightningBoltFinite p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+public class RenderLightningBoltFinite extends RenderLightningBolt {
+
+    public void doRender(final Entity p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {}
+
+    public void doRender(final EntityLightningBoltFinite p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         final Tessellator tessellator = Tessellator.instance;
         GL11.glDisable(3553);
         GL11.glDisable(2896);
@@ -96,9 +90,13 @@ public class RenderLightningBoltFinite extends RenderLightningBolt {
                             d14 += d10 * 2.0;
                         }
                         tessellator.addVertex(
-                                d13 + d5, p_76986_4_ + p_76986_1_.boltLength / (l - m + 1) * i2 / 2.0, d14 + d6);
+                                d13 + d5,
+                                p_76986_4_ + p_76986_1_.boltLength / (l - m + 1) * i2 / 2.0,
+                                d14 + d6);
                         tessellator.addVertex(
-                                d11 + d7, p_76986_4_ + p_76986_1_.boltLength / (l - m + 1) * (i2 + 1) / 2.0, d12 + d8);
+                                d11 + d7,
+                                p_76986_4_ + p_76986_1_.boltLength / (l - m + 1) * (i2 + 1) / 2.0,
+                                d12 + d8);
                     }
                     tessellator.draw();
                 }

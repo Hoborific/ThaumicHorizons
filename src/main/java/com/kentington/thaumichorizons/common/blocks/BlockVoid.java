@@ -4,12 +4,15 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+
 import thaumcraft.common.config.Config;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class BlockVoid extends Block {
+
     public BlockVoid() {
         super(Config.airyMaterial);
         this.setHardness(-1.0f);

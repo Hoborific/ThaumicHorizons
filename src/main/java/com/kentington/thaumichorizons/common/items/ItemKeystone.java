@@ -4,12 +4,8 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.lib.PocketPlaneData;
-import com.kentington.thaumichorizons.common.tiles.TileVortex;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -18,7 +14,15 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.lib.PocketPlaneData;
+import com.kentington.thaumichorizons.common.tiles.TileVortex;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemKeystone extends Item {
+
     @SideOnly(Side.CLIENT)
     public IIcon icon;
 
@@ -38,22 +42,16 @@ public class ItemKeystone extends Item {
     }
 
     public String getUnlocalizedName(final ItemStack par1ItemStack) {
-        if (par1ItemStack.getTagCompound() != null
-                && par1ItemStack.getTagCompound().getInteger("dimension") != 0) {
+        if (par1ItemStack.getTagCompound() != null && par1ItemStack.getTagCompound().getInteger("dimension") != 0) {
             return "item.keystoneTH";
         }
         return "item.keystoneBlank";
     }
 
-    public void addInformation(
-            final ItemStack par1ItemStack,
-            final EntityPlayer par2EntityPlayer,
-            final List par3List,
+    public void addInformation(final ItemStack par1ItemStack, final EntityPlayer par2EntityPlayer, final List par3List,
             final boolean par4) {
-        if (par1ItemStack.getTagCompound() != null
-                && par1ItemStack.getTagCompound().getInteger("dimension") != 0) {
-            par3List.add(
-                    PocketPlaneData.planes.get(par1ItemStack.getTagCompound().getInteger("dimension")).name);
+        if (par1ItemStack.getTagCompound() != null && par1ItemStack.getTagCompound().getInteger("dimension") != 0) {
+            par3List.add(PocketPlaneData.planes.get(par1ItemStack.getTagCompound().getInteger("dimension")).name);
         }
         super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
     }
@@ -69,19 +67,9 @@ public class ItemKeystone extends Item {
     }
 
     @Override
-    public boolean onItemUseFirst(
-            ItemStack stack,
-            EntityPlayer player,
-            World world,
-            int x,
-            int y,
-            int z,
-            int side,
-            float hitX,
-            float hitY,
-            float hitZ) {
-        if (stack.getTagCompound() == null
-                && player.dimension == ThaumicHorizons.dimensionPocketId
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
+        if (stack.getTagCompound() == null && player.dimension == ThaumicHorizons.dimensionPocketId
                 && !world.isRemote) {
             if (world.getTileEntity(x, y, z) instanceof TileVortex)
                 (stack.stackTagCompound = new NBTTagCompound()).setInteger("dimension", (z + 128) / 256);
@@ -90,13 +78,13 @@ public class ItemKeystone extends Item {
         return super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
     }
 
-    //    public ItemStack onItemRightClick(final ItemStack stack, final World world, final EntityPlayer p) {
-    //        if (stack.getTagCompound() == null && p.dimension == ThaumicHorizons.dimensionPocketId && !world.isRemote)
+    // public ItemStack onItemRightClick(final ItemStack stack, final World world, final EntityPlayer p) {
+    // if (stack.getTagCompound() == null && p.dimension == ThaumicHorizons.dimensionPocketId && !world.isRemote)
     // {
-    //            final ItemStack newStack = new ItemStack(ThaumicHorizons.itemKeystone);
-    //            (newStack.stackTagCompound = new NBTTagCompound()).setInteger("dimension", ((int)p.posZ + 128) / 256);
-    //            return newStack;
-    //        }
-    //        return stack;
-    //    }
+    // final ItemStack newStack = new ItemStack(ThaumicHorizons.itemKeystone);
+    // (newStack.stackTagCompound = new NBTTagCompound()).setInteger("dimension", ((int)p.posZ + 128) / 256);
+    // return newStack;
+    // }
+    // return stack;
+    // }
 }

@@ -4,12 +4,9 @@
 
 package com.kentington.thaumichorizons.common.items.lenses;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.awt.Color;
 import java.text.DecimalFormat;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -26,7 +23,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -42,7 +41,14 @@ import thaumcraft.common.lib.research.ScanManager;
 import thaumcraft.common.lib.utils.BlockUtils;
 import thaumcraft.common.lib.utils.EntityUtils;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemLensOrderEntropy extends Item implements ILens {
+
     ScanResult startScan;
     int count;
     boolean isNew;
@@ -80,13 +86,11 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                     if (stack.getItem() != null) {
                         try {
                             text = stack.getDisplayName();
-                        } catch (Exception e) {
-                        }
+                        } catch (Exception e) {}
                     } else if (stack.getItem() != null) {
                         try {
                             text = stack.getItem().getItemStackDisplayName(stack);
-                        } catch (Exception ex) {
-                        }
+                        } catch (Exception ex) {}
                     }
                 }
                 if (scan.type == 2) {
@@ -108,27 +112,25 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                         y = mop.blockY;
                         z = mop.blockZ;
                         final TileEntity tile = p.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
-                        if (scan.type == 3
-                                && scan.phenomena.startsWith("NODE")
+                        if (scan.type == 3 && scan.phenomena.startsWith("NODE")
                                 && tile != null
                                 && tile instanceof INode) {
                             if (!this.isNew) {
                                 aspects = ((INode) tile).getAspects();
                             }
                             if (p.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ) == ConfigBlocks.blockAiry) {
-                                text = StatCollector.translateToLocal(p.worldObj
-                                                .getBlock(mop.blockX, mop.blockY, mop.blockZ)
-                                                .getUnlocalizedName()
-                                        + "." + p.worldObj.getBlockMetadata(mop.blockX, mop.blockY, mop.blockZ)
-                                        + ".name");
+                                text = StatCollector.translateToLocal(
+                                        p.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ).getUnlocalizedName()
+                                                + "."
+                                                + p.worldObj.getBlockMetadata(mop.blockX, mop.blockY, mop.blockZ)
+                                                + ".name");
                             } else {
-                                text = StatCollector.translateToLocal(p.worldObj
-                                        .getBlock(mop.blockX, mop.blockY, mop.blockZ)
-                                        .getLocalizedName());
+                                text = StatCollector.translateToLocal(
+                                        p.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ).getLocalizedName());
                             }
                             text = text + " ("
-                                    + StatCollector.translateToLocal(
-                                            "nodetype." + ((INode) tile).getNodeType() + ".name");
+                                    + StatCollector
+                                            .translateToLocal("nodetype." + ((INode) tile).getNodeType() + ".name");
                             if (((INode) tile).getNodeModifier() != null) {
                                 text = text + ", "
                                         + StatCollector.translateToLocal(
@@ -204,14 +206,12 @@ public class ItemLensOrderEntropy extends Item implements ILens {
             }
         }
         if (text.length() > 0) {
-            Minecraft.getMinecraft()
-                    .ingameGUI
-                    .drawString(
-                            Minecraft.getMinecraft().fontRenderer,
-                            text,
-                            w / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth(text) / 2,
-                            h / 2 - 16,
-                            16777215);
+            Minecraft.getMinecraft().ingameGUI.drawString(
+                    Minecraft.getMinecraft().fontRenderer,
+                    text,
+                    w / 2 - Minecraft.getMinecraft().fontRenderer.getStringWidth(text) / 2,
+                    h / 2 - 16,
+                    16777215);
         }
     }
 
@@ -248,17 +248,19 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                             if (is == null) {
                                 is = BlockUtils.createStackedBlock(bi, md);
                             }
-                        } catch (Exception ex) {
-                        }
+                        } catch (Exception ex) {}
                         try {
                             if (is == null) {
                                 sr2 = new ScanResult((byte) 1, Block.getIdFromBlock(bi), md, null, "");
                             } else {
                                 sr2 = new ScanResult(
-                                        (byte) 1, Item.getIdFromItem(is.getItem()), is.getItemDamage(), null, "");
+                                        (byte) 1,
+                                        Item.getIdFromItem(is.getItem()),
+                                        is.getItemDamage(),
+                                        null,
+                                        "");
                             }
-                        } catch (Exception ex2) {
-                        }
+                        } catch (Exception ex2) {}
                         if (ScanManager.isValidScanTarget(p, sr2, "@")) {
                             Thaumcraft.proxy.blockRunes(
                                     world,

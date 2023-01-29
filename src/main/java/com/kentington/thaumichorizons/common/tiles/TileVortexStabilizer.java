@@ -4,10 +4,6 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import com.kentington.thaumichorizons.client.fx.FXSonic;
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -18,13 +14,21 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.nodes.INode;
 import thaumcraft.api.nodes.NodeType;
 import thaumcraft.api.wands.IWandable;
 import thaumcraft.common.Thaumcraft;
 
+import com.kentington.thaumichorizons.client.fx.FXSonic;
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class TileVortexStabilizer extends TileThaumcraft implements IWandable {
+
     public boolean hasTarget;
     public int prevType;
     public int xTarget;
@@ -52,7 +56,11 @@ public class TileVortexStabilizer extends TileThaumcraft implements IWandable {
         super.updateEntity();
         if (!this.fireOnce) {
             ThaumicHorizons.blockVortexStabilizer.onNeighborBlockChange(
-                    this.worldObj, this.xCoord, this.yCoord, this.zCoord, ThaumicHorizons.blockVortexStabilizer);
+                    this.worldObj,
+                    this.xCoord,
+                    this.yCoord,
+                    this.zCoord,
+                    ThaumicHorizons.blockVortexStabilizer);
             this.direction = (byte) this.getBlockMetadata();
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             this.dir = ForgeDirection.getOrientation(this.direction);
@@ -81,18 +89,18 @@ public class TileVortexStabilizer extends TileThaumcraft implements IWandable {
                         this.hasTarget = false;
                     } else if (!this.hasTarget
                             && this.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ) instanceof INode) {
-                        this.hasTarget = true;
-                        this.target = this.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
-                        this.prevType = ((INode) this.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ))
-                                .getNodeType()
-                                .ordinal();
-                        this.deHungrifyTarget();
-                    } else if (!this.hasTarget
-                            && this.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ) instanceof TileVortex) {
-                        this.hasTarget = true;
-                        this.target = this.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
-                        this.deHungrifyTarget();
-                    }
+                                this.hasTarget = true;
+                                this.target = this.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
+                                this.prevType = ((INode) this.worldObj
+                                        .getTileEntity(mop.blockX, mop.blockY, mop.blockZ)).getNodeType().ordinal();
+                                this.deHungrifyTarget();
+                            } else
+                        if (!this.hasTarget && this.worldObj
+                                .getTileEntity(mop.blockX, mop.blockY, mop.blockZ) instanceof TileVortex) {
+                                    this.hasTarget = true;
+                                    this.target = this.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
+                                    this.deHungrifyTarget();
+                                }
                     this.xTarget = mop.blockX;
                     this.yTarget = mop.blockY;
                     this.zTarget = mop.blockZ;
@@ -112,8 +120,7 @@ public class TileVortexStabilizer extends TileThaumcraft implements IWandable {
                 this.target = null;
             }
         }
-        if (this.worldObj.isRemote
-                && this.redstoned
+        if (this.worldObj.isRemote && this.redstoned
                 && ThaumicHorizons.proxy.readyToRender()
                 && this.xTarget != Integer.MAX_VALUE
                 && this.yTarget != Integer.MAX_VALUE
@@ -214,15 +221,8 @@ public class TileVortexStabilizer extends TileThaumcraft implements IWandable {
     }
 
     @Override
-    public int onWandRightClick(
-            final World world,
-            final ItemStack wandstack,
-            final EntityPlayer player,
-            final int x,
-            final int y,
-            final int z,
-            final int side,
-            final int md) {
+    public int onWandRightClick(final World world, final ItemStack wandstack, final EntityPlayer player, final int x,
+            final int y, final int z, final int side, final int md) {
         this.dir = ForgeDirection.getOrientation(side);
         world.setBlockMetadataWithNotify(x, y, z, this.direction = side, 3);
         player.worldObj.playSound(
@@ -247,6 +247,6 @@ public class TileVortexStabilizer extends TileThaumcraft implements IWandable {
     public void onUsingWandTick(final ItemStack wandstack, final EntityPlayer player, final int count) {}
 
     @Override
-    public void onWandStoppedUsing(
-            final ItemStack wandstack, final World world, final EntityPlayer player, final int count) {}
+    public void onWandStoppedUsing(final ItemStack wandstack, final World world, final EntityPlayer player,
+            final int count) {}
 }

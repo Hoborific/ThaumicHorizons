@@ -4,14 +4,18 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.client.renderer.model.ModelSoulSieve;
-import com.kentington.thaumichorizons.common.tiles.TileSoulExtractor;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.client.renderer.model.ModelSoulSieve;
+import com.kentington.thaumichorizons.common.tiles.TileSoulExtractor;
+
 public class TileSoulSieveRender extends TileEntitySpecialRenderer {
+
     static String tx1;
     private ModelSoulSieve model;
 

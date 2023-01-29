@@ -9,12 +9,12 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.Vec3;
 
 public class EntityAIWanderTH extends EntityAIBase {
+
     private EntityLiving entity;
     private double xPosition;
     private double yPosition;
     private double zPosition;
     private double speed;
-    private static final String __OBFID = "CL_00001608";
 
     public EntityAIWanderTH(final EntityLiving p_i1648_1_, final double p_i1648_2_) {
         this.entity = p_i1648_1_;

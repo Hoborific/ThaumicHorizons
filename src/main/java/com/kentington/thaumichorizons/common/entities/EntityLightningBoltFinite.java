@@ -4,8 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.items.ItemFocusAnimation;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -14,17 +12,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.items.ItemFocusAnimation;
+
 public class EntityLightningBoltFinite extends EntityLightningBolt {
+
     public int boltLength;
     public boolean animate;
 
-    public EntityLightningBoltFinite(
-            final World p_i1703_1_,
-            final double p_i1703_2_,
-            final double p_i1703_4_,
-            final double p_i1703_6_,
-            final int boltLength,
-            final boolean animate) {
+    public EntityLightningBoltFinite(final World p_i1703_1_, final double p_i1703_2_, final double p_i1703_4_,
+            final double p_i1703_6_, final int boltLength, final boolean animate) {
         super(p_i1703_1_, p_i1703_2_, p_i1703_4_, p_i1703_6_);
         this.boltLength = boltLength;
         this.animate = animate;
@@ -60,8 +57,7 @@ public class EntityLightningBoltFinite extends EntityLightningBolt {
         if (this.worldObj.isRemote) {
             return;
         }
-        if (!blocky.hasTileEntity(md)
-                && !blocky.isAir((IBlockAccess) this.worldObj, p_77648_4_, p_77648_5_, p_77648_6_)
+        if (!blocky.hasTileEntity(md) && !blocky.isAir((IBlockAccess) this.worldObj, p_77648_4_, p_77648_5_, p_77648_6_)
                 && (blocky.isOpaqueCube() || ItemFocusAnimation.isWhitelisted(blocky, md))
                 && blocky.getBlockHardness(this.worldObj, p_77648_4_, p_77648_5_, p_77648_6_) != -1.0f) {
             if (!this.worldObj.isRemote
@@ -71,7 +67,12 @@ public class EntityLightningBoltFinite extends EntityLightningBolt {
                 golem.loadGolem(p_77648_4_ + 0.5, p_77648_5_, p_77648_6_ + 0.5, blocky, md, 1200, false, false, false);
                 this.worldObj.setBlockToAir(p_77648_4_, p_77648_5_, p_77648_6_);
                 this.worldObj.playSoundEffect(
-                        p_77648_4_ + 0.5, p_77648_5_ + 0.5, p_77648_6_ + 0.5, "thaumcraft:wand", 1.0f, 1.0f);
+                        p_77648_4_ + 0.5,
+                        p_77648_5_ + 0.5,
+                        p_77648_6_ + 0.5,
+                        "thaumcraft:wand",
+                        1.0f,
+                        1.0f);
                 golem.setHomeArea((int) golem.posX, (int) golem.posY, (int) golem.posZ, 32);
                 golem.setOwner("");
                 golem.berserk = true;
@@ -80,8 +81,7 @@ public class EntityLightningBoltFinite extends EntityLightningBolt {
                 this.worldObj.spawnEntityInWorld((Entity) golem);
                 this.worldObj.setEntityState((Entity) golem, (byte) 7);
             } else {
-                Minecraft.getMinecraft()
-                        .effectRenderer
+                Minecraft.getMinecraft().effectRenderer
                         .addBlockDestroyEffects(p_77648_4_, p_77648_5_, p_77648_6_, blocky, md);
             }
         }

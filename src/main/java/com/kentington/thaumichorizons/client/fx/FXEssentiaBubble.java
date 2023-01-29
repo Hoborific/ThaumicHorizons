@@ -5,26 +5,22 @@
 package com.kentington.thaumichorizons.client.fx;
 
 import java.awt.Color;
+
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
 
 public class FXEssentiaBubble extends EntityFX {
+
     private int count;
     private int delay;
     public int particle;
 
-    public FXEssentiaBubble(
-            final World par1World,
-            final double par2,
-            final double par4,
-            final double par6,
-            final int count,
-            final int color,
-            final float scale,
-            final int delay) {
+    public FXEssentiaBubble(final World par1World, final double par2, final double par4, final double par6,
+            final int count, final int color, final float scale, final int delay) {
         super(par1World, par2, par4, par6, 0.0, 0.0, 0.0);
         this.count = 0;
         this.delay = 0;
@@ -52,14 +48,8 @@ public class FXEssentiaBubble extends EntityFX {
         this.noClip = false;
     }
 
-    public void renderParticle(
-            final Tessellator tessellator,
-            final float f,
-            final float f1,
-            final float f2,
-            final float f3,
-            final float f4,
-            final float f5) {
+    public void renderParticle(final Tessellator tessellator, final float f, final float f1, final float f2,
+            final float f3, final float f4, final float f5) {
         if (this.delay > 0) {
             return;
         }
@@ -76,8 +66,8 @@ public class FXEssentiaBubble extends EntityFX {
         final float var15 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * f - FXEssentiaBubble.interpPosZ);
         final float var16 = 1.0f;
         tessellator.setBrightness(240);
-        tessellator.setColorRGBA_F(
-                this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16, 0.5f);
+        tessellator
+                .setColorRGBA_F(this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16, 0.5f);
         tessellator.addVertexWithUV(
                 (double) (var13 - f1 * var12 - f4 * var12),
                 (double) (var14 - f2 * var12),

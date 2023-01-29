@@ -4,18 +4,21 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
+
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.common.Thaumcraft;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TilePortalTH extends TileThaumcraft {
+
     public int opencount;
     private int count;
     public int dimension;
@@ -66,45 +69,52 @@ public class TilePortalTH extends TileThaumcraft {
             final List ents = this.worldObj.getEntitiesWithinAABB(
                     (Class) EntityPlayerMP.class,
                     AxisAlignedBB.getBoundingBox(
-                                    (double) this.xCoord,
-                                    (double) this.yCoord,
-                                    (double) this.zCoord,
-                                    (double) (this.xCoord + 1),
-                                    (double) (this.yCoord + 1),
-                                    (double) (this.zCoord + 1))
-                            .expand(0.5, 1.0, 0.5));
+                            (double) this.xCoord,
+                            (double) this.yCoord,
+                            (double) this.zCoord,
+                            (double) (this.xCoord + 1),
+                            (double) (this.yCoord + 1),
+                            (double) (this.zCoord + 1)).expand(0.5, 1.0, 0.5));
             if (ents.size() > 0) {
                 for (final Object e : ents) {
                     final EntityPlayerMP player = (EntityPlayerMP) e;
                     if (player.ridingEntity == null && player.riddenByEntity == null) {
-                        final MinecraftServer mServer =
-                                FMLCommonHandler.instance().getMinecraftServerInstance();
+                        final MinecraftServer mServer = FMLCommonHandler.instance().getMinecraftServerInstance();
                         if (player.timeUntilPortal > 0) {
                             continue;
                         }
                         player.timeUntilPortal = 50;
                         final int oldDim = player.dimension;
-                        /*player.mcServer.getConfigurationManager().transferPlayerToDimension(player, this.dimension, (Teleporter)new NightmareTeleporter(mServer.worldServerForDimension(this.dimension)));
-                        if (oldDim == ThaumicHorizons.dimensionPocketId && PocketPlaneData.positions.containsKey(player.getCommandSenderName())) {
-                            //System.out.println("Loading position " + PocketPlaneData.positions.get(player.getCommandSenderName()));
-                            player.setPositionAndUpdate(PocketPlaneData.positions.get(player.getCommandSenderName()).xCoord, PocketPlaneData.positions.get(player.getCommandSenderName()).yCoord, PocketPlaneData.positions.get(player.getCommandSenderName()).zCoord);
-                        }
-                        else {
-                            if (this.pocket < 0) {
-                                continue;
-                            }
-                            PocketPlaneData.positions.put(player.getCommandSenderName(), Vec3.createVectorHelper(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5));
-                            //System.out.println("Saving position " + PocketPlaneData.positions.get(player.getCommandSenderName()));
-                            player.setPositionAndUpdate(0.5, 129.0, (double)(128 * (this.pocket - 3) + 0.5f));
-                            this.worldObj.setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
-                        */ }
+                        /*
+                         * player.mcServer.getConfigurationManager().transferPlayerToDimension(player, this.dimension,
+                         * (Teleporter)new NightmareTeleporter(mServer.worldServerForDimension(this.dimension))); if
+                         * (oldDim == ThaumicHorizons.dimensionPocketId &&
+                         * PocketPlaneData.positions.containsKey(player.getCommandSenderName())) {
+                         * //System.out.println("Loading position " +
+                         * PocketPlaneData.positions.get(player.getCommandSenderName()));
+                         * player.setPositionAndUpdate(PocketPlaneData.positions.get(player.getCommandSenderName()).
+                         * xCoord, PocketPlaneData.positions.get(player.getCommandSenderName()).yCoord,
+                         * PocketPlaneData.positions.get(player.getCommandSenderName()).zCoord); } else { if
+                         * (this.pocket < 0) { continue; } PocketPlaneData.positions.put(player.getCommandSenderName(),
+                         * Vec3.createVectorHelper(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5));
+                         * //System.out.println("Saving position " +
+                         * PocketPlaneData.positions.get(player.getCommandSenderName()));
+                         * player.setPositionAndUpdate(0.5, 129.0, (double)(128 * (this.pocket - 3) + 0.5f));
+                         * this.worldObj.setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
+                         */ }
                 }
             }
         }
 
         if (this.count > 250) {
             this.worldObj.playSound(
-                    this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5, "thaumcraft:craftfail", 1.0f, 1.0f, false);
+                    this.xCoord + 0.5,
+                    this.yCoord + 0.5,
+                    this.zCoord + 0.5,
+                    "thaumcraft:craftfail",
+                    1.0f,
+                    1.0f,
+                    false);
             Thaumcraft.proxy.burst(
                     this.getWorldObj(),
                     (double) (this.xCoord + 0.5f),

@@ -4,15 +4,18 @@
 
 package com.kentington.thaumichorizons.common.items.crafting;
 
-import com.kentington.thaumichorizons.common.items.ItemFocusIllumination;
 import java.util.ArrayList;
+
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.items.ItemFocusIllumination;
+
 public class RecipesFocusIlluminationDyes implements IRecipe {
+
     public boolean matches(final InventoryCrafting par1InventoryCrafting, final World p_77569_2_) {
         ItemStack itemstack = null;
         final ArrayList arraylist = new ArrayList();

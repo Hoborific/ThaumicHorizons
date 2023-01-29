@@ -4,11 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.kentington.thaumichorizons.common.lib.networking.PacketGetCowData;
-import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.nodes.NodeModifier;
@@ -25,7 +21,15 @@ import thaumcraft.common.blocks.ItemJarNode;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 
+import com.kentington.thaumichorizons.common.lib.networking.PacketGetCowData;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import io.netty.buffer.ByteBuf;
+
 public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawnData {
+
     AspectList aspects;
     public AspectList essentia;
     public int nodeMod;
@@ -43,8 +47,7 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
 
     public boolean interact(final EntityPlayer p_70085_1_) {
         final ItemStack itemstack = p_70085_1_.inventory.getCurrentItem();
-        if (itemstack != null
-                && this.hasNode
+        if (itemstack != null && this.hasNode
                 && (itemstack.getItem() == ConfigItems.itemJarFilled
                         || itemstack.getItem() == Item.getItemFromBlock(ConfigBlocks.blockJar))) {
             final ItemStack jarOut = new ItemStack(ConfigItems.itemJarFilled);
@@ -58,16 +61,13 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
                         this.essentia.remove(asp);
                         found = true;
                     } else {
-                        final int amount = ((ItemJarFilled) jarOut.getItem())
-                                .getAspects(itemstack)
-                                .getAmount(asp);
+                        final int amount = ((ItemJarFilled) jarOut.getItem()).getAspects(itemstack).getAmount(asp);
                         if (amount > 0 && amount < 64) {
                             found = true;
                             if (amount + this.essentia.getAmount(asp) <= 64) {
-                                ((ItemJarFilled) jarOut.getItem())
-                                        .setAspects(
-                                                jarOut,
-                                                new AspectList().add(asp, amount + this.essentia.getAmount(asp)));
+                                ((ItemJarFilled) jarOut.getItem()).setAspects(
+                                        jarOut,
+                                        new AspectList().add(asp, amount + this.essentia.getAmount(asp)));
                                 this.essentia.remove(asp);
                             } else {
                                 this.essentia.remove(asp, 64 - amount);
@@ -133,8 +133,8 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
                     break;
                 }
             }
-            p_70085_1_.inventory.setInventorySlotContents(
-                    p_70085_1_.inventory.currentItem, new ItemStack(ConfigBlocks.blockJar));
+            p_70085_1_.inventory
+                    .setInventorySlotContents(p_70085_1_.inventory.currentItem, new ItemStack(ConfigBlocks.blockJar));
             p_70085_1_.inventory.markDirty();
             return true;
         }

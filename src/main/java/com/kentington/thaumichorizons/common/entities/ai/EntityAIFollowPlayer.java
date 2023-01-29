@@ -11,9 +11,11 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import thaumcraft.common.entities.golems.EntityGolemBase;
 
 public class EntityAIFollowPlayer extends EntityAIBase {
+
     private EntityGolemBase thePet;
     private EntityLivingBase theOwner;
     World theWorld;
@@ -23,10 +25,9 @@ public class EntityAIFollowPlayer extends EntityAIBase {
     float maxDist;
     float minDist;
     private boolean field_75344_i;
-    private static final String __OBFID = "CL_00001585";
 
-    public EntityAIFollowPlayer(
-            final EntityGolemBase p_i1625_1_, final double p_i1625_2_, final float p_i1625_4_, final float p_i1625_5_) {
+    public EntityAIFollowPlayer(final EntityGolemBase p_i1625_1_, final double p_i1625_2_, final float p_i1625_4_,
+            final float p_i1625_5_) {
         this.thePet = p_i1625_1_;
         this.theWorld = p_i1625_1_.worldObj;
         this.field_75336_f = p_i1625_2_;
@@ -70,8 +71,8 @@ public class EntityAIFollowPlayer extends EntityAIBase {
     }
 
     public void updateTask() {
-        this.thePet.getLookHelper().setLookPositionWithEntity((Entity) this.theOwner, 10.0f, (float)
-                this.thePet.getVerticalFaceSpeed());
+        this.thePet.getLookHelper()
+                .setLookPositionWithEntity((Entity) this.theOwner, 10.0f, (float) this.thePet.getVerticalFaceSpeed());
         if (!this.thePet.inactive && --this.field_75343_h <= 0) {
             this.field_75343_h = 10;
             if (!this.petPathfinder.tryMoveToEntityLiving((Entity) this.theOwner, this.field_75336_f)
@@ -82,9 +83,8 @@ public class EntityAIFollowPlayer extends EntityAIBase {
                 final int k = MathHelper.floor_double(this.theOwner.boundingBox.minY);
                 for (int l = 0; l <= 4; ++l) {
                     for (int i2 = 0; i2 <= 4; ++i2) {
-                        if ((l < 1 || i2 < 1 || l > 3 || i2 > 3)
-                                && World.doesBlockHaveSolidTopSurface(
-                                        (IBlockAccess) this.theWorld, i + l, k - 1, j + i2)
+                        if ((l < 1 || i2 < 1 || l > 3 || i2 > 3) && World
+                                .doesBlockHaveSolidTopSurface((IBlockAccess) this.theWorld, i + l, k - 1, j + i2)
                                 && !this.theWorld.getBlock(i + l, k, j + i2).isNormalCube()
                                 && !this.theWorld.getBlock(i + l, k + 1, j + i2).isNormalCube()) {
                             this.thePet.setLocationAndAngles(

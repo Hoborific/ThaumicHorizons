@@ -4,38 +4,11 @@
 
 package com.kentington.thaumichorizons.common.lib;
 
-import baubles.api.BaublesApi;
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
-import com.kentington.thaumichorizons.common.entities.EntityMeatSlime;
-import com.kentington.thaumichorizons.common.entities.EntityMercurialSlime;
-import com.kentington.thaumichorizons.common.entities.EntityNightmare;
-import com.kentington.thaumichorizons.common.entities.EntityVoltSlime;
-import com.kentington.thaumichorizons.common.entities.ai.EntityAIAttackOnCollideTH;
-import com.kentington.thaumichorizons.common.entities.ai.EntityAIFollowOwnerTH;
-import com.kentington.thaumichorizons.common.entities.ai.EntityAIHurtByTargetTH;
-import com.kentington.thaumichorizons.common.entities.ai.EntityAIOwnerHurtByTargetTH;
-import com.kentington.thaumichorizons.common.entities.ai.EntityAIOwnerHurtTargetTH;
-import com.kentington.thaumichorizons.common.entities.ai.EntityAISitTH;
-import com.kentington.thaumichorizons.common.entities.ai.EntityAIWanderTH;
-import com.kentington.thaumichorizons.common.items.ItemAmuletMirror;
-import com.kentington.thaumichorizons.common.items.ItemFocusContainment;
-import com.kentington.thaumichorizons.common.lib.networking.PacketFXContainment;
-import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
-import com.kentington.thaumichorizons.common.lib.networking.PacketNoMoreItems;
-import com.kentington.thaumichorizons.common.lib.networking.PacketPlayerInfusionSync;
-import com.kentington.thaumichorizons.common.tiles.TileSoulBeacon;
-import com.kentington.thaumichorizons.common.tiles.TileVat;
-import cpw.mods.fml.common.eventhandler.Event;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -74,6 +47,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.damagesource.DamageSourceThaumcraft;
 import thaumcraft.common.Thaumcraft;
@@ -85,8 +59,39 @@ import thaumcraft.common.entities.EntityFollowingItem;
 import thaumcraft.common.items.relics.ItemHandMirror;
 import thaumcraft.common.lib.network.fx.PacketFXShield;
 import thaumcraft.common.lib.utils.EntityUtils;
+import baubles.api.BaublesApi;
+
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
+import com.kentington.thaumichorizons.common.entities.EntityMeatSlime;
+import com.kentington.thaumichorizons.common.entities.EntityMercurialSlime;
+import com.kentington.thaumichorizons.common.entities.EntityNightmare;
+import com.kentington.thaumichorizons.common.entities.EntityVoltSlime;
+import com.kentington.thaumichorizons.common.entities.ai.EntityAIAttackOnCollideTH;
+import com.kentington.thaumichorizons.common.entities.ai.EntityAIFollowOwnerTH;
+import com.kentington.thaumichorizons.common.entities.ai.EntityAIHurtByTargetTH;
+import com.kentington.thaumichorizons.common.entities.ai.EntityAIOwnerHurtByTargetTH;
+import com.kentington.thaumichorizons.common.entities.ai.EntityAIOwnerHurtTargetTH;
+import com.kentington.thaumichorizons.common.entities.ai.EntityAISitTH;
+import com.kentington.thaumichorizons.common.entities.ai.EntityAIWanderTH;
+import com.kentington.thaumichorizons.common.items.ItemAmuletMirror;
+import com.kentington.thaumichorizons.common.items.ItemFocusContainment;
+import com.kentington.thaumichorizons.common.lib.networking.PacketFXContainment;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
+import com.kentington.thaumichorizons.common.lib.networking.PacketNoMoreItems;
+import com.kentington.thaumichorizons.common.lib.networking.PacketPlayerInfusionSync;
+import com.kentington.thaumichorizons.common.tiles.TileSoulBeacon;
+import com.kentington.thaumichorizons.common.tiles.TileVat;
+
+import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EventHandlerEntity {
+
     @SideOnly(Side.CLIENT)
     public static int clientNightmareID;
 
@@ -108,8 +113,7 @@ public class EventHandlerEntity {
         if (event.entity instanceof EntityLivingBase) {
             this.applyInfusions((EntityLivingBase) event.entity);
         }
-        if (event.world.isRemote
-                && event.entity instanceof EntityNightmare
+        if (event.world.isRemote && event.entity instanceof EntityNightmare
                 && event.entity.getEntityId() == EventHandlerEntity.clientNightmareID) {
             event.entity.worldObj.getEntityByID(EventHandlerEntity.clientPlayerID).ridingEntity = event.entity;
             event.entity.riddenByEntity = event.entity.worldObj.getEntityByID(EventHandlerEntity.clientPlayerID);
@@ -127,8 +131,8 @@ public class EventHandlerEntity {
     }
 
     public void applyInfusions(final EntityLivingBase entity) {
-        EntityInfusionProperties infusionProperties =
-                (EntityInfusionProperties) entity.getExtendedProperties("CreatureInfusion");
+        EntityInfusionProperties infusionProperties = (EntityInfusionProperties) entity
+                .getExtendedProperties("CreatureInfusion");
         if (entity instanceof EntityPlayer) {
             final int[] infusions = infusionProperties.getPlayerInfusions();
             for (int i = 0; i < infusions.length; ++i) {
@@ -136,8 +140,7 @@ public class EventHandlerEntity {
                     if (infusions[i] == 8 && !entity.worldObj.isRemote) {
                         this.warpTumor(
                                 (EntityPlayer) entity,
-                                ThaumicHorizons.warpedTumorValue
-                                        - infusionProperties.tumorWarpPermanent
+                                ThaumicHorizons.warpedTumorValue - infusionProperties.tumorWarpPermanent
                                         - infusionProperties.tumorWarp
                                         - infusionProperties.tumorWarpTemp);
                     }
@@ -145,11 +148,12 @@ public class EventHandlerEntity {
             }
             this.applyPlayerPotionInfusions((EntityPlayer) entity, infusions, infusionProperties.toggleInvisible);
             if (!entity.worldObj.isRemote) {
-                PacketHandler.INSTANCE.sendToAll((IMessage) new PacketPlayerInfusionSync(
-                        entity.getCommandSenderName(),
-                        infusions,
-                        infusionProperties.toggleClimb,
-                        infusionProperties.toggleInvisible));
+                PacketHandler.INSTANCE.sendToAll(
+                        (IMessage) new PacketPlayerInfusionSync(
+                                entity.getCommandSenderName(),
+                                infusions,
+                                infusionProperties.toggleClimb,
+                                infusionProperties.toggleInvisible));
             }
         } else {
             final int[] infusions = infusionProperties.getInfusions();
@@ -160,8 +164,11 @@ public class EventHandlerEntity {
                         effect.setCurativeItems(new ArrayList<ItemStack>());
                         entity.addPotionEffect(effect);
                     } else if (infusions[i] == 3) {
-                        final PotionEffect effect =
-                                new PotionEffect(Potion.regeneration.id, Integer.MAX_VALUE, 0, true);
+                        final PotionEffect effect = new PotionEffect(
+                                Potion.regeneration.id,
+                                Integer.MAX_VALUE,
+                                0,
+                                true);
                         effect.setCurativeItems(new ArrayList<ItemStack>());
                         entity.addPotionEffect(effect);
                     } else if (infusions[i] == 4) {
@@ -214,39 +221,39 @@ public class EventHandlerEntity {
         final int tempWarp = Thaumcraft.proxy.getPlayerKnowledge().getWarpTemp(entity.getCommandSenderName());
         if (warpPermanent > capacity) {
             Thaumcraft.proxy.getPlayerKnowledge().addWarpPerm(entity.getCommandSenderName(), -capacity);
-            final EntityInfusionProperties entityInfusionProperties =
-                    (EntityInfusionProperties) entity.getExtendedProperties("CreatureInfusion");
+            final EntityInfusionProperties entityInfusionProperties = (EntityInfusionProperties) entity
+                    .getExtendedProperties("CreatureInfusion");
             entityInfusionProperties.tumorWarpPermanent += capacity;
             capacity = 0;
         } else {
             capacity -= warpPermanent;
             Thaumcraft.proxy.getPlayerKnowledge().addWarpPerm(entity.getCommandSenderName(), -warpPermanent);
-            final EntityInfusionProperties entityInfusionProperties2 =
-                    (EntityInfusionProperties) entity.getExtendedProperties("CreatureInfusion");
+            final EntityInfusionProperties entityInfusionProperties2 = (EntityInfusionProperties) entity
+                    .getExtendedProperties("CreatureInfusion");
             entityInfusionProperties2.tumorWarpPermanent += warpPermanent;
             if (warp > capacity) {
                 Thaumcraft.proxy.getPlayerKnowledge().addWarpSticky(entity.getCommandSenderName(), -capacity);
-                final EntityInfusionProperties entityInfusionProperties3 =
-                        (EntityInfusionProperties) entity.getExtendedProperties("CreatureInfusion");
+                final EntityInfusionProperties entityInfusionProperties3 = (EntityInfusionProperties) entity
+                        .getExtendedProperties("CreatureInfusion");
                 entityInfusionProperties3.tumorWarp += capacity;
                 capacity = 0;
             } else {
                 capacity -= warp;
                 Thaumcraft.proxy.getPlayerKnowledge().addWarpSticky(entity.getCommandSenderName(), -warp);
-                final EntityInfusionProperties entityInfusionProperties4 =
-                        (EntityInfusionProperties) entity.getExtendedProperties("CreatureInfusion");
+                final EntityInfusionProperties entityInfusionProperties4 = (EntityInfusionProperties) entity
+                        .getExtendedProperties("CreatureInfusion");
                 entityInfusionProperties4.tumorWarp += warp;
                 if (tempWarp > capacity) {
                     Thaumcraft.proxy.getPlayerKnowledge().addWarpTemp(entity.getCommandSenderName(), -capacity);
-                    final EntityInfusionProperties entityInfusionProperties5 =
-                            (EntityInfusionProperties) entity.getExtendedProperties("CreatureInfusion");
+                    final EntityInfusionProperties entityInfusionProperties5 = (EntityInfusionProperties) entity
+                            .getExtendedProperties("CreatureInfusion");
                     entityInfusionProperties5.tumorWarpTemp += capacity;
                     capacity = 0;
                 } else {
                     capacity -= tempWarp;
                     Thaumcraft.proxy.getPlayerKnowledge().addWarpTemp(entity.getCommandSenderName(), -tempWarp);
-                    final EntityInfusionProperties entityInfusionProperties6 =
-                            (EntityInfusionProperties) entity.getExtendedProperties("CreatureInfusion");
+                    final EntityInfusionProperties entityInfusionProperties6 = (EntityInfusionProperties) entity
+                            .getExtendedProperties("CreatureInfusion");
                     entityInfusionProperties6.tumorWarpTemp += tempWarp;
                 }
             }
@@ -311,22 +318,20 @@ public class EventHandlerEntity {
                     ItemFocusContainment.hitCritters.remove(pp);
                 }
             }
-            final EntityInfusionProperties prop =
-                    (EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion");
-            if (prop.hasPlayerInfusion(5)
-                    && (player.getActivePotionEffect(Potion.poison) != null
-                            || player.getActivePotionEffect(Potion.wither) != null
-                            || player.getActivePotionEffect(Potion.potionTypes[Config.potionInfVisExhaustID]) != null
-                            || player.getActivePotionEffect(Potion.potionTypes[Config.potionVisExhaustID]) != null
-                            || player.getActivePotionEffect(Potion.potionTypes[Config.potionThaumarhiaID]) != null
-                            || player.getActivePotionEffect(Potion.potionTypes[Config.potionTaintPoisonID]) != null)) {
+            final EntityInfusionProperties prop = (EntityInfusionProperties) player
+                    .getExtendedProperties("CreatureInfusion");
+            if (prop.hasPlayerInfusion(5) && (player.getActivePotionEffect(Potion.poison) != null
+                    || player.getActivePotionEffect(Potion.wither) != null
+                    || player.getActivePotionEffect(Potion.potionTypes[Config.potionInfVisExhaustID]) != null
+                    || player.getActivePotionEffect(Potion.potionTypes[Config.potionVisExhaustID]) != null
+                    || player.getActivePotionEffect(Potion.potionTypes[Config.potionThaumarhiaID]) != null
+                    || player.getActivePotionEffect(Potion.potionTypes[Config.potionTaintPoisonID]) != null)) {
                 final Collection col = event.entityLiving.getActivePotionEffects();
                 final Iterator it = col.iterator();
                 final ArrayList<PotionEffect> toAdd = new ArrayList<PotionEffect>();
                 while (it.hasNext()) {
                     final PotionEffect pot = (PotionEffect) it.next();
-                    if (pot.getPotionID() == Potion.poison.id
-                            || pot.getPotionID() == Potion.wither.id
+                    if (pot.getPotionID() == Potion.poison.id || pot.getPotionID() == Potion.wither.id
                             || pot.getPotionID() == Config.potionInfVisExhaustID
                             || pot.getPotionID() == Config.potionTaintPoisonID
                             || pot.getPotionID() == Config.potionVisExhaustID
@@ -344,8 +349,7 @@ public class EventHandlerEntity {
                     event.entityLiving.addPotionEffect(effect);
                 }
             }
-            if (prop.hasPlayerInfusion(6)
-                    && ((EntityLivingBase) event.entity).ticksExisted % 200 == 0
+            if (prop.hasPlayerInfusion(6) && ((EntityLivingBase) event.entity).ticksExisted % 200 == 0
                     && player.worldObj.isDaytime()
                     && player.worldObj.canBlockSeeTheSky(
                             MathHelper.floor_double(player.posX),
@@ -360,8 +364,7 @@ public class EventHandlerEntity {
                 if (prop.hasPlayerInfusion(8) && !event.entityLiving.worldObj.isRemote) {
                     this.warpTumor(
                             (EntityPlayer) event.entityLiving,
-                            ThaumicHorizons.warpedTumorValue
-                                    - prop.tumorWarpPermanent
+                            ThaumicHorizons.warpedTumorValue - prop.tumorWarpPermanent
                                     - prop.tumorWarp
                                     - prop.tumorWarpTemp);
                 }
@@ -375,13 +378,14 @@ public class EventHandlerEntity {
                     }
                     event.entity.fallDistance = 0.0f;
                 } else {
-                    final List listy = event.entityLiving.worldObj.func_147461_a(AxisAlignedBB.getBoundingBox(
-                            event.entityLiving.posX - event.entityLiving.width / 1.5,
-                            event.entityLiving.posY,
-                            event.entityLiving.posZ - event.entityLiving.width / 1.5,
-                            event.entityLiving.posX + event.entityLiving.width / 1.5,
-                            event.entityLiving.posY + event.entityLiving.height * 0.9,
-                            event.entityLiving.posZ + event.entityLiving.width / 1.5));
+                    final List listy = event.entityLiving.worldObj.func_147461_a(
+                            AxisAlignedBB.getBoundingBox(
+                                    event.entityLiving.posX - event.entityLiving.width / 1.5,
+                                    event.entityLiving.posY,
+                                    event.entityLiving.posZ - event.entityLiving.width / 1.5,
+                                    event.entityLiving.posX + event.entityLiving.width / 1.5,
+                                    event.entityLiving.posY + event.entityLiving.height * 0.9,
+                                    event.entityLiving.posZ + event.entityLiving.width / 1.5));
                     if (listy.size() > 0) {
                         if (event.entityLiving.isSneaking()) {
                             event.entityLiving.motionY = 0.0;
@@ -394,9 +398,8 @@ public class EventHandlerEntity {
             }
         }
         if (event.entityLiving.ticksExisted % 30 == 0) {
-            final boolean shock = ((EntityInfusionProperties)
-                            event.entityLiving.getExtendedProperties("CreatureInfusion"))
-                    .hasInfusion(6);
+            final boolean shock = ((EntityInfusionProperties) event.entityLiving
+                    .getExtendedProperties("CreatureInfusion")).hasInfusion(6);
             if (shock && event.entityLiving.getAITarget() != null) {
                 event.entityLiving.getAITarget().attackEntityFrom(DamageSource.magic, 1.0f);
                 Thaumcraft.proxy.arcLightning(
@@ -415,39 +418,34 @@ public class EventHandlerEntity {
                         (Entity) event.entityLiving,
                         "thaumcraft:zap",
                         1.0f,
-                        1.0f
-                                + (event.entityLiving.worldObj.rand.nextFloat()
-                                                - event.entityLiving.worldObj.rand.nextFloat())
-                                        * 0.2f);
-            } else if (shock
-                    && event.entityLiving instanceof EntityLiving
+                        1.0f + (event.entityLiving.worldObj.rand.nextFloat()
+                                - event.entityLiving.worldObj.rand.nextFloat()) * 0.2f);
+            } else if (shock && event.entityLiving instanceof EntityLiving
                     && ((EntityLiving) event.entityLiving).getAttackTarget() != null) {
-                ((EntityLiving) event.entityLiving).getAttackTarget().attackEntityFrom(DamageSource.magic, 1.0f);
-                Thaumcraft.proxy.arcLightning(
-                        event.entityLiving.worldObj,
-                        event.entityLiving.posX,
-                        event.entityLiving.posY + event.entityLiving.height / 2.0f,
-                        event.entityLiving.posZ,
-                        ((EntityLiving) event.entityLiving).getAttackTarget().posX,
-                        ((EntityLiving) event.entityLiving).getAttackTarget().posY
-                                + ((EntityLiving) event.entityLiving).getAttackTarget().height / 2.0f,
-                        ((EntityLiving) event.entityLiving).getAttackTarget().posZ,
-                        0.2f,
-                        0.8f,
-                        0.8f,
-                        1.0f);
-                event.entityLiving.worldObj.playSoundAtEntity(
-                        (Entity) event.entityLiving,
-                        "thaumcraft:zap",
-                        1.0f,
-                        1.0f
-                                + (event.entityLiving.worldObj.rand.nextFloat()
-                                                - event.entityLiving.worldObj.rand.nextFloat())
-                                        * 0.2f);
-            }
+                        ((EntityLiving) event.entityLiving).getAttackTarget()
+                                .attackEntityFrom(DamageSource.magic, 1.0f);
+                        Thaumcraft.proxy.arcLightning(
+                                event.entityLiving.worldObj,
+                                event.entityLiving.posX,
+                                event.entityLiving.posY + event.entityLiving.height / 2.0f,
+                                event.entityLiving.posZ,
+                                ((EntityLiving) event.entityLiving).getAttackTarget().posX,
+                                ((EntityLiving) event.entityLiving).getAttackTarget().posY
+                                        + ((EntityLiving) event.entityLiving).getAttackTarget().height / 2.0f,
+                                ((EntityLiving) event.entityLiving).getAttackTarget().posZ,
+                                0.2f,
+                                0.8f,
+                                0.8f,
+                                1.0f);
+                        event.entityLiving.worldObj.playSoundAtEntity(
+                                (Entity) event.entityLiving,
+                                "thaumcraft:zap",
+                                1.0f,
+                                1.0f + (event.entityLiving.worldObj.rand.nextFloat()
+                                        - event.entityLiving.worldObj.rand.nextFloat()) * 0.2f);
+                    }
         }
-        if (event.entityLiving instanceof EntityVoltSlime
-                && event.entityLiving.ticksExisted % 2 == 0
+        if (event.entityLiving instanceof EntityVoltSlime && event.entityLiving.ticksExisted % 2 == 0
                 && event.entityLiving.getAITarget() != null) {
             event.entityLiving.getAITarget().attackEntityFrom(DamageSource.magic, 0.5f);
             Thaumcraft.proxy.arcLightning(
@@ -466,15 +464,12 @@ public class EventHandlerEntity {
                     (Entity) event.entityLiving,
                     "thaumcraft:zap",
                     1.0f,
-                    1.0f
-                            + (event.entityLiving.worldObj.rand.nextFloat()
-                                            - event.entityLiving.worldObj.rand.nextFloat())
-                                    * 0.2f);
+                    1.0f + (event.entityLiving.worldObj.rand.nextFloat() - event.entityLiving.worldObj.rand.nextFloat())
+                            * 0.2f);
         }
         if (event.entityLiving.ticksExisted % 100 == 0) {
-            final boolean runic = ((EntityInfusionProperties)
-                            event.entityLiving.getExtendedProperties("CreatureInfusion"))
-                    .hasInfusion(8);
+            final boolean runic = ((EntityInfusionProperties) event.entityLiving
+                    .getExtendedProperties("CreatureInfusion")).hasInfusion(8);
             if (runic) {
                 int charge = event.entityLiving.getEntityData().getInteger("runicCharge") + 1;
                 if (charge > 6) {
@@ -558,8 +553,13 @@ public class EventHandlerEntity {
                     }
                 }
                 if (aspect != null) {
-                    final EntityAspectOrb orb =
-                            new EntityAspectOrb(target.worldObj, target.posX, target.posY, target.posZ, aspect, 1);
+                    final EntityAspectOrb orb = new EntityAspectOrb(
+                            target.worldObj,
+                            target.posX,
+                            target.posY,
+                            target.posZ,
+                            aspect,
+                            1);
                     target.worldObj.spawnEntityInWorld(orb);
                 }
             }
@@ -578,8 +578,7 @@ public class EventHandlerEntity {
                     10.0 + 2 * boost2);
             if (stuff2 != null && stuff2.size() > 0) {
                 for (final Entity e : stuff2) {
-                    if ((!(e instanceof EntityFollowingItem) || ((EntityFollowingItem) e).target == null)
-                            && !e.isDead
+                    if ((!(e instanceof EntityFollowingItem) || ((EntityFollowingItem) e).target == null) && !e.isDead
                             && e instanceof EntityItem) {
                         double d6 = e.posX - player2.posX;
                         double d7 = e.posY - player2.posY + player2.height / 2.0f;
@@ -614,15 +613,12 @@ public class EventHandlerEntity {
                             e.motionZ = -0.35;
                         }
                         Thaumcraft.proxy.spark(
-                                (float) e.posX
-                                        + (player2.worldObj.rand.nextFloat() - player2.worldObj.rand.nextFloat())
-                                                * 0.125f,
-                                (float) e.posY
-                                        + (player2.worldObj.rand.nextFloat() - player2.worldObj.rand.nextFloat())
-                                                * 0.125f,
-                                (float) e.posZ
-                                        + (player2.worldObj.rand.nextFloat() - player2.worldObj.rand.nextFloat())
-                                                * 0.125f,
+                                (float) e.posX + (player2.worldObj.rand.nextFloat() - player2.worldObj.rand.nextFloat())
+                                        * 0.125f,
+                                (float) e.posY + (player2.worldObj.rand.nextFloat() - player2.worldObj.rand.nextFloat())
+                                        * 0.125f,
+                                (float) e.posZ + (player2.worldObj.rand.nextFloat() - player2.worldObj.rand.nextFloat())
+                                        * 0.125f,
                                 1.0f,
                                 0.25f,
                                 0.25f,
@@ -636,8 +632,7 @@ public class EventHandlerEntity {
             final EntityLivingBase player2 = (EntityLivingBase) event.entity;
             final int boost2 = player2.getActivePotionEffect(Potion.potionTypes[ThaumicHorizons.potionSynthesisID])
                     .getAmplifier();
-            if (((EntityLivingBase) event.entity).ticksExisted % (15 - 2 * boost2) == 0
-                    && player2.worldObj.isDaytime()
+            if (((EntityLivingBase) event.entity).ticksExisted % (15 - 2 * boost2) == 0 && player2.worldObj.isDaytime()
                     && player2.worldObj.canBlockSeeTheSky(
                             MathHelper.floor_double(player2.posX),
                             MathHelper.floor_double(player2.posY),
@@ -679,50 +674,44 @@ public class EventHandlerEntity {
                 }
             } else if (event.entityLiving instanceof EntityMercurialSlime
                     && ((EntityMercurialSlime) event.entityLiving).getSlimeSize() == 1) {
-                event.entityLiving.entityDropItem(new ItemStack(ConfigItems.itemResource, 1, 3), 0.0f);
-            } else if (event.entityLiving instanceof EntityPlayer) {
-                final EntityInfusionProperties prop =
-                        (EntityInfusionProperties) event.entity.getExtendedProperties("CreatureInfusion");
-                if (prop != null) {
-                    if (prop.tumorWarpPermanent > 0 || prop.tumorWarp > 0 || prop.tumorWarpTemp > 0) {
-                        Thaumcraft.proxy
-                                .getPlayerKnowledge()
-                                .addWarpPerm(event.entity.getCommandSenderName(), prop.tumorWarpPermanent);
-                        Thaumcraft.proxy
-                                .getPlayerKnowledge()
-                                .addWarpSticky(event.entity.getCommandSenderName(), prop.tumorWarp);
-                        Thaumcraft.proxy
-                                .getPlayerKnowledge()
-                                .addWarpTemp(event.entity.getCommandSenderName(), prop.tumorWarpTemp);
+                        event.entityLiving.entityDropItem(new ItemStack(ConfigItems.itemResource, 1, 3), 0.0f);
+                    } else
+                if (event.entityLiving instanceof EntityPlayer) {
+                    final EntityInfusionProperties prop = (EntityInfusionProperties) event.entity
+                            .getExtendedProperties("CreatureInfusion");
+                    if (prop != null) {
+                        if (prop.tumorWarpPermanent > 0 || prop.tumorWarp > 0 || prop.tumorWarpTemp > 0) {
+                            Thaumcraft.proxy.getPlayerKnowledge()
+                                    .addWarpPerm(event.entity.getCommandSenderName(), prop.tumorWarpPermanent);
+                            Thaumcraft.proxy.getPlayerKnowledge()
+                                    .addWarpSticky(event.entity.getCommandSenderName(), prop.tumorWarp);
+                            Thaumcraft.proxy.getPlayerKnowledge()
+                                    .addWarpTemp(event.entity.getCommandSenderName(), prop.tumorWarpTemp);
+                        }
+                        prop.resetPlayerInfusions();
                     }
-                    prop.resetPlayerInfusions();
                 }
-            }
         }
     }
 
     @SubscribeEvent
     public void onPlayerHurt(final LivingHurtEvent event) {
-        final EntityInfusionProperties prop =
-                (EntityInfusionProperties) event.entity.getExtendedProperties("CreatureInfusion");
+        final EntityInfusionProperties prop = (EntityInfusionProperties) event.entity
+                .getExtendedProperties("CreatureInfusion");
         if (prop.hasPlayerInfusion(5) && event.source == DamageSourceThaumcraft.taint) {
             event.setCanceled(true);
             event.ammount = 0.0f;
             return;
         }
-        if (!event.entity.worldObj.isRemote
-                && event.entity instanceof EntityPlayer
+        if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer
                 && event.entityLiving.getHealth() - event.ammount <= 0.0f) {
             final EntityPlayer player = (EntityPlayer) event.entity;
             if (prop.tumorWarpPermanent > 0 || prop.tumorWarp > 0 || prop.tumorWarpTemp > 0) {
-                Thaumcraft.proxy
-                        .getPlayerKnowledge()
+                Thaumcraft.proxy.getPlayerKnowledge()
                         .addWarpPerm(event.entity.getCommandSenderName(), prop.tumorWarpPermanent);
-                Thaumcraft.proxy
-                        .getPlayerKnowledge()
+                Thaumcraft.proxy.getPlayerKnowledge()
                         .addWarpSticky(event.entity.getCommandSenderName(), prop.tumorWarp);
-                Thaumcraft.proxy
-                        .getPlayerKnowledge()
+                Thaumcraft.proxy.getPlayerKnowledge()
                         .addWarpTemp(event.entity.getCommandSenderName(), prop.tumorWarpTemp);
             }
             prop.resetPlayerInfusions();
@@ -747,10 +736,9 @@ public class EventHandlerEntity {
                             }
                         }
                         for (int b = 0; b < 4; ++b) {
-                            if (a != b
-                                    && baubles.getStackInSlot(b) != null
-                                    && ItemHandMirror.transport(
-                                            amulet, baubles.getStackInSlot(b), player, player.worldObj)) {
+                            if (a != b && baubles.getStackInSlot(b) != null
+                                    && ItemHandMirror
+                                            .transport(amulet, baubles.getStackInSlot(b), player, player.worldObj)) {
                                 transportedSomething = true;
                                 baubles.setInventorySlotContents(b, (ItemStack) null);
                             }
@@ -758,7 +746,9 @@ public class EventHandlerEntity {
                         if (transportedSomething) {
                             PacketHandler.INSTANCE.sendToAllAround(
                                     (IMessage) new PacketFXContainment(
-                                            player.posX, player.posY + player.getEyeHeight(), player.posZ),
+                                            player.posX,
+                                            player.posY + player.getEyeHeight(),
+                                            player.posZ),
                                     new NetworkRegistry.TargetPoint(
                                             player.worldObj.provider.dimensionId,
                                             player.posX,
@@ -777,7 +767,11 @@ public class EventHandlerEntity {
                             baubles.markDirty();
                             final ItemStack droppedPearl = new ItemStack(ConfigItems.itemEldritchObject, 1, 3);
                             final EntityItem drop = new EntityItem(
-                                    player.worldObj, player.posX, player.posY, player.posZ, droppedPearl);
+                                    player.worldObj,
+                                    player.posX,
+                                    player.posY,
+                                    player.posZ,
+                                    droppedPearl);
                             player.worldObj.spawnEntityInWorld((Entity) drop);
                             break;
                         }
@@ -786,8 +780,7 @@ public class EventHandlerEntity {
                 }
             }
         }
-        if (!event.entity.worldObj.isRemote
-                && event.entityLiving instanceof EntityPlayer
+        if (!event.entity.worldObj.isRemote && event.entityLiving instanceof EntityPlayer
                 && event.entityLiving.getHealth() - event.ammount <= 0.0f
                 && event.entityLiving.getEntityData().getBoolean("soulBeacon")) {
             final EntityPlayer player = (EntityPlayer) event.entity;
@@ -802,7 +795,12 @@ public class EventHandlerEntity {
                 event.setCanceled(true);
                 if (!world.isRemote) {
                     world.createExplosion(
-                            (Entity) null, player.posX, player.posY + player.getEyeHeight(), player.posZ, 0.0f, false);
+                            (Entity) null,
+                            player.posX,
+                            player.posY + player.getEyeHeight(),
+                            player.posZ,
+                            0.0f,
+                            false);
                     for (int a2 = 0; a2 < 25; ++a2) {
                         final int xx = (int) player.posX + world.rand.nextInt(8) - world.rand.nextInt(8);
                         final int yy = (int) player.posY + world.rand.nextInt(8) - world.rand.nextInt(8);
@@ -821,7 +819,11 @@ public class EventHandlerEntity {
                 for (int j = 0; j < 4; ++j) {
                     if (baubles2.getStackInSlot(j) != null) {
                         final EntityItem bauble = new EntityItem(
-                                world, player.posX, player.posY, player.posZ, baubles2.getStackInSlot(j));
+                                world,
+                                player.posX,
+                                player.posY,
+                                player.posZ,
+                                baubles2.getStackInSlot(j));
                         world.spawnEntityInWorld((Entity) bauble);
                         baubles2.setInventorySlotContents(j, (ItemStack) null);
                     }
@@ -845,28 +847,27 @@ public class EventHandlerEntity {
                 ((TileVat) world.getTileEntity(x, y - 1, z)).markDirty();
                 player.worldObj.markBlockForUpdate(x, y - 1, z);
             }
-        } else if (event.entity.worldObj.isRemote
-                && event.entityLiving instanceof EntityPlayer
+        } else if (event.entity.worldObj.isRemote && event.entityLiving instanceof EntityPlayer
                 && event.entityLiving.getHealth() - event.ammount <= 0.0f
                 && event.entityLiving.getEntityData().getBoolean("soulBeacon")) {
-            final EntityPlayer player = (EntityPlayer) event.entity;
-            for (int k = 0; k < player.inventory.mainInventory.length; ++k) {
-                player.inventory.mainInventory[k] = null;
-            }
-            for (int k = 0; k < player.inventory.armorInventory.length; ++k) {
-                player.inventory.armorInventory[k] = null;
-            }
-            final IInventory baubles3 = BaublesApi.getBaubles(player);
-            baubles3.setInventorySlotContents(0, (ItemStack) null);
-            baubles3.setInventorySlotContents(1, (ItemStack) null);
-            baubles3.setInventorySlotContents(2, (ItemStack) null);
-            baubles3.setInventorySlotContents(3, (ItemStack) null);
-        }
+                    final EntityPlayer player = (EntityPlayer) event.entity;
+                    for (int k = 0; k < player.inventory.mainInventory.length; ++k) {
+                        player.inventory.mainInventory[k] = null;
+                    }
+                    for (int k = 0; k < player.inventory.armorInventory.length; ++k) {
+                        player.inventory.armorInventory[k] = null;
+                    }
+                    final IInventory baubles3 = BaublesApi.getBaubles(player);
+                    baubles3.setInventorySlotContents(0, (ItemStack) null);
+                    baubles3.setInventorySlotContents(1, (ItemStack) null);
+                    baubles3.setInventorySlotContents(2, (ItemStack) null);
+                    baubles3.setInventorySlotContents(3, (ItemStack) null);
+                }
     }
 
     void applyPlayerInfusions(final EntityPlayer player, final TileVat tile) {
-        final EntityInfusionProperties prop =
-                (EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion");
+        final EntityInfusionProperties prop = (EntityInfusionProperties) player
+                .getExtendedProperties("CreatureInfusion");
         for (int i = 0; i < tile.selfInfusions.length; ++i) {
             if (tile.selfInfusions[i] != 0) {
                 prop.addPlayerInfusion(tile.selfInfusions[i]);
@@ -878,9 +879,8 @@ public class EventHandlerEntity {
     @SubscribeEvent
     public void onAttack(final LivingAttackEvent event) {
         if (event.source.getEntity() != null && event.source.getEntity() instanceof EntityLivingBase) {
-            final boolean poison = ((EntityInfusionProperties)
-                            event.entityLiving.getExtendedProperties("CreatureInfusion"))
-                    .hasInfusion(9);
+            final boolean poison = ((EntityInfusionProperties) event.entityLiving
+                    .getExtendedProperties("CreatureInfusion")).hasInfusion(9);
             if (poison) {
                 event.entityLiving.addPotionEffect(new PotionEffect(Potion.poison.id, 40, 0, false));
             }
@@ -930,9 +930,7 @@ public class EventHandlerEntity {
             }
             if (flag2) {
                 entity.setPosition(entity.posX, entity.posY, entity.posZ);
-                if (entity.worldObj
-                                .getCollidingBoundingBoxes((Entity) entity, entity.boundingBox)
-                                .isEmpty()
+                if (entity.worldObj.getCollidingBoundingBoxes((Entity) entity, entity.boundingBox).isEmpty()
                         && !entity.worldObj.isAnyLiquid(entity.boundingBox)) {
                     flag = true;
                 }
@@ -948,11 +946,11 @@ public class EventHandlerEntity {
             final float f = (entity.worldObj.rand.nextFloat() - 0.5f) * 0.2f;
             final float f2 = (entity.worldObj.rand.nextFloat() - 0.5f) * 0.2f;
             final float f3 = (entity.worldObj.rand.nextFloat() - 0.5f) * 0.2f;
-            final double d7 =
-                    d3 + (entity.posX - d3) * d6 + (entity.worldObj.rand.nextDouble() - 0.5) * entity.width * 2.0;
+            final double d7 = d3 + (entity.posX - d3) * d6
+                    + (entity.worldObj.rand.nextDouble() - 0.5) * entity.width * 2.0;
             final double d8 = d4 + (entity.posY - d4) * d6 + entity.worldObj.rand.nextDouble() * entity.height;
-            final double d9 =
-                    d5 + (entity.posZ - d5) * d6 + (entity.worldObj.rand.nextDouble() - 0.5) * entity.width * 2.0;
+            final double d9 = d5 + (entity.posZ - d5) * d6
+                    + (entity.worldObj.rand.nextDouble() - 0.5) * entity.width * 2.0;
             entity.worldObj.spawnParticle("portal", d7, d8, d9, (double) f, (double) f2, (double) f3);
         }
         entity.worldObj.playSoundEffect(d3, d4, d5, "mob.endermen.portal", 1.0f, 1.0f);
@@ -965,8 +963,7 @@ public class EventHandlerEntity {
                 .hasInfusion(8);
         if (runic) {
             int charge = event.entityLiving.getEntityData().getInteger("runicCharge");
-            if (charge <= 0
-                    || event.source == DamageSource.drown
+            if (charge <= 0 || event.source == DamageSource.drown
                     || event.source == DamageSource.wither
                     || event.source == DamageSource.outOfWorld
                     || event.source == DamageSource.starve) {
@@ -1011,10 +1008,9 @@ public class EventHandlerEntity {
     @SubscribeEvent
     public void sitStay(final EntityInteractEvent event) {
         if (event.target.getExtendedProperties("CreatureInfusion") != null) {
-            final EntityInfusionProperties prop =
-                    (EntityInfusionProperties) event.target.getExtendedProperties("CreatureInfusion");
-            if (prop.hasInfusion(10)
-                    && event.entityPlayer.getHeldItem() != null
+            final EntityInfusionProperties prop = (EntityInfusionProperties) event.target
+                    .getExtendedProperties("CreatureInfusion");
+            if (prop.hasInfusion(10) && event.entityPlayer.getHeldItem() != null
                     && event.entityPlayer.getHeldItem().getItem() == ConfigItems.itemWandCasting) {
                 final ItemStack jar = new ItemStack(ThaumicHorizons.blockJar);
                 final NBTTagCompound entityData = new NBTTagCompound();
@@ -1038,18 +1034,23 @@ public class EventHandlerEntity {
                                     32.0));
                 }
                 event.target.worldObj.removeEntity(event.target);
-            } else if (prop.hasInfusion(7)
-                    && event.entityPlayer.getCommandSenderName().equals(prop.getOwner())) {
+            } else if (prop.hasInfusion(7) && event.entityPlayer.getCommandSenderName().equals(prop.getOwner())) {
                 prop.setSitting(!prop.isSitting());
                 if (event.target.worldObj.isRemote) {
                     if (prop.isSitting()) {
-                        event.entityPlayer.addChatMessage((IChatComponent)
-                                new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.GRAY
-                                        + event.target.getCommandSenderName() + " is waiting."));
+                        event.entityPlayer.addChatMessage(
+                                (IChatComponent) new ChatComponentText(
+                                        EnumChatFormatting.ITALIC + ""
+                                                + EnumChatFormatting.GRAY
+                                                + event.target.getCommandSenderName()
+                                                + " is waiting."));
                     } else {
-                        event.entityPlayer.addChatMessage((IChatComponent)
-                                new ChatComponentText(EnumChatFormatting.ITALIC + "" + EnumChatFormatting.GRAY
-                                        + event.target.getCommandSenderName() + " will follow you."));
+                        event.entityPlayer.addChatMessage(
+                                (IChatComponent) new ChatComponentText(
+                                        EnumChatFormatting.ITALIC + ""
+                                                + EnumChatFormatting.GRAY
+                                                + event.target.getCommandSenderName()
+                                                + " will follow you."));
                     }
                 }
             }

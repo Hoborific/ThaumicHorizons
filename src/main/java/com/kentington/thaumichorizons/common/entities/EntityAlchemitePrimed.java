@@ -4,13 +4,15 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.kentington.thaumichorizons.common.lib.ExplosionAlchemite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.lib.ExplosionAlchemite;
+
 public class EntityAlchemitePrimed extends Entity {
+
     public EntityLivingBase alchemitePlacedBy;
     public int fuse;
 
@@ -22,12 +24,8 @@ public class EntityAlchemitePrimed extends Entity {
         this.yOffset = this.height / 2.0f;
     }
 
-    public EntityAlchemitePrimed(
-            final World p_i1730_1_,
-            final double p_i1730_2_,
-            final double p_i1730_4_,
-            final double p_i1730_6_,
-            final EntityLivingBase p_i1730_8_) {
+    public EntityAlchemitePrimed(final World p_i1730_1_, final double p_i1730_2_, final double p_i1730_4_,
+            final double p_i1730_6_, final EntityLivingBase p_i1730_8_) {
         this(p_i1730_1_);
         this.setPosition(p_i1730_2_, p_i1730_4_, p_i1730_6_);
         final float f = (float) (Math.random() * 3.141592653589793 * 2.0);
@@ -68,7 +66,12 @@ public class EntityAlchemitePrimed extends Entity {
 
     private void explode() {
         final ExplosionAlchemite explosion = new ExplosionAlchemite(
-                this.worldObj, (Entity) this.alchemitePlacedBy, this.posX, this.posY, this.posZ, 5.0f);
+                this.worldObj,
+                (Entity) this.alchemitePlacedBy,
+                this.posX,
+                this.posY,
+                this.posZ,
+                5.0f);
         explosion.isFlaming = false;
         explosion.isSmoking = true;
         explosion.doExplosionA();

@@ -4,10 +4,6 @@
 
 package com.kentington.thaumichorizons.common.blocks;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.tiles.TileNodeMonitor;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -16,9 +12,17 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import thaumcraft.api.nodes.INode;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileNodeMonitor;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockNodeMonitor extends BlockContainer {
+
     IIcon icon;
 
     public BlockNodeMonitor() {
@@ -40,8 +44,8 @@ public class BlockNodeMonitor extends BlockContainer {
         return node;
     }
 
-    public boolean canPlaceBlockAt(
-            final World p_149742_1_, final int p_149742_2_, final int p_149742_3_, final int p_149742_4_) {
+    public boolean canPlaceBlockAt(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,
+            final int p_149742_4_) {
         return p_149742_1_.getTileEntity(p_149742_2_ - 1, p_149742_3_, p_149742_4_) instanceof INode
                 || p_149742_1_.getTileEntity(p_149742_2_ + 1, p_149742_3_, p_149742_4_) instanceof INode
                 || p_149742_1_.getTileEntity(p_149742_2_, p_149742_3_, p_149742_4_ - 1) instanceof INode
@@ -50,15 +54,11 @@ public class BlockNodeMonitor extends BlockContainer {
                 || p_149742_1_.getTileEntity(p_149742_2_, p_149742_3_ + 1, p_149742_4_) instanceof INode;
     }
 
-    public boolean canPlaceBlockOnSide(
-            final World p_149742_1_,
-            final int p_149742_2_,
-            final int p_149742_3_,
-            final int p_149742_4_,
-            final int p_149742_5_) {
+    public boolean canPlaceBlockOnSide(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,
+            final int p_149742_4_, final int p_149742_5_) {
         final ForgeDirection dir = ForgeDirection.getOrientation(p_149742_5_);
         return (dir == ForgeDirection.DOWN
-                        && p_149742_1_.getTileEntity(p_149742_2_, p_149742_3_ + 1, p_149742_4_) instanceof INode)
+                && p_149742_1_.getTileEntity(p_149742_2_, p_149742_3_ + 1, p_149742_4_) instanceof INode)
                 || (dir == ForgeDirection.UP
                         && p_149742_1_.getTileEntity(p_149742_2_, p_149742_3_ - 1, p_149742_4_) instanceof INode)
                 || (dir == ForgeDirection.NORTH
@@ -71,16 +71,9 @@ public class BlockNodeMonitor extends BlockContainer {
                         && p_149742_1_.getTileEntity(p_149742_2_ - 1, p_149742_3_, p_149742_4_) instanceof INode);
     }
 
-    public int onBlockPlaced(
-            final World p_149742_1_,
-            final int p_149742_2_,
-            final int p_149742_3_,
-            final int p_149742_4_,
-            final int p_149660_5_,
-            final float p_149660_6_,
-            final float p_149660_7_,
-            final float p_149660_8_,
-            final int p_149660_9_) {
+    public int onBlockPlaced(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,
+            final int p_149742_4_, final int p_149660_5_, final float p_149660_6_, final float p_149660_7_,
+            final float p_149660_8_, final int p_149660_9_) {
         if (p_149660_5_ == 0 && p_149742_1_.getTileEntity(p_149742_2_, p_149742_3_ + 1, p_149742_4_) instanceof INode) {
             return 0;
         }
@@ -106,21 +99,13 @@ public class BlockNodeMonitor extends BlockContainer {
         return true;
     }
 
-    public int isProvidingStrongPower(
-            final IBlockAccess p_149748_1_,
-            final int p_149748_2_,
-            final int p_149748_3_,
-            final int p_149748_4_,
-            final int p_149748_5_) {
+    public int isProvidingStrongPower(final IBlockAccess p_149748_1_, final int p_149748_2_, final int p_149748_3_,
+            final int p_149748_4_, final int p_149748_5_) {
         return ((TileNodeMonitor) p_149748_1_.getTileEntity(p_149748_2_, p_149748_3_, p_149748_4_)).activated ? 15 : 0;
     }
 
-    public int isProvidingWeakPower(
-            final IBlockAccess p_149709_1_,
-            final int p_149709_2_,
-            final int p_149709_3_,
-            final int p_149709_4_,
-            final int p_149709_5_) {
+    public int isProvidingWeakPower(final IBlockAccess p_149709_1_, final int p_149709_2_, final int p_149709_3_,
+            final int p_149709_4_, final int p_149709_5_) {
         return ((TileNodeMonitor) p_149709_1_.getTileEntity(p_149709_2_, p_149709_3_, p_149709_4_)).activated ? 15 : 0;
     }
 

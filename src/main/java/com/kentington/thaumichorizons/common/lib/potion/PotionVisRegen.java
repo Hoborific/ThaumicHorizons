@@ -4,14 +4,16 @@
 
 package com.kentington.thaumichorizons.common.lib.potion;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class PotionVisRegen extends Potion {
+
     public static PotionVisRegen instance;
     private int statusIconIndex;
     static final ResourceLocation rl;

@@ -12,6 +12,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+
 import thaumcraft.common.container.ContainerDummy;
 import thaumcraft.common.container.SlotCraftingArcaneWorkbench;
 import thaumcraft.common.container.SlotLimitedByWand;
@@ -19,14 +20,15 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 
 public class ContainerFingers extends Container {
+
     private InventoryPlayer ip;
     public InventoryFingers tileEntity;
 
     public ContainerFingers(final InventoryPlayer par1InventoryPlayer) {
         this.ip = par1InventoryPlayer;
         this.tileEntity = new InventoryFingers();
-        ((ContainerFingers) (this.tileEntity.eventHandler = this))
-                .addSlotToContainer((Slot) new SlotCraftingArcaneWorkbench(
+        ((ContainerFingers) (this.tileEntity.eventHandler = this)).addSlotToContainer(
+                (Slot) new SlotCraftingArcaneWorkbench(
                         par1InventoryPlayer.player,
                         (IInventory) this.tileEntity,
                         (IInventory) this.tileEntity,
@@ -42,8 +44,12 @@ public class ContainerFingers extends Container {
         }
         for (int var6 = 0; var6 < 3; ++var6) {
             for (int var7 = 0; var7 < 9; ++var7) {
-                this.addSlotToContainer(new Slot(
-                        (IInventory) par1InventoryPlayer, var7 + var6 * 9 + 9, 16 + var7 * 18, 151 + var6 * 18));
+                this.addSlotToContainer(
+                        new Slot(
+                                (IInventory) par1InventoryPlayer,
+                                var7 + var6 * 9 + 9,
+                                16 + var7 * 18,
+                                151 + var6 * 18));
             }
         }
         for (int var6 = 0; var6 < 9; ++var6) {
@@ -58,22 +64,21 @@ public class ContainerFingers extends Container {
             ic.setInventorySlotContents(a, this.tileEntity.getStackInSlot(a));
         }
         this.tileEntity.setInventorySlotContentsSoftly(
-                9, CraftingManager.getInstance().findMatchingRecipe(ic, this.ip.player.worldObj));
-        if (this.tileEntity.getStackInSlot(9) == null
-                && this.tileEntity.getStackInSlot(10) != null
+                9,
+                CraftingManager.getInstance().findMatchingRecipe(ic, this.ip.player.worldObj));
+        if (this.tileEntity.getStackInSlot(9) == null && this.tileEntity.getStackInSlot(10) != null
                 && this.tileEntity.getStackInSlot(10).getItem() instanceof ItemWandCasting) {
-            final ItemWandCasting wand =
-                    (ItemWandCasting) this.tileEntity.getStackInSlot(10).getItem();
+            final ItemWandCasting wand = (ItemWandCasting) this.tileEntity.getStackInSlot(10).getItem();
             if (wand.consumeAllVisCrafting(
                     this.tileEntity.getStackInSlot(10),
                     this.ip.player,
-                    ThaumcraftCraftingManager.findMatchingArcaneRecipeAspects(
-                            (IInventory) this.tileEntity, this.ip.player),
+                    ThaumcraftCraftingManager
+                            .findMatchingArcaneRecipeAspects((IInventory) this.tileEntity, this.ip.player),
                     false)) {
                 this.tileEntity.setInventorySlotContentsSoftly(
                         9,
-                        ThaumcraftCraftingManager.findMatchingArcaneRecipe(
-                                (IInventory) this.tileEntity, this.ip.player));
+                        ThaumcraftCraftingManager
+                                .findMatchingArcaneRecipe((IInventory) this.tileEntity, this.ip.player));
             }
         }
     }

@@ -4,10 +4,8 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -25,7 +23,13 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class EntityBoatThaumium extends EntityBoat {
+
     private boolean isBoatEmpty;
     private double speedMultiplier;
     private int boatPosRotationIncrements;
@@ -43,8 +47,6 @@ public class EntityBoatThaumium extends EntityBoat {
 
     @SideOnly(Side.CLIENT)
     private double velocityZ;
-
-    private static final String __OBFID = "CL_00001667";
 
     public EntityBoatThaumium(final World p_i1704_1_) {
         super(p_i1704_1_);
@@ -78,8 +80,8 @@ public class EntityBoatThaumium extends EntityBoat {
         return true;
     }
 
-    public EntityBoatThaumium(
-            final World p_i1705_1_, final double p_i1705_2_, final double p_i1705_4_, final double p_i1705_6_) {
+    public EntityBoatThaumium(final World p_i1705_1_, final double p_i1705_2_, final double p_i1705_4_,
+            final double p_i1705_6_) {
         this(p_i1705_1_);
         this.setPosition(p_i1705_2_, p_i1705_4_ + this.yOffset, p_i1705_6_);
         this.motionX = 0.0;
@@ -131,13 +133,8 @@ public class EntityBoatThaumium extends EntityBoat {
     }
 
     @SideOnly(Side.CLIENT)
-    public void setPositionAndRotation2(
-            final double p_70056_1_,
-            final double p_70056_3_,
-            final double p_70056_5_,
-            final float p_70056_7_,
-            final float p_70056_8_,
-            final int p_70056_9_) {
+    public void setPositionAndRotation2(final double p_70056_1_, final double p_70056_3_, final double p_70056_5_,
+            final float p_70056_7_, final float p_70056_8_, final int p_70056_9_) {
         if (this.isBoatEmpty) {
             this.boatPosRotationIncrements = p_70056_9_ + 5;
         } else {
@@ -185,12 +182,17 @@ public class EntityBoatThaumium extends EntityBoat {
         final byte b0 = 5;
         double d0 = 0.0;
         for (int i = 0; i < b0; ++i) {
-            final double d2 =
-                    this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 0) / b0 - 0.125;
-            final double d3 =
-                    this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 1) / b0 - 0.125;
+            final double d2 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 0) / b0
+                    - 0.125;
+            final double d3 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 1) / b0
+                    - 0.125;
             final AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(
-                    this.boundingBox.minX, d2, this.boundingBox.minZ, this.boundingBox.maxX, d3, this.boundingBox.maxZ);
+                    this.boundingBox.minX,
+                    d2,
+                    this.boundingBox.minZ,
+                    this.boundingBox.maxX,
+                    d3,
+                    this.boundingBox.maxZ);
             if (this.worldObj.isAABBInMaterial(axisalignedbb, Material.water)) {
                 d0 += 1.0 / b0;
                 isLava = false;
@@ -211,20 +213,44 @@ public class EntityBoatThaumium extends EntityBoat {
                     final double d10 = this.posZ - d6 * d7 * 0.8 - d5 * d8;
                     if (!isLava) {
                         this.worldObj.spawnParticle(
-                                "splash", d9, this.posY - 0.125, d10, this.motionX, this.motionY, this.motionZ);
+                                "splash",
+                                d9,
+                                this.posY - 0.125,
+                                d10,
+                                this.motionX,
+                                this.motionY,
+                                this.motionZ);
                     } else if (this.rand.nextInt(5) == 1) {
                         this.worldObj.spawnParticle(
-                                "lava", d9, this.posY - 0.125, d10, this.motionX, this.motionY, this.motionZ);
+                                "lava",
+                                d9,
+                                this.posY - 0.125,
+                                d10,
+                                this.motionX,
+                                this.motionY,
+                                this.motionZ);
                     }
                 } else {
                     final double d9 = this.posX + d5 + d6 * d7 * 0.7;
                     final double d10 = this.posZ + d6 - d5 * d7 * 0.7;
                     if (!isLava) {
                         this.worldObj.spawnParticle(
-                                "splash", d9, this.posY - 0.125, d10, this.motionX, this.motionY, this.motionZ);
+                                "splash",
+                                d9,
+                                this.posY - 0.125,
+                                d10,
+                                this.motionX,
+                                this.motionY,
+                                this.motionZ);
                     } else if (this.rand.nextInt(5) == 1) {
                         this.worldObj.spawnParticle(
-                                "lava", d9, this.posY - 0.125, d10, this.motionX, this.motionY, this.motionZ);
+                                "lava",
+                                d9,
+                                this.posY - 0.125,
+                                d10,
+                                this.motionX,
+                                this.motionY,
+                                this.motionZ);
                     }
                 }
             }
@@ -272,12 +298,10 @@ public class EntityBoatThaumium extends EntityBoat {
             if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityLivingBase) {
                 final EntityLivingBase entitylivingbase = (EntityLivingBase) this.riddenByEntity;
                 final float f = this.riddenByEntity.rotationYaw + -entitylivingbase.moveStrafing * 90.0f;
-                this.motionX += -Math.sin(f * 3.1415927f / 180.0f)
-                        * this.speedMultiplier
+                this.motionX += -Math.sin(f * 3.1415927f / 180.0f) * this.speedMultiplier
                         * entitylivingbase.moveForward
                         * 0.05000000074505806;
-                this.motionZ += Math.cos(f * 3.1415927f / 180.0f)
-                        * this.speedMultiplier
+                this.motionZ += Math.cos(f * 3.1415927f / 180.0f) * this.speedMultiplier
                         * entitylivingbase.moveForward
                         * 0.05000000074505806;
             }
@@ -340,7 +364,8 @@ public class EntityBoatThaumium extends EntityBoat {
             this.setRotation(this.rotationYaw += (float) d13, this.rotationPitch);
             if (!this.worldObj.isRemote) {
                 final List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(
-                        (Entity) this, this.boundingBox.expand(0.20000000298023224, 0.0, 0.20000000298023224));
+                        (Entity) this,
+                        this.boundingBox.expand(0.20000000298023224, 0.0, 0.20000000298023224));
                 if (list != null && !list.isEmpty()) {
                     for (int k2 = 0; k2 < list.size(); ++k2) {
                         final Entity entity = (Entity) list.get(k2);
@@ -377,8 +402,7 @@ public class EntityBoatThaumium extends EntityBoat {
     }
 
     public boolean interactFirst(final EntityPlayer p_130002_1_) {
-        if (this.riddenByEntity != null
-                && this.riddenByEntity instanceof EntityPlayer
+        if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer
                 && this.riddenByEntity != p_130002_1_) {
             return true;
         }
@@ -432,8 +456,12 @@ public class EntityBoatThaumium extends EntityBoat {
 
     public EntityItem entityDropItem(final ItemStack p_70099_1_, final float p_70099_2_) {
         if (p_70099_1_.stackSize != 0 && p_70099_1_.getItem() != null) {
-            final EntityItemInvulnerable entityitem =
-                    new EntityItemInvulnerable(this.worldObj, this.posX, this.posY + p_70099_2_, this.posZ, p_70099_1_);
+            final EntityItemInvulnerable entityitem = new EntityItemInvulnerable(
+                    this.worldObj,
+                    this.posX,
+                    this.posY + p_70099_2_,
+                    this.posZ,
+                    p_70099_1_);
             if (this.captureDrops) {
                 this.capturedDrops.add(entityitem);
             } else {

@@ -4,19 +4,23 @@
 
 package com.kentington.thaumichorizons.common.container;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.tiles.TileVat;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
 import thaumcraft.common.lib.research.ResearchManager;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.tiles.TileVat;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ContainerVat extends Container {
+
     TileVat tile;
     EntityPlayer player;
     SlotSample slotSample;
@@ -26,8 +30,13 @@ public class ContainerVat extends Container {
         this.player = p;
         if (ResearchManager.isResearchComplete(this.player.getCommandSenderName(), "incarnationVat")) {
             this.addSlotToContainer((Slot) (this.slotSample = new SlotSample(this.tile, 0, 63, 32)));
-            this.addSlotToContainer((Slot) new SlotRestricted(
-                    (IInventory) this.tile, 1, 96, 32, new ItemStack(ThaumicHorizons.itemNutrients)));
+            this.addSlotToContainer(
+                    (Slot) new SlotRestricted(
+                            (IInventory) this.tile,
+                            1,
+                            96,
+                            32,
+                            new ItemStack(ThaumicHorizons.itemNutrients)));
         }
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
@@ -78,7 +87,7 @@ public class ContainerVat extends Container {
                     return null;
                 }
                 if ((itemstack.getItem() != ThaumicHorizons.itemNutrients
-                                || !this.mergeItemStack(itemstack2, 1, 2, false))
+                        || !this.mergeItemStack(itemstack2, 1, 2, false))
                         && (!this.slotSample.isItemValid(itemstack2)
                                 || !this.mergeItemStack(itemstack2, 0, 1, false))) {
                     return null;

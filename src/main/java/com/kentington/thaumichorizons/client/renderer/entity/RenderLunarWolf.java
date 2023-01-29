@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.client.renderer.entity;
 
-import com.kentington.thaumichorizons.common.entities.EntityLunarWolf;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderWolf;
 import net.minecraft.entity.Entity;
@@ -12,11 +11,16 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.tile.TileNodeRenderer;
 
+import com.kentington.thaumichorizons.common.entities.EntityLunarWolf;
+
 public class RenderLunarWolf extends RenderWolf {
+
     ResourceLocation wolfTex;
 
     public RenderLunarWolf(final ModelBase p_i1269_1_, final ModelBase p_i1269_2_, final float p_i1269_3_) {
@@ -24,13 +28,8 @@ public class RenderLunarWolf extends RenderWolf {
         this.wolfTex = new ResourceLocation("thaumichorizons", "textures/entity/lunarwolf.png");
     }
 
-    public void doRender(
-            final EntityLunarWolf p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final EntityLunarWolf p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         super.doRender((EntityLiving) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
         if (p_76986_1_.worldObj.getWorldTime() % 24000L < 12000L) {
             return;
@@ -77,33 +76,18 @@ public class RenderLunarWolf extends RenderWolf {
         return this.wolfTex;
     }
 
-    public void doRender(
-            final Entity p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final Entity p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         this.doRender((EntityLunarWolf) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 
-    public void doRender(
-            final EntityLiving p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final EntityLiving p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         this.doRender((EntityLunarWolf) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 
-    public void doRender(
-            final EntityLivingBase p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final EntityLivingBase p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         this.doRender((EntityLunarWolf) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 }

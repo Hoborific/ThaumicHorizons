@@ -4,14 +4,16 @@
 
 package com.kentington.thaumichorizons.client.renderer.entity;
 
-import com.kentington.thaumichorizons.common.entities.EntityNetherHound;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderWolf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.util.ResourceLocation;
 
+import com.kentington.thaumichorizons.common.entities.EntityNetherHound;
+
 public class RenderNetherHound extends RenderWolf {
+
     ResourceLocation wolfTex;
 
     public RenderNetherHound(final ModelBase p_i1269_1_, final ModelBase p_i1269_2_, final float p_i1269_3_) {

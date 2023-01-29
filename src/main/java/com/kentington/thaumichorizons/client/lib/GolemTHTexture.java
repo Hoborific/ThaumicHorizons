@@ -4,14 +4,14 @@
 
 package com.kentington.thaumichorizons.client.lib;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.blocks.BlockChocolate;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+
 import javax.imageio.ImageIO;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -21,7 +21,11 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.blocks.BlockChocolate;
+
 public class GolemTHTexture extends AbstractTexture {
+
     IIcon[] icons;
     IResourceManager manager;
     BufferedImage myImage;
@@ -130,7 +134,7 @@ public class GolemTHTexture extends AbstractTexture {
         this.myImage.setRGB(53, 5, 6, 16, tmp.getRGB(0, 0, 6, 16, null, 0, 6), 0, 6);
         tmp = this.resize(south, 4, 25);
         this.myImage.setRGB(76, 27, 4, 25, tmp.getRGB(0, 0, 4, 25, null, 0, 4), 0, 4);
-        final int[] eyeOverlay = {-16777216, -16316917, -16185587, -15593446};
+        final int[] eyeOverlay = { -16777216, -16316917, -16185587, -15593446 };
         this.myImage.setRGB(9, 12, 2, 2, eyeOverlay, 0, 2);
         this.myImage.setRGB(13, 12, 2, 2, eyeOverlay, 0, 2);
         TextureUtil.uploadTextureImageAllocate(this.getGlTextureId(), this.myImage, false, false);

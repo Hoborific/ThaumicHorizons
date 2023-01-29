@@ -4,13 +4,15 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 public class EntityScholarChicken extends EntityChicken {
+
     public int timeUntilNextFeather;
 
     public EntityScholarChicken(final World p_i1682_1_) {

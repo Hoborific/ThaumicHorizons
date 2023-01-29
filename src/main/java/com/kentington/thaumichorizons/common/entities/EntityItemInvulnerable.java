@@ -10,12 +10,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 public class EntityItemInvulnerable extends EntityItem {
-    public EntityItemInvulnerable(
-            final World p_i1710_1_,
-            final double p_i1710_2_,
-            final double p_i1710_4_,
-            final double p_i1710_6_,
-            final ItemStack p_i1710_8_) {
+
+    public EntityItemInvulnerable(final World p_i1710_1_, final double p_i1710_2_, final double p_i1710_4_,
+            final double p_i1710_6_, final ItemStack p_i1710_8_) {
         super(p_i1710_1_, p_i1710_2_, p_i1710_4_, p_i1710_6_, p_i1710_8_);
     }
 

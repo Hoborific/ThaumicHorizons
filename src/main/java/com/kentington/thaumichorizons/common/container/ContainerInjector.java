@@ -4,8 +4,6 @@
 
 package com.kentington.thaumichorizons.common.container;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.items.ItemInjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -16,7 +14,11 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.items.ItemInjector;
+
 public class ContainerInjector extends Container {
+
     EntityPlayer player;
     ItemStack[] ammo;
     public IInventory ammoInv;
@@ -32,22 +34,58 @@ public class ContainerInjector extends Container {
         this.injector = this.player.inventory.getCurrentItem();
         for (int i = 0; i < 7; ++i) {
             this.ammoInv.setInventorySlotContents(
-                    i, ((ItemInjector) ThaumicHorizons.itemInjector).getAmmo(this.injector, i));
+                    i,
+                    ((ItemInjector) ThaumicHorizons.itemInjector).getAmmo(this.injector, i));
         }
-        this.addSlotToContainer((Slot)
-                new SlotRestricted(this.ammoInv, 0, 73, 10, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
-        this.addSlotToContainer((Slot)
-                new SlotRestricted(this.ammoInv, 1, 99, 20, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
-        this.addSlotToContainer((Slot)
-                new SlotRestricted(this.ammoInv, 2, 107, 47, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
-        this.addSlotToContainer((Slot)
-                new SlotRestricted(this.ammoInv, 3, 92, 70, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
-        this.addSlotToContainer((Slot)
-                new SlotRestricted(this.ammoInv, 4, 64, 72, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
-        this.addSlotToContainer((Slot)
-                new SlotRestricted(this.ammoInv, 5, 45, 51, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
-        this.addSlotToContainer((Slot)
-                new SlotRestricted(this.ammoInv, 6, 49, 24, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+        this.addSlotToContainer(
+                (Slot) new SlotRestricted(
+                        this.ammoInv,
+                        0,
+                        73,
+                        10,
+                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+        this.addSlotToContainer(
+                (Slot) new SlotRestricted(
+                        this.ammoInv,
+                        1,
+                        99,
+                        20,
+                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+        this.addSlotToContainer(
+                (Slot) new SlotRestricted(
+                        this.ammoInv,
+                        2,
+                        107,
+                        47,
+                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+        this.addSlotToContainer(
+                (Slot) new SlotRestricted(
+                        this.ammoInv,
+                        3,
+                        92,
+                        70,
+                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+        this.addSlotToContainer(
+                (Slot) new SlotRestricted(
+                        this.ammoInv,
+                        4,
+                        64,
+                        72,
+                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+        this.addSlotToContainer(
+                (Slot) new SlotRestricted(
+                        this.ammoInv,
+                        5,
+                        45,
+                        51,
+                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+        this.addSlotToContainer(
+                (Slot) new SlotRestricted(
+                        this.ammoInv,
+                        6,
+                        49,
+                        24,
+                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 this.addSlotToContainer(new Slot((IInventory) p.inventory, j + i * 9 + 9, 8 + j * 18, 108 + i * 18));
@@ -103,8 +141,7 @@ public class ContainerInjector extends Container {
             return null;
         }
         final InventoryPlayer inventoryplayer = par4EntityPlayer.inventory;
-        if (par1 != 0
-                || this.ammoInv.isItemValidForSlot(par1, inventoryplayer.getItemStack())
+        if (par1 != 0 || this.ammoInv.isItemValidForSlot(par1, inventoryplayer.getItemStack())
                 || (par1 == 0 && inventoryplayer.getItemStack() == null)) {
             return super.slotClick(par1, par2, par3, par4EntityPlayer);
         }

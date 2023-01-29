@@ -4,21 +4,26 @@
 
 package com.kentington.thaumichorizons.common.lib.networking;
 
+import java.util.HashMap;
+
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChunkCoordinates;
+
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.tiles.TilePedestal;
+
 import com.kentington.thaumichorizons.common.tiles.TileVat;
 import com.kentington.thaumichorizons.common.tiles.TileVatSlave;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
-import java.util.HashMap;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.tiles.TilePedestal;
 
 public class PacketInfusionFX implements IMessage, IMessageHandler<PacketInfusionFX, IMessage> {
+
     private int x;
     private int y;
     private int z;
@@ -29,8 +34,8 @@ public class PacketInfusionFX implements IMessage, IMessageHandler<PacketInfusio
 
     public PacketInfusionFX() {}
 
-    public PacketInfusionFX(
-            final int x, final int y, final int z, final byte dx, final byte dy, final byte dz, final int color) {
+    public PacketInfusionFX(final int x, final int y, final int z, final byte dx, final byte dy, final byte dz,
+            final int color) {
         this.x = x;
         this.y = y;
         this.z = z;

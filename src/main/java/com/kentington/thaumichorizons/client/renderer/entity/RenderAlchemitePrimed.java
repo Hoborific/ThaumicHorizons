@@ -4,16 +4,19 @@
 
 package com.kentington.thaumichorizons.client.renderer.entity;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityAlchemitePrimed;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityAlchemitePrimed;
+
 public class RenderAlchemitePrimed extends RenderEntity {
+
     private RenderBlocks blockRenderer;
 
     public RenderAlchemitePrimed() {
@@ -29,13 +32,8 @@ public class RenderAlchemitePrimed extends RenderEntity {
         return TextureMap.locationBlocksTexture;
     }
 
-    public void doRenderStuff(
-            final EntityAlchemitePrimed entity,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRenderStuff(final EntityAlchemitePrimed entity, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) p_76986_2_, (float) p_76986_4_, (float) p_76986_6_);
         if (entity.fuse - p_76986_9_ + 1.0f < 10.0f) {
@@ -69,14 +67,14 @@ public class RenderAlchemitePrimed extends RenderEntity {
         GL11.glPopMatrix();
     }
 
-    public void doRender(
-            final Entity p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final Entity p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         this.doRenderStuff(
-                (EntityAlchemitePrimed) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+                (EntityAlchemitePrimed) p_76986_1_,
+                p_76986_2_,
+                p_76986_4_,
+                p_76986_6_,
+                p_76986_8_,
+                p_76986_9_);
     }
 }

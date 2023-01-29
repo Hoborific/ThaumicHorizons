@@ -4,11 +4,10 @@
 
 package com.kentington.thaumichorizons.common.items.lenses;
 
-import baubles.api.BaublesApi;
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeMap;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -20,9 +19,14 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
 import thaumcraft.api.nodes.IRevealer;
+import baubles.api.BaublesApi;
+
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
 
 public class LensManager {
+
     public static long nightVisionOffTime;
 
     public static void changeLens(final ItemStack is, final World w, final EntityPlayer player, final String lens) {
@@ -101,9 +105,8 @@ public class LensManager {
                     currentLens = is.stackTagCompound.getString("Lens");
                 }
                 oldLens = getLensItem(currentLens);
-                if (!currentLens.equals("")
-                        && (addLensToPouch(player, oldLens, pouches)
-                                || player.inventory.addItemStackToInventory(oldLens))) {
+                if (!currentLens.equals("") && (addLensToPouch(player, oldLens, pouches)
+                        || player.inventory.addItemStackToInventory(oldLens))) {
                     setLensItem(is, item);
                 } else if (currentLens.equals("")) {
                     setLensItem(is, item);
@@ -117,9 +120,8 @@ public class LensManager {
                 currentLens2 = is.stackTagCompound.getString("Lens");
             }
             oldLens = getLensItem(currentLens2);
-            if (!currentLens2.equals("")
-                    && (addLensToPouch(player, oldLens, pouches)
-                            || player.inventory.addItemStackToInventory(oldLens))) {
+            if (!currentLens2.equals("") && (addLensToPouch(player, oldLens, pouches)
+                    || player.inventory.addItemStackToInventory(oldLens))) {
                 setLensItem(is, null);
                 w.playSoundAtEntity((Entity) player, "thaumcraft:cameraticks", 0.3f, 0.9f);
             }
@@ -129,8 +131,8 @@ public class LensManager {
         }
     }
 
-    private static ItemStack fetchLensFromPouch(
-            final EntityPlayer player, final int lensid, final ItemStack pouch, final int pouchslot) {
+    private static ItemStack fetchLensFromPouch(final EntityPlayer player, final int lensid, final ItemStack pouch,
+            final int pouchslot) {
         ItemStack lens = null;
         final ItemStack[] inv = ((ItemLensCase) pouch.getItem()).getInventory(pouch);
         final ItemStack contents = inv[lensid];
@@ -150,8 +152,8 @@ public class LensManager {
         return lens;
     }
 
-    private static boolean addLensToPouch(
-            final EntityPlayer player, final ItemStack lens, final HashMap<Integer, Integer> pouches) {
+    private static boolean addLensToPouch(final EntityPlayer player, final ItemStack lens,
+            final HashMap<Integer, Integer> pouches) {
         final Iterator i$ = pouches.values().iterator();
         while (i$.hasNext()) {
             final IInventory baubles = BaublesApi.getBaubles(player);
@@ -225,11 +227,7 @@ public class LensManager {
             if (goggles.stackTagCompound.getCompoundTag("display").hasNoTags()) {
                 goggles.stackTagCompound.setTag("display", (NBTBase) new NBTTagCompound());
             }
-            if (goggles.stackTagCompound
-                            .getCompoundTag("display")
-                            .getTagList("Lore", 8)
-                            .tagCount()
-                    == 0) {
+            if (goggles.stackTagCompound.getCompoundTag("display").getTagList("Lore", 8).tagCount() == 0) {
                 goggles.stackTagCompound.getCompoundTag("display").setTag("Lore", (NBTBase) new NBTTagList());
             }
             lore = goggles.stackTagCompound.getCompoundTag("display").getTagList("Lore", 8);
@@ -248,8 +246,9 @@ public class LensManager {
                 lore.removeTag(lensIndex);
             }
             goggles.stackTagCompound.setInteger("LensIndex", lore.tagCount());
-            lore.appendTag((NBTBase) new NBTTagString(
-                    StatCollector.translateToLocal("item." + ((ILens) lens.getItem()).lensName() + ".name")));
+            lore.appendTag(
+                    (NBTBase) new NBTTagString(
+                            StatCollector.translateToLocal("item." + ((ILens) lens.getItem()).lensName() + ".name")));
         }
     }
 

@@ -10,6 +10,7 @@ import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderGravekeeper extends RenderOcelot {
+
     ResourceLocation rl;
 
     public RenderGravekeeper(final ModelBase p_i1264_1_, final float p_i1264_2_) {

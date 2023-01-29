@@ -4,20 +4,24 @@
 
 package com.kentington.thaumichorizons.client.renderer.item;
 
-import com.kentington.thaumichorizons.client.renderer.model.ModelSyringe;
-import com.kentington.thaumichorizons.common.items.ItemSyringeBlood;
-import com.kentington.thaumichorizons.common.items.ItemSyringeBloodSample;
-import com.kentington.thaumichorizons.common.items.ItemSyringeEmpty;
-import com.kentington.thaumichorizons.common.items.ItemSyringeInjection;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.client.renderer.model.ModelSyringe;
+import com.kentington.thaumichorizons.common.items.ItemSyringeBlood;
+import com.kentington.thaumichorizons.common.items.ItemSyringeBloodSample;
+import com.kentington.thaumichorizons.common.items.ItemSyringeEmpty;
+import com.kentington.thaumichorizons.common.items.ItemSyringeInjection;
+
 public class ItemSyringeRender implements IItemRenderer {
+
     private ModelSyringe syringe;
     private String tx1;
 
@@ -30,17 +34,14 @@ public class ItemSyringeRender implements IItemRenderer {
         return item.getItemDamage() == 0;
     }
 
-    public boolean shouldUseRenderHelper(
-            final IItemRenderer.ItemRenderType type,
-            final ItemStack item,
+    public boolean shouldUseRenderHelper(final IItemRenderer.ItemRenderType type, final ItemStack item,
             final IItemRenderer.ItemRendererHelper helper) {
         return helper != IItemRenderer.ItemRendererHelper.BLOCK_3D;
     }
 
     public void renderItem(final IItemRenderer.ItemRenderType type, final ItemStack item, final Object... data) {
         if (item == null
-                || (!(item.getItem() instanceof ItemSyringeBlood)
-                        && !(item.getItem() instanceof ItemSyringeBloodSample)
+                || (!(item.getItem() instanceof ItemSyringeBlood) && !(item.getItem() instanceof ItemSyringeBloodSample)
                         && !(item.getItem() instanceof ItemSyringeInjection)
                         && !(item.getItem() instanceof ItemSyringeEmpty))) {
             return;

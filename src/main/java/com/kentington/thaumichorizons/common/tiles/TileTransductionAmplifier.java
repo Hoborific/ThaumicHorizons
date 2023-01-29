@@ -4,11 +4,8 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.blocks.BlockTransductionAmplifier;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,6 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -27,7 +25,14 @@ import thaumcraft.common.tiles.TileNode;
 import thaumcraft.common.tiles.TileNodeConverter;
 import thaumcraft.common.tiles.TileNodeEnergized;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.blocks.BlockTransductionAmplifier;
+
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+
 public class TileTransductionAmplifier extends TileThaumcraft {
+
     public int count;
     public byte direction;
     public boolean activated;
@@ -48,13 +53,17 @@ public class TileTransductionAmplifier extends TileThaumcraft {
 
         if (this.worldObj.provider.dimensionId == ThaumicHorizons.dimensionPocketId) {
             this.worldObj.createExplosion(
-                    (Entity) null, (double) (this.xCoord), (double) (this.yCoord), (double) (this.zCoord), 1.0f, false);
+                    (Entity) null,
+                    (double) (this.xCoord),
+                    (double) (this.yCoord),
+                    (double) (this.zCoord),
+                    1.0f,
+                    false);
         }
 
         if (!this.fireOnce) {
             this.direction = (byte) this.getBlockMetadata();
-            this.worldObj
-                    .getBlock(this.xCoord, this.yCoord, this.zCoord)
+            this.worldObj.getBlock(this.xCoord, this.yCoord, this.zCoord)
                     .onNeighborBlockChange(this.worldObj, this.xCoord, this.yCoord, this.zCoord, (Block) null);
             this.fireOnce = true;
         }
@@ -71,35 +80,37 @@ public class TileTransductionAmplifier extends TileThaumcraft {
                 this.direction = (byte) this.getBlockMetadata();
             }
             final ForgeDirection dir = ForgeDirection.getOrientation((int) this.direction);
-            if (dir == ForgeDirection.UP
-                    && this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord)
-                            instanceof TileNodeEnergized) {
+            if (dir == ForgeDirection.UP && this.worldObj
+                    .getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof TileNodeEnergized) {
                 this.boostNode(this.xCoord, this.yCoord - 1, this.zCoord);
-            } else if (dir == ForgeDirection.DOWN
-                    && this.worldObj.getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord)
-                            instanceof TileNodeEnergized) {
-                this.boostNode(this.xCoord, this.yCoord + 1, this.zCoord);
-            } else if (dir == ForgeDirection.NORTH
-                    && this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1)
-                            instanceof TileNodeEnergized) {
-                this.boostNode(this.xCoord, this.yCoord, this.zCoord + 1);
-            } else if (dir == ForgeDirection.SOUTH
-                    && this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1)
-                            instanceof TileNodeEnergized) {
-                this.boostNode(this.xCoord, this.yCoord, this.zCoord - 1);
-            } else if (dir == ForgeDirection.WEST
-                    && this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord)
-                            instanceof TileNodeEnergized) {
-                this.boostNode(this.xCoord + 1, this.yCoord, this.zCoord);
-            } else if (dir == ForgeDirection.EAST
-                    && this.worldObj.getTileEntity(this.xCoord - 1, this.yCoord, this.zCoord)
-                            instanceof TileNodeEnergized) {
-                this.boostNode(this.xCoord - 1, this.yCoord, this.zCoord);
-            } else {
-                ((BlockTransductionAmplifier) ThaumicHorizons.blockTransducer)
-                        .killMe(this.worldObj, this.xCoord, this.yCoord, this.zCoord, true);
-                this.worldObj.setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
-            }
+            } else if (dir == ForgeDirection.DOWN && this.worldObj
+                    .getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord) instanceof TileNodeEnergized) {
+                        this.boostNode(this.xCoord, this.yCoord + 1, this.zCoord);
+                    } else
+                if (dir == ForgeDirection.NORTH && this.worldObj
+                        .getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1) instanceof TileNodeEnergized) {
+                            this.boostNode(this.xCoord, this.yCoord, this.zCoord + 1);
+                        } else
+                    if (dir == ForgeDirection.SOUTH && this.worldObj
+                            .getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1) instanceof TileNodeEnergized) {
+                                this.boostNode(this.xCoord, this.yCoord, this.zCoord - 1);
+                            } else
+                        if (dir == ForgeDirection.WEST && this.worldObj.getTileEntity(
+                                this.xCoord + 1,
+                                this.yCoord,
+                                this.zCoord) instanceof TileNodeEnergized) {
+                                    this.boostNode(this.xCoord + 1, this.yCoord, this.zCoord);
+                                } else
+                            if (dir == ForgeDirection.EAST && this.worldObj.getTileEntity(
+                                    this.xCoord - 1,
+                                    this.yCoord,
+                                    this.zCoord) instanceof TileNodeEnergized) {
+                                        this.boostNode(this.xCoord - 1, this.yCoord, this.zCoord);
+                                    } else {
+                                        ((BlockTransductionAmplifier) ThaumicHorizons.blockTransducer)
+                                                .killMe(this.worldObj, this.xCoord, this.yCoord, this.zCoord, true);
+                                        this.worldObj.setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
+                                    }
             this.activated = true;
             this.markDirty();
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
@@ -108,35 +119,37 @@ public class TileTransductionAmplifier extends TileThaumcraft {
                 this.direction = (byte) this.getBlockMetadata();
             }
             final ForgeDirection dir = ForgeDirection.getOrientation((int) this.direction);
-            if (dir == ForgeDirection.UP
-                    && this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord)
-                            instanceof TileNodeEnergized) {
+            if (dir == ForgeDirection.UP && this.worldObj
+                    .getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof TileNodeEnergized) {
                 this.unboostNode(this.xCoord, this.yCoord - 1, this.zCoord);
-            } else if (dir == ForgeDirection.DOWN
-                    && this.worldObj.getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord)
-                            instanceof TileNodeEnergized) {
-                this.unboostNode(this.xCoord, this.yCoord + 1, this.zCoord);
-            } else if (dir == ForgeDirection.NORTH
-                    && this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1)
-                            instanceof TileNodeEnergized) {
-                this.unboostNode(this.xCoord, this.yCoord, this.zCoord + 1);
-            } else if (dir == ForgeDirection.SOUTH
-                    && this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1)
-                            instanceof TileNodeEnergized) {
-                this.unboostNode(this.xCoord, this.yCoord, this.zCoord - 1);
-            } else if (dir == ForgeDirection.WEST
-                    && this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord)
-                            instanceof TileNodeEnergized) {
-                this.unboostNode(this.xCoord + 1, this.yCoord, this.zCoord);
-            } else if (dir == ForgeDirection.EAST
-                    && this.worldObj.getTileEntity(this.xCoord - 1, this.yCoord, this.zCoord)
-                            instanceof TileNodeEnergized) {
-                this.unboostNode(this.xCoord - 1, this.yCoord, this.zCoord);
-            } else {
-                ((BlockTransductionAmplifier) ThaumicHorizons.blockTransducer)
-                        .killMe(this.worldObj, this.xCoord, this.yCoord, this.zCoord, true);
-                this.worldObj.setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
-            }
+            } else if (dir == ForgeDirection.DOWN && this.worldObj
+                    .getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord) instanceof TileNodeEnergized) {
+                        this.unboostNode(this.xCoord, this.yCoord + 1, this.zCoord);
+                    } else
+                if (dir == ForgeDirection.NORTH && this.worldObj
+                        .getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1) instanceof TileNodeEnergized) {
+                            this.unboostNode(this.xCoord, this.yCoord, this.zCoord + 1);
+                        } else
+                    if (dir == ForgeDirection.SOUTH && this.worldObj
+                            .getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1) instanceof TileNodeEnergized) {
+                                this.unboostNode(this.xCoord, this.yCoord, this.zCoord - 1);
+                            } else
+                        if (dir == ForgeDirection.WEST && this.worldObj.getTileEntity(
+                                this.xCoord + 1,
+                                this.yCoord,
+                                this.zCoord) instanceof TileNodeEnergized) {
+                                    this.unboostNode(this.xCoord + 1, this.yCoord, this.zCoord);
+                                } else
+                            if (dir == ForgeDirection.EAST && this.worldObj.getTileEntity(
+                                    this.xCoord - 1,
+                                    this.yCoord,
+                                    this.zCoord) instanceof TileNodeEnergized) {
+                                        this.unboostNode(this.xCoord - 1, this.yCoord, this.zCoord);
+                                    } else {
+                                        ((BlockTransductionAmplifier) ThaumicHorizons.blockTransducer)
+                                                .killMe(this.worldObj, this.xCoord, this.yCoord, this.zCoord, true);
+                                        this.worldObj.setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
+                                    }
             this.activated = false;
             this.markDirty();
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
@@ -146,31 +159,27 @@ public class TileTransductionAmplifier extends TileThaumcraft {
             final int why = this.yCoord;
             int zee = this.zCoord;
             final ForgeDirection dir2 = ForgeDirection.getOrientation((int) this.direction);
-            if (dir2 == ForgeDirection.NORTH
-                    && (this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1)
-                                    instanceof TileNodeEnergized
-                            || this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1)
-                                    instanceof TileNode)) {
+            if (dir2 == ForgeDirection.NORTH && (this.worldObj
+                    .getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1) instanceof TileNodeEnergized
+                    || this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1) instanceof TileNode)) {
                 ++zee;
-            } else if (dir2 == ForgeDirection.SOUTH
-                    && (this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1)
-                                    instanceof TileNodeEnergized
-                            || this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1)
-                                    instanceof TileNode)) {
-                --zee;
-            } else if (dir2 == ForgeDirection.WEST
-                    && (this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord)
-                                    instanceof TileNodeEnergized
-                            || this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord)
-                                    instanceof TileNode)) {
-                ++ecks;
-            } else if (dir2 == ForgeDirection.EAST
-                    && (this.worldObj.getTileEntity(this.xCoord - 1, this.yCoord, this.zCoord)
-                                    instanceof TileNodeEnergized
-                            || this.worldObj.getTileEntity(this.xCoord - 1, this.yCoord, this.zCoord)
-                                    instanceof TileNode)) {
-                --ecks;
-            }
+            } else if (dir2 == ForgeDirection.SOUTH && (this.worldObj
+                    .getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1) instanceof TileNodeEnergized
+                    || this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1) instanceof TileNode)) {
+                        --zee;
+                    } else
+                if (dir2 == ForgeDirection.WEST && (this.worldObj
+                        .getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord) instanceof TileNodeEnergized
+                        || this.worldObj
+                                .getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord) instanceof TileNode)) {
+                                    ++ecks;
+                                } else
+                    if (dir2 == ForgeDirection.EAST && (this.worldObj
+                            .getTileEntity(this.xCoord - 1, this.yCoord, this.zCoord) instanceof TileNodeEnergized
+                            || this.worldObj
+                                    .getTileEntity(this.xCoord - 1, this.yCoord, this.zCoord) instanceof TileNode)) {
+                                        --ecks;
+                                    }
             int transducers = 0;
             if (this.worldObj.getBlock(ecks + 1, why, zee) == ThaumicHorizons.blockTransducer
                     && ((TileTransductionAmplifier) this.worldObj.getTileEntity(ecks + 1, why, zee)).activated) {
@@ -192,8 +201,7 @@ public class TileTransductionAmplifier extends TileThaumcraft {
                 this.unboostNode(ecks, why, zee);
                 ((TileNodeConverter) this.worldObj.getTileEntity(ecks, why + 1, zee)).status = -1;
                 final AspectList aspects = ((TileNodeEnergized) this.worldObj.getTileEntity(ecks, why, zee))
-                        .getAuraBase()
-                        .copy();
+                        .getAuraBase().copy();
                 this.worldObj.setBlock(ecks, why, zee, ThaumicHorizons.blockVortex, 0, 3);
                 ((TileVortex) this.worldObj.getTileEntity(ecks, why, zee)).aspects = aspects;
             }
@@ -218,10 +226,16 @@ public class TileTransductionAmplifier extends TileThaumcraft {
                                     32.0));
                     if (dy > 0) {
                         this.worldObj.setBlock(
-                                this.xCoord + dx, this.yCoord + dy, this.zCoord + dz, ConfigBlocks.blockFluxGas);
+                                this.xCoord + dx,
+                                this.yCoord + dy,
+                                this.zCoord + dz,
+                                ConfigBlocks.blockFluxGas);
                     } else {
                         this.worldObj.setBlock(
-                                this.xCoord + dx, this.yCoord + dy, this.zCoord + dz, ConfigBlocks.blockFluxGoo);
+                                this.xCoord + dx,
+                                this.yCoord + dy,
+                                this.zCoord + dz,
+                                ConfigBlocks.blockFluxGoo);
                     }
                 }
             }
@@ -229,13 +243,12 @@ public class TileTransductionAmplifier extends TileThaumcraft {
                 final List<Entity> targets = (List<Entity>) this.worldObj.getEntitiesWithinAABB(
                         (Class) EntityLivingBase.class,
                         AxisAlignedBB.getBoundingBox(
-                                        (double) this.xCoord,
-                                        (double) this.yCoord,
-                                        (double) this.zCoord,
-                                        (double) (this.xCoord + 1),
-                                        (double) (this.yCoord + 1),
-                                        (double) (this.zCoord + 1))
-                                .expand(10.0, 10.0, 10.0));
+                                (double) this.xCoord,
+                                (double) this.yCoord,
+                                (double) this.zCoord,
+                                (double) (this.xCoord + 1),
+                                (double) (this.yCoord + 1),
+                                (double) (this.zCoord + 1)).expand(10.0, 10.0, 10.0));
                 if (targets != null && targets.size() > 0) {
                     for (final Entity target : targets) {
                         PacketHandler.INSTANCE.sendToAllAround(
@@ -282,31 +295,31 @@ public class TileTransductionAmplifier extends TileThaumcraft {
 
     public void unBoostNode(final int x, final int y, final int z) {
         final ForgeDirection dir = ForgeDirection.getOrientation((int) this.direction);
-        if (dir == ForgeDirection.UP
-                && this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord)
-                        instanceof TileNodeEnergized) {
+        if (dir == ForgeDirection.UP && this.worldObj
+                .getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof TileNodeEnergized) {
             this.unboostNode(this.xCoord, this.yCoord - 1, this.zCoord);
-        } else if (dir == ForgeDirection.DOWN
-                && this.worldObj.getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord)
-                        instanceof TileNodeEnergized) {
-            this.unboostNode(this.xCoord, this.yCoord + 1, this.zCoord);
-        } else if (dir == ForgeDirection.NORTH
-                && this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1)
-                        instanceof TileNodeEnergized) {
-            this.unboostNode(this.xCoord, this.yCoord, this.zCoord + 1);
-        } else if (dir == ForgeDirection.SOUTH
-                && this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1)
-                        instanceof TileNodeEnergized) {
-            this.unboostNode(this.xCoord, this.yCoord, this.zCoord - 1);
-        } else if (dir == ForgeDirection.WEST
-                && this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord)
-                        instanceof TileNodeEnergized) {
-            this.unboostNode(this.xCoord + 1, this.yCoord, this.zCoord);
-        } else if (dir == ForgeDirection.EAST
-                && this.worldObj.getTileEntity(this.xCoord - 1, this.yCoord, this.zCoord)
-                        instanceof TileNodeEnergized) {
-            this.unboostNode(this.xCoord - 1, this.yCoord, this.zCoord);
-        }
+        } else if (dir == ForgeDirection.DOWN && this.worldObj
+                .getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord) instanceof TileNodeEnergized) {
+                    this.unboostNode(this.xCoord, this.yCoord + 1, this.zCoord);
+                } else
+            if (dir == ForgeDirection.NORTH && this.worldObj
+                    .getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1) instanceof TileNodeEnergized) {
+                        this.unboostNode(this.xCoord, this.yCoord, this.zCoord + 1);
+                    } else
+                if (dir == ForgeDirection.SOUTH && this.worldObj
+                        .getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1) instanceof TileNodeEnergized) {
+                            this.unboostNode(this.xCoord, this.yCoord, this.zCoord - 1);
+                        } else
+                    if (dir == ForgeDirection.WEST && this.worldObj
+                            .getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord) instanceof TileNodeEnergized) {
+                                this.unboostNode(this.xCoord + 1, this.yCoord, this.zCoord);
+                            } else
+                        if (dir == ForgeDirection.EAST && this.worldObj.getTileEntity(
+                                this.xCoord - 1,
+                                this.yCoord,
+                                this.zCoord) instanceof TileNodeEnergized) {
+                                    this.unboostNode(this.xCoord - 1, this.yCoord, this.zCoord);
+                                }
     }
 
     void unboostNode(final int x, final int y, final int z) {

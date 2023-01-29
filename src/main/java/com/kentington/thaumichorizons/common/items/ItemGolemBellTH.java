@@ -4,11 +4,8 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -23,13 +20,21 @@ import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.IIcon;
+
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.golems.EntityGolemBase;
 import thaumcraft.common.entities.golems.EntityTravelingTrunk;
 import thaumcraft.common.entities.golems.ItemGolemBell;
 import thaumcraft.common.entities.golems.Marker;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemGolemBellTH extends ItemGolemBell {
+
     public ItemGolemBellTH() {
         this.setHasSubtypes(false);
         this.setCreativeTab(ThaumicHorizons.tabTH);
@@ -47,8 +52,8 @@ public class ItemGolemBellTH extends ItemGolemBell {
     }
 
     @Override
-    public boolean itemInteractionForEntity(
-            final ItemStack stack, final EntityPlayer player, final EntityLivingBase target) {
+    public boolean itemInteractionForEntity(final ItemStack stack, final EntityPlayer player,
+            final EntityLivingBase target) {
         if (target instanceof EntityGolemBase) {
             if (stack.hasTagCompound()) {
                 stack.getTagCompound().removeTag("golemid");
@@ -82,7 +87,10 @@ public class ItemGolemBellTH extends ItemGolemBell {
                 stack.getTagCompound().setInteger("golemhomez", ((EntityGolemBase) target).getHomePosition().posZ);
                 stack.getTagCompound().setInteger("golemhomeface", ((EntityGolemBase) target).homeFacing);
                 target.worldObj.playSoundAtEntity(
-                        (Entity) target, "random.orb", 0.7f, 1.0f + target.worldObj.rand.nextFloat() * 0.1f);
+                        (Entity) target,
+                        "random.orb",
+                        0.7f,
+                        1.0f + target.worldObj.rand.nextFloat() * 0.1f);
                 if (player != null && player.capabilities.isCreativeMode) {
                     player.setCurrentItemOrArmor(0, stack.copy());
                 }
@@ -116,8 +124,9 @@ public class ItemGolemBellTH extends ItemGolemBell {
                 }
                 dropped.setTagInfo("upgrade", (NBTBase) new NBTTagByte(upgrade));
                 if (upgrade == 4) {
-                    dropped.setTagInfo("inventory", (NBTBase)
-                            ((EntityTravelingTrunk) entity).inventory.writeToNBT(new NBTTagList()));
+                    dropped.setTagInfo(
+                            "inventory",
+                            (NBTBase) ((EntityTravelingTrunk) entity).inventory.writeToNBT(new NBTTagList()));
                 }
             }
             ((EntityTravelingTrunk) entity).entityDropItem(dropped, 0.5f);
@@ -177,7 +186,8 @@ public class ItemGolemBellTH extends ItemGolemBell {
                 }
                 dropped2.setTagInfo("markers", (NBTBase) tl);
                 dropped2.setTagInfo(
-                        "Inventory", (NBTBase) ((EntityGolemBase) entity).inventory.writeToNBT(new NBTTagList()));
+                        "Inventory",
+                        (NBTBase) ((EntityGolemBase) entity).inventory.writeToNBT(new NBTTagList()));
             }
             ((EntityGolemBase) entity).entityDropItem(dropped2, 0.5f);
             ((EntityGolemBase) entity).dropStuff();
@@ -253,7 +263,8 @@ public class ItemGolemBellTH extends ItemGolemBell {
             }
             dropped3.setTagInfo("markers", (NBTBase) tl2);
             dropped3.setTagInfo(
-                    "Inventory", (NBTBase) ((EntityGolemBase) entity).inventory.writeToNBT(new NBTTagList()));
+                    "Inventory",
+                    (NBTBase) ((EntityGolemBase) entity).inventory.writeToNBT(new NBTTagList()));
             ((EntityGolemBase) entity).entityDropItem(dropped3, 0.5f);
             ((EntityGolemBase) entity).dropStuff();
             entity.worldObj.playSoundAtEntity(entity, "thaumcraft:zap", 0.5f, 1.0f);

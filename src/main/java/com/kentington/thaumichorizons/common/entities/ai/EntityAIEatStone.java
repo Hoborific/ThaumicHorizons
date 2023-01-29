@@ -4,8 +4,8 @@
 
 package com.kentington.thaumichorizons.common.entities.ai;
 
-import com.kentington.thaumichorizons.common.entities.EntityOrePig;
 import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.item.EntityItem;
@@ -14,7 +14,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 
+import com.kentington.thaumichorizons.common.entities.EntityOrePig;
+
 public class EntityAIEatStone extends EntityAIBase {
+
     private EntityOrePig thePig;
     private Entity targetEntity;
     int count;
@@ -94,13 +97,12 @@ public class EntityAIEatStone extends EntityAIBase {
                 "random.burp",
                 0.2f,
                 ((this.targetEntity.worldObj.rand.nextFloat() - this.targetEntity.worldObj.rand.nextFloat()) * 0.7f
-                                + 1.0f)
-                        * 2.0f);
+                        + 1.0f) * 2.0f);
     }
 
     public void startExecuting() {
         this.count = 500;
-        this.thePig.getNavigator().tryMoveToEntityLiving(this.targetEntity, (double)
-                (this.thePig.getAIMoveSpeed() + 1.0f));
+        this.thePig.getNavigator()
+                .tryMoveToEntityLiving(this.targetEntity, (double) (this.thePig.getAIMoveSpeed() + 1.0f));
     }
 }

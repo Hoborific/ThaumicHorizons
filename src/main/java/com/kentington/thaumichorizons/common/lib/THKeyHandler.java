@@ -4,17 +4,9 @@
 
 package com.kentington.thaumichorizons.common.lib;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.lib.networking.*;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -22,9 +14,22 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
+
 import thaumcraft.api.nodes.IRevealer;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.lib.networking.*;
+
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class THKeyHandler {
+
     public KeyBinding keyV;
     public KeyBinding keyM;
     public KeyBinding keyC;
@@ -70,12 +75,11 @@ public class THKeyHandler {
                             THKeyHandler.lastPressV = System.currentTimeMillis();
                             THKeyHandler.radialLock = false;
                         }
-                        if (!THKeyHandler.radialLock
-                                && player.inventory.armorItemInSlot(3) != null
+                        if (!THKeyHandler.radialLock && player.inventory.armorItemInSlot(3) != null
                                 && player.inventory.armorItemInSlot(3).getItem() instanceof IRevealer) {
                             if (player.isSneaking()) {
-                                PacketHandler.INSTANCE.sendToServer(
-                                        (IMessage) new PacketLensChangeToServer(player, "REMOVE"));
+                                PacketHandler.INSTANCE
+                                        .sendToServer((IMessage) new PacketLensChangeToServer(player, "REMOVE"));
                             } else {
                                 THKeyHandler.radialActive = true;
                             }
@@ -98,8 +102,7 @@ public class THKeyHandler {
                             THKeyHandler.lastPressM = System.currentTimeMillis();
                         }
                         if (((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion"))
-                                        .hasPlayerInfusion(2)
-                                && !this.keyPressedM) {
+                                .hasPlayerInfusion(2) && !this.keyPressedM) {
                             player.openGui(
                                     (Object) ThaumicHorizons.instance,
                                     9,
@@ -107,8 +110,8 @@ public class THKeyHandler {
                                     (int) player.posX,
                                     (int) player.posY,
                                     (int) player.posZ);
-                            PacketHandler.INSTANCE.sendToServer(
-                                    (IMessage) new PacketFingersToServer(player, player.dimension));
+                            PacketHandler.INSTANCE
+                                    .sendToServer((IMessage) new PacketFingersToServer(player, player.dimension));
                         }
                     }
                     this.keyPressedM = true;
@@ -127,21 +130,26 @@ public class THKeyHandler {
                             THKeyHandler.lastPressC = System.currentTimeMillis();
                         }
                         if (((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion"))
-                                        .hasPlayerInfusion(9)
-                                && !this.keyPressedC) {
-                            ((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion")).toggleClimb =
-                                    !((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion"))
-                                            .toggleClimb;
-                            if (((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion"))
-                                    .toggleClimb) {
-                                player.addChatMessage((IChatComponent) new ChatComponentText(EnumChatFormatting.ITALIC
-                                        + "" + EnumChatFormatting.GRAY + "Spider Climb disabled."));
+                                .hasPlayerInfusion(9) && !this.keyPressedC) {
+                            ((EntityInfusionProperties) player.getExtendedProperties(
+                                    "CreatureInfusion")).toggleClimb = !((EntityInfusionProperties) player
+                                            .getExtendedProperties("CreatureInfusion")).toggleClimb;
+                            if (((EntityInfusionProperties) player
+                                    .getExtendedProperties("CreatureInfusion")).toggleClimb) {
+                                player.addChatMessage(
+                                        (IChatComponent) new ChatComponentText(
+                                                EnumChatFormatting.ITALIC + ""
+                                                        + EnumChatFormatting.GRAY
+                                                        + "Spider Climb disabled."));
                             } else {
-                                player.addChatMessage((IChatComponent) new ChatComponentText(EnumChatFormatting.ITALIC
-                                        + "" + EnumChatFormatting.GRAY + "Spider Climb enabled."));
+                                player.addChatMessage(
+                                        (IChatComponent) new ChatComponentText(
+                                                EnumChatFormatting.ITALIC + ""
+                                                        + EnumChatFormatting.GRAY
+                                                        + "Spider Climb enabled."));
                             }
-                            PacketHandler.INSTANCE.sendToServer(
-                                    (IMessage) new PacketToggleClimbToServer(player, player.dimension));
+                            PacketHandler.INSTANCE
+                                    .sendToServer((IMessage) new PacketToggleClimbToServer(player, player.dimension));
                         }
                     }
                     this.keyPressedC = true;
@@ -160,26 +168,33 @@ public class THKeyHandler {
                             THKeyHandler.lastPressX = System.currentTimeMillis();
                         }
                         if (((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion"))
-                                        .hasPlayerInfusion(10)
-                                && !this.keyPressedX) {
-                            ((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion"))
-                                            .toggleInvisible =
-                                    !((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion"))
-                                            .toggleInvisible;
-                            if (((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion"))
-                                    .toggleInvisible) {
+                                .hasPlayerInfusion(10) && !this.keyPressedX) {
+                            ((EntityInfusionProperties) player.getExtendedProperties(
+                                    "CreatureInfusion")).toggleInvisible = !((EntityInfusionProperties) player
+                                            .getExtendedProperties("CreatureInfusion")).toggleInvisible;
+                            if (((EntityInfusionProperties) player
+                                    .getExtendedProperties("CreatureInfusion")).toggleInvisible) {
                                 player.removePotionEffectClient(Potion.invisibility.id);
                                 player.setInvisible(false);
-                                player.addChatMessage((IChatComponent) new ChatComponentText(EnumChatFormatting.ITALIC
-                                        + "" + EnumChatFormatting.GRAY + "Chameleon Skin disabled."));
+                                player.addChatMessage(
+                                        (IChatComponent) new ChatComponentText(
+                                                EnumChatFormatting.ITALIC + ""
+                                                        + EnumChatFormatting.GRAY
+                                                        + "Chameleon Skin disabled."));
                             } else {
-                                final PotionEffect effect =
-                                        new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 0, true);
+                                final PotionEffect effect = new PotionEffect(
+                                        Potion.invisibility.id,
+                                        Integer.MAX_VALUE,
+                                        0,
+                                        true);
                                 effect.setCurativeItems((List) new ArrayList());
                                 player.addPotionEffect(effect);
                                 player.setInvisible(true);
-                                player.addChatMessage((IChatComponent) new ChatComponentText(EnumChatFormatting.ITALIC
-                                        + "" + EnumChatFormatting.GRAY + "Chameleon Skin enabled."));
+                                player.addChatMessage(
+                                        (IChatComponent) new ChatComponentText(
+                                                EnumChatFormatting.ITALIC + ""
+                                                        + EnumChatFormatting.GRAY
+                                                        + "Chameleon Skin enabled."));
                             }
                             PacketHandler.INSTANCE.sendToServer(
                                     (IMessage) new PacketToggleInvisibleToServer(player, player.dimension));

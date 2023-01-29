@@ -9,6 +9,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class BlockVortexItem extends ItemBlock {
+
     public BlockVortexItem(final Block block) {
         super(block);
         this.setHasSubtypes(true);

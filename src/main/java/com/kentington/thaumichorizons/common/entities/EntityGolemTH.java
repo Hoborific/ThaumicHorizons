@@ -4,16 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.kentington.thaumichorizons.client.lib.GolemTHTexture;
-import com.kentington.thaumichorizons.common.entities.ai.EntityAIFollowPlayer;
-import com.kentington.thaumichorizons.common.lib.networking.PacketFXBlocksplosion;
-import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -36,6 +26,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
@@ -48,7 +39,20 @@ import thaumcraft.common.entities.golems.EntityGolemBase;
 import thaumcraft.common.entities.golems.EnumGolemType;
 import thaumcraft.common.entities.monster.EntityEldritchGuardian;
 
+import com.kentington.thaumichorizons.client.lib.GolemTHTexture;
+import com.kentington.thaumichorizons.common.entities.ai.EntityAIFollowPlayer;
+import com.kentington.thaumichorizons.common.lib.networking.PacketFXBlocksplosion;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
+
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import io.netty.buffer.ByteBuf;
+
 public class EntityGolemTH extends EntityGolemBase {
+
     public ResourceLocation texture;
     public Block blocky;
     public int md;
@@ -66,16 +70,8 @@ public class EntityGolemTH extends EntityGolemBase {
         this.type = EnumGolemTHType.SAND;
     }
 
-    public void loadGolem(
-            final double x,
-            final double y,
-            final double z,
-            final Block block,
-            final int md,
-            final int ticksAlive,
-            final boolean adv,
-            final boolean berserk,
-            final boolean kaboom) {
+    public void loadGolem(final double x, final double y, final double z, final Block block, final int md,
+            final int ticksAlive, final boolean adv, final boolean berserk, final boolean kaboom) {
         this.setPosition(x, y, z);
         this.md = md;
         this.blocky = block;
@@ -153,13 +149,16 @@ public class EntityGolemTH extends EntityGolemBase {
             this.tasks.addTask(5, (EntityAIBase) new AIOpenDoor((EntityGolemBase) this, true));
             if (!this.kaboom) {
                 this.tasks.addTask(
-                        6, (EntityAIBase) new EntityAIFollowPlayer(this, this.getAIMoveSpeed() * 3.0f, 2.0f, 12.0f));
+                        6,
+                        (EntityAIBase) new EntityAIFollowPlayer(this, this.getAIMoveSpeed() * 3.0f, 2.0f, 12.0f));
             } else {
                 this.tasks.addTask(
-                        6, (EntityAIBase) new EntityAIFollowPlayer(this, this.getAIMoveSpeed() * 3.0f, 8.0f, 12.0f));
+                        6,
+                        (EntityAIBase) new EntityAIFollowPlayer(this, this.getAIMoveSpeed() * 3.0f, 8.0f, 12.0f));
             }
             this.tasks.addTask(
-                    7, (EntityAIBase) new EntityAIWatchClosest((EntityLiving) this, (Class) EntityPlayer.class, 6.0f));
+                    7,
+                    (EntityAIBase) new EntityAIWatchClosest((EntityLiving) this, (Class) EntityPlayer.class, 6.0f));
             this.tasks.addTask(8, (EntityAIBase) new EntityAILookIdle((EntityLiving) this));
             this.paused = false;
             this.inactive = false;
@@ -168,8 +167,7 @@ public class EntityGolemTH extends EntityGolemBase {
         if (!this.worldObj.isRemote) {
             this.dataWatcher.updateObject(19, (Object) (byte) this.type.ordinal());
         }
-        if (this.getGolemTHType() == EnumGolemTHType.ROCK
-                || this.getGolemTHType() == EnumGolemTHType.METAL
+        if (this.getGolemTHType() == EnumGolemTHType.ROCK || this.getGolemTHType() == EnumGolemTHType.METAL
                 || this.getGolemTHType() == EnumGolemTHType.REDSTONE) {
             this.getNavigator().setAvoidsWater(false);
         } else {
@@ -178,8 +176,7 @@ public class EntityGolemTH extends EntityGolemBase {
         int bonus = 0;
         try {
             bonus = (this.getGolemDecoration().contains("H") ? 5 : 0);
-        } catch (Exception ex) {
-        }
+        } catch (Exception ex) {}
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth)
                 .setBaseValue((double) (this.getGolemTHType().health + bonus));
         return true;
@@ -193,19 +190,19 @@ public class EntityGolemTH extends EntityGolemBase {
         if (this.blocky == ConfigBlocks.blockCosmeticSolid && this.md == 4 && ds == DamageSource.magic) {
             par2 *= 0.5f;
         }
-        if (ds.getSourceOfDamage() != null
-                && this.getUpgradeAmount(5) > 0
+        if (ds.getSourceOfDamage() != null && this.getUpgradeAmount(5) > 0
                 && ds.getSourceOfDamage().getEntityId() != this.getEntityId()) {
-            ds.getSourceOfDamage().attackEntityFrom(DamageSource.causeThornsDamage((Entity) this), (float)
-                    (this.getUpgradeAmount(5) * 2 + this.rand.nextInt(2 * this.getUpgradeAmount(5))));
+            ds.getSourceOfDamage().attackEntityFrom(
+                    DamageSource.causeThornsDamage((Entity) this),
+                    (float) (this.getUpgradeAmount(5) * 2 + this.rand.nextInt(2 * this.getUpgradeAmount(5))));
             ds.getSourceOfDamage().playSound("damage.thorns", 0.5f, 1.0f);
-        } else if (ds.getSourceOfDamage() != null
-                && this.blocky == Blocks.cactus
+        } else if (ds.getSourceOfDamage() != null && this.blocky == Blocks.cactus
                 && ds.getSourceOfDamage().getEntityId() != this.getEntityId()) {
-            ds.getSourceOfDamage().attackEntityFrom(DamageSource.causeThornsDamage((Entity) this), (float)
-                    (this.getUpgradeAmount(5) * 2 + this.rand.nextInt(2)));
-            ds.getSourceOfDamage().playSound("damage.thorns", 0.5f, 1.0f);
-        }
+                    ds.getSourceOfDamage().attackEntityFrom(
+                            DamageSource.causeThornsDamage((Entity) this),
+                            (float) (this.getUpgradeAmount(5) * 2 + this.rand.nextInt(2)));
+                    ds.getSourceOfDamage().playSound("damage.thorns", 0.5f, 1.0f);
+                }
         return super.attackEntityFrom(ds, par2);
     }
 
@@ -231,8 +228,7 @@ public class EntityGolemTH extends EntityGolemBase {
             speed *= 1.1f;
         }
         if (this.isInWater()
-                && (this.getGolemTHType() == EnumGolemTHType.ROCK
-                        || this.getGolemTHType() == EnumGolemTHType.METAL
+                && (this.getGolemTHType() == EnumGolemTHType.ROCK || this.getGolemTHType() == EnumGolemTHType.METAL
                         || this.getGolemTHType() == EnumGolemTHType.REDSTONE)) {
             speed *= 2.0f;
         }
@@ -259,35 +255,44 @@ public class EntityGolemTH extends EntityGolemBase {
                     switch (this.voidCount) {
                         case 0: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent) new ChatComponentText(
-                                        EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE
-                                                + StatCollector.translateToLocal("thaumichorizons.golemWarning1")));
+                                player.addChatMessage(
+                                        (IChatComponent) new ChatComponentText(
+                                                EnumChatFormatting.ITALIC + ""
+                                                        + EnumChatFormatting.DARK_PURPLE
+                                                        + StatCollector
+                                                                .translateToLocal("thaumichorizons.golemWarning1")));
                                 break;
                             }
                             break;
                         }
                         case 1: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent) new ChatComponentText(
-                                        EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE
-                                                + StatCollector.translateToLocal("thaumichorizons.golemWarning2")));
+                                player.addChatMessage(
+                                        (IChatComponent) new ChatComponentText(
+                                                EnumChatFormatting.ITALIC + ""
+                                                        + EnumChatFormatting.DARK_PURPLE
+                                                        + StatCollector
+                                                                .translateToLocal("thaumichorizons.golemWarning2")));
                                 break;
                             }
                             break;
                         }
                         case 2: {
                             if (player != null) {
-                                player.addChatMessage((IChatComponent) new ChatComponentText(
-                                        EnumChatFormatting.ITALIC + "" + EnumChatFormatting.DARK_PURPLE
-                                                + StatCollector.translateToLocal("thaumichorizons.golemWarning3")));
+                                player.addChatMessage(
+                                        (IChatComponent) new ChatComponentText(
+                                                EnumChatFormatting.ITALIC + ""
+                                                        + EnumChatFormatting.DARK_PURPLE
+                                                        + StatCollector
+                                                                .translateToLocal("thaumichorizons.golemWarning3")));
                                 break;
                             }
                             break;
                         }
                         case 3: {
                             this.die();
-                            Thaumcraft.proxy.burst(
-                                    this.worldObj, this.posX, this.posY + this.height / 2.0f, this.posZ, 2.0f);
+                            Thaumcraft.proxy
+                                    .burst(this.worldObj, this.posX, this.posY + this.height / 2.0f, this.posZ, 2.0f);
                             final EntityEldritchGuardian scaryThing = new EntityEldritchGuardian(this.worldObj);
                             scaryThing.setPosition(this.posX, this.posY, this.posZ);
                             this.worldObj.spawnEntityInWorld((Entity) scaryThing);
@@ -418,7 +423,7 @@ public class EntityGolemTH extends EntityGolemBase {
         final IIcon north = this.blocky.getIcon(4, this.md);
         final IIcon south = this.blocky.getIcon(5, this.md);
         final GolemTHTexture newTex = new GolemTHTexture(
-                new IIcon[] {bottom, top, east, west, north, south},
+                new IIcon[] { bottom, top, east, west, north, south },
                 (this.blocky == Blocks.grass) ? 1 : ((this.blocky == Blocks.cake) ? 2 : 0));
         this.texture = new ResourceLocation("thaumichorizons", "TEMPGOLEMTEX" + this.getEntityId());
         Minecraft.getMinecraft().getTextureManager().loadTexture(this.texture, (ITextureObject) newTex);
@@ -429,8 +434,7 @@ public class EntityGolemTH extends EntityGolemBase {
             return false;
         }
         final ItemStack itemstack = player.inventory.getCurrentItem();
-        if (this.getCore() == -1
-                && itemstack != null
+        if (this.getCore() == -1 && itemstack != null
                 && itemstack.getItem() == ConfigItems.itemGolemCore
                 && itemstack.getItemDamage() != 100) {
             this.setHomeArea(
@@ -488,7 +492,9 @@ public class EntityGolemTH extends EntityGolemBase {
             return;
         }
         if (this.worldObj.isAirBlock(
-                (int) Math.round(this.posX - 0.5), (int) Math.round(this.posY), (int) Math.round(this.posZ - 0.5))) {
+                (int) Math.round(this.posX - 0.5),
+                (int) Math.round(this.posY),
+                (int) Math.round(this.posZ - 0.5))) {
             if (this.blocky != null && this.blocky != Blocks.air) {
                 this.worldObj.setBlock(
                         (int) Math.round(this.posX - 0.5),
@@ -682,8 +688,7 @@ public class EntityGolemTH extends EntityGolemBase {
             int bonus = 0;
             try {
                 bonus = (this.getGolemDecoration().contains("H") ? 5 : 0);
-            } catch (Exception ex) {
-            }
+            } catch (Exception ex) {}
             this.getEntityAttribute(SharedMonsterAttributes.maxHealth)
                     .setBaseValue((double) (this.type.health + bonus));
         } else if (par1 == 6) {

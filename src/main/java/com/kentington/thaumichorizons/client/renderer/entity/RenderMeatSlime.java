@@ -10,6 +10,7 @@ import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderMeatSlime extends RenderSlime {
+
     private static final ResourceLocation slimeTextures;
 
     protected ResourceLocation getEntityTexture(final EntitySlime p_110775_1_) {

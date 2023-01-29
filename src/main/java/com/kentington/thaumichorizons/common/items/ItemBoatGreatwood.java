@@ -4,11 +4,8 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityBoatGreatwood;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +19,14 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityBoatGreatwood;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemBoatGreatwood extends ItemBoat {
+
     @SideOnly(Side.CLIENT)
     public IIcon icon;
 
@@ -31,8 +35,8 @@ public class ItemBoatGreatwood extends ItemBoat {
         this.setCreativeTab(ThaumicHorizons.tabTH);
     }
 
-    public ItemStack onItemRightClick(
-            final ItemStack p_77659_1_, final World p_77659_2_, final EntityPlayer p_77659_3_) {
+    public ItemStack onItemRightClick(final ItemStack p_77659_1_, final World p_77659_2_,
+            final EntityPlayer p_77659_3_) {
         final float f = 1.0f;
         final float f2 = p_77659_3_.prevRotationPitch + (p_77659_3_.rotationPitch - p_77659_3_.prevRotationPitch) * f;
         final float f3 = p_77659_3_.prevRotationYaw + (p_77659_3_.rotationYaw - p_77659_3_.prevRotationYaw) * f;
@@ -57,9 +61,7 @@ public class ItemBoatGreatwood extends ItemBoat {
         final float f10 = 1.0f;
         final List list = p_77659_2_.getEntitiesWithinAABBExcludingEntity(
                 (Entity) p_77659_3_,
-                p_77659_3_
-                        .boundingBox
-                        .addCoord(vec5.xCoord * d4, vec5.yCoord * d4, vec5.zCoord * d4)
+                p_77659_3_.boundingBox.addCoord(vec5.xCoord * d4, vec5.yCoord * d4, vec5.zCoord * d4)
                         .expand((double) f10, (double) f10, (double) f10));
         for (int i = 0; i < list.size(); ++i) {
             final Entity entity = (Entity) list.get(i);
@@ -82,8 +84,8 @@ public class ItemBoatGreatwood extends ItemBoat {
                 --j;
             }
             final EntityBoatGreatwood entityboat = new EntityBoatGreatwood(p_77659_2_, i + 0.5f, j + 1.0f, k + 0.5f);
-            entityboat.rotationYaw =
-                    ((MathHelper.floor_double(p_77659_3_.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3) - 1) * 90;
+            entityboat.rotationYaw = ((MathHelper.floor_double(p_77659_3_.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3) - 1)
+                    * 90;
             if (!p_77659_2_
                     .getCollidingBoundingBoxes((Entity) entityboat, entityboat.boundingBox.expand(-0.1, -0.1, -0.1))
                     .isEmpty()) {

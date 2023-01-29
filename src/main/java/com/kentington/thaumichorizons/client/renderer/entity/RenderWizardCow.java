@@ -4,8 +4,8 @@
 
 package com.kentington.thaumichorizons.client.renderer.entity;
 
-import com.kentington.thaumichorizons.common.entities.EntityWizardCow;
 import java.util.HashMap;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderCow;
@@ -13,7 +13,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.nodes.NodeModifier;
@@ -21,7 +23,10 @@ import thaumcraft.api.nodes.NodeType;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.tile.TileNodeRenderer;
 
+import com.kentington.thaumichorizons.common.entities.EntityWizardCow;
+
 public class RenderWizardCow extends RenderCow {
+
     public static HashMap<String, AspectList> cowAspects;
     public static HashMap<String, NodeType> cowTypes;
     public static HashMap<String, NodeModifier> cowMods;
@@ -30,13 +35,8 @@ public class RenderWizardCow extends RenderCow {
         super(p_i1253_1_, p_i1253_2_);
     }
 
-    public void doRender(
-            final EntityWizardCow p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final EntityWizardCow p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
@@ -60,19 +60,9 @@ public class RenderWizardCow extends RenderCow {
         GL11.glDisable(3042);
     }
 
-    public void renderMyNode(
-            final double x,
-            final double y,
-            final double z,
-            final EntityLivingBase viewer,
-            final double viewDistance,
-            final boolean visible,
-            final boolean depthIgnore,
-            final float size,
-            final float partialTicks,
-            final AspectList aspects,
-            final NodeType type,
-            final NodeModifier mod) {
+    public void renderMyNode(final double x, final double y, final double z, final EntityLivingBase viewer,
+            final double viewDistance, final boolean visible, final boolean depthIgnore, final float size,
+            final float partialTicks, final AspectList aspects, final NodeType type, final NodeModifier mod) {
         final long nt = System.nanoTime();
         UtilsFX.bindTexture(TileNodeRenderer.nodetex);
         final int frames = 32;
@@ -214,33 +204,18 @@ public class RenderWizardCow extends RenderCow {
         }
     }
 
-    public void doRender(
-            final Entity p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final Entity p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         this.doRender((EntityWizardCow) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 
-    public void doRender(
-            final EntityLiving p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final EntityLiving p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         this.doRender((EntityWizardCow) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 
-    public void doRender(
-            final EntityLivingBase p_76986_1_,
-            final double p_76986_2_,
-            final double p_76986_4_,
-            final double p_76986_6_,
-            final float p_76986_8_,
-            final float p_76986_9_) {
+    public void doRender(final EntityLivingBase p_76986_1_, final double p_76986_2_, final double p_76986_4_,
+            final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
         this.doRender((EntityWizardCow) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 

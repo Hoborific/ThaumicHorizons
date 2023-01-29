@@ -4,11 +4,9 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -28,7 +26,13 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemSpawnerEgg extends Item {
+
     static ArrayList<EntityEggStuff> spawnList;
 
     @SideOnly(Side.CLIENT)
@@ -58,17 +62,8 @@ public class ItemSpawnerEgg extends Item {
         return (entityegginfo != null) ? entityegginfo.color2 : ((layer == 0) ? entityegginfo.color1 : 16777215);
     }
 
-    public boolean onItemUse(
-            final ItemStack stack,
-            final EntityPlayer player,
-            final World world,
-            int x,
-            int y,
-            int z,
-            final int side,
-            final float par8,
-            final float par9,
-            final float par10) {
+    public boolean onItemUse(final ItemStack stack, final EntityPlayer player, final World world, int x, int y, int z,
+            final int side, final float par8, final float par9, final float par10) {
         if (world.isRemote) {
             return true;
         }
@@ -125,8 +120,8 @@ public class ItemSpawnerEgg extends Item {
         return stack;
     }
 
-    public static Entity spawnCreature(
-            final World par0World, final int par1, final double par2, final double par4, final double par6) {
+    public static Entity spawnCreature(final World par0World, final int par1, final double par2, final double par4,
+            final double par6) {
         if (ItemSpawnerEgg.spawnList.get(par1) == null) {
             return null;
         }
@@ -136,7 +131,11 @@ public class ItemSpawnerEgg extends Item {
             if (entity != null && entity instanceof EntityLivingBase) {
                 final EntityLiving entityliving = (EntityLiving) entity;
                 entity.setLocationAndAngles(
-                        par2, par4, par6, MathHelper.wrapAngleTo180_float(par0World.rand.nextFloat() * 360.0f), 0.0f);
+                        par2,
+                        par4,
+                        par6,
+                        MathHelper.wrapAngleTo180_float(par0World.rand.nextFloat() * 360.0f),
+                        0.0f);
                 entityliving.rotationYawHead = entityliving.rotationYaw;
                 entityliving.renderYawOffset = entityliving.rotationYaw;
                 entityliving.onSpawnWithEgg((IEntityLivingData) null);
@@ -179,6 +178,7 @@ public class ItemSpawnerEgg extends Item {
     }
 
     static class EntityEggStuff {
+
         String name;
         int color1;
         int color2;

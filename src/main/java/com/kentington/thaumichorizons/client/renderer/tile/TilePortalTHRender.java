@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.client.renderer.tile;
 
-import com.kentington.thaumichorizons.common.tiles.TilePortalTH;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.Tessellator;
@@ -13,10 +12,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.client.lib.UtilsFX;
 
+import com.kentington.thaumichorizons.common.tiles.TilePortalTH;
+
 public class TilePortalTHRender extends TileEntitySpecialRenderer {
+
     public static final ResourceLocation portaltex;
 
     public void renderTileEntityAt(final TileEntity te, final double x, final double y, final double z, final float f) {
@@ -83,13 +87,29 @@ public class TilePortalTHRender extends TileEntitySpecialRenderer {
             final float f5 = 1.0f;
             tessellator.setNormal(0.0f, 0.0f, -1.0f);
             tessellator.addVertexWithUV(
-                    px + v1.xCoord * scale, py + v1.yCoord * scaley, pz + v1.zCoord * scale, (double) f2, (double) f5);
+                    px + v1.xCoord * scale,
+                    py + v1.yCoord * scaley,
+                    pz + v1.zCoord * scale,
+                    (double) f2,
+                    (double) f5);
             tessellator.addVertexWithUV(
-                    px + v2.xCoord * scale, py + v2.yCoord * scaley, pz + v2.zCoord * scale, (double) f3, (double) f5);
+                    px + v2.xCoord * scale,
+                    py + v2.yCoord * scaley,
+                    pz + v2.zCoord * scale,
+                    (double) f3,
+                    (double) f5);
             tessellator.addVertexWithUV(
-                    px + v3.xCoord * scale, py + v3.yCoord * scaley, pz + v3.zCoord * scale, (double) f3, (double) f4);
+                    px + v3.xCoord * scale,
+                    py + v3.yCoord * scaley,
+                    pz + v3.zCoord * scale,
+                    (double) f3,
+                    (double) f4);
             tessellator.addVertexWithUV(
-                    px + v4.xCoord * scale, py + v4.yCoord * scaley, pz + v4.zCoord * scale, (double) f2, (double) f4);
+                    px + v4.xCoord * scale,
+                    py + v4.yCoord * scaley,
+                    pz + v4.zCoord * scale,
+                    (double) f2,
+                    (double) f4);
             tessellator.draw();
         }
         GL11.glDisable(3042);

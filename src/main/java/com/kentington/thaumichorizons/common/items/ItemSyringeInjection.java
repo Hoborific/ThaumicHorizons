@@ -4,14 +4,10 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import com.google.common.collect.HashMultimap;
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityBlastPhial;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.awt.Color;
 import java.util.List;
 import java.util.Map;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -30,7 +26,15 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import com.google.common.collect.HashMultimap;
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityBlastPhial;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemSyringeInjection extends ItemPotion {
+
     private IIcon field_94590_d;
     private IIcon field_94591_c;
     private IIcon field_94592_ct;
@@ -88,8 +92,8 @@ public class ItemSyringeInjection extends ItemPotion {
         return p_77831_0_ != 0;
     }
 
-    public ItemStack onItemRightClick(
-            final ItemStack p_77659_1_, final World p_77659_2_, final EntityPlayer p_77659_3_) {
+    public ItemStack onItemRightClick(final ItemStack p_77659_1_, final World p_77659_2_,
+            final EntityPlayer p_77659_3_) {
         if (this.isPhial(p_77659_1_.getItemDamage())) {
             if (!p_77659_3_.capabilities.isCreativeMode) {
                 --p_77659_1_.stackSize;
@@ -110,17 +114,13 @@ public class ItemSyringeInjection extends ItemPotion {
     }
 
     @SideOnly(Side.CLIENT)
-    public void addInformation(
-            final ItemStack p_77624_1_,
-            final EntityPlayer p_77624_2_,
-            final List p_77624_3_,
+    public void addInformation(final ItemStack p_77624_1_, final EntityPlayer p_77624_2_, final List p_77624_3_,
             final boolean p_77624_4_) {
         final List<PotionEffect> list1 = Items.potionitem.getEffects(p_77624_1_);
         final HashMultimap hashmultimap = HashMultimap.create();
         if (list1 != null && !list1.isEmpty()) {
             for (PotionEffect potioneffect : list1) {
-                String s1 = StatCollector.translateToLocal(potioneffect.getEffectName())
-                        .trim();
+                String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
                 final Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
                 final Map map = potion.func_111186_k();
                 final List<Map.Entry> mapset = (List<Map.Entry>) map.entrySet();
@@ -136,8 +136,7 @@ public class ItemSyringeInjection extends ItemPotion {
                 }
                 if (potioneffect.getAmplifier() > 0) {
                     s1 = s1 + " "
-                            + StatCollector.translateToLocal("potion.potency." + potioneffect.getAmplifier())
-                                    .trim();
+                            + StatCollector.translateToLocal("potion.potency." + potioneffect.getAmplifier()).trim();
                 }
                 if (potioneffect.getDuration() > 20) {
                     s1 = s1 + " (" + Potion.getDurationString(potioneffect) + ")";
@@ -165,23 +164,21 @@ public class ItemSyringeInjection extends ItemPotion {
                     d2 = attributemodifier3.getAmount() * 100.0;
                 }
                 if (d0 > 0.0) {
-                    p_77624_3_.add(EnumChatFormatting.BLUE
-                            + StatCollector.translateToLocalFormatted(
-                                    "attribute.modifier.plus." + attributemodifier3.getOperation(), new Object[] {
-                                        ItemStack.field_111284_a.format(d2),
-                                        StatCollector.translateToLocal("attribute.name." + entry2.getKey())
-                                    }));
+                    p_77624_3_.add(
+                            EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted(
+                                    "attribute.modifier.plus." + attributemodifier3.getOperation(),
+                                    new Object[] { ItemStack.field_111284_a.format(d2),
+                                            StatCollector.translateToLocal("attribute.name." + entry2.getKey()) }));
                 } else {
                     if (d0 >= 0.0) {
                         continue;
                     }
                     d2 *= -1.0;
-                    p_77624_3_.add(EnumChatFormatting.RED
-                            + StatCollector.translateToLocalFormatted(
-                                    "attribute.modifier.take." + attributemodifier3.getOperation(), new Object[] {
-                                        ItemStack.field_111284_a.format(d2),
-                                        StatCollector.translateToLocal("attribute.name." + entry2.getKey())
-                                    }));
+                    p_77624_3_.add(
+                            EnumChatFormatting.RED + StatCollector.translateToLocalFormatted(
+                                    "attribute.modifier.take." + attributemodifier3.getOperation(),
+                                    new Object[] { ItemStack.field_111284_a.format(d2),
+                                            StatCollector.translateToLocal("attribute.name." + entry2.getKey()) }));
                 }
             }
         }

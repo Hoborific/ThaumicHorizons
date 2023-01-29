@@ -7,6 +7,7 @@ package com.kentington.thaumichorizons.common.tiles;
 import java.awt.Color;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,6 +17,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+
 import thaumcraft.api.WorldCoordinates;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -27,6 +29,7 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.utils.EntityUtils;
 
 public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWandable {
+
     AspectList primalsActuallyProvided;
     AspectList primalsProvided;
     public boolean provideAer;
@@ -160,10 +163,12 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
         } else if (this.ticksProvided == 0) {
             --this.ticksProvided;
             if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId) != null) {
-                VisNetHandler.sources
-                        .get(this.worldObj.provider.dimensionId)
-                        .remove(new WorldCoordinates(
-                                this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId));
+                VisNetHandler.sources.get(this.worldObj.provider.dimensionId).remove(
+                        new WorldCoordinates(
+                                this.xCoord,
+                                this.yCoord,
+                                this.zCoord,
+                                this.worldObj.provider.dimensionId));
             }
             this.removeThisNode();
         } else if (this.ticksProvided < 0 && (this.rise > 0.0f || this.rotation2 != 0.0f)) {
@@ -180,10 +185,8 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
 
     public void killMe() {
         if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId) != null) {
-            VisNetHandler.sources
-                    .get(this.worldObj.provider.dimensionId)
-                    .remove(new WorldCoordinates(
-                            this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId));
+            VisNetHandler.sources.get(this.worldObj.provider.dimensionId).remove(
+                    new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId));
         }
         this.removeThisNode();
     }
@@ -249,15 +252,9 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
     }
 
     @Override
-    public int onWandRightClick(
-            final World paramWorld,
-            final ItemStack paramItemStack,
-            final EntityPlayer paramEntityPlayer,
-            final int paramInt1,
-            final int paramInt2,
-            final int paramInt3,
-            final int paramInt4,
-            final int paramInt5) {
+    public int onWandRightClick(final World paramWorld, final ItemStack paramItemStack,
+            final EntityPlayer paramEntityPlayer, final int paramInt1, final int paramInt2, final int paramInt3,
+            final int paramInt4, final int paramInt5) {
         return -1;
     }
 
@@ -266,8 +263,7 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
         player.setItemInUse(wandstack, Integer.MAX_VALUE);
         final ItemWandCasting wand = (ItemWandCasting) wandstack.getItem();
         wand.setObjectInUse(wandstack, this.xCoord, this.yCoord, this.zCoord);
-        if (this.provideAer
-                || this.provideAqua
+        if (this.provideAer || this.provideAqua
                 || this.provideIgnis
                 || this.provideOrdo
                 || this.providePerditio
@@ -277,34 +273,29 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
                         this.worldObj.provider.dimensionId,
                         new HashMap<WorldCoordinates, WeakReference<TileVisNode>>());
             }
-            if (VisNetHandler.sources
-                            .get(this.worldObj.provider.dimensionId)
-                            .get(new WorldCoordinates(
-                                    this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
+            if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId).get(
+                    new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
                     == null) {
-                VisNetHandler.sources
-                        .get(this.worldObj.provider.dimensionId)
-                        .put(
+                VisNetHandler.sources.get(this.worldObj.provider.dimensionId).put(
+                        new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId),
+                        new WeakReference<TileVisNode>(this));
+            } else if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId).get(
+                    new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
+                    .get() == null) {
+                        VisNetHandler.sources.get(this.worldObj.provider.dimensionId).remove(
                                 new WorldCoordinates(
-                                        this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId),
-                                new WeakReference<TileVisNode>(this));
-            } else if (VisNetHandler.sources
-                            .get(this.worldObj.provider.dimensionId)
-                            .get(new WorldCoordinates(
-                                    this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
-                            .get()
-                    == null) {
-                VisNetHandler.sources
-                        .get(this.worldObj.provider.dimensionId)
-                        .remove(new WorldCoordinates(
-                                this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId));
-                VisNetHandler.sources
-                        .get(this.worldObj.provider.dimensionId)
-                        .put(
+                                        this.xCoord,
+                                        this.yCoord,
+                                        this.zCoord,
+                                        this.worldObj.provider.dimensionId));
+                        VisNetHandler.sources.get(this.worldObj.provider.dimensionId).put(
                                 new WorldCoordinates(
-                                        this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId),
+                                        this.xCoord,
+                                        this.yCoord,
+                                        this.zCoord,
+                                        this.worldObj.provider.dimensionId),
                                 new WeakReference<TileVisNode>(this));
-            }
+                    }
         }
         return wandstack;
     }
@@ -313,8 +304,8 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
     public void onUsingWandTick(final ItemStack wandstack, final EntityPlayer player, final int count) {
         final boolean mfu = false;
         final ItemWandCasting wand = (ItemWandCasting) wandstack.getItem();
-        final MovingObjectPosition movingobjectposition =
-                EntityUtils.getMovingObjectPositionFromPlayer(this.worldObj, player, true);
+        final MovingObjectPosition movingobjectposition = EntityUtils
+                .getMovingObjectPositionFromPlayer(this.worldObj, player, true);
         if (movingobjectposition == null
                 || movingobjectposition.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
             player.stopUsingItem();
@@ -395,9 +386,6 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
     }
 
     @Override
-    public void onWandStoppedUsing(
-            final ItemStack paramItemStack,
-            final World paramWorld,
-            final EntityPlayer paramEntityPlayer,
-            final int paramInt) {}
+    public void onWandStoppedUsing(final ItemStack paramItemStack, final World paramWorld,
+            final EntityPlayer paramEntityPlayer, final int paramInt) {}
 }
