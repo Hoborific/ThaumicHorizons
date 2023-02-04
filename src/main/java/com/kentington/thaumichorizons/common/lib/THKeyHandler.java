@@ -15,6 +15,8 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
+import org.lwjgl.input.Keyboard;
+
 import thaumcraft.api.nodes.IRevealer;
 
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
@@ -46,10 +48,10 @@ public class THKeyHandler {
     public static long lastPressV;
 
     public THKeyHandler() {
-        this.keyV = new KeyBinding("Change Arcane Lens", 47, "key.categories.misc");
-        this.keyM = new KeyBinding("Activate Morphic Fingers", 49, "key.categories.misc");
-        this.keyC = new KeyBinding("Toggle Spider Climb", 46, "key.categories.misc");
-        this.keyX = new KeyBinding("Toggle Chameleon Skin", 45, "key.categories.misc");
+        this.keyV = new KeyBinding("Change Arcane Lens", Keyboard.KEY_NONE, "Thaumcraft");
+        this.keyM = new KeyBinding("Activate Morphic Fingers", Keyboard.KEY_NONE, "Thaumcraft");
+        this.keyC = new KeyBinding("Toggle Spider Climb", Keyboard.KEY_NONE, "Thaumcraft");
+        this.keyX = new KeyBinding("Toggle Chameleon Skin", Keyboard.KEY_NONE, "Thaumcraft");
         this.keyPressedM = false;
         this.keyPressedC = false;
         this.keyPressedX = false;
