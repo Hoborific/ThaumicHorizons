@@ -16,6 +16,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
 import org.lwjgl.input.Keyboard;
+
 import thaumcraft.api.nodes.IRevealer;
 
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
