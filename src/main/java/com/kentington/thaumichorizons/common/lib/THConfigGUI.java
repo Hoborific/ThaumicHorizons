@@ -8,6 +8,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;
 
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 import cpw.mods.fml.client.config.GuiConfig;
 
 public class THConfigGUI extends GuiConfig {

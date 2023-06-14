@@ -22,18 +22,17 @@ import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.world.BlockEvent;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.FocusUpgradeType;
 import thaumcraft.api.wands.ItemFocusBasic;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.items.wands.ItemWandCasting;
-
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFocusAnimation extends ItemFocusBasic {
 

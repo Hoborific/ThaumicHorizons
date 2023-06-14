@@ -12,13 +12,13 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.client.renderer.model.ModelSyringe;
 import com.kentington.thaumichorizons.common.items.ItemSyringeBlood;
 import com.kentington.thaumichorizons.common.items.ItemSyringeBloodSample;
 import com.kentington.thaumichorizons.common.items.ItemSyringeEmpty;
 import com.kentington.thaumichorizons.common.items.ItemSyringeInjection;
+
+import thaumcraft.client.lib.UtilsFX;
 
 public class ItemSyringeRender implements IItemRenderer {
 

@@ -13,13 +13,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import thaumcraft.common.items.wands.ItemWandCasting;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.tiles.TileVisDynamo;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class BlockVisDynamo extends BlockContainer {
 

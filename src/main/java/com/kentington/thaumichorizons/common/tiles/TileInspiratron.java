@@ -13,10 +13,10 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import thaumcraft.api.TileThaumcraft;
-import thaumcraft.common.config.ConfigItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.TileThaumcraft;
+import thaumcraft.common.config.ConfigItems;
 
 public class TileInspiratron extends TileThaumcraft implements ISoulReceiver, ISidedInventory {
 

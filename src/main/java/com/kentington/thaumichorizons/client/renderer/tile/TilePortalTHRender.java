@@ -15,9 +15,9 @@ import net.minecraft.util.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.common.tiles.TilePortalTH;
+
+import thaumcraft.client.lib.UtilsFX;
 
 public class TilePortalTHRender extends TileEntitySpecialRenderer {
 

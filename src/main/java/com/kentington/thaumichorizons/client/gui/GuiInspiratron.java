@@ -11,10 +11,10 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.common.container.ContainerInspiratron;
 import com.kentington.thaumichorizons.common.tiles.TileInspiratron;
+
+import thaumcraft.client.lib.UtilsFX;
 
 public class GuiInspiratron extends GuiContainer {
 

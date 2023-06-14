@@ -13,11 +13,11 @@ import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.renderers.block.BlockRenderer;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.blocks.BlockSoulJar;
+
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import thaumcraft.client.renderers.block.BlockRenderer;
 
 public class BlockJarTHRenderer extends BlockRenderer implements ISimpleBlockRenderingHandler {
 

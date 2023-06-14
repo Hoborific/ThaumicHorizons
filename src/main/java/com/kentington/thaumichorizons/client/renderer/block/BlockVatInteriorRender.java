@@ -8,10 +8,10 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
 
-import thaumcraft.client.renderers.block.BlockRenderer;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import thaumcraft.client.renderers.block.BlockRenderer;
 
 public class BlockVatInteriorRender extends BlockRenderer implements ISimpleBlockRenderingHandler {
 

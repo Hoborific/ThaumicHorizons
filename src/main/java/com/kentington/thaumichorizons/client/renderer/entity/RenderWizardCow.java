@@ -16,14 +16,14 @@ import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.common.entities.EntityWizardCow;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.nodes.NodeModifier;
 import thaumcraft.api.nodes.NodeType;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.tile.TileNodeRenderer;
-
-import com.kentington.thaumichorizons.common.entities.EntityWizardCow;
 
 public class RenderWizardCow extends RenderCow {
 

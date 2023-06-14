@@ -12,10 +12,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.entities.ai.EntityAIEatStone;
+
 import thaumcraft.common.config.Config;
 import thaumcraft.common.config.ConfigItems;
-
-import com.kentington.thaumichorizons.common.entities.ai.EntityAIEatStone;
 
 public class EntityOrePig extends EntityPig {
 

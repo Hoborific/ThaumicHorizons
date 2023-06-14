@@ -15,6 +15,11 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.blocks.BlockTransductionAmplifier;
+
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -24,12 +29,6 @@ import thaumcraft.common.lib.network.fx.PacketFXBlockZap;
 import thaumcraft.common.tiles.TileNode;
 import thaumcraft.common.tiles.TileNodeConverter;
 import thaumcraft.common.tiles.TileNodeEnergized;
-
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.blocks.BlockTransductionAmplifier;
-
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 
 public class TileTransductionAmplifier extends TileThaumcraft {
 

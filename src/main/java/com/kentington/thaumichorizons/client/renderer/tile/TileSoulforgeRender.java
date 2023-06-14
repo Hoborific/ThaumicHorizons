@@ -9,11 +9,11 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.client.renderers.models.ModelBrain;
-
 import com.kentington.thaumichorizons.client.renderer.model.ModelSoulforge;
 import com.kentington.thaumichorizons.common.tiles.TileSoulforge;
+
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.models.ModelBrain;
 
 public class TileSoulforgeRender extends TileEntitySpecialRenderer {
 

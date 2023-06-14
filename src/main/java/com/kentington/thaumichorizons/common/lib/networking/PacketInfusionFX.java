@@ -9,9 +9,6 @@ import java.util.HashMap;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.tiles.TilePedestal;
-
 import com.kentington.thaumichorizons.common.tiles.TileVat;
 import com.kentington.thaumichorizons.common.tiles.TileVatSlave;
 
@@ -21,6 +18,8 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.tiles.TilePedestal;
 
 public class PacketInfusionFX implements IMessage, IMessageHandler<PacketInfusionFX, IMessage> {
 

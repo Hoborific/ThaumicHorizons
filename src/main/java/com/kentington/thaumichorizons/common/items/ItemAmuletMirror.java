@@ -25,16 +25,15 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.api.IRunicArmor;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.tiles.TileMirror;
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
-
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemAmuletMirror extends Item implements IBauble, IRunicArmor {
 

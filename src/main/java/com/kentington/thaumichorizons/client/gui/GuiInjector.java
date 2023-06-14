@@ -11,9 +11,9 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.common.container.ContainerInjector;
+
+import thaumcraft.client.lib.UtilsFX;
 
 public class GuiInjector extends GuiContainer {
 

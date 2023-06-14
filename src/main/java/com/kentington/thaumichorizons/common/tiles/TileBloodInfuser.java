@@ -17,6 +17,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
@@ -24,8 +26,6 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.common.config.Config;
-
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 
 public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer, IEssentiaTransport, ISidedInventory {
 

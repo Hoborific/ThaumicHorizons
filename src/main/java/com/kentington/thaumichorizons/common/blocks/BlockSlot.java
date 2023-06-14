@@ -15,10 +15,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import thaumcraft.common.items.wands.ItemWandCasting;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.tiles.TileSlot;
+
+import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class BlockSlot extends BlockContainer {
 

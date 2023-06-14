@@ -12,9 +12,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.util.ResourceLocation;
 
-import thaumcraft.common.Thaumcraft;
-
 import com.kentington.thaumichorizons.common.entities.EntityGoldChicken;
+
+import thaumcraft.common.Thaumcraft;
 
 public class RenderGoldChicken extends RenderChicken {
 

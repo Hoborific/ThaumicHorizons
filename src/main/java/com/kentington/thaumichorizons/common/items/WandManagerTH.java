@@ -10,14 +10,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.IWandTriggerManager;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.research.ResearchManager;
-
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 
 public class WandManagerTH implements IWandTriggerManager {
 

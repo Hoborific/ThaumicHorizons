@@ -9,10 +9,10 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.client.renderer.model.ModelSoulSieve;
 import com.kentington.thaumichorizons.common.tiles.TileSoulExtractor;
+
+import thaumcraft.client.lib.UtilsFX;
 
 public class TileSoulSieveRender extends TileEntitySpecialRenderer {
 

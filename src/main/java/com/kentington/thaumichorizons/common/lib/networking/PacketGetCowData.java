@@ -10,9 +10,6 @@ import java.util.Set;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-
 import com.kentington.thaumichorizons.common.entities.EntityWizardCow;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -20,6 +17,8 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 
 public class PacketGetCowData implements IMessage, IMessageHandler<PacketGetCowData, IMessage> {
 

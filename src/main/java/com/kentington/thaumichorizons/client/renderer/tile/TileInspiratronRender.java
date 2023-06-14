@@ -11,12 +11,12 @@ import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.client.renderer.model.ModelInspiratron;
+import com.kentington.thaumichorizons.common.tiles.TileInspiratron;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.models.ModelBrain;
 import thaumcraft.client.renderers.models.ModelJar;
-
-import com.kentington.thaumichorizons.client.renderer.model.ModelInspiratron;
-import com.kentington.thaumichorizons.common.tiles.TileInspiratron;
 
 public class TileInspiratronRender extends TileEntitySpecialRenderer {
 

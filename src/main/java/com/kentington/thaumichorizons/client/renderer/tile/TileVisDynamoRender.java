@@ -18,10 +18,10 @@ import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.client.renderer.model.ModelQuarterBlock;
 import com.kentington.thaumichorizons.common.tiles.TileVisDynamo;
+
+import thaumcraft.client.lib.UtilsFX;
 
 public class TileVisDynamoRender extends TileEntitySpecialRenderer {
 

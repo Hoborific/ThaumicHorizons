@@ -11,10 +11,10 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StatCollector;
 
-import thaumcraft.api.TileThaumcraft;
-import thaumcraft.common.Thaumcraft;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.TileThaumcraft;
+import thaumcraft.common.Thaumcraft;
 
 public class TileSoulBeacon extends TileThaumcraft {
 

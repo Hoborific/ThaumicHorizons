@@ -9,9 +9,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.world.World;
 
-import thaumcraft.common.entities.projectile.EntityEmber;
-
 import com.kentington.thaumichorizons.common.items.ItemFocusContainment;
+
+import thaumcraft.common.entities.projectile.EntityEmber;
 
 public class EntityNetherHound extends EntityWolf {
 

@@ -9,10 +9,10 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 import thaumcraft.common.config.Config;
 import thaumcraft.common.config.ConfigItems;
-
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 
 public class BlockBrain extends Block {
 

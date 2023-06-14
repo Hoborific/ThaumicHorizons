@@ -40,23 +40,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import thaumcraft.api.ThaumcraftApiHelper;
-import thaumcraft.api.TileThaumcraft;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.IAspectContainer;
-import thaumcraft.api.aspects.IEssentiaTransport;
-import thaumcraft.api.crafting.IInfusionStabiliser;
-import thaumcraft.api.crafting.InfusionRecipe;
-import thaumcraft.api.visnet.VisNetHandler;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.config.Config;
-import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.entities.golems.EntityGolemBase;
-import thaumcraft.common.lib.network.fx.PacketFXBlockZap;
-import thaumcraft.common.lib.utils.InventoryUtils;
-import thaumcraft.common.tiles.TilePedestal;
-
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
@@ -73,6 +56,22 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.TileThaumcraft;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.IAspectContainer;
+import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.api.crafting.IInfusionStabiliser;
+import thaumcraft.api.crafting.InfusionRecipe;
+import thaumcraft.api.visnet.VisNetHandler;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.config.Config;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.entities.golems.EntityGolemBase;
+import thaumcraft.common.lib.network.fx.PacketFXBlockZap;
+import thaumcraft.common.lib.utils.InventoryUtils;
+import thaumcraft.common.tiles.TilePedestal;
 
 public class TileVat extends TileThaumcraft implements IAspectContainer, IEssentiaTransport, ISidedInventory {
 

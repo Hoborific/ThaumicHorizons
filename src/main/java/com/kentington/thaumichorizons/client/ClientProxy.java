@@ -33,14 +33,6 @@ import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
-import thaumcraft.api.wands.IWandTriggerManager;
-import thaumcraft.client.fx.ParticleEngine;
-import thaumcraft.client.fx.particles.FXBurst;
-import thaumcraft.client.fx.particles.FXSparkle;
-import thaumcraft.client.fx.particles.FXWisp;
-import thaumcraft.client.renderers.item.ItemWandRenderer;
-import thaumcraft.common.Thaumcraft;
-
 import com.kentington.thaumichorizons.client.fx.FXSonic;
 import com.kentington.thaumichorizons.client.gui.GuiBloodInfuser;
 import com.kentington.thaumichorizons.client.gui.GuiCase;
@@ -177,6 +169,13 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
+import thaumcraft.api.wands.IWandTriggerManager;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.fx.particles.FXBurst;
+import thaumcraft.client.fx.particles.FXSparkle;
+import thaumcraft.client.fx.particles.FXWisp;
+import thaumcraft.client.renderers.item.ItemWandRenderer;
+import thaumcraft.common.Thaumcraft;
 
 public class ClientProxy extends CommonProxy {
 

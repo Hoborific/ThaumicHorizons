@@ -7,9 +7,9 @@ package com.kentington.thaumichorizons.common.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 
-import thaumcraft.common.config.Config;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import thaumcraft.common.config.Config;
 
 public class BlockVoid extends Block {
 

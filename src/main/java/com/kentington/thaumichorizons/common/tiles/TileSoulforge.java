@@ -15,6 +15,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import cpw.mods.fml.common.registry.VillagerRegistry;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
@@ -23,9 +26,6 @@ import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.lib.utils.InventoryUtils;
-
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import cpw.mods.fml.common.registry.VillagerRegistry;
 
 public class TileSoulforge extends TileThaumcraft implements ISoulReceiver, IEssentiaTransport, IAspectContainer {
 

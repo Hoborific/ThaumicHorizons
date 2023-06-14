@@ -27,6 +27,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
+import com.kentington.thaumichorizons.common.lib.*;
+
+import cpw.mods.fml.common.FMLCommonHandler;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
@@ -38,11 +43,6 @@ import thaumcraft.common.blocks.BlockAiry;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.monster.EntityWisp;
 import thaumcraft.common.items.wands.ItemWandCasting;
-
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
-import com.kentington.thaumichorizons.common.lib.*;
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TileVortex extends TileThaumcraft implements IWandable, IAspectContainer {
 

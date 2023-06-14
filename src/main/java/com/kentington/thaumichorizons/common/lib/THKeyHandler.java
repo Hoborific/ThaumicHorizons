@@ -17,8 +17,6 @@ import net.minecraft.util.IChatComponent;
 
 import org.lwjgl.input.Keyboard;
 
-import thaumcraft.api.nodes.IRevealer;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.lib.networking.*;
 
@@ -29,6 +27,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.nodes.IRevealer;
 
 public class THKeyHandler {
 

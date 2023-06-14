@@ -48,19 +48,6 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.damagesource.DamageSourceThaumcraft;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.config.Config;
-import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.config.ConfigItems;
-import thaumcraft.common.entities.EntityAspectOrb;
-import thaumcraft.common.entities.EntityFollowingItem;
-import thaumcraft.common.items.relics.ItemHandMirror;
-import thaumcraft.common.lib.network.fx.PacketFXShield;
-import thaumcraft.common.lib.utils.EntityUtils;
-import baubles.api.BaublesApi;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
 import com.kentington.thaumichorizons.common.entities.EntityMeatSlime;
@@ -83,12 +70,24 @@ import com.kentington.thaumichorizons.common.lib.networking.PacketPlayerInfusion
 import com.kentington.thaumichorizons.common.tiles.TileSoulBeacon;
 import com.kentington.thaumichorizons.common.tiles.TileVat;
 
+import baubles.api.BaublesApi;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.damagesource.DamageSourceThaumcraft;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.config.Config;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.entities.EntityAspectOrb;
+import thaumcraft.common.entities.EntityFollowingItem;
+import thaumcraft.common.items.relics.ItemHandMirror;
+import thaumcraft.common.lib.network.fx.PacketFXShield;
+import thaumcraft.common.lib.utils.EntityUtils;
 
 public class EventHandlerEntity {
 

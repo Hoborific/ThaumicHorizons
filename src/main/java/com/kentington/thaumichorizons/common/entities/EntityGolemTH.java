@@ -27,18 +27,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.config.ConfigItems;
-import thaumcraft.common.entities.ai.combat.AIAvoidCreeperSwell;
-import thaumcraft.common.entities.ai.combat.AIGolemAttackOnCollide;
-import thaumcraft.common.entities.ai.combat.AIHurtByTarget;
-import thaumcraft.common.entities.ai.combat.AINearestAttackableTarget;
-import thaumcraft.common.entities.ai.misc.AIOpenDoor;
-import thaumcraft.common.entities.golems.EntityGolemBase;
-import thaumcraft.common.entities.golems.EnumGolemType;
-import thaumcraft.common.entities.monster.EntityEldritchGuardian;
-
 import com.kentington.thaumichorizons.client.lib.GolemTHTexture;
 import com.kentington.thaumichorizons.common.entities.ai.EntityAIFollowPlayer;
 import com.kentington.thaumichorizons.common.lib.networking.PacketFXBlocksplosion;
@@ -50,6 +38,17 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.entities.ai.combat.AIAvoidCreeperSwell;
+import thaumcraft.common.entities.ai.combat.AIGolemAttackOnCollide;
+import thaumcraft.common.entities.ai.combat.AIHurtByTarget;
+import thaumcraft.common.entities.ai.combat.AINearestAttackableTarget;
+import thaumcraft.common.entities.ai.misc.AIOpenDoor;
+import thaumcraft.common.entities.golems.EntityGolemBase;
+import thaumcraft.common.entities.golems.EnumGolemType;
+import thaumcraft.common.entities.monster.EntityEldritchGuardian;
 
 public class EntityGolemTH extends EntityGolemBase {
 

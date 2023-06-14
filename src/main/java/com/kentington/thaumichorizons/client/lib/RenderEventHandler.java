@@ -33,11 +33,6 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.api.nodes.IRevealer;
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.common.Thaumcraft;
-import baubles.api.BaublesApi;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.entities.EntityBoatThaumium;
 import com.kentington.thaumichorizons.common.items.lenses.ILens;
@@ -47,11 +42,15 @@ import com.kentington.thaumichorizons.common.lib.THKeyHandler;
 import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 import com.kentington.thaumichorizons.common.lib.networking.PacketLensChangeToServer;
 
+import baubles.api.BaublesApi;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.nodes.IRevealer;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.Thaumcraft;
 
 public class RenderEventHandler {
 

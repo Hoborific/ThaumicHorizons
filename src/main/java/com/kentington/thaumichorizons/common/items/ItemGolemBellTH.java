@@ -21,17 +21,16 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.IIcon;
 
-import thaumcraft.common.config.ConfigItems;
-import thaumcraft.common.entities.golems.EntityGolemBase;
-import thaumcraft.common.entities.golems.EntityTravelingTrunk;
-import thaumcraft.common.entities.golems.ItemGolemBell;
-import thaumcraft.common.entities.golems.Marker;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.entities.golems.EntityGolemBase;
+import thaumcraft.common.entities.golems.EntityTravelingTrunk;
+import thaumcraft.common.entities.golems.ItemGolemBell;
+import thaumcraft.common.entities.golems.Marker;
 
 public class ItemGolemBellTH extends ItemGolemBell {
 
