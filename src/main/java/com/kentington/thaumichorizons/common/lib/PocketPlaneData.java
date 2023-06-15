@@ -134,7 +134,6 @@ public class PocketPlaneData {
             }
         }
         final int color = r * 256 * 256 + g * 256 + b;
-        // System.out.println("Plane color is " + color);
         return color;
     }
 
@@ -185,12 +184,6 @@ public class PocketPlaneData {
             drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, Blocks.obsidian, 0, world);
             drewAnything = true;
         }
-        // if (aspects.getAmount(Aspect.LIGHT) > 0) {
-        // ++numRings;
-        // drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, ThaumicHorizons.blockLight, 11,
-        // world);
-        // drewAnything = true;
-        // }
         if (aspects.getAmount(Aspect.ELDRITCH) > 0) {
             ++numRings;
             drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, ConfigBlocks.blockCosmeticSolid, 11, world);
@@ -206,13 +199,6 @@ public class PocketPlaneData {
             drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, Blocks.packed_ice, 0, world);
             drewAnything = true;
         }
-        // if (aspects.getAmount(Aspect.WEATHER) > 0 || (aspects.getAmount(Aspect.AIR) > 0 &&
-        // aspects.getAmount(Aspect.WATER) > 0)) {
-        // ++numRings;
-        // drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, ThaumicHorizons.blockCloud, 0,
-        // world);
-        // drewAnything = true;
-        // }
         return drewAnything;
     }
 

@@ -230,24 +230,12 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
         return false;
     }
 
-    /*
-     * private void loadContainedPlayer(NBTTagCompound playerNBT){
-     * this.setEntityContained(this.worldObj.getPlayerEntityByName(playerNBT.getString("playerName"))); }
-     */
     private void loadContainedEntity(NBTTagCompound EntityNBT) {
-        // System.out.println("loadContainedEntity() called, remote: " + worldObj.isRemote);
-        // System.out.println("PREPARING TO SPAWN ENTITY IN VAT");
-        // System.out.println(entityNBTObj);
         if (EntityNBT.getString("id") != null) {
             if (EntityNBT.getString("id").equals("PLAYER")) {
                 this.setEntityContained(this.worldObj.getPlayerEntityByName(EntityNBT.getString("playerName")));
-                // System.out.println("SPAWNED PLAYER IN VAT, WORLD:" + this.worldObj.isRemote);
-            } else if (EntityNBT.hasKey("id")) { // && !worldObj.isRemote){
-
+            } else if (EntityNBT.hasKey("id")) {
                 this.setEntityContained((EntityLivingBase) EntityList.createEntityFromNBT(EntityNBT, this.worldObj));
-                // System.out.println("SPAWNED ENTITY IN VAT, WORLD:" + this.worldObj.isRemote);
-            } else {
-                // System.out.println("VAT WAS EMPTY, AVOIDING NULL ENTITY, WORLD:" + this.worldObj.isRemote);
             }
         }
     }
@@ -1401,8 +1389,6 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
     @Override
     public void readCustomNBT(final NBTTagCompound nbttagcompound) {
         super.readCustomNBT(nbttagcompound);
-        // entityNBTObj = nbttagcompound.getCompoundTag("entity");
-        //// System.out.println("readCustomNBT() called");
         this.mode = nbttagcompound.getInteger("mode");
         this.progress = nbttagcompound.getInteger("progress");
         this.instability = nbttagcompound.getShort("instability");
@@ -1437,7 +1423,6 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
                 this.setEntityContained(
                         (EntityLivingBase) EntityList
                                 .createEntityFromNBT(nbttagcompound.getCompoundTag("entity"), this.worldObj));
-                // System.out.println("VAT JUST SPAWNED ENTITY AFTER FIRSTTICK World:" + this.worldObj.isRemote);
             }
         }
         this.sample = ItemStack.loadItemStackFromNBT(nbttagcompound.getCompoundTag("sample"));
@@ -1498,8 +1483,6 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
             nbtCompound.setString("rotype", this.recipeOutputLabel);
         }
         if (this.recipeOutput != null && this.recipeOutput instanceof Integer) {
-
-            //// System.out.println("[HOBODEBUG]: " + this.recipeOutput.toString());
             nbtCompound.setTag("recipeout", new NBTTagInt((Integer) this.recipeOutput));
         }
         if (this.recipeOutput != null && this.recipeOutput instanceof NBTBase) {

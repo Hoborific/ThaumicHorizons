@@ -3541,11 +3541,6 @@ public class ThaumicHorizons {
                                 new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 11),
                                 new ItemStack(Items.dye, 1, 0), new ItemStack(Items.dye, 1, 15) },
                         10));
-        // selfRecipes.add(new SelfInfusionRecipe("runicSkin", 12, (new AspectList()).add(Aspect.ARMOR,
-        // 128).add(Aspect.MAGIC, 512).add(Aspect.ENERGY, 128).add(Aspect.FLESH, 64), new ItemStack[]{new
-        // ItemStack(Items.diamond), new ItemStack(ConfigItems.itemResource, 1, 6), new
-        // ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(ConfigItems.itemResource, 1, 1), new
-        // ItemStack(ConfigItems.itemInkwell)}, 11));
         addAspectsToAllTheThings();
     }
 
