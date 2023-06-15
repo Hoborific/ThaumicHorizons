@@ -20,9 +20,9 @@ import net.minecraft.world.chunk.IChunkProvider;
 
 public class ChunkProviderPocketPlane implements IChunkProvider {
 
-    private Random rand;
-    private World worldObj;
-    private WorldType worldType;
+    private final Random rand;
+    private final World worldObj;
+    private final WorldType worldType;
     private BiomeGenBase[] biomesForGeneration;
 
     public ChunkProviderPocketPlane(final World worldObj, final long seed) {

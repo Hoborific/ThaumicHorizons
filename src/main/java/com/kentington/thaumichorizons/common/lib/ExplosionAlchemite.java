@@ -49,8 +49,8 @@ public class ExplosionAlchemite extends Explosion {
     public boolean isFlaming;
     public boolean isSmoking;
     private int field_77289_h;
-    private Random explosionRNG;
-    private World worldObj;
+    private final Random explosionRNG;
+    private final World worldObj;
     public double explosionX;
     public double explosionY;
     public double explosionZ;

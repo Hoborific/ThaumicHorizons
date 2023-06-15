@@ -20,7 +20,7 @@ import thaumcraft.client.lib.UtilsFX;
 public class TileSlotRender extends TileEntitySpecialRenderer {
 
     static String tx1;
-    private ModelReceptacle base;
+    private final ModelReceptacle base;
 
     public TileSlotRender() {
         this.base = new ModelReceptacle();

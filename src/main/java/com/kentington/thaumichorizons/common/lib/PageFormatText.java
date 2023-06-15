@@ -6,7 +6,7 @@ import thaumcraft.api.research.ResearchPage;
 
 public class PageFormatText extends ResearchPage {
 
-    private Object[] args;
+    private final Object[] args;
 
     public PageFormatText(String text, Object... args) {
         super(text);

@@ -20,7 +20,7 @@ import thaumcraft.client.lib.UtilsFX;
 @SideOnly(Side.CLIENT)
 public class GuiCase extends GuiContainer {
 
-    private int blockSlot;
+    private final int blockSlot;
 
     public GuiCase(final InventoryPlayer par1InventoryPlayer, final World world, final int x, final int y,
             final int z) {

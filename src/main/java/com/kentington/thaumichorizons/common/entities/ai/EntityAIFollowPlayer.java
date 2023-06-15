@@ -16,11 +16,11 @@ import thaumcraft.common.entities.golems.EntityGolemBase;
 
 public class EntityAIFollowPlayer extends EntityAIBase {
 
-    private EntityGolemBase thePet;
+    private final EntityGolemBase thePet;
     private EntityLivingBase theOwner;
     World theWorld;
-    private double moveSpeed;
-    private PathNavigate petPathfinder;
+    private final double moveSpeed;
+    private final PathNavigate petPathfinder;
     private int field_75343_h;
     float maxDist;
     float minDist;

@@ -13,8 +13,8 @@ import com.kentington.thaumichorizons.common.ThaumicHorizons;
 
 public class InventoryInjector implements IInventory {
 
-    private ItemStack[] stackList;
-    private Container eventHandler;
+    private final ItemStack[] stackList;
+    private final Container eventHandler;
 
     public InventoryInjector(final Container cont) {
         this.eventHandler = cont;

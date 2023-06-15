@@ -15,9 +15,9 @@ import org.lwjgl.opengl.GL11;
 
 public class FXEssentiaTrail extends EntityFX {
 
-    private double targetX;
-    private double targetY;
-    private double targetZ;
+    private final double targetX;
+    private final double targetY;
+    private final double targetZ;
     private int count;
     public int particle;
 

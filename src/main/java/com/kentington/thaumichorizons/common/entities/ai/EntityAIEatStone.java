@@ -18,7 +18,7 @@ import com.kentington.thaumichorizons.common.entities.EntityOrePig;
 
 public class EntityAIEatStone extends EntityAIBase {
 
-    private EntityOrePig thePig;
+    private final EntityOrePig thePig;
     private Entity targetEntity;
     int count;
 

@@ -27,7 +27,7 @@ import thaumcraft.client.renderers.models.ModelCrystal;
 
 public class TileEtherealShardRender extends TileEntitySpecialRenderer {
 
-    private ModelCrystal model;
+    private final ModelCrystal model;
     static String tx1;
     static String tx2;
 

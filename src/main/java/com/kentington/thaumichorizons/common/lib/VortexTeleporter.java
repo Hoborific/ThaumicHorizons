@@ -12,8 +12,8 @@ import com.kentington.thaumichorizons.common.ThaumicHorizons;
 
 public class VortexTeleporter extends Teleporter {
 
-    private WorldServer worldServerInstance;
-    private int planeNum;
+    private final WorldServer worldServerInstance;
+    private final int planeNum;
 
     public VortexTeleporter(final WorldServer p_i1963_1_, final int num) {
         super(p_i1963_1_);

@@ -15,7 +15,7 @@ import com.kentington.thaumichorizons.common.entities.EntitySyringe;
 
 public class RenderSyringe extends Render {
 
-    private ModelSyringe model;
+    private final ModelSyringe model;
 
     public RenderSyringe() {
         this.shadowSize = 0.0f;

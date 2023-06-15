@@ -18,7 +18,7 @@ import thaumcraft.common.lib.utils.Utils;
 
 public class EntityAIEatTaint extends EntityAIBase {
 
-    private EntityTaintPig thePig;
+    private final EntityTaintPig thePig;
     private Vec3 targetCoordinates;
     int cooldown;
     int count;

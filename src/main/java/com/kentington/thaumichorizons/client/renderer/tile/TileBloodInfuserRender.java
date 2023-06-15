@@ -20,9 +20,9 @@ import thaumcraft.client.lib.UtilsFX;
 public class TileBloodInfuserRender extends TileEntitySpecialRenderer {
 
     static String tx1;
-    private ModelBloodInfuser base;
+    private final ModelBloodInfuser base;
     static String tx2;
-    private ModelSyringe syringe;
+    private final ModelSyringe syringe;
 
     public TileBloodInfuserRender() {
         this.base = new ModelBloodInfuser();

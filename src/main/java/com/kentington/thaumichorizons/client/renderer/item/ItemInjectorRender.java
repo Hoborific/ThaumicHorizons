@@ -20,8 +20,8 @@ import thaumcraft.client.lib.UtilsFX;
 
 public class ItemInjectorRender implements IItemRenderer {
 
-    private ModelBase injector;
-    private String tx1;
+    private final ModelBase injector;
+    private final String tx1;
 
     public ItemInjectorRender() {
         this.injector = new ModelInjector();

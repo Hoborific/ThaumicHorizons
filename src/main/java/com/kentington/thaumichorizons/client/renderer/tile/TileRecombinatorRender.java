@@ -25,7 +25,7 @@ public class TileRecombinatorRender extends TileEntitySpecialRenderer {
 
     static String tx1;
     static String tx2;
-    private ModelRecombinator base;
+    private final ModelRecombinator base;
 
     public TileRecombinatorRender() {
         this.base = new ModelRecombinator();

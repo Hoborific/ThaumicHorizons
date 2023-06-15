@@ -37,8 +37,8 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
     AspectList aspects;
     AspectList fractionalAspects;
     AspectList aspectsMax;
-    private NodeType nodeType;
-    private NodeModifier nodeModifier;
+    private final NodeType nodeType;
+    private final NodeModifier nodeModifier;
     public float rotation;
     float increment;
     public Entity drainEntity;

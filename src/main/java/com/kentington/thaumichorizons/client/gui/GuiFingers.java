@@ -28,9 +28,9 @@ import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 @SideOnly(Side.CLIENT)
 public class GuiFingers extends GuiContainer {
 
-    private InventoryPlayer ip;
-    private InventoryFingers tileEntity;
-    private int[][] aspectLocs;
+    private final InventoryPlayer ip;
+    private final InventoryFingers tileEntity;
+    private final int[][] aspectLocs;
     ArrayList<Aspect> primals;
 
     public GuiFingers(final InventoryPlayer par1InventoryPlayer) {

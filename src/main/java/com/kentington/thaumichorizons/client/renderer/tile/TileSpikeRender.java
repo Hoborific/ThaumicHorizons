@@ -18,7 +18,7 @@ import thaumcraft.client.lib.UtilsFX;
 
 public class TileSpikeRender extends TileEntitySpecialRenderer {
 
-    private IModelCustom model;
+    private final IModelCustom model;
     private static final ResourceLocation SPIKE;
     static String tx1;
     static String tx2;

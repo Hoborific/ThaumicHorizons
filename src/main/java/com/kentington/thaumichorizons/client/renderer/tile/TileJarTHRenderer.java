@@ -21,7 +21,8 @@ import thaumcraft.client.renderers.models.ModelJar;
 @SideOnly(Side.CLIENT)
 public class TileJarTHRenderer extends TileEntitySpecialRenderer {
 
-    private ModelJar model;
+    @SuppressWarnings("FieldCanBeLocal") // An unfinished feature
+    private final ModelJar model;
     static String tx3;
 
     public TileJarTHRenderer() {

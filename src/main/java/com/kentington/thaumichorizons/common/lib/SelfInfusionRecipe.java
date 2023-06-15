@@ -18,7 +18,7 @@ public class SelfInfusionRecipe {
 
     protected AspectList aspects;
     protected String research;
-    private ItemStack[] components;
+    private final ItemStack[] components;
     protected int instability;
     protected int id;
 

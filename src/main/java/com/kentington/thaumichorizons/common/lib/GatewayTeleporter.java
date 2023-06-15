@@ -10,11 +10,11 @@ import net.minecraft.world.WorldServer;
 
 public class GatewayTeleporter extends Teleporter {
 
-    private WorldServer worldServerInstance;
-    private int x;
-    private int y;
-    private int z;
-    private float yaw;
+    private final WorldServer worldServerInstance;
+    private final int x;
+    private final int y;
+    private final int z;
+    private final float yaw;
 
     public GatewayTeleporter(final WorldServer worldServer, final int x, final int y, final int z, final float yaw) {
         super(worldServer);

@@ -28,8 +28,8 @@ import thaumcraft.codechicken.lib.math.MathHelper;
 @SideOnly(Side.CLIENT)
 public class TileVatMatrixRender extends TileEntitySpecialRenderer {
 
-    private ModelCube model;
-    private ModelCube model_over;
+    private final ModelCube model;
+    private final ModelCube model_over;
     int type;
 
     public TileVatMatrixRender(final int type) {

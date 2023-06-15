@@ -19,7 +19,7 @@ import thaumcraft.common.container.SlotLimitedByClass;
 
 public class ContainerCase extends Container {
 
-    private World worldObj;
+    private final World worldObj;
     private int posX;
     private int posY;
     private int posZ;

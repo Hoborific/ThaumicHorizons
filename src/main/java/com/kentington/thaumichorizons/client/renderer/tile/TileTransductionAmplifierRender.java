@@ -25,7 +25,7 @@ import thaumcraft.client.lib.UtilsFX;
 @SideOnly(Side.CLIENT)
 public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
 
-    private IModelCustom model;
+    private final IModelCustom model;
     private static final ResourceLocation MODEL;
 
     public TileTransductionAmplifierRender() {

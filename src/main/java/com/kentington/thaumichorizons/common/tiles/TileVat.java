@@ -86,8 +86,8 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
     public final int CLONE_TIME = 800;
     public int[] selfInfusions;
     public float selfInfusionHealth;
-    private ArrayList<ChunkCoordinates> pedestals;
-    private int dangerCount;
+    private final ArrayList<ChunkCoordinates> pedestals;
+    private final int dangerCount;
     public boolean checkSurroundings;
     public int symmetry;
     public int instability;
@@ -96,13 +96,13 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
     private String recipePlayer;
     private String recipeOutputLabel;
     private int recipeInstability;
-    private int recipeXP;
+    private final int recipeXP;
     public int recipeType;
     int itemCount;
     public int count;
     public int craftCount;
     public float startUp;
-    private int countDelay;
+    private final int countDelay;
     ArrayList<ItemStack> ingredients;
     public HashMap<String, SourceFX> sourceFX;
     private NBTTagCompound entityNBTObj = null;

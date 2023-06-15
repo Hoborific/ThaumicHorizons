@@ -21,7 +21,7 @@ import thaumcraft.client.lib.UtilsFX;
 public class TileSoulBeaconRender extends TileEntitySpecialRenderer {
 
     static String tx1;
-    private ModelSoulBeacon base;
+    private final ModelSoulBeacon base;
     private static final ResourceLocation field_147523_b;
 
     public void renderTileEntityAt(final TileSoulBeacon tco, final double p_147500_2_, final double p_147500_4_,

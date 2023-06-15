@@ -17,7 +17,7 @@ import com.kentington.thaumichorizons.common.entities.EntityAlchemitePrimed;
 
 public class RenderAlchemitePrimed extends RenderEntity {
 
-    private RenderBlocks blockRenderer;
+    private final RenderBlocks blockRenderer;
 
     public RenderAlchemitePrimed() {
         this.blockRenderer = new RenderBlocks();

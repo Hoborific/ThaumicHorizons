@@ -18,8 +18,8 @@ import thaumcraft.client.lib.UtilsFX;
 
 public class ItemCorpseEffigyRender implements IItemRenderer {
 
-    private ModelBiped corpse;
-    private String tx1;
+    private final ModelBiped corpse;
+    private final String tx1;
 
     public ItemCorpseEffigyRender() {
         this.corpse = new ModelBiped();

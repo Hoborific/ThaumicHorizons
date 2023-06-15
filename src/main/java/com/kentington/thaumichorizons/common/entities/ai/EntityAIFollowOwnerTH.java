@@ -17,11 +17,11 @@ import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
 
 public class EntityAIFollowOwnerTH extends EntityAIBase {
 
-    private EntityLiving thePet;
+    private final EntityLiving thePet;
     private EntityLivingBase theOwner;
     World theWorld;
-    private double moveSpeed;
-    private PathNavigate petPathfinder;
+    private final double moveSpeed;
+    private final PathNavigate petPathfinder;
     private int field_75343_h;
     float maxDist;
     float minDist;

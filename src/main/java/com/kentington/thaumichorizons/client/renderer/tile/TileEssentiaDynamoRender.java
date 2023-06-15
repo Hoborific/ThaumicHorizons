@@ -23,12 +23,12 @@ import thaumcraft.client.lib.UtilsFX;
 
 public class TileEssentiaDynamoRender extends TileEntitySpecialRenderer {
 
-    private IModelCustom model;
+    private final IModelCustom model;
     private static final ResourceLocation SCANNER;
     static String tx1;
     static String tx2;
     static String tx3;
-    private ModelQuarterBlock base;
+    private final ModelQuarterBlock base;
 
     public TileEssentiaDynamoRender() {
         this.model = AdvancedModelLoader.loadModel(TileEssentiaDynamoRender.SCANNER);

@@ -14,8 +14,8 @@ import net.minecraft.world.WorldServer;
 public class NightmareTeleporter extends Teleporter {
 
     int dim;
-    private WorldServer worldServerInstance;
-    private Random random;
+    private final WorldServer worldServerInstance;
+    private final Random random;
 
     public NightmareTeleporter(final WorldServer p_i1963_1_) {
         super(p_i1963_1_);

@@ -23,7 +23,7 @@ public abstract class EntityAITargetTH extends EntityAIBase {
 
     protected EntityLiving taskOwner;
     protected boolean shouldCheckSight;
-    private boolean nearbyOnly;
+    private final boolean nearbyOnly;
     private int targetSearchStatus;
     private int targetSearchDelay;
     private int field_75298_g;

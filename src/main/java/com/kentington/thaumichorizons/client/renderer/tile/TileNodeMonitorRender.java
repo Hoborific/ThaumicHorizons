@@ -18,8 +18,8 @@ import thaumcraft.client.lib.UtilsFX;
 
 public class TileNodeMonitorRender extends TileEntitySpecialRenderer {
 
-    private IModelCustom model;
-    private IModelCustom modelScreen;
+    private final IModelCustom model;
+    private final IModelCustom modelScreen;
     private static final ResourceLocation SCANNER;
     private static final ResourceLocation SCANNERSCREEN;
     static String tx1;

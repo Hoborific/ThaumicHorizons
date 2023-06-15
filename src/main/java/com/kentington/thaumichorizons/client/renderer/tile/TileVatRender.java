@@ -16,7 +16,7 @@ import thaumcraft.client.lib.UtilsFX;
 public class TileVatRender extends TileEntitySpecialRenderer {
 
     private static ModelVat model;
-    private String tx1;
+    private final String tx1;
 
     public TileVatRender() {
         this.tx1 = "textures/models/vat.png";

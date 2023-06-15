@@ -35,8 +35,8 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
     public int mode;
     public ItemStack syringe;
     public ItemStack[] output;
-    private HashMap<Aspect, HashMap<Integer, Integer>> effectWeights;
-    private HashMap<Integer, Float> duration;
+    private final HashMap<Aspect, HashMap<Integer, Integer>> effectWeights;
+    private final HashMap<Integer, Float> duration;
     private Color color;
 
     public TileBloodInfuser() {

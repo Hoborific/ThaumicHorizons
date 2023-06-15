@@ -13,7 +13,7 @@ import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
 
 public class EntityAISitTH extends EntityAIBase {
 
-    private EntityLiving theEntity;
+    private final EntityLiving theEntity;
     private boolean isSitting;
 
     public EntityAISitTH(final EntityLiving p_i1654_1_) {

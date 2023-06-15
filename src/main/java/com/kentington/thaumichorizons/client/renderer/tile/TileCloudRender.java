@@ -21,7 +21,7 @@ import com.kentington.thaumichorizons.common.tiles.TileCloud;
 
 public class TileCloudRender extends TileEntitySpecialRenderer {
 
-    private Minecraft mc;
+    private final Minecraft mc;
     Random random;
     private int rendererUpdateCount;
     private static final ResourceLocation locationRainPng;

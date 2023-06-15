@@ -14,7 +14,7 @@ import com.kentington.thaumichorizons.common.items.lenses.ILens;
 public class InventoryCase implements IInventory {
 
     public ItemStack[] stackList;
-    private Container eventHandler;
+    private final Container eventHandler;
 
     public InventoryCase(final Container par1Container) {
         this.stackList = new ItemStack[18];

@@ -16,7 +16,7 @@ import thaumcraft.client.lib.UtilsFX;
 
 public class TileVortexStabilizerRender extends TileEntitySpecialRenderer {
 
-    private ModelVortexAttenuator model;
+    private final ModelVortexAttenuator model;
     static String tx1;
 
     public TileVortexStabilizerRender() {
