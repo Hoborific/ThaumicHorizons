@@ -16,9 +16,9 @@ public class GatewayTeleporter extends Teleporter {
     private int z;
     private float yaw;
 
-    public GatewayTeleporter(final WorldServer p_i1963_1_, final int x, final int y, final int z, final float yaw) {
-        super(p_i1963_1_);
-        this.worldServerInstance = p_i1963_1_;
+    public GatewayTeleporter(final WorldServer worldServer, final int x, final int y, final int z, final float yaw) {
+        super(worldServer);
+        this.worldServerInstance = worldServer;
         this.x = x;
         this.y = y;
         this.z = z;

@@ -25,10 +25,10 @@ public class ChunkProviderPocketPlane implements IChunkProvider {
     private WorldType worldType;
     private BiomeGenBase[] biomesForGeneration;
 
-    public ChunkProviderPocketPlane(final World p_i2005_1_, final long p_i2005_2_) {
-        this.worldObj = p_i2005_1_;
-        this.worldType = p_i2005_1_.getWorldInfo().getTerrainType();
-        this.rand = new Random(p_i2005_2_);
+    public ChunkProviderPocketPlane(final World worldObj, final long seed) {
+        this.worldObj = worldObj;
+        this.worldType = worldObj.getWorldInfo().getTerrainType();
+        this.rand = new Random(seed);
     }
 
     public boolean chunkExists(final int p_73149_1_, final int p_73149_2_) {
