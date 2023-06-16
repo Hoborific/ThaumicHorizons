@@ -260,26 +260,9 @@ public class EventHandlerEntity {
     }
 
     public void applyNewAI(final EntityLiving entity) {
-        ArrayList<Object> tasks = new ArrayList<>();
-        Iterator it = entity.tasks.taskEntries.iterator();
-        while (it.hasNext()) {
-            tasks.add(it.next());
-        }
-        it = tasks.iterator();
-        while (it.hasNext()) {
-            EntityAITasks.EntityAITaskEntry taskEntry = (EntityAITasks.EntityAITaskEntry) it.next();
-            entity.tasks.removeTask(taskEntry.action);
-        }
-        tasks = new ArrayList();
-        it = entity.targetTasks.taskEntries.iterator();
-        while (it.hasNext()) {
-            tasks.add(it.next());
-        }
-        it = tasks.iterator();
-        while (it.hasNext()) {
-            EntityAITasks.EntityAITaskEntry taskEntry = (EntityAITasks.EntityAITaskEntry) it.next();
-            entity.targetTasks.removeTask(taskEntry.action);
-        }
+        removeTasks(entity.tasks);
+        removeTasks(entity.targetTasks);
+
         entity.tasks.addTask(1, new EntityAISwimming(entity));
         entity.tasks.addTask(2, new EntityAISitTH(entity));
         entity.tasks.addTask(3, new EntityAILeapAtTarget(entity, 0.4f));
@@ -294,6 +277,14 @@ public class EventHandlerEntity {
         entity.targetTasks.addTask(1, new EntityAIOwnerHurtByTargetTH(entity));
         entity.targetTasks.addTask(2, new EntityAIOwnerHurtTargetTH(entity));
         entity.targetTasks.addTask(3, new EntityAIHurtByTargetTH(entity, true));
+    }
+
+    private void removeTasks(EntityAITasks entityAITasks) {
+        final ArrayList<Object> taskEntries = new ArrayList<Object>(entityAITasks.taskEntries);
+        for (Object task : taskEntries) {
+            EntityAITasks.EntityAITaskEntry taskEntry = (EntityAITasks.EntityAITaskEntry) task;
+            entityAITasks.removeTask(taskEntry.action);
+        }
     }
 
     @SubscribeEvent
