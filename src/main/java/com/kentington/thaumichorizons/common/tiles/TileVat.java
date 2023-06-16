@@ -639,18 +639,6 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
             this.recipeInstability = recipe.getInstability(this.getEntityContained().getClass());
             this.essentiaDemanded = recipe.getAspects(this.getEntityContained().getClass()).copy();
             this.myEssentia = recipe.getAspects(this.getEntityContained().getClass()).copy();
-            this.recipePlayer = player.getCommandSenderName();
-            this.instability = this.symmetry + this.recipeInstability;
-            this.mode = 2;
-            this.worldObj.playSoundEffect(
-                    (double) this.xCoord,
-                    (double) this.yCoord,
-                    (double) this.zCoord,
-                    "thaumcraft:craftstart",
-                    0.5f,
-                    1.0f);
-            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-            this.markDirty();
         } else {
             final SelfInfusionRecipe recipe2 = ThaumicHorizons.getSelfInfusion(components, player);
             if (recipe2 == null) {
@@ -671,19 +659,19 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
             this.recipeInstability = recipe2.getInstability();
             this.myEssentia = recipe2.getAspects().copy();
             this.essentiaDemanded = recipe2.getAspects().copy();
-            this.recipePlayer = player.getCommandSenderName();
-            this.instability = this.symmetry + this.recipeInstability;
-            this.mode = 2;
-            this.worldObj.playSoundEffect(
-                    (double) this.xCoord,
-                    (double) this.yCoord,
-                    (double) this.zCoord,
-                    "thaumcraft:craftstart",
-                    0.5f,
-                    1.0f);
-            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-            this.markDirty();
         }
+        this.recipePlayer = player.getCommandSenderName();
+        this.instability = this.symmetry + this.recipeInstability;
+        this.mode = 2;
+        this.worldObj.playSoundEffect(
+                (double) this.xCoord,
+                (double) this.yCoord,
+                (double) this.zCoord,
+                "thaumcraft:craftstart",
+                0.5f,
+                1.0f);
+        this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+        this.markDirty();
     }
 
     public boolean validLocation() {
@@ -1777,13 +1765,12 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
             if (this.myEssentia.getAspects().length > 0 && this.myEssentia.getAspects()[0] != null) {
                 return this.myEssentia;
             }
-            return null;
         } else {
             if (this.essentiaDemanded.getAspects().length > 0 && this.essentiaDemanded.getAspects()[0] != null) {
                 return this.essentiaDemanded;
             }
-            return null;
         }
+        return null;
     }
 
     @Override

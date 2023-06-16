@@ -3631,11 +3631,9 @@ public class ThaumicHorizons {
     }
 
     static int getNextPotionId(int start) {
-        if (Potion.potionTypes != null && start > 0
-                && start < Potion.potionTypes.length
-                && Potion.potionTypes[start] == null) {
-            return start;
-        } else {
+        if (Potion.potionTypes == null || start <= 0
+                || start >= Potion.potionTypes.length
+                || Potion.potionTypes[start] != null) {
             ++start;
             if (start < 128) {
                 start = getNextPotionId(start);
@@ -3643,8 +3641,8 @@ public class ThaumicHorizons {
                 start = -1;
             }
 
-            return start;
         }
+        return start;
     }
 
     static void addAspectsToAllTheThings() {

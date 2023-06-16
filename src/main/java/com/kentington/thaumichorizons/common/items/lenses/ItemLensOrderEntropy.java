@@ -95,15 +95,12 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                 if (scan.type == 2) {
                     if (!(scan.entity instanceof EntityItem)) {
                         text = scan.entity.getCommandSenderName();
-                        x = scan.entity.posX;
-                        y = scan.entity.posY;
-                        z = scan.entity.posZ;
                     } else {
                         text = ((EntityItem) scan.entity).getEntityItem().getDisplayName();
-                        x = scan.entity.posX;
-                        y = scan.entity.posY;
-                        z = scan.entity.posZ;
                     }
+                    x = scan.entity.posX;
+                    y = scan.entity.posY;
+                    z = scan.entity.posZ;
                 } else {
                     final MovingObjectPosition mop = EntityUtils.getMovingObjectPositionFromPlayer(p.worldObj, p, true);
                     if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {

@@ -119,7 +119,6 @@ public class TileCloud extends TileThaumcraft {
                                     break;
                                 }
                                 this.worldObj.setBlockToAir(this.xCoord, this.yCoord - this.howManyDown, this.zCoord);
-                                break;
                             } else {
                                 if (meltable == 3) {
                                     this.worldObj.setBlock(
@@ -162,9 +161,8 @@ public class TileCloud extends TileThaumcraft {
                                             false);
                                     break;
                                 }
-                                break;
                             }
-                            // break;
+                            break;
                         }
                         case 3: {
                             final int meltable = ((ItemFocusLiquefaction) ThaumicHorizons.itemFocusLiquefaction)
@@ -236,7 +234,6 @@ public class TileCloud extends TileThaumcraft {
                                     break;
                                 }
                                 this.worldObj.setBlockToAir(this.xCoord, this.yCoord - this.howManyDown, this.zCoord);
-                                break;
                             } else {
                                 if (meltable == 3) {
                                     this.worldObj.setBlock(
@@ -279,9 +276,8 @@ public class TileCloud extends TileThaumcraft {
                                             false);
                                     break;
                                 }
-                                break;
                             }
-                            // break;
+                            break;
                         }
                         default: {
                             if (this.worldObj.getBiomeGenForCoords(this.xCoord, this.zCoord)
