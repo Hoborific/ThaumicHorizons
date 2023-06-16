@@ -93,11 +93,7 @@ public class RenderTaintfeeder extends RenderPig {
         GL11.glEnable(3042);
         GL11.glDisable(3008);
         GL11.glBlendFunc(770, 771);
-        if (p_77032_1_.isInvisible()) {
-            GL11.glDepthMask(false);
-        } else {
-            GL11.glDepthMask(true);
-        }
+        GL11.glDepthMask(!p_77032_1_.isInvisible());
         final char c0 = '\uf0f0';
         final int j = c0 % 65536;
         final int k = c0 / 65536;

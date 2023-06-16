@@ -55,36 +55,12 @@ public class GuiVisDynamo extends GuiContainer {
     }
 
     protected void drawGuiContainerForegroundLayer(final int par1, final int par2) {
-        if (this.tile.provideAer) {
-            UtilsFX.drawTag(11, 12, Aspect.AIR, 0.0f, 0, (double) this.zLevel, 771, 1.0f, false);
-        } else {
-            UtilsFX.drawTag(11, 12, Aspect.AIR, 0.0f, 0, (double) this.zLevel, 771, 1.0f, true);
-        }
-        if (this.tile.provideTerra) {
-            UtilsFX.drawTag(83, 11, Aspect.EARTH, 0.0f, 0, (double) this.zLevel, 771, 1.0f, false);
-        } else {
-            UtilsFX.drawTag(83, 11, Aspect.EARTH, 0.0f, 0, (double) this.zLevel, 771, 1.0f, true);
-        }
-        if (this.tile.provideIgnis) {
-            UtilsFX.drawTag(11, 45, Aspect.FIRE, 0.0f, 0, (double) this.zLevel, 771, 1.0f, false);
-        } else {
-            UtilsFX.drawTag(11, 45, Aspect.FIRE, 0.0f, 0, (double) this.zLevel, 771, 1.0f, true);
-        }
-        if (this.tile.provideAqua) {
-            UtilsFX.drawTag(83, 45, Aspect.WATER, 0.0f, 0, (double) this.zLevel, 771, 1.0f, false);
-        } else {
-            UtilsFX.drawTag(83, 45, Aspect.WATER, 0.0f, 0, (double) this.zLevel, 771, 1.0f, true);
-        }
-        if (this.tile.provideOrdo) {
-            UtilsFX.drawTag(11, 78, Aspect.ORDER, 0.0f, 0, (double) this.zLevel, 771, 1.0f, false);
-        } else {
-            UtilsFX.drawTag(11, 78, Aspect.ORDER, 0.0f, 0, (double) this.zLevel, 771, 1.0f, true);
-        }
-        if (this.tile.providePerditio) {
-            UtilsFX.drawTag(83, 78, Aspect.ENTROPY, 0.0f, 0, (double) this.zLevel, 771, 1.0f, false);
-        } else {
-            UtilsFX.drawTag(83, 78, Aspect.ENTROPY, 0.0f, 0, (double) this.zLevel, 771, 1.0f, true);
-        }
+        UtilsFX.drawTag(11, 12, Aspect.AIR, 0.0f, 0, (double) this.zLevel, 771, 1.0f, !this.tile.provideAer);
+        UtilsFX.drawTag(83, 11, Aspect.EARTH, 0.0f, 0, (double) this.zLevel, 771, 1.0f, !this.tile.provideTerra);
+        UtilsFX.drawTag(11, 45, Aspect.FIRE, 0.0f, 0, (double) this.zLevel, 771, 1.0f, !this.tile.provideIgnis);
+        UtilsFX.drawTag(83, 45, Aspect.WATER, 0.0f, 0, (double) this.zLevel, 771, 1.0f, !this.tile.provideAqua);
+        UtilsFX.drawTag(11, 78, Aspect.ORDER, 0.0f, 0, (double) this.zLevel, 771, 1.0f, !this.tile.provideOrdo);
+        UtilsFX.drawTag(83, 78, Aspect.ENTROPY, 0.0f, 0, (double) this.zLevel, 771, 1.0f, !this.tile.providePerditio);
         if (this.flashTimer > 0) {
             --this.flashTimer;
             this.drawFlash();

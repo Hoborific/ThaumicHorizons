@@ -166,12 +166,9 @@ public class EntityGolemTH extends EntityGolemBase {
         if (!this.worldObj.isRemote) {
             this.dataWatcher.updateObject(19, (Object) (byte) this.type.ordinal());
         }
-        if (this.getGolemTHType() == EnumGolemTHType.ROCK || this.getGolemTHType() == EnumGolemTHType.METAL
-                || this.getGolemTHType() == EnumGolemTHType.REDSTONE) {
-            this.getNavigator().setAvoidsWater(false);
-        } else {
-            this.getNavigator().setAvoidsWater(true);
-        }
+        this.getNavigator().setAvoidsWater(
+                this.getGolemTHType() != EnumGolemTHType.ROCK && this.getGolemTHType() != EnumGolemTHType.METAL
+                        && this.getGolemTHType() != EnumGolemTHType.REDSTONE);
         int bonus = 0;
         try {
             bonus = (this.getGolemDecoration().contains("H") ? 5 : 0);

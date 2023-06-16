@@ -113,9 +113,7 @@ public abstract class EntityAITargetTH extends EntityAIBase {
             if (this.targetSearchStatus == 0) {
                 this.targetSearchStatus = (this.canEasilyReach(p_75296_1_) ? 1 : 2);
             }
-            if (this.targetSearchStatus == 2) {
-                return false;
-            }
+            return this.targetSearchStatus != 2;
         }
         return true;
     }

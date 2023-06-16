@@ -81,10 +81,7 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
 
     public boolean spawnCreature(final World par0World, final double par2, final double par4, final double par6,
             final int side, final ItemStack stack, final EntityPlayer player) {
-        boolean adv = false;
-        if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("advanced")) {
-            adv = true;
-        }
+        boolean adv = stack.hasTagCompound() && stack.stackTagCompound.hasKey("advanced");
         final EntityGolemTH golem = new EntityGolemTH(par0World);
         if (golem != null) {
             golem.setLocationAndAngles(par2, par4, par6, par0World.rand.nextFloat() * 360.0f, 0.0f);
