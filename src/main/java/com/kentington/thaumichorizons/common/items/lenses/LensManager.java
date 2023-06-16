@@ -5,7 +5,6 @@
 package com.kentington.thaumichorizons.common.items.lenses;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.TreeMap;
 
 import net.minecraft.entity.Entity;
@@ -154,10 +153,9 @@ public class LensManager {
 
     private static boolean addLensToPouch(final EntityPlayer player, final ItemStack lens,
             final HashMap<Integer, Integer> pouches) {
-        final Iterator i$ = pouches.values().iterator();
-        while (i$.hasNext()) {
+        for (int value : pouches.values()) {
             final IInventory baubles = BaublesApi.getBaubles(player);
-            final Integer pouchslot = (Integer) i$.next();
+            final Integer pouchslot = (Integer) value;
             ItemStack pouch;
             if (pouchslot >= 0) {
                 pouch = player.inventory.mainInventory[pouchslot];

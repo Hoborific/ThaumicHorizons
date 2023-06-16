@@ -1613,9 +1613,7 @@ public class PocketPlaneData {
         final File planeFile = new File(world.getSaveHandler().getWorldDirectory(), "pocketplane.dat");
         final NBTTagCompound root = new NBTTagCompound();
         final NBTTagCompound positionz = new NBTTagCompound();
-        Iterator it = PocketPlaneData.positions.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<Integer, Vec3> idToPos = (Map.Entry<Integer, Vec3>) it.next();
+        for (Map.Entry<Integer, Vec3> idToPos : PocketPlaneData.positions.entrySet()) {
             positionz.setIntArray(
                     idToPos.getKey().toString(),
                     new int[] { (int) idToPos.getValue().xCoord, (int) idToPos.getValue().yCoord,

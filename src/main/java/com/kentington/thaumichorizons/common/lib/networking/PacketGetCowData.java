@@ -4,9 +4,6 @@
 
 package com.kentington.thaumichorizons.common.lib.networking;
 
-import java.util.Iterator;
-import java.util.Set;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
@@ -66,11 +63,9 @@ public class PacketGetCowData implements IMessage, IMessageHandler<PacketGetCowD
     }
 
     static {
-        final Set keys = Aspect.aspects.keySet();
-        final Iterator it = keys.iterator();
         final AspectList list = new AspectList();
-        while (it.hasNext()) {
-            list.add(Aspect.aspects.get(it.next()), 1);
+        for (String key : Aspect.aspects.keySet()) {
+            list.add(Aspect.aspects.get(key), 1);
         }
         PacketGetCowData.sorted = list.getAspectsSorted();
     }

@@ -6,7 +6,6 @@ package com.kentington.thaumichorizons.common.lib;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -316,22 +315,23 @@ public class EventHandlerEntity {
                     || player.getActivePotionEffect(Potion.potionTypes[Config.potionVisExhaustID]) != null
                     || player.getActivePotionEffect(Potion.potionTypes[Config.potionThaumarhiaID]) != null
                     || player.getActivePotionEffect(Potion.potionTypes[Config.potionTaintPoisonID]) != null)) {
-                final Collection col = event.entityLiving.getActivePotionEffects();
-                final Iterator it = col.iterator();
+
+                final Collection activePotionEffects = event.entityLiving.getActivePotionEffects();
                 final ArrayList<PotionEffect> toAdd = new ArrayList<PotionEffect>();
-                while (it.hasNext()) {
-                    final PotionEffect pot = (PotionEffect) it.next();
-                    if (pot.getPotionID() == Potion.poison.id || pot.getPotionID() == Potion.wither.id
-                            || pot.getPotionID() == Config.potionInfVisExhaustID
-                            || pot.getPotionID() == Config.potionTaintPoisonID
-                            || pot.getPotionID() == Config.potionVisExhaustID
-                            || pot.getPotionID() == Config.potionThaumarhiaID) {
-                        final int id = pot.getPotionID();
+
+                for (Object activePotionEffect : activePotionEffects) {
+                    final PotionEffect effect = (PotionEffect) activePotionEffect;
+                    if (effect.getPotionID() == Potion.poison.id || effect.getPotionID() == Potion.wither.id
+                            || effect.getPotionID() == Config.potionInfVisExhaustID
+                            || effect.getPotionID() == Config.potionTaintPoisonID
+                            || effect.getPotionID() == Config.potionVisExhaustID
+                            || effect.getPotionID() == Config.potionThaumarhiaID) {
+                        final int id = effect.getPotionID();
                         final int amplifier = 0;
-                        final int duration = pot.getDuration() - 1;
+                        final int duration = effect.getDuration() - 1;
                         toAdd.add(new PotionEffect(id, duration, amplifier, false));
                     } else {
-                        toAdd.add(pot);
+                        toAdd.add(effect);
                     }
                 }
                 event.entityLiving.clearActivePotions();
