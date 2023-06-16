@@ -372,12 +372,9 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                         continue;
                     }
                     var7 *= var7;
-                    final Entity entity = eo;
-                    entity.motionX += var3 / var6 * var7 * 0.15 * modifier;
-                    final Entity entity2 = eo;
-                    entity2.motionY += var4 / var6 * var7 * 0.25 * modifier;
-                    final Entity entity3 = eo;
-                    entity3.motionZ += var5 / var6 * var7 * 0.15 * modifier;
+                    eo.motionX += var3 / var6 * var7 * 0.15 * modifier;
+                    eo.motionY += var4 / var6 * var7 * 0.25 * modifier;
+                    eo.motionZ += var5 / var6 * var7 * 0.15 * modifier;
                 }
             }
         }

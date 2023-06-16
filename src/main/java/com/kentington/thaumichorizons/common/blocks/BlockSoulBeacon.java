@@ -37,8 +37,7 @@ public class BlockSoulBeacon extends BlockContainer {
     }
 
     public TileEntity createTileEntity(final World world, final int metadata) {
-        final TileSoulBeacon te = new TileSoulBeacon();
-        return te;
+        return new TileSoulBeacon();
     }
 
     public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player,

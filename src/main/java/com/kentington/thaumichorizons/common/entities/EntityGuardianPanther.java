@@ -73,8 +73,7 @@ public class EntityGuardianPanther extends EntityOcelot implements IEntityInfuse
         if (itemstack != null && itemstack.getItem() instanceof ItemFood) {
             final ItemFood itemfood = (ItemFood) itemstack.getItem();
             if (this.getHealth() < this.getMaxHealth()) {
-                final ItemStack itemStack = itemstack;
-                --itemStack.stackSize;
+                --itemstack.stackSize;
                 this.heal((float) itemfood.func_150905_g(itemstack));
                 if (itemstack.stackSize <= 0) {
                     p_70085_1_.inventory.setInventorySlotContents(p_70085_1_.inventory.currentItem, (ItemStack) null);

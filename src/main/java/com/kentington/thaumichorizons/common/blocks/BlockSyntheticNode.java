@@ -45,8 +45,7 @@ public class BlockSyntheticNode extends BlockContainer {
     }
 
     public TileEntity createTileEntity(final World world, final int metadata) {
-        final TileSyntheticNode node = new TileSyntheticNode();
-        return node;
+        return new TileSyntheticNode();
     }
 
     @SideOnly(Side.CLIENT)

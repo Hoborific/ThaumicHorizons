@@ -86,13 +86,8 @@ public class PacketInfusionFX implements IMessage, IMessageHandler<PacketInfusio
                 sf.ticks = count;
                 is.sourceFX.put(key, sf);
             } else {
-                final TileVat tmp232_230 = is;
-                tmp232_230.getClass();
                 final HashMap<String, TileVat.SourceFX> sourceFX = is.sourceFX;
-                final String s = key;
-                final TileVat this$0 = is;
-                this$0.getClass();
-                sourceFX.put(s, this$0.new SourceFX(new ChunkCoordinates(tx, ty, tz), count, message.color));
+                sourceFX.put(key, is.new SourceFX(new ChunkCoordinates(tx, ty, tz), count, message.color));
             }
         }
         return null;

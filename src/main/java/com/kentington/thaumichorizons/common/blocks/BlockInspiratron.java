@@ -42,8 +42,7 @@ public class BlockInspiratron extends BlockContainer {
     }
 
     public TileEntity createTileEntity(final World world, final int metadata) {
-        final TileInspiratron te = new TileInspiratron();
-        return te;
+        return new TileInspiratron();
     }
 
     public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player,

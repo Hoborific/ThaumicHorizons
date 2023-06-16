@@ -78,9 +78,8 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
         for (int a = 0; a < 4; ++a) {
             GL11.glPushMatrix();
             if (tile.getWorldObj() != null) {
-                final int j = bright;
-                final int k = j % 65536;
-                final int l = j / 65536;
+                final int k = bright % 65536;
+                final int l = bright / 65536;
                 OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0f, l / 1.0f);
             }
             GL11.glRotatef((float) (90 * a), 0.0f, 0.0f, 1.0f);

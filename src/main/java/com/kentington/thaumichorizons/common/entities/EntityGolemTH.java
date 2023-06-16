@@ -441,8 +441,7 @@ public class EntityGolemTH extends EntityGolemBase {
             this.setCore((byte) itemstack.getItemDamage());
             this.setupGolem();
             this.setupGolemInventory();
-            final ItemStack itemStack = itemstack;
-            --itemStack.stackSize;
+            --itemstack.stackSize;
             if (itemstack.stackSize <= 0) {
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
             }
@@ -460,8 +459,7 @@ public class EntityGolemTH extends EntityGolemBase {
                     this.setUpgrade(a, (byte) itemstack.getItemDamage());
                     this.setupGolem();
                     this.setupGolemInventory();
-                    final ItemStack itemStack2 = itemstack;
-                    --itemStack2.stackSize;
+                    --itemstack.stackSize;
                     if (itemstack.stackSize <= 0) {
                         player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
                     }

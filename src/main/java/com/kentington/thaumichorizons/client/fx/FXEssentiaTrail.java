@@ -189,39 +189,33 @@ public class FXEssentiaTrail extends EntityFX {
             final float var22 = (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1f;
             if (var19 == 0) {
                 this.motionX = -var21;
-                final double n = var22;
-                this.motionZ = n;
-                this.motionY = n;
+                this.motionZ = var22;
+                this.motionY = var22;
             }
             if (var19 == 1) {
                 this.motionX = var21;
-                final double n2 = var22;
-                this.motionZ = n2;
-                this.motionY = n2;
+                this.motionZ = var22;
+                this.motionY = var22;
             }
             if (var19 == 2) {
                 this.motionY = -var21;
-                final double n3 = var22;
-                this.motionZ = n3;
-                this.motionX = n3;
+                this.motionZ = var22;
+                this.motionX = var22;
             }
             if (var19 == 3) {
                 this.motionY = var21;
-                final double n4 = var22;
-                this.motionZ = n4;
-                this.motionX = n4;
+                this.motionZ = var22;
+                this.motionX = var22;
             }
             if (var19 == 4) {
                 this.motionZ = -var21;
-                final double n5 = var22;
-                this.motionX = n5;
-                this.motionY = n5;
+                this.motionX = var22;
+                this.motionY = var22;
             }
             if (var19 == 5) {
                 this.motionZ = var21;
-                final double n6 = var22;
-                this.motionX = n6;
-                this.motionY = n6;
+                this.motionX = var22;
+                this.motionY = var22;
             }
             return true;
         }

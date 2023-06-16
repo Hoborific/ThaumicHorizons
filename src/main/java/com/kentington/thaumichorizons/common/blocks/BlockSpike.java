@@ -87,8 +87,7 @@ public class BlockSpike extends BlockContainer {
     }
 
     public TileEntity createTileEntity(final World world, final int metadata) {
-        final TileSpike spike = new TileSpike((byte) metadata, (byte) this.type);
-        return spike;
+        return new TileSpike((byte) metadata, (byte) this.type);
     }
 
     public boolean canPlaceBlockOnSide(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,

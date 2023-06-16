@@ -39,8 +39,7 @@ public class BlockBloodInfuser extends BlockContainer {
     }
 
     public TileEntity createTileEntity(final World world, final int metadata) {
-        final TileBloodInfuser te = new TileBloodInfuser();
-        return te;
+        return new TileBloodInfuser();
     }
 
     public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player,

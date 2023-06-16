@@ -42,12 +42,9 @@ public class EntityNetherHound extends EntityWolf {
             final EntityEmber orb = new EntityEmber(this.worldObj, (EntityLivingBase) this, scatter);
             orb.damage = 1.0f;
             orb.firey = 1;
-            final EntityEmber entityEmber = orb;
-            entityEmber.posX += orb.motionX;
-            final EntityEmber entityEmber2 = orb;
-            entityEmber2.posY += orb.motionY;
-            final EntityEmber entityEmber3 = orb;
-            entityEmber3.posZ += orb.motionZ;
+            orb.posX += orb.motionX;
+            orb.posY += orb.motionY;
+            orb.posZ += orb.motionZ;
             this.worldObj.spawnEntityInWorld((Entity) orb);
         }
     }

@@ -440,8 +440,7 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                 for (int i = 0; i
                         < this.getUpgradeLevel(wand.getFocusItem(stack), ItemFocusLiquefaction.nuggets); ++i) {
                     if (p.worldObj.rand.nextFloat() < 0.45f) {
-                        final ItemStack itemStack = bonus;
-                        ++itemStack.stackSize;
+                        ++bonus.stackSize;
                     }
                 }
                 if (bonus.stackSize > 0) {

@@ -51,16 +51,12 @@ public class TileVatSlaveRender extends TileEntitySpecialRenderer {
                     final float f2 = p_147936_1_.prevRotationYaw
                             + (p_147936_1_.rotationYaw - p_147936_1_.prevRotationYaw) * f;
                     final RenderManager instance = RenderManager.instance;
-                    final Entity entity = p_147936_1_;
-                    final double n2 = d0;
                     final RenderManager instance2 = RenderManager.instance;
-                    final double n3 = n2 - RenderManager.renderPosX;
-                    final double n4 = d2;
+                    final double n3 = d0 - RenderManager.renderPosX;
                     final RenderManager instance3 = RenderManager.instance;
-                    final double n5 = n4 - RenderManager.renderPosY;
-                    final double n6 = d3;
+                    final double n5 = d2 - RenderManager.renderPosY;
                     final RenderManager instance4 = RenderManager.instance;
-                    instance.func_147939_a(entity, n3, n5, n6 - RenderManager.renderPosZ, f2, f, false);
+                    instance.func_147939_a(p_147936_1_, n3, n5, d3 - RenderManager.renderPosZ, f2, f, false);
                 } else {
                     GL11.glTranslatef(
                             0.0f,

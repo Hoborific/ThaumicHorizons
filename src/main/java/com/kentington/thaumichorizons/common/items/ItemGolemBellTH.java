@@ -210,12 +210,11 @@ public class ItemGolemBellTH extends ItemGolemBell {
             final String deco2 = golem.decoration;
             final byte core2 = golem.getCore();
             final byte[] upgrades2 = golem.upgrades;
-            final int[] array2 = new int[2];
+            final int[] blockData = new int[2];
             final int n = 0;
             final Block blocky = golem.blocky;
-            array2[n] = Block.getIdFromBlock(golem.blocky);
-            array2[1] = golem.md;
-            final int[] blockData = array2;
+            blockData[n] = Block.getIdFromBlock(golem.blocky);
+            blockData[1] = golem.md;
             final boolean advanced2 = golem.advanced;
             final ItemStack dropped3 = new ItemStack(ThaumicHorizons.itemGolemPlacer, 1, type2);
             if (advanced2) {

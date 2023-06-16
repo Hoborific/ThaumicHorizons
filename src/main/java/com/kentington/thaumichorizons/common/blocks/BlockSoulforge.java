@@ -39,8 +39,7 @@ public class BlockSoulforge extends BlockContainer {
     }
 
     public TileEntity createTileEntity(final World world, final int metadata) {
-        final TileSoulforge te = new TileSoulforge();
-        return te;
+        return new TileSoulforge();
     }
 
     public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player,

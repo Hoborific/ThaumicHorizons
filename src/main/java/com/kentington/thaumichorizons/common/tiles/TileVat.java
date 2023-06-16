@@ -147,8 +147,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
                     && player.inventory.addItemStackToInventory(new ItemStack(ConfigBlocks.blockJar))) {
                 this.setEntityContained(
                         (EntityLivingBase) EntityList.createEntityFromNBT(possibleJar.getTagCompound(), this.worldObj));
-                final ItemStack itemStack = possibleJar;
-                --itemStack.stackSize;
+                --possibleJar.stackSize;
                 this.markDirty();
                 this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                 return true;
@@ -195,8 +194,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
                             this.markDirty();
                             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                             this.selfInfusions = new int[12];
-                            final ItemStack itemStack2 = possibleJar;
-                            --itemStack2.stackSize;
+                            --possibleJar.stackSize;
                         }
                     } else {
                         if (this.mode == 0 && direct && this.getEntityContained() == null) {
@@ -876,8 +874,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
                         fx.ticks = 0;
                     }
                 }
-                final SourceFX sourceFX = fx;
-                --sourceFX.ticks;
+                --fx.ticks;
                 this.sourceFX.put(fxk, fx);
             }
         }

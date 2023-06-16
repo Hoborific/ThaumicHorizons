@@ -86,8 +86,7 @@ public class BlockSoulJar extends BlockContainer {
     }
 
     public TileEntity createTileEntity(final World world, final int metadata) {
-        final TileSoulJar te = new TileSoulJar();
-        return te;
+        return new TileSoulJar();
     }
 
     public void onBlockHarvested(final World par1World, final int par2, final int par3, final int par4, final int par5,

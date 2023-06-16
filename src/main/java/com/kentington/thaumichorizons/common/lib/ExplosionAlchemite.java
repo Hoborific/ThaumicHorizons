@@ -163,12 +163,9 @@ public class ExplosionAlchemite extends Explosion {
                             DamageSourceThaumcraft.dissolve,
                             (float) (int) ((d11 * d11 + d11) / 2.0 * 16.0 * this.explosionSize + 1.0));
                     final double d12 = EnchantmentProtection.func_92092_a(entity, d11);
-                    final Entity entity2 = entity;
-                    entity2.motionX += d5 * d12;
-                    final Entity entity3 = entity;
-                    entity3.motionY += d6 * d12;
-                    final Entity entity4 = entity;
-                    entity4.motionZ += d7 * d12;
+                    entity.motionX += d5 * d12;
+                    entity.motionY += d6 * d12;
+                    entity.motionZ += d7 * d12;
                     if (entity instanceof EntityPlayer) {
                         this.field_77288_k.put(entity, Vec3.createVectorHelper(d5 * d11, d6 * d11, d7 * d11));
                     }

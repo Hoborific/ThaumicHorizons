@@ -39,8 +39,7 @@ public class BlockNodeMonitor extends BlockContainer {
     }
 
     public TileEntity createTileEntity(final World world, final int metadata) {
-        final TileNodeMonitor node = new TileNodeMonitor();
-        return node;
+        return new TileNodeMonitor();
     }
 
     public boolean canPlaceBlockAt(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,

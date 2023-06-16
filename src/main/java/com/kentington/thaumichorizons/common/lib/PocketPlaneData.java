@@ -133,8 +133,7 @@ public class PocketPlaneData {
                 b += (int) (aspColor.getBlue() * aspectFraction(asp, aspects));
             }
         }
-        final int color = r * 256 * 256 + g * 256 + b;
-        return color;
+        return r * 256 * 256 + g * 256 + b;
     }
 
     public static void addEffects(final PocketPlaneData data, final AspectList aspects) {

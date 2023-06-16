@@ -66,8 +66,7 @@ public class BlockSlot extends BlockContainer {
         } else if (theItem != null && theItem.getItem() == ThaumicHorizons.itemKeystone
                 && theItem.stackTagCompound != null) {
                     tco.insertKeystone(theItem.stackTagCompound.getInteger("dimension"));
-                    final ItemStack itemStack = theItem;
-                    --itemStack.stackSize;
+                    --theItem.stackSize;
                 }
         world.markBlockForUpdate(x, y, z);
         return false;

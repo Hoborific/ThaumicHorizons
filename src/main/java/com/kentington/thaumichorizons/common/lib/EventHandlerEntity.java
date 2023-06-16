@@ -587,12 +587,9 @@ public class EventHandlerEntity {
                         d7 /= d9;
                         d8 /= d9;
                         final double d10 = 0.1;
-                        final Entity entity = e;
-                        entity.motionX -= d6 * d10;
-                        final Entity entity2 = e;
-                        entity2.motionY -= d7 * d10;
-                        final Entity entity3 = e;
-                        entity3.motionZ -= d8 * d10;
+                        e.motionX -= d6 * d10;
+                        e.motionY -= d7 * d10;
+                        e.motionZ -= d8 * d10;
                         if (e.motionX > 0.35) {
                             e.motionX = 0.35;
                         }

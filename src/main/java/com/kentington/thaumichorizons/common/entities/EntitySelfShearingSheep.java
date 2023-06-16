@@ -35,10 +35,8 @@ public class EntitySelfShearingSheep extends EntitySheep {
                 final EntityItem entityDropItem;
                 final EntityItem ent = entityDropItem = this.entityDropItem(stack, 1.0f);
                 entityDropItem.motionY += rand.nextFloat() * 0.05f;
-                final EntityItem entityItem = ent;
-                entityItem.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1f;
-                final EntityItem entityItem2 = ent;
-                entityItem2.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1f;
+                ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1f;
+                ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1f;
             }
         }
         super.onLivingUpdate();
