@@ -1839,7 +1839,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
         }
     }
 
-    public class SourceFX {
+    public static class SourceFX {
 
         public ChunkCoordinates loc;
         public int ticks;

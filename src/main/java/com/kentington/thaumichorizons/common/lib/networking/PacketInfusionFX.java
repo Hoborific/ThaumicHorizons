@@ -87,7 +87,7 @@ public class PacketInfusionFX implements IMessage, IMessageHandler<PacketInfusio
                 is.sourceFX.put(key, sf);
             } else {
                 final HashMap<String, TileVat.SourceFX> sourceFX = is.sourceFX;
-                sourceFX.put(key, is.new SourceFX(new ChunkCoordinates(tx, ty, tz), count, message.color));
+                sourceFX.put(key, new TileVat.SourceFX(new ChunkCoordinates(tx, ty, tz), count, message.color));
             }
         }
         return null;

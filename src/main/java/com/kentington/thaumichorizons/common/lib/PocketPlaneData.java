@@ -1757,7 +1757,7 @@ public class PocketPlaneData {
 
     void buildStructure(final int x, final int y, final int z, final Structure struct) {}
 
-    private class Structure {
+    private static class Structure {
 
         public int x;
         public int y;
