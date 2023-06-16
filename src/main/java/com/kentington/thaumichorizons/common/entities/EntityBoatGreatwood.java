@@ -330,8 +330,8 @@ public class EntityBoatGreatwood extends EntityBoat {
                         (Entity) this,
                         this.boundingBox.expand(0.20000000298023224, 0.0, 0.20000000298023224));
                 if (list != null && !list.isEmpty()) {
-                    for (int k2 = 0; k2 < list.size(); ++k2) {
-                        final Entity entity = (Entity) list.get(k2);
+                    for (Object o : list) {
+                        final Entity entity = (Entity) o;
                         if (entity != this.riddenByEntity && entity.canBePushed() && entity instanceof EntityBoat) {
                             entity.applyEntityCollision((Entity) this);
                         }

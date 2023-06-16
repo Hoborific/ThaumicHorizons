@@ -1153,8 +1153,8 @@ public class PocketPlaneData {
 
     public static int getAvg(final double[] array) {
         long x = 0L;
-        for (int i = 0; i < array.length; ++i) {
-            x += (long) array[i];
+        for (double v : array) {
+            x += (long) v;
         }
         x /= array.length;
         return (int) x;

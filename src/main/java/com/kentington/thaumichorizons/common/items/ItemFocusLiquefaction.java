@@ -374,8 +374,8 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                 entityplayer.boundingBox.addCoord(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range)
                         .expand((double) f1, (double) f1, (double) f1));
         double d2 = 0.0;
-        for (int i = 0; i < list.size(); ++i) {
-            final Entity entity = (Entity) list.get(i);
+        for (Object o : list) {
+            final Entity entity = (Entity) o;
             if (world.rayTraceBlocks(
                     Vec3.createVectorHelper(
                             entityplayer.posX,

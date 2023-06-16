@@ -127,8 +127,8 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
     @Override
     public boolean takeFromContainer(final AspectList ot) {
         final Aspect[] toRemove = ot.getAspects();
-        for (int i = 0; i < toRemove.length; ++i) {
-            if (!this.aspects.reduce(toRemove[i], ot.getAmount(toRemove[i]))) {
+        for (Aspect aspect : toRemove) {
+            if (!this.aspects.reduce(aspect, ot.getAmount(aspect))) {
                 return false;
             }
         }

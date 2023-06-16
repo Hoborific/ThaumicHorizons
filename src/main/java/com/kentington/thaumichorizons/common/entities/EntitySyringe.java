@@ -288,8 +288,8 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
                     (Entity) this,
                     this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0, 1.0, 1.0));
             double d0 = 0.0;
-            for (int i = 0; i < list.size(); ++i) {
-                final Entity entity2 = (Entity) list.get(i);
+            for (Object o : list) {
+                final Entity entity2 = (Entity) o;
                 if (entity2.canBeCollidedWith() && (entity2 != this.shootingEntity || this.ticksInAir >= 5)) {
                     final float f2 = 0.3f;
                     final AxisAlignedBB axisalignedbb2 = entity2.boundingBox

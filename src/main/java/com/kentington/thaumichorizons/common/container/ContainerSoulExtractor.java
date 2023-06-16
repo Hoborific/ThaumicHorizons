@@ -49,8 +49,8 @@ public class ContainerSoulExtractor extends Container {
 
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        for (int i = 0; i < this.crafters.size(); ++i) {
-            final ICrafting icrafting = (ICrafting) this.crafters.get(i);
+        for (Object crafter : this.crafters) {
+            final ICrafting icrafting = (ICrafting) crafter;
             if (this.ticksLeft != this.tile.ticksLeft) {
                 icrafting.sendProgressBarUpdate((Container) this, 0, this.tile.ticksLeft);
             }

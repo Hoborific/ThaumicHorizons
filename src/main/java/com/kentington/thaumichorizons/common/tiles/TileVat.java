@@ -642,8 +642,8 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
             if (recipe2 == null) {
                 return;
             }
-            for (int i = 0; i < this.selfInfusions.length; ++i) {
-                if (this.selfInfusions[i] == recipe2.getID()) {
+            for (int selfInfusion : this.selfInfusions) {
+                if (selfInfusion == recipe2.getID()) {
                     return;
                 }
             }

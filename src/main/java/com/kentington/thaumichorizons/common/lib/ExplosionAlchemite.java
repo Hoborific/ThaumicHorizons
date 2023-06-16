@@ -144,8 +144,8 @@ public class ExplosionAlchemite extends Explosion {
                 this.exploder,
                 AxisAlignedBB.getBoundingBox((double) i, (double) k, (double) m, (double) j, (double) i2, (double) j3));
         final Vec3 vec3 = Vec3.createVectorHelper(this.explosionX, this.explosionY, this.explosionZ);
-        for (int i3 = 0; i3 < list.size(); ++i3) {
-            final Entity entity = (Entity) list.get(i3);
+        for (Object o : list) {
+            final Entity entity = (Entity) o;
             final double d8 = entity.getDistance(this.explosionX, this.explosionY, this.explosionZ)
                     / this.explosionSize;
             if (d8 <= 1.0) {

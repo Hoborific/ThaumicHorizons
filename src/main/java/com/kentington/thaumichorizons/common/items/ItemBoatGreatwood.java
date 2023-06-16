@@ -63,8 +63,8 @@ public class ItemBoatGreatwood extends ItemBoat {
                 (Entity) p_77659_3_,
                 p_77659_3_.boundingBox.addCoord(vec5.xCoord * d4, vec5.yCoord * d4, vec5.zCoord * d4)
                         .expand((double) f10, (double) f10, (double) f10));
-        for (int i = 0; i < list.size(); ++i) {
-            final Entity entity = (Entity) list.get(i);
+        for (Object o : list) {
+            final Entity entity = (Entity) o;
             if (entity.canBeCollidedWith()) {
                 final float f11 = entity.getCollisionBorderSize();
                 final AxisAlignedBB axisalignedbb = entity.boundingBox.expand((double) f11, (double) f11, (double) f11);

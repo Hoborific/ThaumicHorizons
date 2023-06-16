@@ -134,9 +134,9 @@ public class EventHandlerEntity {
                 .getExtendedProperties("CreatureInfusion");
         if (entity instanceof EntityPlayer) {
             final int[] infusions = infusionProperties.getPlayerInfusions();
-            for (int i = 0; i < infusions.length; ++i) {
-                if (infusions[i] != 0) {
-                    if (infusions[i] == 8 && !entity.worldObj.isRemote) {
+            for (int infusion : infusions) {
+                if (infusion != 0) {
+                    if (infusion == 8 && !entity.worldObj.isRemote) {
                         this.warpTumor(
                                 (EntityPlayer) entity,
                                 ThaumicHorizons.warpedTumorValue - infusionProperties.tumorWarpPermanent
@@ -186,23 +186,23 @@ public class EventHandlerEntity {
     }
 
     public void applyPlayerPotionInfusions(final EntityPlayer entity, final int[] infusions, final boolean toggled) {
-        for (int i = 0; i < infusions.length; ++i) {
-            if (infusions[i] == 1) {
+        for (int infusion : infusions) {
+            if (infusion == 1) {
                 PotionEffect effect = new PotionEffect(Potion.jump.id, Integer.MAX_VALUE, 0, true);
                 effect.setCurativeItems(new ArrayList<ItemStack>());
                 ((EntityLivingBase) entity).addPotionEffect(effect);
                 effect = new PotionEffect(Potion.moveSpeed.id, Integer.MAX_VALUE, 0, true);
                 effect.setCurativeItems(new ArrayList<ItemStack>());
                 ((EntityLivingBase) entity).addPotionEffect(effect);
-            } else if (infusions[i] == 3) {
+            } else if (infusion == 3) {
                 final PotionEffect effect = new PotionEffect(Potion.regeneration.id, Integer.MAX_VALUE, 0, true);
                 effect.setCurativeItems(new ArrayList<ItemStack>());
                 ((EntityLivingBase) entity).addPotionEffect(effect);
-            } else if (infusions[i] == 4) {
+            } else if (infusion == 4) {
                 final PotionEffect effect = new PotionEffect(Potion.resistance.id, Integer.MAX_VALUE, 0, true);
                 effect.setCurativeItems(new ArrayList<ItemStack>());
                 ((EntityLivingBase) entity).addPotionEffect(effect);
-            } else if (infusions[i] == 10 && !toggled) {
+            } else if (infusion == 10 && !toggled) {
                 final PotionEffect effect = new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 0, true);
                 effect.setCurativeItems(new ArrayList<ItemStack>());
                 ((EntityLivingBase) entity).addPotionEffect(effect);

@@ -132,8 +132,8 @@ public class EntityInfusionProperties implements IExtendedEntityProperties {
     }
 
     public boolean hasInfusion(final int id) {
-        for (int i = 0; i < this.infusions.length; ++i) {
-            if (this.infusions[i] == id) {
+        for (int infusion : this.infusions) {
+            if (infusion == id) {
                 return true;
             }
         }
@@ -141,8 +141,8 @@ public class EntityInfusionProperties implements IExtendedEntityProperties {
     }
 
     public boolean hasPlayerInfusion(final int id) {
-        for (int i = 0; i < this.playerInfusions.length; ++i) {
-            if (this.playerInfusions[i] == id) {
+        for (int playerInfusion : this.playerInfusions) {
+            if (playerInfusion == id) {
                 return true;
             }
         }
