@@ -585,43 +585,35 @@ public class TileCloud extends TileThaumcraft {
                                     break;
                                 }
                                 if (this.cachedBlock == Blocks.dirt) {
-                                    switch (this.worldObj.rand.nextInt(10)) {
-                                        case 4: {
-                                            this.worldObj.setBlock(
-                                                    this.xCoord,
-                                                    this.yCoord - this.howManyDown,
-                                                    this.zCoord,
-                                                    (Block) Blocks.mycelium);
-                                            break Label_4978;
-                                        }
-                                        default: {
-                                            this.worldObj.setBlock(
-                                                    this.xCoord,
-                                                    this.yCoord - this.howManyDown,
-                                                    this.zCoord,
-                                                    (Block) Blocks.grass);
-                                            break Label_4978;
-                                        }
+                                    if (this.worldObj.rand.nextInt(10) == 4) {
+                                        this.worldObj.setBlock(
+                                                this.xCoord,
+                                                this.yCoord - this.howManyDown,
+                                                this.zCoord,
+                                                (Block) Blocks.mycelium);
+                                        break Label_4978;
                                     }
+                                    this.worldObj.setBlock(
+                                            this.xCoord,
+                                            this.yCoord - this.howManyDown,
+                                            this.zCoord,
+                                            (Block) Blocks.grass);
+                                    break Label_4978;
                                 } else if (this.cachedBlock == Blocks.stone || this.cachedBlock == Blocks.mycelium) {
-                                    switch (this.worldObj.rand.nextInt(3)) {
-                                        case 1: {
-                                            this.worldObj.setBlock(
-                                                    this.xCoord,
-                                                    this.yCoord - this.howManyDown + 1,
-                                                    this.zCoord,
-                                                    (Block) Blocks.brown_mushroom);
-                                            break Label_4978;
-                                        }
-                                        default: {
-                                            this.worldObj.setBlock(
-                                                    this.xCoord,
-                                                    this.yCoord - this.howManyDown + 1,
-                                                    this.zCoord,
-                                                    (Block) Blocks.red_mushroom);
-                                            break Label_4978;
-                                        }
+                                    if (this.worldObj.rand.nextInt(3) == 1) {
+                                        this.worldObj.setBlock(
+                                                this.xCoord,
+                                                this.yCoord - this.howManyDown + 1,
+                                                this.zCoord,
+                                                (Block) Blocks.brown_mushroom);
+                                        break Label_4978;
                                     }
+                                    this.worldObj.setBlock(
+                                            this.xCoord,
+                                            this.yCoord - this.howManyDown + 1,
+                                            this.zCoord,
+                                            (Block) Blocks.red_mushroom);
+                                    break Label_4978;
                                 } else {
                                     if (this.cachedBlock == Blocks.grass) {
                                         final int plant = this.worldObj.rand.nextInt(1000);
@@ -916,30 +908,26 @@ public class TileCloud extends TileThaumcraft {
                                         break;
                                     }
                                     if (this.cachedBlock == Blocks.sand) {
-                                        switch (this.worldObj.rand.nextInt(10)) {
-                                            case 4: {
-                                                this.worldObj.setBlock(
-                                                        this.xCoord,
-                                                        this.yCoord - this.howManyDown + 1,
-                                                        this.zCoord,
-                                                        ConfigBlocks.blockCustomPlant);
-                                                this.worldObj.setBlockMetadataWithNotify(
-                                                        this.xCoord,
-                                                        this.yCoord - this.howManyDown + 1,
-                                                        this.zCoord,
-                                                        3,
-                                                        3);
-                                                break Label_4978;
-                                            }
-                                            default: {
-                                                this.worldObj.setBlock(
-                                                        this.xCoord,
-                                                        this.yCoord - this.howManyDown + 1,
-                                                        this.zCoord,
-                                                        Blocks.cactus);
-                                                break Label_4978;
-                                            }
+                                        if (this.worldObj.rand.nextInt(10) == 4) {
+                                            this.worldObj.setBlock(
+                                                    this.xCoord,
+                                                    this.yCoord - this.howManyDown + 1,
+                                                    this.zCoord,
+                                                    ConfigBlocks.blockCustomPlant);
+                                            this.worldObj.setBlockMetadataWithNotify(
+                                                    this.xCoord,
+                                                    this.yCoord - this.howManyDown + 1,
+                                                    this.zCoord,
+                                                    3,
+                                                    3);
+                                            break Label_4978;
                                         }
+                                        this.worldObj.setBlock(
+                                                this.xCoord,
+                                                this.yCoord - this.howManyDown + 1,
+                                                this.zCoord,
+                                                Blocks.cactus);
+                                        break Label_4978;
                                     } else {
                                         if (this.cachedBlock == Blocks.soul_sand) {
                                             this.worldObj.setBlock(

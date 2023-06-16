@@ -24,13 +24,8 @@ public class WandManagerTH implements IWandTriggerManager {
     @Override
     public boolean performTrigger(final World world, final ItemStack wand, final EntityPlayer player, final int x,
             final int y, final int z, final int side, final int event) {
-        switch (event) {
-            case 0: {
-                if (ResearchManager.isResearchComplete(player.getCommandSenderName(), "healingVat")) {
-                    return this.constructVat(world, wand, player, x, y, z, side);
-                }
-                break;
-            }
+        if (event == 0 && ResearchManager.isResearchComplete(player.getCommandSenderName(), "healingVat")) {
+            return this.constructVat(world, wand, player, x, y, z, side);
         }
         return false;
     }
