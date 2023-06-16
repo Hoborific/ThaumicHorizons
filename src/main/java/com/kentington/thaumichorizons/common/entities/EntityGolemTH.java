@@ -370,7 +370,7 @@ public class EntityGolemTH extends EntityGolemBase {
         for (final byte c : this.upgrades) {
             st += Integer.toHexString(c);
         }
-        this.dataWatcher.updateObject(23, (Object) String.valueOf(st));
+        this.dataWatcher.updateObject(23, st);
         this.blocky = Block.getBlockById(nbt.getInteger("block"));
         this.md = nbt.getInteger("metadata");
         this.ticksAlive = nbt.getInteger("ticksAlive");

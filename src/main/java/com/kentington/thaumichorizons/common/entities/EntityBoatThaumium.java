@@ -63,9 +63,9 @@ public class EntityBoatThaumium extends EntityBoat {
     }
 
     protected void entityInit() {
-        this.dataWatcher.addObject(17, (Object) new Integer(0));
-        this.dataWatcher.addObject(18, (Object) new Integer(1));
-        this.dataWatcher.addObject(19, (Object) new Float(0.0f));
+        this.dataWatcher.addObject(17, 0);
+        this.dataWatcher.addObject(18, 1);
+        this.dataWatcher.addObject(19, 0.0f);
     }
 
     public AxisAlignedBB getCollisionBox(final Entity p_70114_1_) {

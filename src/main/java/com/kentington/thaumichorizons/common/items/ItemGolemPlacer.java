@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -133,7 +132,7 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
             par0World.spawnEntityInWorld((Entity) golem);
             golem.setGolemDecoration(deco);
             golem.setOwner(player.getCommandSenderName());
-            golem.setMarkers((ArrayList) ItemGolemBell.getMarkers(stack));
+            golem.setMarkers(ItemGolemBell.getMarkers(stack));
             int a2 = 0;
             for (final byte b : golem.upgrades) {
                 golem.setUpgrade(a2, b);
