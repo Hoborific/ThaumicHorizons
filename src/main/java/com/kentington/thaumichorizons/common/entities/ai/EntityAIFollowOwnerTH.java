@@ -20,7 +20,7 @@ public class EntityAIFollowOwnerTH extends EntityAIBase {
     private EntityLiving thePet;
     private EntityLivingBase theOwner;
     World theWorld;
-    private double field_75336_f;
+    private double moveSpeed;
     private PathNavigate petPathfinder;
     private int field_75343_h;
     float maxDist;
@@ -31,7 +31,7 @@ public class EntityAIFollowOwnerTH extends EntityAIBase {
             final float p_i1625_5_) {
         this.thePet = p_i1625_1_;
         this.theWorld = p_i1625_1_.worldObj;
-        this.field_75336_f = p_i1625_2_;
+        this.moveSpeed = p_i1625_2_;
         this.petPathfinder = p_i1625_1_.getNavigator();
         this.minDist = p_i1625_4_;
         this.maxDist = p_i1625_5_;
@@ -83,7 +83,7 @@ public class EntityAIFollowOwnerTH extends EntityAIBase {
                 .getExtendedProperties("CreatureInfusion");
         if (!prop.isSitting() && --this.field_75343_h <= 0) {
             this.field_75343_h = 10;
-            if (!this.petPathfinder.tryMoveToEntityLiving((Entity) this.theOwner, this.field_75336_f)
+            if (!this.petPathfinder.tryMoveToEntityLiving((Entity) this.theOwner, this.moveSpeed)
                     && !this.thePet.getLeashed()
                     && this.thePet.getDistanceSqToEntity((Entity) this.theOwner) >= 144.0) {
                 final int i = MathHelper.floor_double(this.theOwner.posX) - 2;

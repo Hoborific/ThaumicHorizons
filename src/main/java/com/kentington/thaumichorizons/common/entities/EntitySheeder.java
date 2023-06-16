@@ -34,16 +34,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class EntitySheeder extends EntitySpider implements IShearable {
 
     private int sheepTimer;
-    private EntityAIEatGrass field_146087_bs;
+    private final EntityAIEatGrass sheeder;
 
     public EntitySheeder(final World p_i1743_1_) {
         super(p_i1743_1_);
-        this.field_146087_bs = new EntityAIEatGrass((EntityLiving) this);
+        this.sheeder = new EntityAIEatGrass((EntityLiving) this);
         this.getNavigator().setAvoidsWater(true);
         this.tasks.addTask(0, (EntityAIBase) new EntityAISwimming((EntityLiving) this));
         this.tasks.addTask(1, (EntityAIBase) new EntityAIPanic((EntityCreature) this, 0.5));
         this.tasks.addTask(3, (EntityAIBase) new EntityAITempt((EntityCreature) this, 0.44, Items.wheat, false));
-        this.tasks.addTask(5, (EntityAIBase) this.field_146087_bs);
+        this.tasks.addTask(5, (EntityAIBase) this.sheeder);
         this.tasks.addTask(6, (EntityAIBase) new EntityAIWander((EntityCreature) this, 0.4));
         this.tasks.addTask(
                 7,
@@ -125,7 +125,7 @@ public class EntitySheeder extends EntitySpider implements IShearable {
     }
 
     protected void updateAITasks() {
-        this.sheepTimer = this.field_146087_bs.func_151499_f();
+        this.sheepTimer = this.sheeder.func_151499_f();
         super.updateAITasks();
     }
 
