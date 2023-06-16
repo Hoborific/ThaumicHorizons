@@ -1967,7 +1967,7 @@ public class ThaumicHorizons {
                 new ItemStack(itemVoidPutty));
         ResearchPage voidPutty1 = new ResearchPage("voidPutty1");
         ItemStack damaged = new ItemStack(ConfigItems.itemSwordElemental, 1, 32767);
-        ArrayList voidComponents = new ArrayList();
+        ArrayList<ItemStack> voidComponents = new ArrayList<>();
         voidComponents.add(damaged);
         voidComponents.add(new ItemStack(itemVoidPutty));
         ResearchPage voidPutty2 = new ResearchPage(
@@ -3546,7 +3546,7 @@ public class ThaumicHorizons {
 
     public static CreatureInfusionRecipe getCreatureInfusion(EntityLivingBase entityContained,
             ArrayList<ItemStack> components, EntityPlayer player) {
-        Iterator var3 = critterRecipes.iterator();
+        Iterator<CreatureInfusionRecipe> var3 = critterRecipes.iterator();
 
         CreatureInfusionRecipe recipe;
         do {
@@ -3554,14 +3554,14 @@ public class ThaumicHorizons {
                 return null;
             }
 
-            recipe = (CreatureInfusionRecipe) var3.next();
+            recipe = var3.next();
         } while (!recipe.matches(components, entityContained.getClass(), player.worldObj, player));
 
         return recipe;
     }
 
     public static SelfInfusionRecipe getSelfInfusion(ArrayList<ItemStack> components, EntityPlayer player) {
-        Iterator var2 = selfRecipes.iterator();
+        Iterator<SelfInfusionRecipe> var2 = selfRecipes.iterator();
 
         SelfInfusionRecipe recipe;
         do {
@@ -3569,7 +3569,7 @@ public class ThaumicHorizons {
                 return null;
             }
 
-            recipe = (SelfInfusionRecipe) var2.next();
+            recipe = var2.next();
         } while (!recipe.matches(components, player.worldObj, player));
 
         return recipe;

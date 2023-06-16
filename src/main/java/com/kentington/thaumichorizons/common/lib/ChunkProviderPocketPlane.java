@@ -83,7 +83,7 @@ public class ChunkProviderPocketPlane implements IChunkProvider {
 
     public List getPossibleCreatures(final EnumCreatureType p_73155_1_, final int p_73155_2_, final int p_73155_3_,
             final int p_73155_4_) {
-        return new ArrayList();
+        return new ArrayList<>();
     }
 
     public ChunkPosition func_147416_a(final World p_147416_1_, final String p_147416_2_, final int p_147416_3_,

@@ -65,8 +65,8 @@ public class ExplosionAlchemite extends Explosion {
         this.isSmoking = true;
         this.field_77289_h = 16;
         this.explosionRNG = new Random();
-        this.affectedBlockPositions = new ArrayList();
-        this.field_77288_k = new HashMap();
+        this.affectedBlockPositions = new ArrayList<>();
+        this.field_77288_k = new HashMap<>();
         this.worldObj = p_i1948_1_;
         this.exploder = p_i1948_2_;
         this.explosionSize = p_i1948_9_;
@@ -77,7 +77,7 @@ public class ExplosionAlchemite extends Explosion {
 
     public void doExplosionA() {
         final float f = this.explosionSize;
-        final HashSet hashset = new HashSet();
+        final HashSet<ChunkPosition> hashset = new HashSet<>();
         for (int i = 0; i < this.field_77289_h; ++i) {
             for (int j = 0; j < this.field_77289_h; ++j) {
                 for (int k = 0; k < this.field_77289_h; ++k) {

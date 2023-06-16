@@ -260,7 +260,7 @@ public class EventHandlerEntity {
     }
 
     public void applyNewAI(final EntityLiving entity) {
-        ArrayList tasks = new ArrayList();
+        ArrayList<Object> tasks = new ArrayList<>();
         Iterator it = entity.tasks.taskEntries.iterator();
         while (it.hasNext()) {
             tasks.add(it.next());

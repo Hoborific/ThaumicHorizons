@@ -17,7 +17,7 @@ public class RecipeVoidPuttyRepair implements IRecipe {
 
     public ItemStack getCraftingResult(final InventoryCrafting par1InventoryCrafting) {
         ItemStack itemstack = null;
-        final ArrayList arraylist = new ArrayList();
+        final ArrayList<ItemStack> arraylist = new ArrayList<>();
         for (int i = 0; i < par1InventoryCrafting.getSizeInventory(); ++i) {
             final ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(i);
             if (itemstack2 != null) {
@@ -50,7 +50,7 @@ public class RecipeVoidPuttyRepair implements IRecipe {
 
     public boolean matches(final InventoryCrafting par1InventoryCrafting, final World arg1) {
         ItemStack itemstack = null;
-        final ArrayList arraylist = new ArrayList();
+        final ArrayList<ItemStack> arraylist = new ArrayList<>();
         for (int i = 0; i < par1InventoryCrafting.getSizeInventory(); ++i) {
             final ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(i);
             if (itemstack2 != null) {

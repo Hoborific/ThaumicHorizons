@@ -61,7 +61,7 @@ public class PacketPlayerInfusionSync implements IMessage, IMessageHandler<Packe
                     player.setInvisible(false);
                 } else {
                     final PotionEffect effect = new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 0, true);
-                    effect.setCurativeItems((List) new ArrayList());
+                    effect.setCurativeItems((List) new ArrayList<>());
                     player.addPotionEffect(effect);
                     player.setInvisible(true);
                 }

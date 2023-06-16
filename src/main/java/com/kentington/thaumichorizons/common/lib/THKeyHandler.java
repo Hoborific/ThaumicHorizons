@@ -5,7 +5,6 @@
 package com.kentington.thaumichorizons.common.lib;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
@@ -188,7 +187,7 @@ public class THKeyHandler {
                                         Integer.MAX_VALUE,
                                         0,
                                         true);
-                                effect.setCurativeItems((List) new ArrayList());
+                                effect.setCurativeItems(new ArrayList<>());
                                 player.addPotionEffect(effect);
                                 player.setInvisible(true);
                                 player.addChatMessage(
