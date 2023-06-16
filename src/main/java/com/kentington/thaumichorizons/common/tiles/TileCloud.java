@@ -58,7 +58,7 @@ public class TileCloud extends TileThaumcraft {
     public TileCloud() {
         this.md = -1;
         this.dropTimer = -1;
-        this.raining = false;
+        raining = false;
     }
 
     public boolean isRaining() {

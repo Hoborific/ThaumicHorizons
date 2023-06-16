@@ -79,8 +79,8 @@ public class FXSonic extends EntityFX {
         GL11.glDisable(2884);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 1);
-        if (this.model == null) {
-            this.model = AdvancedModelLoader.loadModel(FXSonic.MODEL);
+        if (model == null) {
+            model = AdvancedModelLoader.loadModel(FXSonic.MODEL);
         }
         final float fade = (this.particleAge + f) / this.particleMaxAge;
         final float xx = (float) (this.prevPosX + (this.posX - this.prevPosX) * f - FXSonic.interpPosX);
@@ -99,7 +99,7 @@ public class FXSonic extends EntityFX {
         GL11.glRotatef(this.pitch, 1.0f, 0.0f, 0.0f);
         GL11.glScaled(0.5, 0.5, -0.5);
         GL11.glColor4f(0.0f, b, b, 1.0f);
-        this.model.renderAll();
+        model.renderAll();
         GL11.glDisable(3042);
         GL11.glEnable(2884);
         GL11.glPopMatrix();
