@@ -85,11 +85,11 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                     if (stack.getItem() != null) {
                         try {
                             text = stack.getDisplayName();
-                        } catch (Exception e) {}
+                        } catch (Exception ignored) {}
                     } else if (stack.getItem() != null) {
                         try {
                             text = stack.getItem().getItemStackDisplayName(stack);
-                        } catch (Exception ex) {}
+                        } catch (Exception ignored) {}
                     }
                 }
                 if (scan.type == 2) {
@@ -244,7 +244,7 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                             if (is == null) {
                                 is = BlockUtils.createStackedBlock(bi, md);
                             }
-                        } catch (Exception ex) {}
+                        } catch (Exception ignored) {}
                         try {
                             if (is == null) {
                                 sr2 = new ScanResult((byte) 1, Block.getIdFromBlock(bi), md, null, "");
@@ -256,7 +256,7 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                                         null,
                                         "");
                             }
-                        } catch (Exception ex2) {}
+                        } catch (Exception ignored) {}
                         if (ScanManager.isValidScanTarget(p, sr2, "@")) {
                             Thaumcraft.proxy.blockRunes(
                                     world,

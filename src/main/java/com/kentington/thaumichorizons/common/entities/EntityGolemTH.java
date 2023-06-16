@@ -175,7 +175,7 @@ public class EntityGolemTH extends EntityGolemBase {
         int bonus = 0;
         try {
             bonus = (this.getGolemDecoration().contains("H") ? 5 : 0);
-        } catch (Exception ex) {}
+        } catch (Exception ignored) {}
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth)
                 .setBaseValue((double) (this.getGolemTHType().health + bonus));
         return true;
@@ -687,7 +687,7 @@ public class EntityGolemTH extends EntityGolemBase {
             int bonus = 0;
             try {
                 bonus = (this.getGolemDecoration().contains("H") ? 5 : 0);
-            } catch (Exception ex) {}
+            } catch (Exception ignored) {}
             this.getEntityAttribute(SharedMonsterAttributes.maxHealth)
                     .setBaseValue((double) (this.type.health + bonus));
         } else if (par1 == 6) {

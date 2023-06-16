@@ -53,7 +53,7 @@ public class ContainerCase extends Container {
         if (!par2World.isRemote) {
             try {
                 ((InventoryCase) this.input).stackList = ((ItemLensCase) this.pouch.getItem()).getInventory(this.pouch);
-            } catch (Exception ex) {}
+            } catch (Exception ignored) {}
         }
         this.onCraftMatrixChanged(this.input);
     }

@@ -753,7 +753,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
                 }
             }
             this.symmetry += (int) sym;
-        } catch (Exception ex) {}
+        } catch (Exception ignored) {}
     }
 
     private void doEffects() {
