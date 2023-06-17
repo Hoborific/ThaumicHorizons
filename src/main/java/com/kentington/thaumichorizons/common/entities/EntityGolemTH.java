@@ -366,11 +366,11 @@ public class EntityGolemTH extends EntityGolemBase {
             }
             this.upgrades = tt;
         }
-        String st = "";
+        StringBuilder st = new StringBuilder();
         for (final byte c : this.upgrades) {
-            st += Integer.toHexString(c);
+            st.append(Integer.toHexString(c));
         }
-        this.dataWatcher.updateObject(23, st);
+        this.dataWatcher.updateObject(23, st.toString());
         this.blocky = Block.getBlockById(nbt.getInteger("block"));
         this.md = nbt.getInteger("metadata");
         this.ticksAlive = nbt.getInteger("ticksAlive");
