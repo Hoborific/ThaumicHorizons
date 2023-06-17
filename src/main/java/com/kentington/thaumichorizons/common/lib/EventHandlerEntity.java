@@ -5,6 +5,7 @@
 package com.kentington.thaumichorizons.common.lib;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -838,12 +839,8 @@ public class EventHandlerEntity {
                 && event.entityLiving.getHealth() - event.ammount <= 0.0f
                 && event.entityLiving.getEntityData().getBoolean("soulBeacon")) {
                     final EntityPlayer player = (EntityPlayer) event.entity;
-                    for (int k = 0; k < player.inventory.mainInventory.length; ++k) {
-                        player.inventory.mainInventory[k] = null;
-                    }
-                    for (int k = 0; k < player.inventory.armorInventory.length; ++k) {
-                        player.inventory.armorInventory[k] = null;
-                    }
+                    Arrays.fill(player.inventory.mainInventory, null);
+                    Arrays.fill(player.inventory.armorInventory, null);
                     final IInventory baubles3 = BaublesApi.getBaubles(player);
                     baubles3.setInventorySlotContents(0, (ItemStack) null);
                     baubles3.setInventorySlotContents(1, (ItemStack) null);

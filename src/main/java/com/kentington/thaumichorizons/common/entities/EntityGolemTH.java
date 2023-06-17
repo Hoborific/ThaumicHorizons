@@ -4,6 +4,8 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
+import java.util.Arrays;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -81,9 +83,7 @@ public class EntityGolemTH extends EntityGolemBase {
         this.loadGolemTexturesAndStats();
         this.setupGolem();
         this.upgrades = new byte[this.type.upgrades + (this.advanced ? 1 : 0)];
-        for (int a = 0; a < this.upgrades.length; ++a) {
-            this.upgrades[a] = -1;
-        }
+        Arrays.fill(this.upgrades, (byte) -1);
     }
 
     public void loadGolemTexturesAndStats() {
