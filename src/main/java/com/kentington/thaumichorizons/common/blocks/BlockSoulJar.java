@@ -99,7 +99,7 @@ public class BlockSoulJar extends BlockContainer {
             final int fortune) {
         final ArrayList<ItemStack> drops = new ArrayList<>();
         final TileEntity te = world.getTileEntity(x, y, z);
-        if (te != null && te instanceof TileSoulJar) {
+        if (te instanceof TileSoulJar) {
             final ItemStack drop = new ItemStack((Block) this);
             drop.setTagCompound(((TileSoulJar) te).jarTag);
             drops.add(drop);

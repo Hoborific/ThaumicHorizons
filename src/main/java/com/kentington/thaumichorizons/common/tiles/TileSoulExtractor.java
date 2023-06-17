@@ -169,7 +169,7 @@ public class TileSoulExtractor extends TileVisNode implements ISidedInventory {
                 if (this.ticksLeft <= 0) {
                     final TileEntity below = this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord);
                     final ItemStack sand = new ItemStack((Block) Blocks.sand);
-                    if (below != null && below instanceof ISidedInventory) {
+                    if (below instanceof ISidedInventory) {
                         final int[] accessibleSlotsFromSide;
                         final int[] slots = accessibleSlotsFromSide = ((ISidedInventory) below)
                                 .getAccessibleSlotsFromSide(1);
@@ -179,7 +179,7 @@ public class TileSoulExtractor extends TileVisNode implements ISidedInventory {
                                 break;
                             }
                         }
-                    } else if (below != null && below instanceof IInventory) {
+                    } else if (below instanceof IInventory) {
                         for (int slots2 = ((IInventory) below).getSizeInventory(), k = 0; k < slots2; ++k) {
                             if (((IInventory) below).getStackInSlot(k) == null
                                     || ((IInventory) below).getStackInSlot(k).getItem() == sand.getItem()) {

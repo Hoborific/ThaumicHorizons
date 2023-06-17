@@ -225,13 +225,13 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                         ItemFocusLiquefaction.breakcount.put(pp, 0.0f);
                     }
                 }
-            } else if (ent != null && ent instanceof EntityLiving
+            } else if (ent instanceof EntityLiving
                     && wand.consumeAllVis(stack, p, ItemFocusLiquefaction.costCritter, true, true)) {
                         ThaumicHorizons.proxy.smeltFX(ent.posX - 0.5, ent.posY, ent.posZ - 0.5, p.worldObj, 5, false);
                         ((EntityLiving) ent)
                                 .attackEntityFrom(DamageSource.inFire, 1.0f + 0.5f * wand.getFocusPotency(stack));
                     } else
-                if (ent != null && ent instanceof EntityItem
+                if (ent instanceof EntityItem
                         && FurnaceRecipes.smelting().getSmeltingResult(((EntityItem) ent).getEntityItem()) != null) {
                             final int num = ((EntityItem) ent).getEntityItem().stackSize;
                             if (wand.consumeAllVis(stack, p, this.getVisCost(stack), true, true)) {

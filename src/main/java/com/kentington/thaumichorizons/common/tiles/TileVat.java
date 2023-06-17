@@ -496,19 +496,19 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
     boolean tryDrawAllEssentia() {
         boolean drew = false;
         TileEntity conn = this.worldObj.getTileEntity(this.xCoord - 1, this.yCoord - 3, this.zCoord);
-        if (conn != null && conn instanceof TileVatConnector) {
+        if (conn instanceof TileVatConnector) {
             drew |= this.tryDrawEssentia((TileVatConnector) conn);
         }
         conn = this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord - 3, this.zCoord);
-        if (conn != null && conn instanceof TileVatConnector) {
+        if (conn instanceof TileVatConnector) {
             drew |= this.tryDrawEssentia((TileVatConnector) conn);
         }
         conn = this.worldObj.getTileEntity(this.xCoord, this.yCoord - 3, this.zCoord - 1);
-        if (conn != null && conn instanceof TileVatConnector) {
+        if (conn instanceof TileVatConnector) {
             drew |= this.tryDrawEssentia((TileVatConnector) conn);
         }
         conn = this.worldObj.getTileEntity(this.xCoord, this.yCoord - 3, this.zCoord + 1);
-        if (conn != null && conn instanceof TileVatConnector) {
+        if (conn instanceof TileVatConnector) {
             drew |= this.tryDrawEssentia((TileVatConnector) conn);
         }
         return drew;
@@ -598,7 +598,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
         final ArrayList<ItemStack> components = new ArrayList<>();
         for (final ChunkCoordinates cc : this.pedestals) {
             final TileEntity te = this.worldObj.getTileEntity(cc.posX, cc.posY, cc.posZ);
-            if (te != null && te instanceof TilePedestal) {
+            if (te instanceof TilePedestal) {
                 final TilePedestal ped = (TilePedestal) te;
                 if (ped.getStackInSlot(0) == null) { // func_70301_a
                     continue;
@@ -692,7 +692,6 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
                             if (!skip && yy > 0
                                     && Math.abs(xx) <= 8
                                     && Math.abs(zz) <= 8
-                                    && te != null
                                     && te instanceof TilePedestal) {
                                 this.pedestals.add(new ChunkCoordinates(x, y, z));
                                 skip = true;
@@ -714,7 +713,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
                 final int x2 = this.xCoord - cc.posX;
                 final int z2 = this.zCoord - cc.posZ;
                 TileEntity te2 = this.worldObj.getTileEntity(cc.posX, cc.posY, cc.posZ);
-                if (te2 != null && te2 instanceof TilePedestal) {
+                if (te2 instanceof TilePedestal) {
                     this.symmetry += 2;
                     if (((TilePedestal) te2).getStackInSlot(0) != null) {
                         ++this.symmetry;
@@ -724,7 +723,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
                 final int xx2 = this.xCoord + x2;
                 final int zz2 = this.zCoord + z2;
                 te2 = this.worldObj.getTileEntity(xx2, cc.posY, zz2);
-                if (te2 != null && te2 instanceof TilePedestal) {
+                if (te2 instanceof TilePedestal) {
                     this.symmetry -= 2;
                     if (((TilePedestal) te2).getStackInSlot(0) == null || !items) {
                         continue;
@@ -1045,8 +1044,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
             for (int a = 0; a < this.recipeIngredients.size(); ++a) {
                 for (final ChunkCoordinates cc : this.pedestals) {
                     final TileEntity te = this.worldObj.getTileEntity(cc.posX, cc.posY, cc.posZ);
-                    if (te != null && te instanceof TilePedestal
-                            && ((TilePedestal) te).getStackInSlot(0) != null
+                    if (te instanceof TilePedestal && ((TilePedestal) te).getStackInSlot(0) != null
                             && InfusionRecipe.areItemStacksEqual(
                                     ((TilePedestal) te).getStackInSlot(0),
                                     this.recipeIngredients.get(a),
@@ -1173,7 +1171,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
         for (int q = 0; q < 50 && this.pedestals.size() > 0; ++q) {
             final ChunkCoordinates cc = this.pedestals.get(this.worldObj.rand.nextInt(this.pedestals.size()));
             final TileEntity te = this.worldObj.getTileEntity(cc.posX, cc.posY, cc.posZ);
-            if (te != null && te instanceof TilePedestal && ((TilePedestal) te).getStackInSlot(0) != null) {
+            if (te instanceof TilePedestal && ((TilePedestal) te).getStackInSlot(0) != null) {
                 if (type < 3 || type == 5) {
                     InventoryUtils.dropItems(this.worldObj, cc.posX, cc.posY, cc.posZ);
                 } else {

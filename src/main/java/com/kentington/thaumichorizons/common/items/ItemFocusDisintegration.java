@@ -217,7 +217,7 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                         ItemFocusDisintegration.breakcount.put(pp, 0.0f);
                     }
                 }
-            } else if (ent != null && ent instanceof EntityLiving
+            } else if (ent instanceof EntityLiving
                     && wand.consumeAllVis(stack, p, ItemFocusDisintegration.costCritter, true, true)) {
                         if (this.getUpgradeLevel(wand.getFocusItem(stack), ItemFocusDisintegration.enervation) > 0) {
                             ((EntityLiving) ent).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 40, 0));
@@ -230,7 +230,7 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                                                 wand.getFocusItem(stack),
                                                 ItemFocusDisintegration.enervation));
                     } else
-                if (ent != null && ent instanceof EntityItem
+                if (ent instanceof EntityItem
                         && this.getAspects(
                                 ((EntityItem) ent).getEntityItem().getItem(),
                                 ((EntityItem) ent).getEntityItem().getItemDamage()) != null

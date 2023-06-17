@@ -60,7 +60,7 @@ public class ModelSyringe extends ModelBase {
             } else {
                 GL11.glColor4f(red, green, blue, 0.5f);
             }
-        } else if (entity != null && entity instanceof EntitySyringe) {
+        } else if (entity instanceof EntitySyringe) {
             final Color col = new Color(((EntitySyringe) entity).color);
             final float red = col.getRed() / 255.0f;
             final float green = col.getGreen() / 255.0f;

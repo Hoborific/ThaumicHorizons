@@ -51,8 +51,7 @@ public class PacketLensChangeToServer implements IMessage, IMessageHandler<Packe
             return null;
         }
         final Entity player = world.getEntityByID(message.playerid);
-        if (player != null && player instanceof EntityPlayer
-                && ((EntityPlayer) player).inventory.armorItemInSlot(3) != null
+        if (player instanceof EntityPlayer && ((EntityPlayer) player).inventory.armorItemInSlot(3) != null
                 && ((EntityPlayer) player).inventory.armorItemInSlot(3).getItem() instanceof IRevealer) {
             LensManager.changeLens(
                     ((EntityPlayer) player).inventory.armorItemInSlot(3),

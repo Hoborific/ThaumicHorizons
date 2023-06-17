@@ -71,7 +71,7 @@ public class PacketInfusionFX implements IMessage, IMessageHandler<PacketInfusio
         final int tz = message.z - message.dz;
         final String key = tx + ":" + ty + ":" + tz + ":" + message.color;
         final TileEntity tile = Thaumcraft.proxy.getClientWorld().getTileEntity(message.x, message.y, message.z);
-        if (tile != null && tile instanceof TileVatSlave) {
+        if (tile instanceof TileVatSlave) {
             int count = 15;
             if (Thaumcraft.proxy.getClientWorld().getTileEntity(tx, ty, tz) != null
                     && Thaumcraft.proxy.getClientWorld().getTileEntity(tx, ty, tz) instanceof TilePedestal) {

@@ -66,9 +66,8 @@ public class TileRecombinator extends TileThaumcraft {
             final int z = this.worldObj.rand.nextInt(5) - this.worldObj.rand.nextInt(5);
             if (x != 0 || y != -1 || z != 0) {
                 final TileEntity te = this.worldObj.getTileEntity(this.xCoord + x, this.yCoord + y, this.zCoord + z);
-                if (te != null && te instanceof TileNode
-                        && this.worldObj.getBlock(this.xCoord + x, this.yCoord + y, this.zCoord + z)
-                                == ConfigBlocks.blockAiry) {
+                if (te instanceof TileNode && this.worldObj.getBlock(this.xCoord + x, this.yCoord + y, this.zCoord + z)
+                        == ConfigBlocks.blockAiry) {
                     if (te instanceof TileNode && ((TileNode) te).getLock() > 0) {
                         return;
                     }

@@ -108,9 +108,7 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                         y = mop.blockY;
                         z = mop.blockZ;
                         final TileEntity tile = p.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
-                        if (scan.type == 3 && scan.phenomena.startsWith("NODE")
-                                && tile != null
-                                && tile instanceof INode) {
+                        if (scan.type == 3 && scan.phenomena.startsWith("NODE") && tile instanceof INode) {
                             if (!this.isNew) {
                                 aspects = ((INode) tile).getAspects();
                             }

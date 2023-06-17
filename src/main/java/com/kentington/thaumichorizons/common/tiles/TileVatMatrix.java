@@ -22,7 +22,7 @@ public class TileVatMatrix extends TileVisNode implements IWandable, IAspectCont
             return null;
         }
         final TileEntity t = this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord);
-        return (t != null && t instanceof TileVat) ? ((TileVat) t) : null;
+        return (t instanceof TileVat) ? ((TileVat) t) : null;
     }
 
     @Override

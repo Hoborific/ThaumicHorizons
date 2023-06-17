@@ -106,7 +106,7 @@ public class ItemAmuletMirror extends Item implements IBauble, IRunicArmor {
             return super.onItemUseFirst(itemstack, player, world, x, y, z, par7, par8, par9, par10);
         }
         final TileEntity tm = world.getTileEntity(x, y, z);
-        if (tm != null && tm instanceof TileMirror) {
+        if (tm instanceof TileMirror) {
             itemstack.setTagInfo("linkX", (NBTBase) new NBTTagInt(tm.xCoord));
             itemstack.setTagInfo("linkY", (NBTBase) new NBTTagInt(tm.yCoord));
             itemstack.setTagInfo("linkZ", (NBTBase) new NBTTagInt(tm.zCoord));

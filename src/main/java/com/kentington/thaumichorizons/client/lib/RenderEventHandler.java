@@ -603,7 +603,7 @@ public class RenderEventHandler {
                 event.setCanceled(true);
             }
         }
-        if (event.overlayType == RenderBlockOverlayEvent.OverlayType.FIRE && mc.thePlayer.ridingEntity != null
+        if (event.overlayType == RenderBlockOverlayEvent.OverlayType.FIRE
                 && mc.thePlayer.ridingEntity instanceof EntityBoatThaumium) {
             event.setCanceled(true);
         }

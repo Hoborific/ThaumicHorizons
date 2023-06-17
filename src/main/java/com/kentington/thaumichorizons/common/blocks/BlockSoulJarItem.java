@@ -114,7 +114,7 @@ public class BlockSoulJarItem extends ItemBlock {
             final int var14 = ThaumicHorizons.blockJar.onBlockPlaced(world, x, y, z, side, par8, par9, par10, var13);
             if (this.placeBlockAt(stack, player, world, x, y, z, side, par8, par9, par10, var14)) {
                 final TileEntity te = world.getTileEntity(x, y, z);
-                if (te != null && te instanceof TileSoulJar && stack.hasTagCompound()) {
+                if (te instanceof TileSoulJar && stack.hasTagCompound()) {
                     ((TileSoulJar) te).jarTag = stack.getTagCompound();
                 }
                 world.playSoundEffect(

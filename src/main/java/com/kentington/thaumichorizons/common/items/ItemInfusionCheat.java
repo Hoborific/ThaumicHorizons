@@ -171,7 +171,7 @@ public class ItemInfusionCheat extends Item {
 
     public ItemStack onItemRightClick(final ItemStack p_77659_1_, final World world, final EntityPlayer p) {
         final Entity ent = ItemFocusContainment.getPointedEntity(world, (EntityLivingBase) p, 1.5);
-        if (ent != null && ent instanceof EntityLiving && this.isValidInfusionTarget((EntityLiving) ent)) {
+        if (ent instanceof EntityLiving && this.isValidInfusionTarget((EntityLiving) ent)) {
             final EntityLiving critter = (EntityLiving) ent;
             for (final CreatureInfusionRecipe recipe : ThaumicHorizons.critterRecipes) {
                 boolean blockLoyalty = false;

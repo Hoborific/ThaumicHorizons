@@ -155,7 +155,7 @@ public class ItemFocusContainment extends ItemFocusBasic {
         double ty = p.posY + v.yCoord * 10.0;
         double tz = p.posZ + v.zCoord * 10.0;
         byte impact = 0;
-        if (ent != null && ent instanceof EntityLiving) {
+        if (ent instanceof EntityLiving) {
             tx = ent.posX;
             ty = ent.posY + (ent.boundingBox.maxY - ent.boundingBox.minY) / 2.0;
             tz = ent.posZ;

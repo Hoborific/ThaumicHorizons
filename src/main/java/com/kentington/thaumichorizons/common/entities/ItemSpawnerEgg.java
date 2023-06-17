@@ -128,7 +128,7 @@ public class ItemSpawnerEgg extends Item {
         Entity entity = null;
         for (int j = 0; j < 1; ++j) {
             entity = EntityList.createEntityByName(ItemSpawnerEgg.spawnList.get(par1).name, par0World);
-            if (entity != null && entity instanceof EntityLivingBase) {
+            if (entity instanceof EntityLivingBase) {
                 final EntityLiving entityliving = (EntityLiving) entity;
                 entity.setLocationAndAngles(
                         par2,
