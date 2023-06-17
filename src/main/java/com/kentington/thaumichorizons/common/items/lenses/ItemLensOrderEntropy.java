@@ -177,11 +177,7 @@ public class ItemLensOrderEntropy extends Item implements ILens {
             int yOff = 0;
             int thisRow = 0;
             final int size = 18;
-            if (aspects.size() - num < 5) {
-                thisRow = aspects.size() - num;
-            } else {
-                thisRow = 5;
-            }
+            thisRow = Math.min(aspects.size() - num, 5);
             for (final Aspect asp : aspects.getAspects()) {
                 yOff = num / 5 * size;
                 this.drawAspectTag(
@@ -191,11 +187,7 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                         h / 2 + 16 + yOff,
                         w);
                 if (++num % 5 == 0) {
-                    if (aspects.size() - num < 5) {
-                        thisRow = aspects.size() - num;
-                    } else {
-                        thisRow = 5;
-                    }
+                    thisRow = Math.min(aspects.size() - num, 5);
                 }
             }
         }

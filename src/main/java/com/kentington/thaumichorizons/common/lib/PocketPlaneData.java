@@ -212,10 +212,7 @@ public class PocketPlaneData {
         if (noise > 100d) {
             return 100d;
         }
-        if (noise < 0d) {
-            return 0d;
-        }
-        return noise;
+        return Math.max(noise, 0d);
     }
 
     public static double calcLife(final AspectList aspects) {

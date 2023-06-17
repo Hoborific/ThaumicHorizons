@@ -460,7 +460,7 @@ public class ClientProxy extends CommonProxy {
         final double xSize = ent.boundingBox.maxX - ent.boundingBox.minX;
         final double ySize = ent.boundingBox.maxY - ent.boundingBox.minY;
         final double zSize = ent.boundingBox.maxZ - ent.boundingBox.minZ;
-        final double radius = (xSize > ySize) ? ((xSize > zSize) ? xSize : zSize) : ((ySize > zSize) ? ySize : zSize);
+        final double radius = (xSize > ySize) ? (Math.max(xSize, zSize)) : (Math.max(ySize, zSize));
         final double xCenter = (ent.boundingBox.maxX + ent.boundingBox.minX) / 2.0;
         final double yCenter = (ent.boundingBox.maxY + ent.boundingBox.minY) / 2.0;
         final double zCenter = (ent.boundingBox.maxZ + ent.boundingBox.minZ) / 2.0;
