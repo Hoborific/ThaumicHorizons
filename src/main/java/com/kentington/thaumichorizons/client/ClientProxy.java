@@ -21,7 +21,6 @@ import net.minecraft.client.particle.EntityFlameFX;
 import net.minecraft.client.particle.EntitySpellParticleFX;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -185,13 +184,7 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(ThaumicHorizons.instance.renderEventHandler);
         final IResourceManager resourceManager = Minecraft.getMinecraft().getResourceManager();
         if (resourceManager instanceof IReloadableResourceManager) {
-            ((IReloadableResourceManager) resourceManager).registerReloadListener(new IResourceManagerReloadListener() {
-
-                @Override
-                public void onResourceManagerReload(IResourceManager ignored) {
-                    FXSonic.model = null;
-                }
-            });
+            ((IReloadableResourceManager) resourceManager).registerReloadListener(ignored -> FXSonic.model = null);
         }
     }
 
