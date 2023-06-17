@@ -148,9 +148,7 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
     public int addEssentia(final Aspect aspect, final int amount, final ForgeDirection face) {
         this.ticksProvided += 21;
         this.essentia = aspect;
-        if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId) == null) {
-            VisNetHandler.sources.put(this.worldObj.provider.dimensionId, new HashMap<>());
-        }
+        VisNetHandler.sources.computeIfAbsent(this.worldObj.provider.dimensionId, k -> new HashMap<>());
         if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId)
                 .get(new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
                 == null) {

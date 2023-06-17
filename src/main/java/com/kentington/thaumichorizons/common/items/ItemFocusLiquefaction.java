@@ -100,21 +100,11 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
             if (!p.worldObj.isRemote) {
                 pp = "S" + p.getCommandSenderName();
             }
-            if (ItemFocusLiquefaction.soundDelay.get(pp) == null) {
-                ItemFocusLiquefaction.soundDelay.put(pp, 0L);
-            }
-            if (ItemFocusLiquefaction.breakcount.get(pp) == null) {
-                ItemFocusLiquefaction.breakcount.put(pp, 0.0f);
-            }
-            if (ItemFocusLiquefaction.lastX.get(pp) == null) {
-                ItemFocusLiquefaction.lastX.put(pp, 0);
-            }
-            if (ItemFocusLiquefaction.lastY.get(pp) == null) {
-                ItemFocusLiquefaction.lastY.put(pp, 0);
-            }
-            if (ItemFocusLiquefaction.lastZ.get(pp) == null) {
-                ItemFocusLiquefaction.lastZ.put(pp, 0);
-            }
+            ItemFocusLiquefaction.soundDelay.putIfAbsent(pp, 0L);
+            ItemFocusLiquefaction.breakcount.putIfAbsent(pp, 0.0f);
+            ItemFocusLiquefaction.lastX.putIfAbsent(pp, 0);
+            ItemFocusLiquefaction.lastY.putIfAbsent(pp, 0);
+            ItemFocusLiquefaction.lastZ.putIfAbsent(pp, 0);
             final MovingObjectPosition mop = BlockUtils.getTargetBlock(p.worldObj, (Entity) p, true);
             final Entity ent = getPointedEntity(p.worldObj, (EntityLivingBase) p, 10.0);
             final Vec3 v = p.getLookVec();
@@ -266,21 +256,11 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
         if (!p.worldObj.isRemote) {
             pp = "S" + p.getCommandSenderName();
         }
-        if (ItemFocusLiquefaction.soundDelay.get(pp) == null) {
-            ItemFocusLiquefaction.soundDelay.put(pp, 0L);
-        }
-        if (ItemFocusLiquefaction.breakcount.get(pp) == null) {
-            ItemFocusLiquefaction.breakcount.put(pp, 0.0f);
-        }
-        if (ItemFocusLiquefaction.lastX.get(pp) == null) {
-            ItemFocusLiquefaction.lastX.put(pp, 0);
-        }
-        if (ItemFocusLiquefaction.lastY.get(pp) == null) {
-            ItemFocusLiquefaction.lastY.put(pp, 0);
-        }
-        if (ItemFocusLiquefaction.lastZ.get(pp) == null) {
-            ItemFocusLiquefaction.lastZ.put(pp, 0);
-        }
+        ItemFocusLiquefaction.soundDelay.putIfAbsent(pp, 0L);
+        ItemFocusLiquefaction.breakcount.putIfAbsent(pp, 0.0f);
+        ItemFocusLiquefaction.lastX.putIfAbsent(pp, 0);
+        ItemFocusLiquefaction.lastY.putIfAbsent(pp, 0);
+        ItemFocusLiquefaction.lastZ.putIfAbsent(pp, 0);
         ItemFocusLiquefaction.beam.put(pp, null);
         ItemFocusLiquefaction.lastX.put(pp, Integer.MAX_VALUE);
         ItemFocusLiquefaction.lastY.put(pp, Integer.MAX_VALUE);

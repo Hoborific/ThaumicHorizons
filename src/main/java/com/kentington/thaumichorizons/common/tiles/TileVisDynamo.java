@@ -268,9 +268,7 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
                 || this.provideOrdo
                 || this.providePerditio
                 || this.provideTerra) {
-            if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId) == null) {
-                VisNetHandler.sources.put(this.worldObj.provider.dimensionId, new HashMap<>());
-            }
+            VisNetHandler.sources.computeIfAbsent(this.worldObj.provider.dimensionId, k -> new HashMap<>());
             if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId).get(
                     new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
                     == null) {

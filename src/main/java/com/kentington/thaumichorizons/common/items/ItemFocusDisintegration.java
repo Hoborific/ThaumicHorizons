@@ -100,21 +100,11 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
             if (!p.worldObj.isRemote) {
                 pp = "S" + p.getCommandSenderName();
             }
-            if (ItemFocusDisintegration.soundDelay.get(pp) == null) {
-                ItemFocusDisintegration.soundDelay.put(pp, 0L);
-            }
-            if (ItemFocusDisintegration.breakcount.get(pp) == null) {
-                ItemFocusDisintegration.breakcount.put(pp, 0.0f);
-            }
-            if (ItemFocusDisintegration.lastX.get(pp) == null) {
-                ItemFocusDisintegration.lastX.put(pp, 0);
-            }
-            if (ItemFocusDisintegration.lastY.get(pp) == null) {
-                ItemFocusDisintegration.lastY.put(pp, 0);
-            }
-            if (ItemFocusDisintegration.lastZ.get(pp) == null) {
-                ItemFocusDisintegration.lastZ.put(pp, 0);
-            }
+            ItemFocusDisintegration.soundDelay.putIfAbsent(pp, 0L);
+            ItemFocusDisintegration.breakcount.putIfAbsent(pp, 0.0f);
+            ItemFocusDisintegration.lastX.putIfAbsent(pp, 0);
+            ItemFocusDisintegration.lastY.putIfAbsent(pp, 0);
+            ItemFocusDisintegration.lastZ.putIfAbsent(pp, 0);
             final MovingObjectPosition mop = BlockUtils.getTargetBlock(p.worldObj, (Entity) p, true);
             final Entity ent = getPointedEntity(p.worldObj, (EntityLivingBase) p, 10.0);
             final Vec3 v = p.getLookVec();
@@ -299,21 +289,11 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
         if (!p.worldObj.isRemote) {
             pp = "S" + p.getCommandSenderName();
         }
-        if (ItemFocusDisintegration.soundDelay.get(pp) == null) {
-            ItemFocusDisintegration.soundDelay.put(pp, 0L);
-        }
-        if (ItemFocusDisintegration.breakcount.get(pp) == null) {
-            ItemFocusDisintegration.breakcount.put(pp, 0.0f);
-        }
-        if (ItemFocusDisintegration.lastX.get(pp) == null) {
-            ItemFocusDisintegration.lastX.put(pp, 0);
-        }
-        if (ItemFocusDisintegration.lastY.get(pp) == null) {
-            ItemFocusDisintegration.lastY.put(pp, 0);
-        }
-        if (ItemFocusDisintegration.lastZ.get(pp) == null) {
-            ItemFocusDisintegration.lastZ.put(pp, 0);
-        }
+        ItemFocusDisintegration.soundDelay.putIfAbsent(pp, 0L);
+        ItemFocusDisintegration.breakcount.putIfAbsent(pp, 0.0f);
+        ItemFocusDisintegration.lastX.putIfAbsent(pp, 0);
+        ItemFocusDisintegration.lastY.putIfAbsent(pp, 0);
+        ItemFocusDisintegration.lastZ.putIfAbsent(pp, 0);
         ItemFocusDisintegration.beam.put(pp, null);
         ItemFocusDisintegration.lastX.put(pp, Integer.MAX_VALUE);
         ItemFocusDisintegration.lastY.put(pp, Integer.MAX_VALUE);
