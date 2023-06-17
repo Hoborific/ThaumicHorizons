@@ -1275,7 +1275,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
                 }
                 final Set<String> keys = (Set<String>) tagMods.func_150296_c();
                 for (final String s : keys) {
-                    if (!s.substring(0, 8).equals("generic.")) {
+                    if (!s.startsWith("generic.")) {
                         ((EntityInfusionProperties) this.getEntityContained().getExtendedProperties("CreatureInfusion"))
                                 .addInfusion(tagMods.getInteger(s));
                         if (tagMods.getInteger(s) != 7) {
