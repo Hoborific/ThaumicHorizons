@@ -158,7 +158,7 @@ public class ItemSyringeInjection extends ItemPotion {
             messages.add("");
             messages.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
             for (final Map.Entry<IAttribute, AttributeModifier> entry : hashmultimap.entries()) {
-                final AttributeModifier entryValue = (AttributeModifier) entry.getValue();
+                final AttributeModifier entryValue = entry.getValue();
                 final double d0 = entryValue.getAmount();
                 double d2;
                 if (entryValue.getOperation() != 1 && entryValue.getOperation() != 2) {
