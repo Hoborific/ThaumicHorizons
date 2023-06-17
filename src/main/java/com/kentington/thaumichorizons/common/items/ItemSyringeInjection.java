@@ -152,8 +152,7 @@ public class ItemSyringeInjection extends ItemPotion {
                 }
             }
         } else {
-            final String s2 = StatCollector.translateToLocal("potion.empty").trim();
-            messages.add(EnumChatFormatting.GRAY + s2);
+            messages.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("potion.empty").trim());
         }
         if (!hashmultimap.isEmpty()) {
             messages.add("");
