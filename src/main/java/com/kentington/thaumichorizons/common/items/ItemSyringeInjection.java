@@ -119,7 +119,7 @@ public class ItemSyringeInjection extends ItemPotion {
             final boolean ignored) {
         @SuppressWarnings("unchecked") // Vanilla code uses raw types
         final List<PotionEffect> potionEffects = Items.potionitem.getEffects(itemStack);
-        final HashMultimap<IAttribute, AttributeModifier> hashmultimap = HashMultimap.create();
+        final HashMultimap<IAttribute, AttributeModifier> preparedEffects = HashMultimap.create();
 
         if (potionEffects != null && !potionEffects.isEmpty()) {
             for (PotionEffect potioneffect : potionEffects) {
@@ -135,7 +135,7 @@ public class ItemSyringeInjection extends ItemPotion {
                                 entryValue.getName(),
                                 potion.func_111183_a(potioneffect.getAmplifier(), entryValue),
                                 entryValue.getOperation());
-                        hashmultimap.put(entry.getKey(), attributeModifier);
+                        preparedEffects.put(entry.getKey(), attributeModifier);
                     }
                 }
                 if (potioneffect.getAmplifier() > 0) {
@@ -154,10 +154,10 @@ public class ItemSyringeInjection extends ItemPotion {
         } else {
             messages.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("potion.empty").trim());
         }
-        if (!hashmultimap.isEmpty()) {
+        if (!preparedEffects.isEmpty()) {
             messages.add("");
             messages.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
-            for (final Map.Entry<IAttribute, AttributeModifier> entry : hashmultimap.entries()) {
+            for (final Map.Entry<IAttribute, AttributeModifier> entry : preparedEffects.entries()) {
                 final AttributeModifier entryValue = entry.getValue();
                 final double valueAmount = entryValue.getAmount();
                 double convertedAmount;
