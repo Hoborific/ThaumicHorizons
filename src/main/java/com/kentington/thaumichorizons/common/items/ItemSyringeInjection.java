@@ -157,8 +157,8 @@ public class ItemSyringeInjection extends ItemPotion {
         if (!hashmultimap.isEmpty()) {
             messages.add("");
             messages.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
-            for (final Map.Entry<IAttribute, AttributeModifier> entry2 : hashmultimap.entries()) {
-                final AttributeModifier attributemodifier3 = (AttributeModifier) entry2.getValue();
+            for (final Map.Entry<IAttribute, AttributeModifier> entry : hashmultimap.entries()) {
+                final AttributeModifier attributemodifier3 = (AttributeModifier) entry.getValue();
                 final double d0 = attributemodifier3.getAmount();
                 double d2;
                 if (attributemodifier3.getOperation() != 1 && attributemodifier3.getOperation() != 2) {
@@ -171,7 +171,7 @@ public class ItemSyringeInjection extends ItemPotion {
                             EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted(
                                     "attribute.modifier.plus." + attributemodifier3.getOperation(),
                                     new Object[] { ItemStack.field_111284_a.format(d2),
-                                            StatCollector.translateToLocal("attribute.name." + entry2.getKey()) }));
+                                            StatCollector.translateToLocal("attribute.name." + entry.getKey()) }));
                 } else {
                     if (d0 >= 0.0) {
                         continue;
@@ -181,7 +181,7 @@ public class ItemSyringeInjection extends ItemPotion {
                             EnumChatFormatting.RED + StatCollector.translateToLocalFormatted(
                                     "attribute.modifier.take." + attributemodifier3.getOperation(),
                                     new Object[] { ItemStack.field_111284_a.format(d2),
-                                            StatCollector.translateToLocal("attribute.name." + entry2.getKey()) }));
+                                            StatCollector.translateToLocal("attribute.name." + entry.getKey()) }));
                 }
             }
         }
