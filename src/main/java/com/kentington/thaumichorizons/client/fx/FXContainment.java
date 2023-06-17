@@ -26,10 +26,9 @@ public class FXContainment extends EntityFX {
         this.particleAlpha = 0.5f;
         this.particleScale = 1.0f;
         this.particleMaxAge = 40;
-        final double motionX = 0.0;
-        this.motionZ = motionX;
-        this.motionY = motionX;
-        this.motionX = motionX;
+        this.motionZ = 0.0;
+        this.motionY = 0.0;
+        this.motionX = 0.0;
         this.particleRed = 1.0f;
         this.particleGreen = 1.0f;
         this.particleBlue = 1.0f;

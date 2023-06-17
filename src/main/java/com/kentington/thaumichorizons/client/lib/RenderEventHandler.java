@@ -416,6 +416,7 @@ public class RenderEventHandler {
             if (this.breakProgress > 1.0f) {
                 Minecraft.getMinecraft().getNetHandler().addToSendQueue(
                         (Packet) new C07PacketPlayerDigging(2, p.getEntityId(), this.cacheX, this.cacheY, this.cacheZ));
+                // TODO: is it correct? X, Y, and Z are passed not as usually expected.
                 Minecraft.getMinecraft().playerController
                         .onPlayerDestroyBlock(p.getEntityId(), this.cacheX, this.cacheY, this.cacheZ);
                 this.breakProgress = 0.0f;

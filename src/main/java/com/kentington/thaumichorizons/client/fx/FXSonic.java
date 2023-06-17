@@ -32,10 +32,9 @@ public class FXSonic extends EntityFX {
         this.particleGreen = 1.0f;
         this.particleBlue = 1.0f;
         this.particleGravity = 0.0f;
-        final double motionX = 0.0;
-        this.motionZ = motionX;
-        this.motionY = motionX;
-        this.motionX = motionX;
+        this.motionZ = 0.0;
+        this.motionY = 0.0;
+        this.motionX = 0.0;
         this.particleMaxAge = age + this.rand.nextInt(age / 2);
         this.noClip = false;
         this.setSize(0.01f, 0.01f);
