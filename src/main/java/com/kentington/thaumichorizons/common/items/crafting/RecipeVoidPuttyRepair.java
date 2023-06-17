@@ -15,11 +15,11 @@ import com.kentington.thaumichorizons.common.ThaumicHorizons;
 
 public class RecipeVoidPuttyRepair implements IRecipe {
 
-    public ItemStack getCraftingResult(final InventoryCrafting par1InventoryCrafting) {
+    public ItemStack getCraftingResult(final InventoryCrafting craftingInventory) {
         ItemStack itemstack = null;
         final ArrayList<ItemStack> arraylist = new ArrayList<>();
-        for (int i = 0; i < par1InventoryCrafting.getSizeInventory(); ++i) {
-            final ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(i);
+        for (int i = 0; i < craftingInventory.getSizeInventory(); ++i) {
+            final ItemStack itemstack2 = craftingInventory.getStackInSlot(i);
             if (itemstack2 != null) {
                 if (itemstack2.getItem().isDamageable() && itemstack2.getItem().isRepairable()
                         && itemstack2.getItem().isDamaged(itemstack2)) {
