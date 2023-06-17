@@ -116,10 +116,10 @@ public class ItemSyringeInjection extends ItemPotion {
     @SideOnly(Side.CLIENT)
     public void addInformation(final ItemStack itemStack, final EntityPlayer player, final List messages,
             final boolean ignored) {
-        final List<PotionEffect> list1 = Items.potionitem.getEffects(itemStack);
+        final List<PotionEffect> potionEffects = Items.potionitem.getEffects(itemStack);
         final HashMultimap hashmultimap = HashMultimap.create();
-        if (list1 != null && !list1.isEmpty()) {
-            for (PotionEffect potioneffect : list1) {
+        if (potionEffects != null && !potionEffects.isEmpty()) {
+            for (PotionEffect potioneffect : potionEffects) {
                 String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
                 final Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
                 final Map map = potion.func_111186_k();
