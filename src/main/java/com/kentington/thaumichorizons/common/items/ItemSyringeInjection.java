@@ -158,18 +158,18 @@ public class ItemSyringeInjection extends ItemPotion {
             messages.add("");
             messages.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
             for (final Map.Entry<IAttribute, AttributeModifier> entry : hashmultimap.entries()) {
-                final AttributeModifier attributemodifier3 = (AttributeModifier) entry.getValue();
-                final double d0 = attributemodifier3.getAmount();
+                final AttributeModifier entryValue = (AttributeModifier) entry.getValue();
+                final double d0 = entryValue.getAmount();
                 double d2;
-                if (attributemodifier3.getOperation() != 1 && attributemodifier3.getOperation() != 2) {
-                    d2 = attributemodifier3.getAmount();
+                if (entryValue.getOperation() != 1 && entryValue.getOperation() != 2) {
+                    d2 = entryValue.getAmount();
                 } else {
-                    d2 = attributemodifier3.getAmount() * 100.0;
+                    d2 = entryValue.getAmount() * 100.0;
                 }
                 if (d0 > 0.0) {
                     messages.add(
                             EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted(
-                                    "attribute.modifier.plus." + attributemodifier3.getOperation(),
+                                    "attribute.modifier.plus." + entryValue.getOperation(),
                                     new Object[] { ItemStack.field_111284_a.format(d2),
                                             StatCollector.translateToLocal("attribute.name." + entry.getKey()) }));
                 } else {
@@ -179,7 +179,7 @@ public class ItemSyringeInjection extends ItemPotion {
                     d2 *= -1.0;
                     messages.add(
                             EnumChatFormatting.RED + StatCollector.translateToLocalFormatted(
-                                    "attribute.modifier.take." + attributemodifier3.getOperation(),
+                                    "attribute.modifier.take." + entryValue.getOperation(),
                                     new Object[] { ItemStack.field_111284_a.format(d2),
                                             StatCollector.translateToLocal("attribute.name." + entry.getKey()) }));
                 }
