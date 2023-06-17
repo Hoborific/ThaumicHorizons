@@ -130,7 +130,7 @@ public class ItemSyringeInjection extends ItemPotion {
 
                 if (map != null && map.size() > 0) {
                     for (final Map.Entry<IAttribute, AttributeModifier> entry : map.entrySet()) {
-                        final AttributeModifier entryValue = (AttributeModifier) entry.getValue();
+                        final AttributeModifier entryValue = entry.getValue();
                         final AttributeModifier attributemodifier2 = new AttributeModifier(
                                 entryValue.getName(),
                                 potion.func_111183_a(potioneffect.getAmplifier(), entryValue),
