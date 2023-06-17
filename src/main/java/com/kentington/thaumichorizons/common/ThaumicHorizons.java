@@ -830,8 +830,7 @@ public class ThaumicHorizons {
                             "GOLEMBELL",
                             new ItemStack(itemGolemBellTH),
                             (new AspectList()).add(Aspect.ORDER, 5),
-                            new Object[] { "QQ ", "QQ ", "  S", Character.valueOf('S'), "stickWood",
-                                    Character.valueOf('Q'), Items.quartz }));
+                            new Object[] { "QQ ", "QQ ", "  S", 'S', "stickWood", 'Q', Items.quartz }));
             alcheponics.setPages(new ResearchPage[] { alcheponics1, alcheponics2 });
             alcheponics.setSiblings("GOLEMBELL");
             alcheponics.setConcealed();
@@ -1254,8 +1253,7 @@ public class ThaumicHorizons {
                 "essentiaInjection",
                 new ItemStack(itemSyringeEmpty, 1, 2),
                 (new AspectList()).add(Aspect.WATER, 1).add(Aspect.ORDER, 1),
-                new Object[] { "P", "N", Character.valueOf('P'), new ItemStack(ConfigItems.itemEssence, 1, 0),
-                        Character.valueOf('N'), "nuggetIron" });
+                new Object[] { "P", "N", 'P', new ItemStack(ConfigItems.itemEssence, 1, 0), 'N', "nuggetIron" });
         recipeBloodInfuser = ThaumcraftApi.addInfusionCraftingRecipe(
                 "essentiaInjection",
                 new ItemStack(blockBloodInfuser),
@@ -1345,8 +1343,8 @@ public class ThaumicHorizons {
                 "CurativeVat",
                 Arrays.asList(
                         new Object[] {
-                                (new AspectList()).add(Aspect.WATER, 50).add(Aspect.EARTH, 50).add(Aspect.ORDER, 50),
-                                Integer.valueOf(3), Integer.valueOf(4), Integer.valueOf(3),
+                                (new AspectList()).add(Aspect.WATER, 50).add(Aspect.EARTH, 50).add(Aspect.ORDER, 50), 3,
+                                4, 3,
                                 Arrays.asList(
                                         new Object[] { new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
                                                 new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
@@ -1624,9 +1622,8 @@ public class ThaumicHorizons {
                 "lensCase",
                 new ItemStack(itemLensCase),
                 (new AspectList()).add(Aspect.EARTH, 10).add(Aspect.ORDER, 10).add(Aspect.ENTROPY, 10),
-                new Object[] { "LGL", "LBL", "LLL", Character.valueOf('B'),
-                        new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2), Character.valueOf('L'), Items.leather,
-                        Character.valueOf('G'), Items.iron_ingot });
+                new Object[] { "LGL", "LBL", "LLL", 'B', new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2), 'L',
+                        Items.leather, 'G', Items.iron_ingot });
         ResearchPage lensCase1 = new ResearchPage("lensCase1");
         ResearchPage lensCase2 = new ResearchPage(recipeLensCase);
         lensCase.setPages(new ResearchPage[] { lensCase1, lensCase2 });
@@ -1754,8 +1751,7 @@ public class ThaumicHorizons {
                 "greatwoodBoat",
                 new ItemStack(itemBoatGreatwood),
                 (new AspectList()).add(Aspect.ORDER, 5).add(Aspect.EARTH, 5).add(Aspect.WATER, 5),
-                new Object[] { "G G", "GGG", Character.valueOf('G'),
-                        new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0) });
+                new Object[] { "G G", "GGG", 'G', new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0) });
         ResearchPage boatGreatwood1 = new ResearchPage("greatwoodBoat1");
         ResearchPage boatGreatwood2 = new ResearchPage(recipeGreatwoodBoat);
         boatGreatwood.setPages(new ResearchPage[] { boatGreatwood1, boatGreatwood2 });
@@ -1774,9 +1770,8 @@ public class ThaumicHorizons {
                 new ItemStack(itemBoatThaumium),
                 (new AspectList()).add(Aspect.FIRE, 10).add(Aspect.WATER, 10).add(Aspect.ORDER, 10)
                         .add(Aspect.EARTH, 10),
-                new Object[] { "STS", "TBT", "STS", Character.valueOf('S'), new ItemStack(ConfigItems.itemShard, 1, 2),
-                        Character.valueOf('T'), new ItemStack(ConfigItems.itemResource, 1, 2), Character.valueOf('B'),
-                        new ItemStack(itemBoatGreatwood) });
+                new Object[] { "STS", "TBT", "STS", 'S', new ItemStack(ConfigItems.itemShard, 1, 2), 'T',
+                        new ItemStack(ConfigItems.itemResource, 1, 2), 'B', new ItemStack(itemBoatGreatwood) });
         ResearchPage boatThaumium1 = new ResearchPage("thaumiumBoat1");
         ResearchPage boatThaumium2 = new ResearchPage(recipeThaumiumBoat);
         boatThaumium.setPages(new ResearchPage[] { boatThaumium1, boatThaumium2 });
@@ -1816,10 +1811,8 @@ public class ThaumicHorizons {
                 new ItemStack(itemPlanarConduit),
                 (new AspectList()).add(Aspect.FIRE, 50).add(Aspect.WATER, 50).add(Aspect.ORDER, 50)
                         .add(Aspect.ENTROPY, 50).add(Aspect.EARTH, 50).add(Aspect.AIR, 50),
-                new Object[] { "VEV", "EPE", "VEV", Character.valueOf('V'),
-                        new ItemStack(ConfigItems.itemResource, 1, 16), Character.valueOf('E'),
-                        new ItemStack(ConfigItems.itemWispEssence, 1, 32767), Character.valueOf('P'),
-                        new ItemStack(Items.ender_pearl) });
+                new Object[] { "VEV", "EPE", "VEV", 'V', new ItemStack(ConfigItems.itemResource, 1, 16), 'E',
+                        new ItemStack(ConfigItems.itemWispEssence, 1, 32767), 'P', new ItemStack(Items.ender_pearl) });
         ResearchPage planarTheory1 = new ResearchPage("planarTheory1");
         ResearchPage planarTheory2 = new ResearchPage(recipeConduit);
         ResearchPage planarTheory3 = new ResearchPage("planarTheory2");
@@ -1839,11 +1832,10 @@ public class ThaumicHorizons {
                 "transductionAmplifier",
                 new ItemStack(blockTransducer),
                 (new AspectList()).add(Aspect.AIR, 10).add(Aspect.FIRE, 10).add(Aspect.ORDER, 10),
-                new Object[] { " C ", "ATA", "RNR", Character.valueOf('C'), new ItemStack(itemPlanarConduit),
-                        Character.valueOf('A'), new ItemStack(ConfigItems.itemResource, 1, 6), Character.valueOf('T'),
-                        new ItemStack(ConfigBlocks.blockStoneDevice, 1, 11), Character.valueOf('R'),
-                        new ItemStack(Blocks.redstone_block), Character.valueOf('N'),
-                        new ItemStack(ConfigItems.itemResource, 1, 1) });
+                new Object[] { " C ", "ATA", "RNR", 'C', new ItemStack(itemPlanarConduit), 'A',
+                        new ItemStack(ConfigItems.itemResource, 1, 6), 'T',
+                        new ItemStack(ConfigBlocks.blockStoneDevice, 1, 11), 'R', new ItemStack(Blocks.redstone_block),
+                        'N', new ItemStack(ConfigItems.itemResource, 1, 1) });
         ResearchPage transductionAmplifier1 = new ResearchPage("transductionAmplifier1");
         ResearchPage transductionAmplifier2 = new ResearchPage(recipeTransducer);
         ResearchPage transductionAmplifier3 = new ResearchPage("transductionAmplifier2");
@@ -1947,8 +1939,7 @@ public class ThaumicHorizons {
                 new ItemStack(itemCrystalWand),
                 (new AspectList()).add(Aspect.AIR, 25).add(Aspect.EARTH, 25).add(Aspect.FIRE, 25).add(Aspect.WATER, 25)
                         .add(Aspect.ORDER, 25).add(Aspect.ENTROPY, 25),
-                new Object[] { "  B", " C ", "B  ", Character.valueOf('C'),
-                        new ItemStack(ConfigBlocks.blockCrystal, 1, 6), Character.valueOf('B'),
+                new Object[] { "  B", " C ", "B  ", 'C', new ItemStack(ConfigBlocks.blockCrystal, 1, 6), 'B',
                         new ItemStack(ConfigItems.itemShard, 1, 6) });
         ResearchPage crystalWand1 = new ResearchPage("crystalWand1");
         ResearchPage crystalWand2 = new ResearchPage(recipeCrystalWand);
@@ -2134,7 +2125,7 @@ public class ThaumicHorizons {
                                                         Aspect.WATER,
                                                         250)
                                                 .add(Aspect.EARTH, 250).add(Aspect.ENTROPY, 250).add(Aspect.ORDER, 250),
-                                        Integer.valueOf(5), Integer.valueOf(5), Integer.valueOf(1),
+                                        5, 5, 1,
                                         Arrays.asList(
                                                 new Object[] { new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3),
                                                         new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
@@ -2467,7 +2458,7 @@ public class ThaumicHorizons {
                                 new ItemStack(Items.dye, 1, 3), new ItemStack(Items.sugar) }));
         IRecipe chocolate = GameRegistry.addShapedRecipe(
                 new ItemStack(itemBarChocolate),
-                new Object[] { "M", Character.valueOf('M'), new ItemStack(itemBucketChocolate) });
+                new Object[] { "M", 'M', new ItemStack(itemBucketChocolate) });
         ResearchPage cowInfusion3 = new ResearchPage(chocolate);
         ResearchPage cowInfusion4 = new ResearchPage(
                 ThaumcraftApi.addShapelessArcaneCraftingRecipe(
