@@ -160,27 +160,27 @@ public class ItemSyringeInjection extends ItemPotion {
             for (final Map.Entry<IAttribute, AttributeModifier> entry : hashmultimap.entries()) {
                 final AttributeModifier entryValue = entry.getValue();
                 final double valueAmount = entryValue.getAmount();
-                double d2;
+                double convertedAmount;
                 if (entryValue.getOperation() != 1 && entryValue.getOperation() != 2) {
-                    d2 = entryValue.getAmount();
+                    convertedAmount = entryValue.getAmount();
                 } else {
-                    d2 = entryValue.getAmount() * 100.0;
+                    convertedAmount = entryValue.getAmount() * 100.0;
                 }
                 if (valueAmount > 0.0) {
                     messages.add(
                             EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted(
                                     "attribute.modifier.plus." + entryValue.getOperation(),
-                                    new Object[] { ItemStack.field_111284_a.format(d2),
+                                    new Object[] { ItemStack.field_111284_a.format(convertedAmount),
                                             StatCollector.translateToLocal("attribute.name." + entry.getKey()) }));
                 } else {
                     if (valueAmount >= 0.0) {
                         continue;
                     }
-                    d2 *= -1.0;
+                    convertedAmount *= -1.0;
                     messages.add(
                             EnumChatFormatting.RED + StatCollector.translateToLocalFormatted(
                                     "attribute.modifier.take." + entryValue.getOperation(),
-                                    new Object[] { ItemStack.field_111284_a.format(d2),
+                                    new Object[] { ItemStack.field_111284_a.format(convertedAmount),
                                             StatCollector.translateToLocal("attribute.name." + entry.getKey()) }));
                 }
             }
