@@ -122,7 +122,7 @@ public class ItemSyringeInjection extends ItemPotion {
         final HashMultimap<IAttribute, AttributeModifier> hashmultimap = HashMultimap.create();
         if (potionEffects != null && !potionEffects.isEmpty()) {
             for (PotionEffect potioneffect : potionEffects) {
-                String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
+                String message = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
                 final Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
                 @SuppressWarnings("unchecked") // Vanilla code uses raw types
                 final Map<IAttribute, AttributeModifier> map = potion.func_111186_k();
@@ -137,16 +137,16 @@ public class ItemSyringeInjection extends ItemPotion {
                     }
                 }
                 if (potioneffect.getAmplifier() > 0) {
-                    s1 = s1 + " "
+                    message = message + " "
                             + StatCollector.translateToLocal("potion.potency." + potioneffect.getAmplifier()).trim();
                 }
                 if (potioneffect.getDuration() > 20) {
-                    s1 = s1 + " (" + Potion.getDurationString(potioneffect) + ")";
+                    message = message + " (" + Potion.getDurationString(potioneffect) + ")";
                 }
                 if (potion.isBadEffect()) {
-                    messages.add(EnumChatFormatting.RED + s1);
+                    messages.add(EnumChatFormatting.RED + message);
                 } else {
-                    messages.add(EnumChatFormatting.GRAY + s1);
+                    messages.add(EnumChatFormatting.GRAY + message);
                 }
             }
         } else {
