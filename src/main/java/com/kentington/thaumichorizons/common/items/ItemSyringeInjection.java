@@ -128,7 +128,7 @@ public class ItemSyringeInjection extends ItemPotion {
                 @SuppressWarnings("unchecked") // Vanilla code uses raw types
                 final Map<IAttribute, AttributeModifier> map = potion.func_111186_k();
 
-                if (map != null && map.size() > 0) {
+                if (map != null && !map.isEmpty()) {
                     for (final Map.Entry<IAttribute, AttributeModifier> entry : map.entrySet()) {
                         final AttributeModifier entryValue = entry.getValue();
                         final AttributeModifier attributeModifier = new AttributeModifier(
