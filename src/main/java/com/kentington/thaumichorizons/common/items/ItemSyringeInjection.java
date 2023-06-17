@@ -114,9 +114,9 @@ public class ItemSyringeInjection extends ItemPotion {
     }
 
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack p_77624_1_, final EntityPlayer p_77624_2_, final List p_77624_3_,
-            final boolean p_77624_4_) {
-        final List<PotionEffect> list1 = Items.potionitem.getEffects(p_77624_1_);
+    public void addInformation(final ItemStack itemStack, final EntityPlayer player, final List messages,
+            final boolean ignored) {
+        final List<PotionEffect> list1 = Items.potionitem.getEffects(itemStack);
         final HashMultimap hashmultimap = HashMultimap.create();
         if (list1 != null && !list1.isEmpty()) {
             for (PotionEffect potioneffect : list1) {
@@ -142,18 +142,18 @@ public class ItemSyringeInjection extends ItemPotion {
                     s1 = s1 + " (" + Potion.getDurationString(potioneffect) + ")";
                 }
                 if (potion.isBadEffect()) {
-                    p_77624_3_.add(EnumChatFormatting.RED + s1);
+                    messages.add(EnumChatFormatting.RED + s1);
                 } else {
-                    p_77624_3_.add(EnumChatFormatting.GRAY + s1);
+                    messages.add(EnumChatFormatting.GRAY + s1);
                 }
             }
         } else {
             final String s2 = StatCollector.translateToLocal("potion.empty").trim();
-            p_77624_3_.add(EnumChatFormatting.GRAY + s2);
+            messages.add(EnumChatFormatting.GRAY + s2);
         }
         if (!hashmultimap.isEmpty()) {
-            p_77624_3_.add("");
-            p_77624_3_.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
+            messages.add("");
+            messages.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
             for (final Map.Entry entry2 : (List<Map.Entry>) hashmultimap.entries()) {
                 final AttributeModifier attributemodifier3 = (AttributeModifier) entry2.getValue();
                 final double d0 = attributemodifier3.getAmount();
@@ -164,7 +164,7 @@ public class ItemSyringeInjection extends ItemPotion {
                     d2 = attributemodifier3.getAmount() * 100.0;
                 }
                 if (d0 > 0.0) {
-                    p_77624_3_.add(
+                    messages.add(
                             EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted(
                                     "attribute.modifier.plus." + attributemodifier3.getOperation(),
                                     new Object[] { ItemStack.field_111284_a.format(d2),
@@ -174,7 +174,7 @@ public class ItemSyringeInjection extends ItemPotion {
                         continue;
                     }
                     d2 *= -1.0;
-                    p_77624_3_.add(
+                    messages.add(
                             EnumChatFormatting.RED + StatCollector.translateToLocalFormatted(
                                     "attribute.modifier.take." + attributemodifier3.getOperation(),
                                     new Object[] { ItemStack.field_111284_a.format(d2),
