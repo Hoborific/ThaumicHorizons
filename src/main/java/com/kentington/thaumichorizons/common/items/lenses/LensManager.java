@@ -155,7 +155,7 @@ public class LensManager {
             final HashMap<Integer, Integer> pouches) {
         for (int value : pouches.values()) {
             final IInventory baubles = BaublesApi.getBaubles(player);
-            final Integer pouchslot = (Integer) value;
+            final int pouchslot = (Integer) value;
             ItemStack pouch;
             if (pouchslot >= 0) {
                 pouch = player.inventory.mainInventory[pouchslot];
