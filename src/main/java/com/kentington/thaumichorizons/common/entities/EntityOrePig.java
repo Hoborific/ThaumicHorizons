@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -23,7 +22,7 @@ public class EntityOrePig extends EntityPig {
 
     public EntityOrePig(final World p_i1689_1_) {
         super(p_i1689_1_);
-        this.tasks.addTask(9, (EntityAIBase) new EntityAIEatStone(this));
+        this.tasks.addTask(9, new EntityAIEatStone(this));
         this.nuggetPercent = 0;
     }
 

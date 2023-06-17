@@ -129,7 +129,7 @@ public class TileVortexStabilizer extends TileThaumcraft implements IWandable {
             }
             for (int i = 0; i < 3; ++i) {
                 if (this.sonicFX[i] == null || this.sonicFX[i].isDead) {
-                    this.sonicFX[i] = (Entity) new FXSonic(
+                    this.sonicFX[i] = new FXSonic(
                             Thaumcraft.proxy.getClientWorld(),
                             this.xTarget + 0.5,
                             this.yTarget + 0.5,

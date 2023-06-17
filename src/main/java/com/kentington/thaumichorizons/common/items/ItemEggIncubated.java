@@ -5,8 +5,6 @@
 package com.kentington.thaumichorizons.common.items;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemEgg;
 import net.minecraft.item.ItemStack;
@@ -35,12 +33,12 @@ public class ItemEggIncubated extends ItemEgg {
             --p_77659_1_.stackSize;
         }
         p_77659_2_.playSoundAtEntity(
-                (Entity) p_77659_3_,
+                p_77659_3_,
                 "random.bow",
                 0.5f,
                 0.4f / (ItemEggIncubated.itemRand.nextFloat() * 0.4f + 0.8f));
         if (!p_77659_2_.isRemote) {
-            p_77659_2_.spawnEntityInWorld((Entity) new EntityEggIncubated(p_77659_2_, (EntityLivingBase) p_77659_3_));
+            p_77659_2_.spawnEntityInWorld(new EntityEggIncubated(p_77659_2_, p_77659_3_));
         }
         return p_77659_1_;
     }

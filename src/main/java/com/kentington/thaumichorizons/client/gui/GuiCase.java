@@ -6,7 +6,6 @@ package com.kentington.thaumichorizons.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
@@ -24,7 +23,7 @@ public class GuiCase extends GuiContainer {
 
     public GuiCase(final InventoryPlayer par1InventoryPlayer, final World world, final int x, final int y,
             final int z) {
-        super((Container) new ContainerCase(par1InventoryPlayer, world, x, y, z));
+        super(new ContainerCase(par1InventoryPlayer, world, x, y, z));
         this.blockSlot = par1InventoryPlayer.currentItem;
         this.xSize = 175;
         this.ySize = 232;

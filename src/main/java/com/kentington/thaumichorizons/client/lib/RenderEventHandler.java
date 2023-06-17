@@ -13,13 +13,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.MathHelper;
@@ -45,7 +43,6 @@ import com.kentington.thaumichorizons.common.lib.networking.PacketLensChangeToSe
 import baubles.api.BaublesApi;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.api.nodes.IRevealer;
@@ -135,7 +132,7 @@ public class RenderEventHandler {
                     this.fociScale.clear();
                     int pouchcount = 0;
                     ItemStack item = null;
-                    final IInventory baubles = BaublesApi.getBaubles((EntityPlayer) mc.thePlayer);
+                    final IInventory baubles = BaublesApi.getBaubles(mc.thePlayer);
                     for (int a = 0; a < 4; ++a) {
                         if (baubles.getStackInSlot(a) != null
                                 && baubles.getStackInSlot(a).getItem() instanceof ItemLensCase) {
@@ -196,8 +193,7 @@ public class RenderEventHandler {
                 for (final String key : this.fociHover.keySet()) {
                     if (this.fociHover.get(key)) {
                         if (!THKeyHandler.radialActive && !THKeyHandler.radialLock) {
-                            PacketHandler.INSTANCE.sendToServer(
-                                    (IMessage) new PacketLensChangeToServer((EntityPlayer) mc.thePlayer, key));
+                            PacketHandler.INSTANCE.sendToServer(new PacketLensChangeToServer(mc.thePlayer, key));
                             THKeyHandler.radialLock = true;
                         }
                         if (this.fociScale.get(key) >= 1.3f) {
@@ -313,9 +309,9 @@ public class RenderEventHandler {
             }
         }
         GL11.glScaled(
-                (double) RenderEventHandler.radialHudScale,
-                (double) RenderEventHandler.radialHudScale,
-                (double) RenderEventHandler.radialHudScale);
+                RenderEventHandler.radialHudScale,
+                RenderEventHandler.radialHudScale,
+                RenderEventHandler.radialHudScale);
         float currentRot = -90.0f * RenderEventHandler.radialHudScale;
         final float pieSlice = 360.0f / this.fociItem.size();
         String key = this.foci.firstKey();
@@ -325,10 +321,7 @@ public class RenderEventHandler {
             currentRot += pieSlice;
             GL11.glPushMatrix();
             GL11.glTranslated(xx, yy, 100.0);
-            GL11.glScalef(
-                    (float) this.fociScale.get(key),
-                    (float) this.fociScale.get(key),
-                    (float) this.fociScale.get(key));
+            GL11.glScalef(this.fociScale.get(key), this.fociScale.get(key), this.fociScale.get(key));
             GL11.glEnable(32826);
             RenderHelper.enableGUIStandardItemLighting();
             final ItemStack item2 = this.fociItem.get(key).copy();
@@ -346,8 +339,7 @@ public class RenderEventHandler {
                     if (k == 0) {
                         THKeyHandler.radialActive = false;
                         THKeyHandler.radialLock = true;
-                        PacketHandler.INSTANCE.sendToServer(
-                                (IMessage) new PacketLensChangeToServer((EntityPlayer) mc.thePlayer, key));
+                        PacketHandler.INSTANCE.sendToServer(new PacketLensChangeToServer(mc.thePlayer, key));
                         break;
                     }
                 } else {
@@ -362,7 +354,7 @@ public class RenderEventHandler {
                     mc.currentScreen,
                     ri,
                     mc.fontRenderer,
-                    tt.getTooltip((EntityPlayer) mc.thePlayer, mc.gameSettings.advancedItemTooltips),
+                    tt.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips),
                     -4,
                     20,
                     11);
@@ -387,7 +379,7 @@ public class RenderEventHandler {
                     if (this.cacheX != event.target.blockX || this.cacheY != event.target.blockY
                             || this.cacheZ != event.target.blockZ
                             || this.tempDir != ForgeDirection.getOrientation(event.target.sideHit)) {
-                        this.resetBlocks((EntityPlayer) mc.thePlayer);
+                        this.resetBlocks(mc.thePlayer);
                     }
                     if (event.player.worldObj.getBlock(event.target.blockX, event.target.blockY, event.target.blockZ)
                             .getMaterial() != Material.air) {
@@ -396,16 +388,16 @@ public class RenderEventHandler {
                         this.cacheZ = event.target.blockZ;
                         this.tempDir = ForgeDirection.getOrientation(event.target.sideHit);
                     } else {
-                        this.resetBlocks((EntityPlayer) mc.thePlayer);
+                        this.resetBlocks(mc.thePlayer);
                     }
                 } else {
-                    this.resetBlocks((EntityPlayer) mc.thePlayer);
+                    this.resetBlocks(mc.thePlayer);
                 }
             } else {
-                this.resetBlocks((EntityPlayer) mc.thePlayer);
+                this.resetBlocks(mc.thePlayer);
             }
         } else if (this.evanescentStage != 0) {
-            this.resetBlocks((EntityPlayer) mc.thePlayer);
+            this.resetBlocks(mc.thePlayer);
         }
     }
 
@@ -415,7 +407,7 @@ public class RenderEventHandler {
                     .getPlayerRelativeBlockHardness(p, p.worldObj, this.cacheX, this.cacheY, this.cacheZ);
             if (this.breakProgress > 1.0f) {
                 Minecraft.getMinecraft().getNetHandler().addToSendQueue(
-                        (Packet) new C07PacketPlayerDigging(2, p.getEntityId(), this.cacheX, this.cacheY, this.cacheZ));
+                        new C07PacketPlayerDigging(2, p.getEntityId(), this.cacheX, this.cacheY, this.cacheZ));
                 // TODO: is it correct? X, Y, and Z are passed not as usually expected.
                 Minecraft.getMinecraft().playerController
                         .onPlayerDestroyBlock(p.getEntityId(), this.cacheX, this.cacheY, this.cacheZ);
@@ -561,7 +553,7 @@ public class RenderEventHandler {
                 && !goggles.stackTagCompound.getString("Lens").equals("")) {
             final ILens theLens = (ILens) LensManager.getLens(goggles.stackTagCompound.getString("Lens"));
             if (theLens == ThaumicHorizons.itemLensEarth) {
-                this.setBlocksEvanescent((EntityPlayer) mc.thePlayer);
+                this.setBlocksEvanescent(mc.thePlayer);
             }
         }
     }
@@ -570,7 +562,7 @@ public class RenderEventHandler {
     @SubscribeEvent
     public void renderLast(final RenderWorldLastEvent event) {
         for (final EntityLivingBase entity : this.thingsThatSparkle) {
-            if (Minecraft.getMinecraft().thePlayer.getDistanceSqToEntity((Entity) entity) < 32.0
+            if (Minecraft.getMinecraft().thePlayer.getDistanceSqToEntity(entity) < 32.0
                     && entity.worldObj.rand.nextFloat() > 0.95f) {
                 final float angle = (float) (entity.worldObj.rand.nextFloat() * 2.0f * 3.141592653589793);
                 Thaumcraft.proxy.sparkle(
@@ -584,7 +576,7 @@ public class RenderEventHandler {
         }
         if (this.evanescentStage == 2) {
             final float temp = this.breakProgress;
-            this.resetBlocks((EntityPlayer) Minecraft.getMinecraft().thePlayer);
+            this.resetBlocks(Minecraft.getMinecraft().thePlayer);
             this.breakProgress = temp;
         }
     }

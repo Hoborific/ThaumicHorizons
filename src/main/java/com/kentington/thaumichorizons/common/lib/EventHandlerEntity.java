@@ -35,7 +35,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -71,10 +70,8 @@ import com.kentington.thaumichorizons.common.tiles.TileSoulBeacon;
 import com.kentington.thaumichorizons.common.tiles.TileVat;
 
 import baubles.api.BaublesApi;
-import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.api.aspects.Aspect;
@@ -148,7 +145,7 @@ public class EventHandlerEntity {
             this.applyPlayerPotionInfusions((EntityPlayer) entity, infusions, infusionProperties.toggleInvisible);
             if (!entity.worldObj.isRemote) {
                 PacketHandler.INSTANCE.sendToAll(
-                        (IMessage) new PacketPlayerInfusionSync(
+                        new PacketPlayerInfusionSync(
                                 entity.getCommandSenderName(),
                                 infusions,
                                 infusionProperties.toggleClimb,
@@ -190,22 +187,22 @@ public class EventHandlerEntity {
             if (infusion == 1) {
                 PotionEffect effect = new PotionEffect(Potion.jump.id, Integer.MAX_VALUE, 0, true);
                 effect.setCurativeItems(new ArrayList<>());
-                ((EntityLivingBase) entity).addPotionEffect(effect);
+                entity.addPotionEffect(effect);
                 effect = new PotionEffect(Potion.moveSpeed.id, Integer.MAX_VALUE, 0, true);
                 effect.setCurativeItems(new ArrayList<>());
-                ((EntityLivingBase) entity).addPotionEffect(effect);
+                entity.addPotionEffect(effect);
             } else if (infusion == 3) {
                 final PotionEffect effect = new PotionEffect(Potion.regeneration.id, Integer.MAX_VALUE, 0, true);
                 effect.setCurativeItems(new ArrayList<>());
-                ((EntityLivingBase) entity).addPotionEffect(effect);
+                entity.addPotionEffect(effect);
             } else if (infusion == 4) {
                 final PotionEffect effect = new PotionEffect(Potion.resistance.id, Integer.MAX_VALUE, 0, true);
                 effect.setCurativeItems(new ArrayList<>());
-                ((EntityLivingBase) entity).addPotionEffect(effect);
+                entity.addPotionEffect(effect);
             } else if (infusion == 10 && !toggled) {
                 final PotionEffect effect = new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 0, true);
                 effect.setCurativeItems(new ArrayList<>());
-                ((EntityLivingBase) entity).addPotionEffect(effect);
+                entity.addPotionEffect(effect);
                 entity.setInvisible(true);
             }
         }
@@ -272,7 +269,7 @@ public class EventHandlerEntity {
             entity.tasks.addTask(6, new EntityAIMate((EntityAnimal) entity, 1.0));
         }
         entity.tasks.addTask(7, new EntityAIWanderTH(entity, 1.0));
-        entity.tasks.addTask(9, new EntityAIWatchClosest(entity, (Class) EntityPlayer.class, 8.0f));
+        entity.tasks.addTask(9, new EntityAIWatchClosest(entity, EntityPlayer.class, 8.0f));
         entity.tasks.addTask(9, new EntityAILookIdle(entity));
         entity.targetTasks.addTask(1, new EntityAIOwnerHurtByTargetTH(entity));
         entity.targetTasks.addTask(2, new EntityAIOwnerHurtTargetTH(entity));
@@ -340,7 +337,7 @@ public class EventHandlerEntity {
                     event.entityLiving.addPotionEffect(effect);
                 }
             }
-            if (prop.hasPlayerInfusion(6) && ((EntityLivingBase) event.entity).ticksExisted % 200 == 0
+            if (prop.hasPlayerInfusion(6) && event.entity.ticksExisted % 200 == 0
                     && player.worldObj.isDaytime()
                     && player.worldObj.canBlockSeeTheSky(
                             MathHelper.floor_double(player.posX),
@@ -406,7 +403,7 @@ public class EventHandlerEntity {
                         0.8f,
                         1.0f);
                 event.entityLiving.worldObj.playSoundAtEntity(
-                        (Entity) event.entityLiving,
+                        event.entityLiving,
                         "thaumcraft:zap",
                         1.0f,
                         1.0f + (event.entityLiving.worldObj.rand.nextFloat()
@@ -429,7 +426,7 @@ public class EventHandlerEntity {
                                 0.8f,
                                 1.0f);
                         event.entityLiving.worldObj.playSoundAtEntity(
-                                (Entity) event.entityLiving,
+                                event.entityLiving,
                                 "thaumcraft:zap",
                                 1.0f,
                                 1.0f + (event.entityLiving.worldObj.rand.nextFloat()
@@ -452,7 +449,7 @@ public class EventHandlerEntity {
                     0.8f,
                     1.0f);
             event.entityLiving.worldObj.playSoundAtEntity(
-                    (Entity) event.entityLiving,
+                    event.entityLiving,
                     "thaumcraft:zap",
                     1.0f,
                     1.0f + (event.entityLiving.worldObj.rand.nextFloat() - event.entityLiving.worldObj.rand.nextFloat())
@@ -476,8 +473,8 @@ public class EventHandlerEntity {
                     player2.posX,
                     player2.posY,
                     player2.posZ,
-                    (Entity) player2,
-                    (Class) EntityLivingBase.class,
+                    player2,
+                    EntityLivingBase.class,
                     10.0);
             if (stuff != null && stuff.size() > 0) {
                 final int boost = player2.getActivePotionEffect(Potion.potionTypes[ThaumicHorizons.potionShockID])
@@ -503,7 +500,7 @@ public class EventHandlerEntity {
                                 0.8f,
                                 1.0f);
                         player2.worldObj.playSoundAtEntity(
-                                (Entity) player2,
+                                player2,
                                 "thaumcraft:zap",
                                 1.0f,
                                 1.0f + (player2.worldObj.rand.nextFloat() - player2.worldObj.rand.nextFloat()) * 0.2f);
@@ -515,7 +512,7 @@ public class EventHandlerEntity {
             final EntityLivingBase target = (EntityLivingBase) event.entity;
             final int boost2 = target.getActivePotionEffect(Potion.potionTypes[ThaumicHorizons.potionVisRegenID])
                     .getAmplifier();
-            if (((EntityLivingBase) event.entity).ticksExisted % (20 - 3 * boost2) == 0) {
+            if (event.entity.ticksExisted % (20 - 3 * boost2) == 0) {
                 Aspect aspect = null;
                 switch (target.worldObj.rand.nextInt(6)) {
                     case 0: {
@@ -559,13 +556,13 @@ public class EventHandlerEntity {
             final EntityLivingBase player2 = (EntityLivingBase) event.entity;
             final int boost2 = player2.getActivePotionEffect(Potion.potionTypes[ThaumicHorizons.potionVacuumID])
                     .getAmplifier();
-            final ArrayList<Entity> stuff2 = (ArrayList<Entity>) EntityUtils.getEntitiesInRange(
+            final ArrayList<Entity> stuff2 = EntityUtils.getEntitiesInRange(
                     player2.worldObj,
                     player2.posX,
                     player2.posY,
                     player2.posZ,
-                    (Entity) player2,
-                    (Class) EntityItem.class,
+                    player2,
+                    EntityItem.class,
                     10.0 + 2 * boost2);
             if (stuff2 != null && stuff2.size() > 0) {
                 for (final Entity e : stuff2) {
@@ -620,7 +617,7 @@ public class EventHandlerEntity {
             final EntityLivingBase player2 = (EntityLivingBase) event.entity;
             final int boost2 = player2.getActivePotionEffect(Potion.potionTypes[ThaumicHorizons.potionSynthesisID])
                     .getAmplifier();
-            if (((EntityLivingBase) event.entity).ticksExisted % (15 - 2 * boost2) == 0 && player2.worldObj.isDaytime()
+            if (event.entity.ticksExisted % (15 - 2 * boost2) == 0 && player2.worldObj.isDaytime()
                     && player2.worldObj.canBlockSeeTheSky(
                             MathHelper.floor_double(player2.posX),
                             MathHelper.floor_double(player2.posY),
@@ -728,12 +725,12 @@ public class EventHandlerEntity {
                                     && ItemHandMirror
                                             .transport(amulet, baubles.getStackInSlot(b), player, player.worldObj)) {
                                 transportedSomething = true;
-                                baubles.setInventorySlotContents(b, (ItemStack) null);
+                                baubles.setInventorySlotContents(b, null);
                             }
                         }
                         if (transportedSomething) {
                             PacketHandler.INSTANCE.sendToAllAround(
-                                    (IMessage) new PacketFXContainment(
+                                    new PacketFXContainment(
                                             player.posX,
                                             player.posY + player.getEyeHeight(),
                                             player.posZ),
@@ -750,7 +747,7 @@ public class EventHandlerEntity {
                                     "thaumcraft:craftfail",
                                     1.0f,
                                     1.0f);
-                            baubles.setInventorySlotContents(a, (ItemStack) null);
+                            baubles.setInventorySlotContents(a, null);
                             player.inventory.markDirty();
                             baubles.markDirty();
                             final ItemStack droppedPearl = new ItemStack(ConfigItems.itemEldritchObject, 1, 3);
@@ -760,7 +757,7 @@ public class EventHandlerEntity {
                                     player.posY,
                                     player.posZ,
                                     droppedPearl);
-                            player.worldObj.spawnEntityInWorld((Entity) drop);
+                            player.worldObj.spawnEntityInWorld(drop);
                             break;
                         }
                         break;
@@ -773,7 +770,7 @@ public class EventHandlerEntity {
                 && event.entityLiving.getEntityData().getBoolean("soulBeacon")) {
             final EntityPlayer player = (EntityPlayer) event.entity;
             final int dim = player.getEntityData().getInteger("soulBeaconDim");
-            final World world = (World) MinecraftServer.getServer().worldServerForDimension(dim);
+            final World world = MinecraftServer.getServer().worldServerForDimension(dim);
             final int x = player.getEntityData().getIntArray("soulBeaconCoords")[0];
             final int y = player.getEntityData().getIntArray("soulBeaconCoords")[1];
             final int z = player.getEntityData().getIntArray("soulBeaconCoords")[2];
@@ -783,7 +780,7 @@ public class EventHandlerEntity {
                 event.setCanceled(true);
                 if (!world.isRemote) {
                     world.createExplosion(
-                            (Entity) null,
+                            null,
                             player.posX,
                             player.posY + player.getEyeHeight(),
                             player.posZ,
@@ -812,13 +809,13 @@ public class EventHandlerEntity {
                                 player.posY,
                                 player.posZ,
                                 baubles2.getStackInSlot(j));
-                        world.spawnEntityInWorld((Entity) bauble);
-                        baubles2.setInventorySlotContents(j, (ItemStack) null);
+                        world.spawnEntityInWorld(bauble);
+                        baubles2.setInventorySlotContents(j, null);
                     }
                 }
                 baubles2.markDirty();
                 player.inventory.markDirty();
-                PacketHandler.INSTANCE.sendTo((IMessage) new PacketNoMoreItems(), (EntityPlayerMP) player);
+                PacketHandler.INSTANCE.sendTo(new PacketNoMoreItems(), (EntityPlayerMP) player);
                 player.curePotionEffects(new ItemStack(Items.milk_bucket));
                 player.heal(999.0f);
                 if (dim != player.worldObj.provider.dimensionId) {
@@ -831,8 +828,8 @@ public class EventHandlerEntity {
                 this.applyPlayerInfusions(player, (TileVat) world.getTileEntity(x, y - 1, z));
                 ((TileVat) world.getTileEntity(x, y - 1, z)).selfInfusions = new int[12];
                 ((TileVat) world.getTileEntity(x, y - 1, z)).mode = 0;
-                ((TileVat) world.getTileEntity(x, y - 1, z)).setEntityContained((EntityLivingBase) player);
-                ((TileVat) world.getTileEntity(x, y - 1, z)).markDirty();
+                ((TileVat) world.getTileEntity(x, y - 1, z)).setEntityContained(player);
+                world.getTileEntity(x, y - 1, z).markDirty();
                 player.worldObj.markBlockForUpdate(x, y - 1, z);
             }
         } else if (event.entity.worldObj.isRemote && event.entityLiving instanceof EntityPlayer
@@ -842,10 +839,10 @@ public class EventHandlerEntity {
                     Arrays.fill(player.inventory.mainInventory, null);
                     Arrays.fill(player.inventory.armorInventory, null);
                     final IInventory baubles3 = BaublesApi.getBaubles(player);
-                    baubles3.setInventorySlotContents(0, (ItemStack) null);
-                    baubles3.setInventorySlotContents(1, (ItemStack) null);
-                    baubles3.setInventorySlotContents(2, (ItemStack) null);
-                    baubles3.setInventorySlotContents(3, (ItemStack) null);
+                    baubles3.setInventorySlotContents(0, null);
+                    baubles3.setInventorySlotContents(1, null);
+                    baubles3.setInventorySlotContents(2, null);
+                    baubles3.setInventorySlotContents(3, null);
                 }
     }
 
@@ -857,7 +854,7 @@ public class EventHandlerEntity {
                 prop.addPlayerInfusion(tile.selfInfusions[i]);
             }
         }
-        this.applyInfusions((EntityLivingBase) player);
+        this.applyInfusions(player);
     }
 
     @SubscribeEvent
@@ -888,7 +885,7 @@ public class EventHandlerEntity {
                 entity.posY + (entity.worldObj.rand.nextInt(64) - 32),
                 entity.posZ + (entity.worldObj.rand.nextDouble() - 0.5) * 64.0,
                 0.0f);
-        if (MinecraftForge.EVENT_BUS.post((Event) event)) {
+        if (MinecraftForge.EVENT_BUS.post(event)) {
             return;
         }
         final double d3 = entity.posX;
@@ -914,7 +911,7 @@ public class EventHandlerEntity {
             }
             if (flag2) {
                 entity.setPosition(entity.posX, entity.posY, entity.posZ);
-                if (entity.worldObj.getCollidingBoundingBoxes((Entity) entity, entity.boundingBox).isEmpty()
+                if (entity.worldObj.getCollidingBoundingBoxes(entity, entity.boundingBox).isEmpty()
                         && !entity.worldObj.isAnyLiquid(entity.boundingBox)) {
                     flag = true;
                 }
@@ -935,7 +932,7 @@ public class EventHandlerEntity {
             final double d8 = d4 + (entity.posY - d4) * d6 + entity.worldObj.rand.nextDouble() * entity.height;
             final double d9 = d5 + (entity.posZ - d5) * d6
                     + (entity.worldObj.rand.nextDouble() - 0.5) * entity.width * 2.0;
-            entity.worldObj.spawnParticle("portal", d7, d8, d9, (double) f, (double) f2, (double) f3);
+            entity.worldObj.spawnParticle("portal", d7, d8, d9, f, f2, f3);
         }
         entity.worldObj.playSoundEffect(d3, d4, d5, "mob.endermen.portal", 1.0f, 1.0f);
         entity.playSound("mob.endermen.portal", 1.0f, 1.0f);
@@ -964,7 +961,7 @@ public class EventHandlerEntity {
                 target = -3;
             }
             thaumcraft.common.lib.network.PacketHandler.INSTANCE.sendToAllAround(
-                    (IMessage) new PacketFXShield(event.entity.getEntityId(), target),
+                    new PacketFXShield(event.entity.getEntityId(), target),
                     new NetworkRegistry.TargetPoint(
                             event.entity.worldObj.provider.dimensionId,
                             event.entity.posX,
@@ -1006,7 +1003,7 @@ public class EventHandlerEntity {
                 event.target.entityDropItem(jar, 1.0f);
                 if (!event.target.worldObj.isRemote) {
                     PacketHandler.INSTANCE.sendToAllAround(
-                            (IMessage) new PacketFXContainment(
+                            new PacketFXContainment(
                                     event.target.posX,
                                     event.target.posY + event.target.height / 2.0f,
                                     event.target.posZ),
@@ -1023,14 +1020,14 @@ public class EventHandlerEntity {
                 if (event.target.worldObj.isRemote) {
                     if (prop.isSitting()) {
                         event.entityPlayer.addChatMessage(
-                                (IChatComponent) new ChatComponentText(
+                                new ChatComponentText(
                                         EnumChatFormatting.ITALIC + ""
                                                 + EnumChatFormatting.GRAY
                                                 + event.target.getCommandSenderName()
                                                 + " is waiting."));
                     } else {
                         event.entityPlayer.addChatMessage(
-                                (IChatComponent) new ChatComponentText(
+                                new ChatComponentText(
                                         EnumChatFormatting.ITALIC + ""
                                                 + EnumChatFormatting.GRAY
                                                 + event.target.getCommandSenderName()

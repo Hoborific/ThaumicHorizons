@@ -7,7 +7,6 @@ package com.kentington.thaumichorizons.client.renderer.item;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -78,14 +77,7 @@ public class ItemInjectorRender implements IItemRenderer {
             GL11.glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
         }
         UtilsFX.bindTexture(new ResourceLocation("thaumichorizons", this.tx1));
-        this.injector.render(
-                (Entity) null,
-                f * 3.1415927f / 16.0f,
-                f * 3.1415927f / 4.0f,
-                (float) rotation,
-                f,
-                0.0f,
-                0.125f);
+        this.injector.render(null, f * 3.1415927f / 16.0f, f * 3.1415927f / 4.0f, (float) rotation, f, 0.0f, 0.125f);
         GL11.glPopMatrix();
     }
 }

@@ -38,7 +38,7 @@ public class PacketToggleClimbToServer implements IMessage, IMessageHandler<Pack
     }
 
     public IMessage onMessage(final PacketToggleClimbToServer message, final MessageContext ctx) {
-        final World world = (World) DimensionManager.getWorld(message.dim);
+        final World world = DimensionManager.getWorld(message.dim);
         final EntityPlayer player = (EntityPlayer) world.getEntityByID(message.playerid);
         ((EntityInfusionProperties) player
                 .getExtendedProperties("CreatureInfusion")).toggleClimb = !((EntityInfusionProperties) player

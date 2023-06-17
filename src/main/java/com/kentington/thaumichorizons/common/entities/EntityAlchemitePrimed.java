@@ -67,7 +67,7 @@ public class EntityAlchemitePrimed extends Entity {
     private void explode() {
         final ExplosionAlchemite explosion = new ExplosionAlchemite(
                 this.worldObj,
-                (Entity) this.alchemitePlacedBy,
+                this.alchemitePlacedBy,
                 this.posX,
                 this.posY,
                 this.posZ,

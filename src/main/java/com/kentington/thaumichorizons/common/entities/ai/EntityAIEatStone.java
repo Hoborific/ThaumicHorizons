@@ -36,7 +36,7 @@ public class EntityAIEatStone extends EntityAIBase {
         double mindis_e = 128.0f;
 
         final List<Entity> targets = (List<Entity>) this.thePig.worldObj.getEntitiesWithinAABBExcludingEntity(
-                (Entity) this.thePig,
+                this.thePig,
                 AxisAlignedBB.getBoundingBox(
                         this.thePig.posX - 16.0,
                         this.thePig.posY - 16.0,
@@ -102,7 +102,6 @@ public class EntityAIEatStone extends EntityAIBase {
 
     public void startExecuting() {
         this.count = 500;
-        this.thePig.getNavigator()
-                .tryMoveToEntityLiving(this.targetEntity, (double) (this.thePig.getAIMoveSpeed() + 1.0f));
+        this.thePig.getNavigator().tryMoveToEntityLiving(this.targetEntity, this.thePig.getAIMoveSpeed() + 1.0f);
     }
 }

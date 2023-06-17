@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
@@ -37,11 +36,8 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
         int bright = 20;
         GL11.glPushMatrix();
         if (tile.getWorldObj() != null) {
-            bright = tile.getBlockType().getMixedBrightnessForBlock(
-                    (IBlockAccess) tile.getWorldObj(),
-                    tile.xCoord,
-                    tile.yCoord,
-                    tile.zCoord);
+            bright = tile.getBlockType()
+                    .getMixedBrightnessForBlock(tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
             tile.direction = (byte) tile.getBlockMetadata();
             if (tile.direction == 3) {
                 GL11.glTranslatef((float) par2 + 0.5f, (float) par4 + 0.5f, (float) par6 + 1.0f);

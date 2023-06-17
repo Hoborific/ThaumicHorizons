@@ -6,7 +6,6 @@ package com.kentington.thaumichorizons.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -21,7 +20,7 @@ public class GuiSoulExtractor extends GuiContainer {
     TileSoulExtractor tile;
 
     public GuiSoulExtractor(final InventoryPlayer player, final TileSoulExtractor tile) {
-        super((Container) new ContainerSoulExtractor(player, tile));
+        super(new ContainerSoulExtractor(player, tile));
         this.tile = tile;
         this.xSize = 175;
         this.ySize = 165;

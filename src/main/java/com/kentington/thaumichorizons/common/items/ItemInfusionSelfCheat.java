@@ -98,16 +98,16 @@ public class ItemInfusionSelfCheat extends Item {
 
     @SideOnly(Side.CLIENT)
     public void getSubItems(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
-        par3List.add(new ItemStack((Item) this, 1, 1));
-        par3List.add(new ItemStack((Item) this, 1, 2));
-        par3List.add(new ItemStack((Item) this, 1, 3));
-        par3List.add(new ItemStack((Item) this, 1, 4));
-        par3List.add(new ItemStack((Item) this, 1, 5));
-        par3List.add(new ItemStack((Item) this, 1, 6));
-        par3List.add(new ItemStack((Item) this, 1, 7));
-        par3List.add(new ItemStack((Item) this, 1, 8));
-        par3List.add(new ItemStack((Item) this, 1, 9));
-        par3List.add(new ItemStack((Item) this, 1, 10));
+        par3List.add(new ItemStack(this, 1, 1));
+        par3List.add(new ItemStack(this, 1, 2));
+        par3List.add(new ItemStack(this, 1, 3));
+        par3List.add(new ItemStack(this, 1, 4));
+        par3List.add(new ItemStack(this, 1, 5));
+        par3List.add(new ItemStack(this, 1, 6));
+        par3List.add(new ItemStack(this, 1, 7));
+        par3List.add(new ItemStack(this, 1, 8));
+        par3List.add(new ItemStack(this, 1, 9));
+        par3List.add(new ItemStack(this, 1, 10));
     }
 
     public String getItemStackDisplayName(final ItemStack stack) {
@@ -160,17 +160,12 @@ public class ItemInfusionSelfCheat extends Item {
     public ItemStack onItemRightClick(final ItemStack p_77659_1_, final World world, final EntityPlayer p) {
         for (final SelfInfusionRecipe recipe : ThaumicHorizons.selfRecipes) {
             if (recipe.getID() == p_77659_1_.getItemDamage()
-                    && !((EntityInfusionProperties) ((EntityLivingBase) p).getExtendedProperties("CreatureInfusion"))
+                    && !((EntityInfusionProperties) p.getExtendedProperties("CreatureInfusion"))
                             .hasPlayerInfusion(recipe.getID())) {
-                ((EntityInfusionProperties) ((EntityLivingBase) p).getExtendedProperties("CreatureInfusion"))
+                ((EntityInfusionProperties) p.getExtendedProperties("CreatureInfusion"))
                         .addPlayerInfusion(recipe.getID());
-                ThaumicHorizons.instance.eventHandlerEntity.applyInfusions((EntityLivingBase) p);
-                Thaumcraft.proxy.burst(
-                        world,
-                        ((EntityLivingBase) p).posX,
-                        ((EntityLivingBase) p).posY + ((EntityLivingBase) p).getEyeHeight(),
-                        ((EntityLivingBase) p).posZ,
-                        1.0f);
+                ThaumicHorizons.instance.eventHandlerEntity.applyInfusions(p);
+                Thaumcraft.proxy.burst(world, p.posX, p.posY + ((EntityLivingBase) p).getEyeHeight(), p.posZ, 1.0f);
                 return p_77659_1_;
             }
         }

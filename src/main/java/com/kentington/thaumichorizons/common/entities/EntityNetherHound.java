@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.world.World;
@@ -32,20 +31,19 @@ public class EntityNetherHound extends EntityWolf {
         if (this.getAttackTarget() != null) {
             target = this.getAttackTarget();
         }
-        if (target != null
-                && ItemFocusContainment.getPointedEntity(this.worldObj, (EntityLivingBase) this, 7.0) == target) {
+        if (target != null && ItemFocusContainment.getPointedEntity(this.worldObj, this, 7.0) == target) {
             if (!this.worldObj.isRemote && this.soundDelay < System.currentTimeMillis()) {
-                this.worldObj.playSoundAtEntity((Entity) this, "thaumcraft:fireloop", 0.33f, 2.0f);
+                this.worldObj.playSoundAtEntity(this, "thaumcraft:fireloop", 0.33f, 2.0f);
                 this.soundDelay = System.currentTimeMillis() + 500L;
             }
             final float scatter = 8.0f;
-            final EntityEmber orb = new EntityEmber(this.worldObj, (EntityLivingBase) this, scatter);
+            final EntityEmber orb = new EntityEmber(this.worldObj, this, scatter);
             orb.damage = 1.0f;
             orb.firey = 1;
             orb.posX += orb.motionX;
             orb.posY += orb.motionY;
             orb.posZ += orb.motionZ;
-            this.worldObj.spawnEntityInWorld((Entity) orb);
+            this.worldObj.spawnEntityInWorld(orb);
         }
     }
 }

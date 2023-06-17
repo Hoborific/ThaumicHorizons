@@ -6,7 +6,6 @@ package com.kentington.thaumichorizons.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -18,7 +17,7 @@ import thaumcraft.client.lib.UtilsFX;
 public class GuiInjector extends GuiContainer {
 
     public GuiInjector(final EntityPlayer p) {
-        super((Container) new ContainerInjector(p));
+        super(new ContainerInjector(p));
         this.xSize = 175;
         this.ySize = 191;
     }

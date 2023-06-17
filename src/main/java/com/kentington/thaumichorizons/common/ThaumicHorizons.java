@@ -489,10 +489,10 @@ public class ThaumicHorizons {
         ROD_CRYSTAL = new WandRod(
                 "disposable",
                 250,
-                (ItemStack) null,
+                null,
                 99,
                 new ResourceLocation("thaumichorizons", "textures/models/crystalRod.png"));
-        CAP_CRYSTAL = new WandCap("disposable", 0.9F, (ItemStack) null, 99);
+        CAP_CRYSTAL = new WandCap("disposable", 0.9F, null, 99);
         CAP_CRYSTAL.setTexture(new ResourceLocation("thaumichorizons", "textures/models/crystalCap.png"));
         ROD_CRYSTAL.setGlowing(true);
         blockSynthNode = new BlockSyntheticNode();
@@ -3379,7 +3379,7 @@ public class ThaumicHorizons {
                         tag,
                         3,
                         (new AspectList()).add(Aspect.MOTION, 16).add(Aspect.MECHANISM, 8).add(Aspect.FLIGHT, 4),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.potionitem, 1, 8226),
                                 new ItemStack(ConfigItems.itemResource, 1, 3),
                                 new ItemStack(ConfigItems.itemResource, 1, 3) },
@@ -3393,7 +3393,7 @@ public class ThaumicHorizons {
                         tag,
                         3,
                         (new AspectList()).add(Aspect.WEAPON, 12).add(Aspect.METAL, 8).add(Aspect.MAGIC, 8),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(ConfigItems.itemSwordThaumium),
                                 new ItemStack(ConfigItems.itemSwordThaumium) },
                         2));
@@ -3405,7 +3405,7 @@ public class ThaumicHorizons {
                         tag,
                         4,
                         (new AspectList()).add(Aspect.HEAL, 8).add(Aspect.LIFE, 16).add(Aspect.MIND, 4),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.speckled_melon), new ItemStack(itemSyringeHuman),
                                 new ItemStack(Items.golden_apple), new ItemStack(itemSyringeHuman) },
                         3));
@@ -3417,7 +3417,7 @@ public class ThaumicHorizons {
                         tag,
                         4,
                         (new AspectList()).add(Aspect.ARMOR, 16).add(Aspect.CRYSTAL, 16).add(Aspect.BEAST, 8),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.leather), new ItemStack(Items.diamond),
                                 new ItemStack(Items.diamond) },
                         4));
@@ -3429,7 +3429,7 @@ public class ThaumicHorizons {
                         tag,
                         6,
                         (new AspectList()).add(Aspect.ELDRITCH, 16).add(Aspect.TRAVEL, 16).add(Aspect.FLESH, 16),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.ender_pearl), new ItemStack(Items.egg),
                                 new ItemStack(Items.egg) },
                         5));
@@ -3441,7 +3441,7 @@ public class ThaumicHorizons {
                         tag,
                         5,
                         (new AspectList()).add(Aspect.ENERGY, 16).add(Aspect.WEAPON, 12).add(Aspect.WEATHER, 4),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(ConfigItems.itemShard, 1, 0),
                                 new ItemStack(Items.quartz), new ItemStack(Items.redstone) },
                         6));
@@ -3453,7 +3453,7 @@ public class ThaumicHorizons {
                         tag,
                         6,
                         (new AspectList()).add(Aspect.MIND, 4).add(Aspect.BEAST, 3).add(Aspect.EXCHANGE, 3),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.saddle), new ItemStack(ConfigItems.itemZombieBrain),
                                 new ItemStack(Items.golden_apple) },
                         7));
@@ -3466,7 +3466,7 @@ public class ThaumicHorizons {
                         7,
                         (new AspectList()).add(Aspect.ARMOR, 16).add(Aspect.MAGIC, 32).add(Aspect.ENERGY, 16)
                                 .add(Aspect.FLESH, 8),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.diamond), new ItemStack(ConfigItems.itemResource, 1, 6),
                                 new ItemStack(ConfigItems.itemResource, 1, 7),
                                 new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemInkwell) },
@@ -3481,7 +3481,7 @@ public class ThaumicHorizons {
                         8,
                         (new AspectList()).add(Aspect.ELDRITCH, 8).add(Aspect.WEAPON, 16).add(Aspect.METAL, 16)
                                 .add(Aspect.POISON, 32),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 16),
                                 new ItemStack(ConfigBlocks.blockCustomPlant, 1, 5),
                                 new ItemStack(ConfigItems.itemResource, 1, 16),
@@ -3495,7 +3495,7 @@ public class ThaumicHorizons {
                         tag,
                         6,
                         (new AspectList()).add(Aspect.VOID, 16).add(Aspect.TRAP, 16),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(ConfigBlocks.blockJar), new ItemStack(Items.ender_pearl) },
                         10));
         classBanList.add(EntityGhast.class);

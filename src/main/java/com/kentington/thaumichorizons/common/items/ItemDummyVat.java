@@ -5,7 +5,6 @@
 package com.kentington.thaumichorizons.common.items;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -19,7 +18,7 @@ public class ItemDummyVat extends Item {
     public IIcon icon;
 
     public ItemDummyVat() {
-        this.setCreativeTab((CreativeTabs) null);
+        this.setCreativeTab(null);
     }
 
     @SideOnly(Side.CLIENT)

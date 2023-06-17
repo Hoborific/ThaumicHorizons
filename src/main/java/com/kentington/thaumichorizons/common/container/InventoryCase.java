@@ -45,20 +45,20 @@ public class InventoryCase implements IInventory {
         if (this.stackList[par1].stackSize <= par2) {
             final ItemStack var3 = this.stackList[par1];
             this.stackList[par1] = null;
-            this.eventHandler.onCraftMatrixChanged((IInventory) this);
+            this.eventHandler.onCraftMatrixChanged(this);
             return var3;
         }
         final ItemStack var3 = this.stackList[par1].splitStack(par2);
         if (this.stackList[par1].stackSize == 0) {
             this.stackList[par1] = null;
         }
-        this.eventHandler.onCraftMatrixChanged((IInventory) this);
+        this.eventHandler.onCraftMatrixChanged(this);
         return var3;
     }
 
     public void setInventorySlotContents(final int par1, final ItemStack par2ItemStack) {
         this.stackList[par1] = par2ItemStack;
-        this.eventHandler.onCraftMatrixChanged((IInventory) this);
+        this.eventHandler.onCraftMatrixChanged(this);
     }
 
     public int getInventoryStackLimit() {

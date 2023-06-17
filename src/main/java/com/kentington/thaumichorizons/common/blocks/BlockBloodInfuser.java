@@ -8,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -44,7 +43,7 @@ public class BlockBloodInfuser extends BlockContainer {
 
     public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player,
             final int p_149727_6_, final float p_149727_7_, final float p_149727_8_, final float p_149727_9_) {
-        player.openGui((Object) ThaumicHorizons.instance, 5, world, x, y, z);
+        player.openGui(ThaumicHorizons.instance, 5, world, x, y, z);
         return true;
     }
 
@@ -53,13 +52,11 @@ public class BlockBloodInfuser extends BlockContainer {
         if (te instanceof TileBloodInfuser) {
             final TileBloodInfuser tile = (TileBloodInfuser) te;
             if (tile.syringe != null) {
-                world.spawnEntityInWorld(
-                        (Entity) new EntityItem(world, (double) x, (double) y, (double) z, tile.syringe));
+                world.spawnEntityInWorld(new EntityItem(world, x, y, z, tile.syringe));
             }
             for (int i = 0; i < 9; ++i) {
                 if (tile.output[i] != null) {
-                    world.spawnEntityInWorld(
-                            (Entity) new EntityItem(world, (double) x, (double) y, (double) z, tile.output[i]));
+                    world.spawnEntityInWorld(new EntityItem(world, x, y, z, tile.output[i]));
                 }
             }
         }

@@ -10,7 +10,6 @@ import java.util.Map;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
@@ -100,13 +99,12 @@ public class ItemSyringeInjection extends ItemPotion {
                 --p_77659_1_.stackSize;
             }
             p_77659_2_.playSoundAtEntity(
-                    (Entity) p_77659_3_,
+                    p_77659_3_,
                     "random.bow",
                     0.5f,
                     0.4f / (ItemSyringeInjection.itemRand.nextFloat() * 0.4f + 0.8f));
             if (!p_77659_2_.isRemote) {
-                p_77659_2_.spawnEntityInWorld(
-                        (Entity) new EntityBlastPhial(p_77659_2_, (EntityLivingBase) p_77659_3_, 0.5f, p_77659_1_));
+                p_77659_2_.spawnEntityInWorld(new EntityBlastPhial(p_77659_2_, p_77659_3_, 0.5f, p_77659_1_));
             }
             return p_77659_1_;
         }

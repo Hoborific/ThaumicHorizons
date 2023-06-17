@@ -8,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -47,7 +46,7 @@ public class BlockInspiratron extends BlockContainer {
 
     public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player,
             final int p_149727_6_, final float p_149727_7_, final float p_149727_8_, final float p_149727_9_) {
-        player.openGui((Object) ThaumicHorizons.instance, 3, world, x, y, z);
+        player.openGui(ThaumicHorizons.instance, 3, world, x, y, z);
         return true;
     }
 
@@ -56,12 +55,10 @@ public class BlockInspiratron extends BlockContainer {
         if (te instanceof TileInspiratron) {
             final TileInspiratron tile = (TileInspiratron) te;
             if (tile.paper != null) {
-                world.spawnEntityInWorld(
-                        (Entity) new EntityItem(world, (double) x, (double) y, (double) z, tile.paper));
+                world.spawnEntityInWorld(new EntityItem(world, x, y, z, tile.paper));
             }
             if (tile.knowledge != null) {
-                world.spawnEntityInWorld(
-                        (Entity) new EntityItem(world, (double) x, (double) y, (double) z, tile.knowledge));
+                world.spawnEntityInWorld(new EntityItem(world, x, y, z, tile.knowledge));
             }
         }
     }

@@ -49,7 +49,7 @@ public class PacketGetCowData implements IMessage, IMessageHandler<PacketGetCowD
                     }
                 }
             }
-            return (IMessage) new PacketCowUpdate(types, amounts, type, mod, message.id);
+            return new PacketCowUpdate(types, amounts, type, mod, message.id);
         }
         return null;
     }

@@ -10,9 +10,7 @@ import java.util.Random;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class EntitySelfShearingSheep extends EntitySheep {
@@ -23,9 +21,9 @@ public class EntitySelfShearingSheep extends EntitySheep {
 
     public void onLivingUpdate() {
         if (!this.worldObj.isRemote && !this.getSheared() && this.ticksExisted % 100 == 0) {
-            final ArrayList<ItemStack> drops = (ArrayList<ItemStack>) this.onSheared(
-                    new ItemStack((Item) Items.shears),
-                    (IBlockAccess) this.worldObj,
+            final ArrayList<ItemStack> drops = this.onSheared(
+                    new ItemStack(Items.shears),
+                    this.worldObj,
                     (int) this.posX,
                     (int) this.posY,
                     (int) this.posZ,

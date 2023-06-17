@@ -28,38 +28,33 @@ public class ContainerFingers extends Container {
         this.ip = par1InventoryPlayer;
         this.tileEntity = new InventoryFingers();
         ((ContainerFingers) (this.tileEntity.eventHandler = this)).addSlotToContainer(
-                (Slot) new SlotCraftingArcaneWorkbench(
+                new SlotCraftingArcaneWorkbench(
                         par1InventoryPlayer.player,
-                        (IInventory) this.tileEntity,
-                        (IInventory) this.tileEntity,
+                        this.tileEntity,
+                        this.tileEntity,
                         9,
                         160,
                         64));
-        this.addSlotToContainer((Slot) new SlotLimitedByWand((IInventory) this.tileEntity, 10, 160, 24));
+        this.addSlotToContainer(new SlotLimitedByWand(this.tileEntity, 10, 160, 24));
         for (int var6 = 0; var6 < 3; ++var6) {
             for (int var7 = 0; var7 < 3; ++var7) {
-                this.addSlotToContainer(
-                        new Slot((IInventory) this.tileEntity, var7 + var6 * 3, 40 + var7 * 24, 40 + var6 * 24));
+                this.addSlotToContainer(new Slot(this.tileEntity, var7 + var6 * 3, 40 + var7 * 24, 40 + var6 * 24));
             }
         }
         for (int var6 = 0; var6 < 3; ++var6) {
             for (int var7 = 0; var7 < 9; ++var7) {
                 this.addSlotToContainer(
-                        new Slot(
-                                (IInventory) par1InventoryPlayer,
-                                var7 + var6 * 9 + 9,
-                                16 + var7 * 18,
-                                151 + var6 * 18));
+                        new Slot(par1InventoryPlayer, var7 + var6 * 9 + 9, 16 + var7 * 18, 151 + var6 * 18));
             }
         }
         for (int var6 = 0; var6 < 9; ++var6) {
-            this.addSlotToContainer(new Slot((IInventory) par1InventoryPlayer, var6, 16 + var6 * 18, 209));
+            this.addSlotToContainer(new Slot(par1InventoryPlayer, var6, 16 + var6 * 18, 209));
         }
-        this.onCraftMatrixChanged((IInventory) this.tileEntity);
+        this.onCraftMatrixChanged(this.tileEntity);
     }
 
     public void onCraftMatrixChanged(final IInventory par1IInventory) {
-        final InventoryCrafting ic = new InventoryCrafting((Container) new ContainerDummy(), 3, 3);
+        final InventoryCrafting ic = new InventoryCrafting(new ContainerDummy(), 3, 3);
         for (int a = 0; a < 9; ++a) {
             ic.setInventorySlotContents(a, this.tileEntity.getStackInSlot(a));
         }
@@ -72,13 +67,11 @@ public class ContainerFingers extends Container {
             if (wand.consumeAllVisCrafting(
                     this.tileEntity.getStackInSlot(10),
                     this.ip.player,
-                    ThaumcraftCraftingManager
-                            .findMatchingArcaneRecipeAspects((IInventory) this.tileEntity, this.ip.player),
+                    ThaumcraftCraftingManager.findMatchingArcaneRecipeAspects(this.tileEntity, this.ip.player),
                     false)) {
                 this.tileEntity.setInventorySlotContentsSoftly(
                         9,
-                        ThaumcraftCraftingManager
-                                .findMatchingArcaneRecipe((IInventory) this.tileEntity, this.ip.player));
+                        ThaumcraftCraftingManager.findMatchingArcaneRecipe(this.tileEntity, this.ip.player));
             }
         }
     }
@@ -135,7 +128,7 @@ public class ContainerFingers extends Container {
                 return null;
             }
             if (var4.stackSize == 0) {
-                var3.putStack((ItemStack) null);
+                var3.putStack(null);
             } else {
                 var3.onSlotChanged();
             }

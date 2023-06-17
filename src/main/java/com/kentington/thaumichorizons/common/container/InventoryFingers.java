@@ -48,7 +48,7 @@ public class InventoryFingers extends TileMagicWorkbench implements IInventory {
             final ItemStack var3 = this.stackList[par1];
             this.stackList[par1] = null;
             if (this.eventHandler != null) {
-                this.eventHandler.onCraftMatrixChanged((IInventory) this);
+                this.eventHandler.onCraftMatrixChanged(this);
             }
             this.markDirty();
             return var3;
@@ -58,7 +58,7 @@ public class InventoryFingers extends TileMagicWorkbench implements IInventory {
             this.stackList[par1] = null;
         }
         if (this.eventHandler != null) {
-            this.eventHandler.onCraftMatrixChanged((IInventory) this);
+            this.eventHandler.onCraftMatrixChanged(this);
         }
         this.markDirty();
         return var3;
@@ -68,7 +68,7 @@ public class InventoryFingers extends TileMagicWorkbench implements IInventory {
         this.stackList[par1] = par2ItemStack;
         this.markDirty();
         if (this.eventHandler != null) {
-            this.eventHandler.onCraftMatrixChanged((IInventory) this);
+            this.eventHandler.onCraftMatrixChanged(this);
         }
     }
 

@@ -56,29 +56,29 @@ public class FXContainment extends EntityFX {
         final float f9 = (float) (this.posZ - FXContainment.interpPosZ);
         p_70539_1_.setColorRGBA_F(this.particleRed, this.particleGreen, this.particleBlue, 0.1f);
         p_70539_1_.addVertexWithUV(
-                (double) (f7 - p_70539_3_ * f6 - p_70539_6_ * f6),
-                (double) (f8 - p_70539_4_ * f6),
-                (double) (f9 - p_70539_5_ * f6 - p_70539_7_ * f6),
-                (double) f2,
-                (double) f4);
+                f7 - p_70539_3_ * f6 - p_70539_6_ * f6,
+                f8 - p_70539_4_ * f6,
+                f9 - p_70539_5_ * f6 - p_70539_7_ * f6,
+                f2,
+                f4);
         p_70539_1_.addVertexWithUV(
-                (double) (f7 - p_70539_3_ * f6 + p_70539_6_ * f6),
-                (double) (f8 + p_70539_4_ * f6),
-                (double) (f9 - p_70539_5_ * f6 + p_70539_7_ * f6),
-                (double) f3,
-                (double) f4);
+                f7 - p_70539_3_ * f6 + p_70539_6_ * f6,
+                f8 + p_70539_4_ * f6,
+                f9 - p_70539_5_ * f6 + p_70539_7_ * f6,
+                f3,
+                f4);
         p_70539_1_.addVertexWithUV(
-                (double) (f7 + p_70539_3_ * f6 + p_70539_6_ * f6),
-                (double) (f8 + p_70539_4_ * f6),
-                (double) (f9 + p_70539_5_ * f6 + p_70539_7_ * f6),
-                (double) f3,
-                (double) f5);
+                f7 + p_70539_3_ * f6 + p_70539_6_ * f6,
+                f8 + p_70539_4_ * f6,
+                f9 + p_70539_5_ * f6 + p_70539_7_ * f6,
+                f3,
+                f5);
         p_70539_1_.addVertexWithUV(
-                (double) (f7 + p_70539_3_ * f6 - p_70539_6_ * f6),
-                (double) (f8 - p_70539_4_ * f6),
-                (double) (f9 + p_70539_5_ * f6 - p_70539_7_ * f6),
-                (double) f2,
-                (double) f5);
+                f7 + p_70539_3_ * f6 - p_70539_6_ * f6,
+                f8 - p_70539_4_ * f6,
+                f9 + p_70539_5_ * f6 - p_70539_7_ * f6,
+                f2,
+                f5);
         GL11.glDisable(3042);
         GL11.glDepthMask(true);
         GL11.glPopMatrix();

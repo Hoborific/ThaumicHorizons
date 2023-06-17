@@ -166,7 +166,7 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer {
 
     private void drawCrystal(final int ori, final float x, final float y, final float z, final float a1, final float a2,
             final Random rand, final int color, final float size) {
-        final EntityPlayer p = (EntityPlayer) Minecraft.getMinecraft().thePlayer;
+        final EntityPlayer p = Minecraft.getMinecraft().thePlayer;
         final float shade = MathHelper.sin((p.ticksExisted + rand.nextInt(10)) / (5.0f + rand.nextFloat())) * 0.075f
                 + 0.925f;
         final Color c = new Color(color);

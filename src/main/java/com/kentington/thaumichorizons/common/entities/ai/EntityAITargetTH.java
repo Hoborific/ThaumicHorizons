@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities.ai;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityOwnable;
@@ -47,11 +46,11 @@ public abstract class EntityAITargetTH extends EntityAIBase {
             return false;
         }
         final double d0 = this.getTargetDistance();
-        if (this.taskOwner.getDistanceSqToEntity((Entity) entitylivingbase) > d0 * d0) {
+        if (this.taskOwner.getDistanceSqToEntity(entitylivingbase) > d0 * d0) {
             return false;
         }
         if (this.shouldCheckSight) {
-            if (this.taskOwner.getEntitySenses().canSee((Entity) entitylivingbase)) {
+            if (this.taskOwner.getEntitySenses().canSee(entitylivingbase)) {
                 this.field_75298_g = 0;
             } else if (++this.field_75298_g > 60) {
                 return false;
@@ -74,7 +73,7 @@ public abstract class EntityAITargetTH extends EntityAIBase {
     }
 
     public void resetTask() {
-        this.taskOwner.setAttackTarget((EntityLivingBase) null);
+        this.taskOwner.setAttackTarget(null);
     }
 
     protected boolean isSuitableTarget(final EntityLivingBase p_75296_1_, final boolean p_75296_2_) {
@@ -87,11 +86,11 @@ public abstract class EntityAITargetTH extends EntityAIBase {
         if (!p_75296_1_.isEntityAlive()) {
             return false;
         }
-        if (!this.taskOwner.canAttackClass((Class) p_75296_1_.getClass())) {
+        if (!this.taskOwner.canAttackClass(p_75296_1_.getClass())) {
             return false;
         }
         if (this.taskOwner instanceof IEntityOwnable
-                && StringUtils.isNotEmpty((CharSequence) ((IEntityOwnable) this.taskOwner).func_152113_b())) {
+                && StringUtils.isNotEmpty(((IEntityOwnable) this.taskOwner).func_152113_b())) {
             if (p_75296_1_ instanceof IEntityOwnable && ((IEntityOwnable) this.taskOwner).func_152113_b()
                     .equals(((IEntityOwnable) p_75296_1_).func_152113_b())) {
                 return false;
@@ -103,7 +102,7 @@ public abstract class EntityAITargetTH extends EntityAIBase {
                 && ((EntityPlayer) p_75296_1_).capabilities.disableDamage) {
                     return false;
                 }
-        if (this.shouldCheckSight && !this.taskOwner.getEntitySenses().canSee((Entity) p_75296_1_)) {
+        if (this.shouldCheckSight && !this.taskOwner.getEntitySenses().canSee(p_75296_1_)) {
             return false;
         }
         if (this.nearbyOnly) {
@@ -120,7 +119,7 @@ public abstract class EntityAITargetTH extends EntityAIBase {
 
     private boolean canEasilyReach(final EntityLivingBase p_75295_1_) {
         this.targetSearchDelay = 10 + this.taskOwner.getRNG().nextInt(5);
-        final PathEntity pathentity = this.taskOwner.getNavigator().getPathToEntityLiving((Entity) p_75295_1_);
+        final PathEntity pathentity = this.taskOwner.getNavigator().getPathToEntityLiving(p_75295_1_);
         if (pathentity == null) {
             return false;
         }

@@ -9,7 +9,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,21 +25,20 @@ public class ContainerSoulExtractor extends Container {
 
     public ContainerSoulExtractor(final InventoryPlayer p_i1812_1_, final TileSoulExtractor p_i1812_2_) {
         this.tile = p_i1812_2_;
-        this.addSlotToContainer(
-                (Slot) new SlotRestricted((IInventory) p_i1812_2_, 0, 64, 30, new ItemStack(Blocks.soul_sand)));
+        this.addSlotToContainer(new SlotRestricted(p_i1812_2_, 0, 64, 30, new ItemStack(Blocks.soul_sand)));
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot((IInventory) p_i1812_1_, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlotToContainer(new Slot(p_i1812_1_, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot((IInventory) p_i1812_1_, i, 8 + i * 18, 142));
+            this.addSlotToContainer(new Slot(p_i1812_1_, i, 8 + i * 18, 142));
         }
     }
 
     public void addCraftingToCrafters(final ICrafting par1ICrafting) {
         super.addCraftingToCrafters(par1ICrafting);
-        par1ICrafting.sendProgressBarUpdate((Container) this, 0, this.tile.ticksLeft);
+        par1ICrafting.sendProgressBarUpdate(this, 0, this.tile.ticksLeft);
     }
 
     public boolean canInteractWith(final EntityPlayer p_75145_1_) {
@@ -52,7 +50,7 @@ public class ContainerSoulExtractor extends Container {
         for (Object crafter : this.crafters) {
             final ICrafting icrafting = (ICrafting) crafter;
             if (this.ticksLeft != this.tile.ticksLeft) {
-                icrafting.sendProgressBarUpdate((Container) this, 0, this.tile.ticksLeft);
+                icrafting.sendProgressBarUpdate(this, 0, this.tile.ticksLeft);
             }
         }
         this.ticksLeft = this.tile.ticksLeft;
@@ -77,7 +75,7 @@ public class ContainerSoulExtractor extends Container {
                 }
                 slot.onSlotChange(itemstack2, itemstack);
                 if (itemstack2.stackSize == 0) {
-                    slot.putStack((ItemStack) null);
+                    slot.putStack(null);
                 }
                 if (itemstack2.stackSize == itemstack.stackSize) {
                     return null;
@@ -90,7 +88,7 @@ public class ContainerSoulExtractor extends Container {
                 }
                 slot.onSlotChange(itemstack2, itemstack);
                 if (itemstack2.stackSize == 0) {
-                    slot.putStack((ItemStack) null);
+                    slot.putStack(null);
                 }
                 if (itemstack2.stackSize == itemstack.stackSize) {
                     return null;

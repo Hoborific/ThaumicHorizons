@@ -8,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -94,12 +93,7 @@ public class BlockSyntheticNode extends BlockContainer {
                         tile.getMaxAspects().getAmount(asp) / 4);
                 ((ItemWispEssence) ConfigItems.itemWispEssence).setAspects(essence, new AspectList().add(asp, 2));
                 p_149749_1_.spawnEntityInWorld(
-                        (Entity) new EntityItem(
-                                p_149749_1_,
-                                (double) p_149749_2_,
-                                (double) p_149749_3_,
-                                (double) p_149749_4_,
-                                essence));
+                        new EntityItem(p_149749_1_, p_149749_2_, p_149749_3_, p_149749_4_, essence));
             }
         }
         super.breakBlock(p_149749_1_, p_149749_2_, p_149749_3_, p_149749_4_, p_149749_5_, p_149749_6_);

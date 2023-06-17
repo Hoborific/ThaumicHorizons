@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.IMerchant;
@@ -16,7 +15,6 @@ import net.minecraft.entity.INpc;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -50,7 +48,7 @@ public class ItemSyringeEmpty extends Item {
     }
 
     public ItemStack onItemRightClick(final ItemStack p_77659_1_, final World world, final EntityPlayer p) {
-        final Entity ent = ItemFocusContainment.getPointedEntity(world, (EntityLivingBase) p, 1.5);
+        final Entity ent = ItemFocusContainment.getPointedEntity(world, p, 1.5);
         if (ent instanceof EntityLiving && !(ent instanceof EntityPlayer)) {
             final EntityLiving critter = (EntityLiving) ent;
             if (critter.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD && !(critter instanceof INpc)
@@ -64,7 +62,7 @@ public class ItemSyringeEmpty extends Item {
                 critter.writeToNBT(critterTag);
                 critterTag.setString("id", EntityList.getEntityString(ent));
                 bloodSample.stackTagCompound.setString("critterName", ent.getCommandSenderName());
-                bloodSample.stackTagCompound.setTag("critter", (NBTBase) critterTag);
+                bloodSample.stackTagCompound.setTag("critter", critterTag);
                 if (p.inventory.addItemStackToInventory(bloodSample)) {
                     --p_77659_1_.stackSize;
                 }

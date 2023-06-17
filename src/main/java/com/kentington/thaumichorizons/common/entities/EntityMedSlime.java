@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -38,7 +37,7 @@ public class EntityMedSlime extends EntitySlime {
                         this.posZ + f2,
                         this.rand.nextFloat() * 360.0f,
                         0.0f);
-                this.worldObj.spawnEntityInWorld((Entity) entityslime);
+                this.worldObj.spawnEntityInWorld(entityslime);
             }
         }
         super.setDead();
@@ -51,17 +50,10 @@ public class EntityMedSlime extends EntitySlime {
     public void onCollideWithPlayer(final EntityPlayer p_70100_1_) {
         if (p_70100_1_.getHealth() < p_70100_1_.getMaxHealth()) {
             final int i = this.getSlimeSize();
-            if (this.canEntityBeSeen((Entity) p_70100_1_)
-                    && this.getDistanceSqToEntity((Entity) p_70100_1_) < 0.6 * i * 0.6 * i) {
+            if (this.canEntityBeSeen(p_70100_1_) && this.getDistanceSqToEntity(p_70100_1_) < 0.6 * i * 0.6 * i) {
                 p_70100_1_.heal((float) (this.getAttackStrength() + 1));
                 this.playSound("mob.attack", 1.0f, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2f + 1.0f);
-                this.worldObj.createExplosion(
-                        (Entity) null,
-                        this.posX,
-                        this.posY + this.height / 2.0f,
-                        this.posZ,
-                        0.0f,
-                        false);
+                this.worldObj.createExplosion(null, this.posX, this.posY + this.height / 2.0f, this.posZ, 0.0f, false);
                 this.setDead();
             }
         }

@@ -5,7 +5,6 @@
 package com.kentington.thaumichorizons.common.lib.networking;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -61,7 +60,7 @@ public class PacketPlayerInfusionSync implements IMessage, IMessageHandler<Packe
                     player.setInvisible(false);
                 } else {
                     final PotionEffect effect = new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 0, true);
-                    effect.setCurativeItems((List) new ArrayList<>());
+                    effect.setCurativeItems(new ArrayList<>());
                     player.addPotionEffect(effect);
                     player.setInvisible(true);
                 }

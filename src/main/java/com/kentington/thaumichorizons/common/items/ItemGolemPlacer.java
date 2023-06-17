@@ -8,8 +8,6 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -30,7 +28,7 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
     public IIcon newBell;
 
     public ItemGolemPlacer() {
-        this.setCreativeTab((CreativeTabs) null);
+        this.setCreativeTab(null);
     }
 
     @SideOnly(Side.CLIENT)
@@ -129,7 +127,7 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
                     golem.upgrades = tt;
                 }
             }
-            par0World.spawnEntityInWorld((Entity) golem);
+            par0World.spawnEntityInWorld(golem);
             golem.setGolemDecoration(deco);
             golem.setOwner(player.getCommandSenderName());
             golem.setMarkers(ItemGolemBell.getMarkers(stack));

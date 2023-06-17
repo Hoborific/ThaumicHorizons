@@ -45,7 +45,7 @@ public class PacketLensChangeToServer implements IMessage, IMessageHandler<Packe
     }
 
     public IMessage onMessage(final PacketLensChangeToServer message, final MessageContext ctx) {
-        final World world = (World) DimensionManager.getWorld(message.dim);
+        final World world = DimensionManager.getWorld(message.dim);
         if (world == null || (ctx.getServerHandler().playerEntity != null
                 && ctx.getServerHandler().playerEntity.getEntityId() != message.playerid)) {
             return null;

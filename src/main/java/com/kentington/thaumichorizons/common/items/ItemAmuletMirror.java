@@ -13,13 +13,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -107,17 +105,16 @@ public class ItemAmuletMirror extends Item implements IBauble, IRunicArmor {
         }
         final TileEntity tm = world.getTileEntity(x, y, z);
         if (tm instanceof TileMirror) {
-            itemstack.setTagInfo("linkX", (NBTBase) new NBTTagInt(tm.xCoord));
-            itemstack.setTagInfo("linkY", (NBTBase) new NBTTagInt(tm.yCoord));
-            itemstack.setTagInfo("linkZ", (NBTBase) new NBTTagInt(tm.zCoord));
-            itemstack.setTagInfo("linkDim", (NBTBase) new NBTTagInt(world.provider.dimensionId));
+            itemstack.setTagInfo("linkX", new NBTTagInt(tm.xCoord));
+            itemstack.setTagInfo("linkY", new NBTTagInt(tm.yCoord));
+            itemstack.setTagInfo("linkZ", new NBTTagInt(tm.zCoord));
+            itemstack.setTagInfo("linkDim", new NBTTagInt(world.provider.dimensionId));
             itemstack.setTagInfo(
                     "dimname",
-                    (NBTBase) new NBTTagString(
-                            DimensionManager.getProvider(world.provider.dimensionId).getDimensionName()));
-            world.playSoundEffect((double) x, (double) y, (double) z, "thaumcraft:jar", 1.0f, 2.0f);
+                    new NBTTagString(DimensionManager.getProvider(world.provider.dimensionId).getDimensionName()));
+            world.playSoundEffect(x, y, z, "thaumcraft:jar", 1.0f, 2.0f);
             player.addChatMessage(
-                    (IChatComponent) new ChatComponentText(
+                    new ChatComponentText(
                             EnumChatFormatting.GRAY + StatCollector.translateToLocal("tc.handmirrorlinked")));
             player.inventoryContainer.detectAndSendChanges();
         }

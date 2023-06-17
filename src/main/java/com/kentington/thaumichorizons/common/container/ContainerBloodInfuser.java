@@ -8,7 +8,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
@@ -33,25 +32,19 @@ public class ContainerBloodInfuser extends Container {
         this.tile = tileEntity;
         this.aspectsKnown = Thaumcraft.proxy.getPlayerKnowledge().getAspectsDiscovered(p.getCommandSenderName());
         this.addSlotToContainer(
-                (Slot) new SlotRestricted(
-                        (IInventory) this.tile,
-                        0,
-                        16,
-                        37,
-                        new ItemStack(ThaumicHorizons.itemSyringeHuman)));
+                new SlotRestricted(this.tile, 0, 16, 37, new ItemStack(ThaumicHorizons.itemSyringeHuman)));
         for (int x = 0; x < 3; ++x) {
             for (int y = 0; y < 3; ++y) {
-                this.addSlotToContainer(
-                        (Slot) new SlotOutput((IInventory) this.tile, x * 3 + y + 1, 108 + x * 18, 19 + y * 18));
+                this.addSlotToContainer(new SlotOutput(this.tile, x * 3 + y + 1, 108 + x * 18, 19 + y * 18));
             }
         }
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot((IInventory) inv, j + i * 9 + 9, 8 + j * 18, 137 + i * 18));
+                this.addSlotToContainer(new Slot(inv, j + i * 9 + 9, 8 + j * 18, 137 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot((IInventory) inv, i, 8 + i * 18, 195));
+            this.addSlotToContainer(new Slot(inv, i, 8 + i * 18, 195));
         }
     }
 
@@ -71,7 +64,7 @@ public class ContainerBloodInfuser extends Container {
                 }
                 slot.onSlotChange(itemstack2, itemstack);
                 if (itemstack2.stackSize == 0) {
-                    slot.putStack((ItemStack) null);
+                    slot.putStack(null);
                 }
                 if (itemstack2.stackSize == itemstack.stackSize) {
                     return null;
@@ -84,7 +77,7 @@ public class ContainerBloodInfuser extends Container {
                 }
                 slot.onSlotChange(itemstack2, itemstack);
                 if (itemstack2.stackSize == 0) {
-                    slot.putStack((ItemStack) null);
+                    slot.putStack(null);
                 }
                 if (itemstack2.stackSize == itemstack.stackSize) {
                     return null;

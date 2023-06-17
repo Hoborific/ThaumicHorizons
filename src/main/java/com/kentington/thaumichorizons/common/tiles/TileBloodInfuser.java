@@ -10,7 +10,6 @@ import java.util.HashMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
@@ -379,7 +378,7 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
                 theInjection.setItemDamage(this.syringe.getItemDamage());
                 this.decrStackSize(0, 1);
                 final NBTTagCompound tag = new NBTTagCompound();
-                tag.setTag("CustomPotionEffects", (NBTBase) this.getCurrentEffects());
+                tag.setTag("CustomPotionEffects", this.getCurrentEffects());
                 tag.setInteger("color", this.color.getRGB());
                 theInjection.setTagCompound(tag);
                 for (int i = 0; i < 9; ++i) {
@@ -451,7 +450,7 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
                 potTag.setInteger("Duration", 1);
             }
             potTag.setBoolean("Ambient", false);
-            effectList.appendTag((NBTBase) potTag);
+            effectList.appendTag(potTag);
             effects.remove(largestEffect);
         }
         this.color = new Color(red, green, blue);
@@ -507,23 +506,23 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
             nbttagcompound.setString("sucking", "");
         }
         NBTTagList tlist = new NBTTagList();
-        nbttagcompound.setTag("AspectsSelected", (NBTBase) tlist);
+        nbttagcompound.setTag("AspectsSelected", tlist);
         for (final Aspect aspect : this.aspectsSelected.getAspects()) {
             if (aspect != null) {
                 final NBTTagCompound f = new NBTTagCompound();
                 f.setString("key", aspect.getTag());
                 f.setInteger("amount", this.aspectsSelected.getAmount(aspect));
-                tlist.appendTag((NBTBase) f);
+                tlist.appendTag(f);
             }
         }
         tlist = new NBTTagList();
-        nbttagcompound.setTag("AspectsAcquired", (NBTBase) tlist);
+        nbttagcompound.setTag("AspectsAcquired", tlist);
         for (final Aspect aspect : this.aspectsAcquired.getAspects()) {
             if (aspect != null) {
                 final NBTTagCompound f = new NBTTagCompound();
                 f.setString("key", aspect.getTag());
                 f.setInteger("amount", this.aspectsAcquired.getAmount(aspect));
-                tlist.appendTag((NBTBase) f);
+                tlist.appendTag(f);
             }
         }
         final NBTTagList nbttaglist = new NBTTagList();
@@ -531,15 +530,15 @@ public class TileBloodInfuser extends TileThaumcraft implements IAspectContainer
         if (this.syringe != null) {
             this.syringe.writeToNBT(nbttagcompound2);
         }
-        nbttaglist.appendTag((NBTBase) nbttagcompound2);
+        nbttaglist.appendTag(nbttagcompound2);
         for (int i = 0; i < 9; ++i) {
             nbttagcompound2 = new NBTTagCompound();
             if (this.output[i] != null) {
                 this.output[i].writeToNBT(nbttagcompound2);
             }
-            nbttaglist.appendTag((NBTBase) nbttagcompound2);
+            nbttaglist.appendTag(nbttagcompound2);
         }
-        nbttagcompound.setTag("Items", (NBTBase) nbttaglist);
+        nbttagcompound.setTag("Items", nbttaglist);
     }
 
     @Override

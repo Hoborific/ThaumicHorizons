@@ -35,7 +35,7 @@ public class RenderTaintfeeder extends RenderPig {
 
     public void doRender(final EntityTaintPig p_76986_1_, final double p_76986_2_, final double p_76986_4_,
             final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
-        super.doRender((EntityLiving) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+        super.doRender(p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
         GL11.glPushMatrix();
         GL11.glAlphaFunc(516, 0.003921569f);
         GL11.glEnable(3042);

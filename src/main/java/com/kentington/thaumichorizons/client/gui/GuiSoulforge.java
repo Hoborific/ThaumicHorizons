@@ -6,7 +6,6 @@ package com.kentington.thaumichorizons.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -24,7 +23,7 @@ public class GuiSoulforge extends GuiContainer {
     TileSoulforge tile;
 
     public GuiSoulforge(final EntityPlayer player, final TileSoulforge tile) {
-        super((Container) new ContainerSoulforge(player, tile));
+        super(new ContainerSoulforge(player, tile));
         this.xSize = 0;
         this.ySize = 0;
     }

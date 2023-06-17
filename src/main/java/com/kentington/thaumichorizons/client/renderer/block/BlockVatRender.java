@@ -39,198 +39,78 @@ public class BlockVatRender implements ISimpleBlockRenderingHandler {
             if (world.getBlockMetadata(x, y, z) == 10) {
                 if (dy == 1) {
                     if (dx == -1 && dz == -1) {
-                        renderer.renderFaceXPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassTL);
-                        renderer.renderFaceZPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassTR);
+                        renderer.renderFaceXPos(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassTL);
+                        renderer.renderFaceZPos(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassTR);
                         block.setBlockBounds(0.0f, 0.0f, 0.0f, 0.75f, 1.0f, 0.75f);
                         renderer.setRenderBoundsFromBlock(block);
                         Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                        renderer.renderFaceXPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
-                        renderer.renderFaceZPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceXPos(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceZPos(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                         block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
                     } else if (dx == 1 && dz == -1) {
-                        renderer.renderFaceXNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassTR);
-                        renderer.renderFaceZPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassTL);
+                        renderer.renderFaceXNeg(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassTR);
+                        renderer.renderFaceZPos(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassTL);
                         block.setBlockBounds(0.25f, 0.0f, 0.0f, 1.0f, 1.0f, 0.75f);
                         renderer.setRenderBoundsFromBlock(block);
                         Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                        renderer.renderFaceXNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
-                        renderer.renderFaceZPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceXNeg(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceZPos(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                         block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
                     } else if (dx == 1 && dz == 1) {
-                        renderer.renderFaceXNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassTL);
-                        renderer.renderFaceZNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassTR);
+                        renderer.renderFaceXNeg(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassTL);
+                        renderer.renderFaceZNeg(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassTR);
                         block.setBlockBounds(0.25f, 0.0f, 0.25f, 1.0f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
                         Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                        renderer.renderFaceXNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
-                        renderer.renderFaceZNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceXNeg(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceZNeg(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                         block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
                     } else if (dx == -1 && dz == 1) {
-                        renderer.renderFaceXPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassTR);
-                        renderer.renderFaceZNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassTL);
+                        renderer.renderFaceXPos(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassTR);
+                        renderer.renderFaceZNeg(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassTL);
                         block.setBlockBounds(0.0f, 0.0f, 0.25f, 0.75f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
                         Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                        renderer.renderFaceXPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
-                        renderer.renderFaceZNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceXPos(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceZNeg(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                         block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
                     } else if (dx == 0) {
                         if (dz == -1) {
-                            renderer.renderFaceZPos(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    ((BlockVat) ThaumicHorizons.blockVat).iconGlassT);
+                            renderer.renderFaceZPos(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassT);
                             block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.75f);
                             renderer.setRenderBoundsFromBlock(block);
                             Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                            renderer.renderFaceZPos(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    Blocks.water.getBlockTextureFromSide(0));
+                            renderer.renderFaceZPos(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                             block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                         } else if (dz == 1) {
-                            renderer.renderFaceZNeg(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    ((BlockVat) ThaumicHorizons.blockVat).iconGlassT);
+                            renderer.renderFaceZNeg(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassT);
                             block.setBlockBounds(0.0f, 0.0f, 0.25f, 1.0f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                             Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                            renderer.renderFaceZNeg(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    Blocks.water.getBlockTextureFromSide(0));
+                            renderer.renderFaceZNeg(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                             block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                         }
                     } else if (dz == 0) {
                         if (dx == -1) {
-                            renderer.renderFaceXPos(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    ((BlockVat) ThaumicHorizons.blockVat).iconGlassT);
+                            renderer.renderFaceXPos(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassT);
                             block.setBlockBounds(0.0f, 0.0f, 0.0f, 0.75f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                             Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                            renderer.renderFaceXPos(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    Blocks.water.getBlockTextureFromSide(0));
+                            renderer.renderFaceXPos(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                             block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                         } else if (dx == 1) {
-                            renderer.renderFaceXNeg(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    ((BlockVat) ThaumicHorizons.blockVat).iconGlassT);
+                            renderer.renderFaceXNeg(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassT);
                             block.setBlockBounds(0.25f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                             Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                            renderer.renderFaceXNeg(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    Blocks.water.getBlockTextureFromSide(0));
+                            renderer.renderFaceXNeg(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                             block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                         }
@@ -239,198 +119,78 @@ public class BlockVatRender implements ISimpleBlockRenderingHandler {
                     if (dx == -1 && dz == -1) {
                         block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
-                        renderer.renderFaceXPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassBL);
-                        renderer.renderFaceZPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassBR);
+                        renderer.renderFaceXPos(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassBL);
+                        renderer.renderFaceZPos(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassBR);
                         block.setBlockBounds(0.0f, 0.0f, 0.0f, 0.75f, 1.0f, 0.75f);
                         renderer.setRenderBoundsFromBlock(block);
                         Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                        renderer.renderFaceXPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
-                        renderer.renderFaceZPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceXPos(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceZPos(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                         block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
                     } else if (dx == 1 && dz == -1) {
-                        renderer.renderFaceXNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassBR);
-                        renderer.renderFaceZPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassBL);
+                        renderer.renderFaceXNeg(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassBR);
+                        renderer.renderFaceZPos(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassBL);
                         block.setBlockBounds(0.25f, 0.0f, 0.0f, 1.0f, 1.0f, 0.75f);
                         renderer.setRenderBoundsFromBlock(block);
                         Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                        renderer.renderFaceXNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
-                        renderer.renderFaceZPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceXNeg(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceZPos(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                         block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
                     } else if (dx == 1 && dz == 1) {
-                        renderer.renderFaceXNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassBL);
-                        renderer.renderFaceZNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassBR);
+                        renderer.renderFaceXNeg(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassBL);
+                        renderer.renderFaceZNeg(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassBR);
                         block.setBlockBounds(0.25f, 0.0f, 0.25f, 1.0f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
                         Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                        renderer.renderFaceXNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
-                        renderer.renderFaceZNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceXNeg(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceZNeg(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                         block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
                     } else if (dx == -1 && dz == 1) {
-                        renderer.renderFaceXPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassBR);
-                        renderer.renderFaceZNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                ((BlockVat) ThaumicHorizons.blockVat).iconGlassBL);
+                        renderer.renderFaceXPos(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassBR);
+                        renderer.renderFaceZNeg(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassBL);
                         block.setBlockBounds(0.0f, 0.0f, 0.25f, 0.75f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
                         Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                        renderer.renderFaceXPos(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
-                        renderer.renderFaceZNeg(
-                                block,
-                                (double) x,
-                                (double) y,
-                                (double) z,
-                                Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceXPos(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
+                        renderer.renderFaceZNeg(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                         block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                         renderer.setRenderBoundsFromBlock(block);
                     } else if (dx == 0) {
                         if (dz == -1) {
-                            renderer.renderFaceZPos(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    ((BlockVat) ThaumicHorizons.blockVat).iconGlassB);
+                            renderer.renderFaceZPos(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassB);
                             block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.75f);
                             renderer.setRenderBoundsFromBlock(block);
                             Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                            renderer.renderFaceZPos(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    Blocks.water.getBlockTextureFromSide(0));
+                            renderer.renderFaceZPos(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                             block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                         } else if (dz == 1) {
-                            renderer.renderFaceZNeg(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    ((BlockVat) ThaumicHorizons.blockVat).iconGlassB);
+                            renderer.renderFaceZNeg(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassB);
                             block.setBlockBounds(0.0f, 0.0f, 0.25f, 1.0f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                             Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                            renderer.renderFaceZNeg(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    Blocks.water.getBlockTextureFromSide(0));
+                            renderer.renderFaceZNeg(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                             block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                         }
                     } else if (dz == 0) {
                         if (dx == -1) {
-                            renderer.renderFaceXPos(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    ((BlockVat) ThaumicHorizons.blockVat).iconGlassB);
+                            renderer.renderFaceXPos(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassB);
                             block.setBlockBounds(0.0f, 0.0f, 0.0f, 0.75f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                             Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                            renderer.renderFaceXPos(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    Blocks.water.getBlockTextureFromSide(0));
+                            renderer.renderFaceXPos(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                             block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                         } else if (dx == 1) {
-                            renderer.renderFaceXNeg(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    ((BlockVat) ThaumicHorizons.blockVat).iconGlassB);
+                            renderer.renderFaceXNeg(block, x, y, z, ((BlockVat) ThaumicHorizons.blockVat).iconGlassB);
                             block.setBlockBounds(0.25f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                             Tessellator.instance.setColorRGBA(255, 255, 255, 255);
-                            renderer.renderFaceXNeg(
-                                    block,
-                                    (double) x,
-                                    (double) y,
-                                    (double) z,
-                                    Blocks.water.getBlockTextureFromSide(0));
+                            renderer.renderFaceXNeg(block, x, y, z, Blocks.water.getBlockTextureFromSide(0));
                             block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
                             renderer.setRenderBoundsFromBlock(block);
                         }

@@ -136,6 +136,6 @@ public class NightmareTeleporter extends Teleporter {
             l5 = -l5;
             l6 = -l6;
         }
-        p_85188_1_.setPosition((double) k6, (double) j6, (double) k3);
+        p_85188_1_.setPosition(k6, j6, k3);
     }
 }

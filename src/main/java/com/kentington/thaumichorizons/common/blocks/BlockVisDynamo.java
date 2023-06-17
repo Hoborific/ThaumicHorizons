@@ -47,7 +47,7 @@ public class BlockVisDynamo extends BlockContainer {
         if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemWandCasting) {
             return false;
         }
-        player.openGui((Object) ThaumicHorizons.instance, 1, world, x, y, z);
+        player.openGui(ThaumicHorizons.instance, 1, world, x, y, z);
         return true;
     }
 

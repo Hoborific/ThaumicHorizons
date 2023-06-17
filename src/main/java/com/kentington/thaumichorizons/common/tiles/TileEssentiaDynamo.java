@@ -7,7 +7,6 @@ package com.kentington.thaumichorizons.common.tiles;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -297,13 +296,13 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
         }
         nbttagcompound.setInteger("ticks", this.ticksProvided);
         final NBTTagList tlist = new NBTTagList();
-        nbttagcompound.setTag("AspectsProvided", (NBTBase) tlist);
+        nbttagcompound.setTag("AspectsProvided", tlist);
         for (final Aspect aspect : this.primalsProvided.getAspects()) {
             if (aspect != null) {
                 final NBTTagCompound f = new NBTTagCompound();
                 f.setString("key", aspect.getTag());
                 f.setInteger("amount", this.primalsProvided.getAmount(aspect));
-                tlist.appendTag((NBTBase) f);
+                tlist.appendTag(f);
             }
         }
     }

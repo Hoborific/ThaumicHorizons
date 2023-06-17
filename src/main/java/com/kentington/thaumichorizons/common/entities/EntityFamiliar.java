@@ -36,7 +36,7 @@ public class EntityFamiliar extends EntityOcelot {
         super.updateAITick();
         if (this.ticksExisted % 10 == 0) {
             final List<EntityPlayer> players = (List<EntityPlayer>) this.worldObj.getEntitiesWithinAABB(
-                    (Class) EntityPlayer.class,
+                    EntityPlayer.class,
                     AxisAlignedBB.getBoundingBox(
                             this.posX - 5.0,
                             this.posY - 5.0,
@@ -72,7 +72,7 @@ public class EntityFamiliar extends EntityOcelot {
     protected void entityInit() {
         super.entityInit();
         final byte b0 = this.dataWatcher.getWatchableObjectByte(16);
-        this.dataWatcher.updateObject(16, (Object) (byte) (b0 | 0x4));
+        this.dataWatcher.updateObject(16, (byte) (b0 | 0x4));
     }
 
     public boolean isTamed() {

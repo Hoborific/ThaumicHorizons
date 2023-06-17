@@ -15,7 +15,7 @@ public class ModelAlchemite extends ModelBase {
     public ModelAlchemite() {
         this.textureWidth = 64;
         this.textureHeight = 32;
-        (this.Shape1 = new ModelRenderer((ModelBase) this, 0, 0)).addBox(0.0f, 0.0f, 0.0f, 16, 16, 16);
+        (this.Shape1 = new ModelRenderer(this, 0, 0)).addBox(0.0f, 0.0f, 0.0f, 16, 16, 16);
         this.Shape1.setRotationPoint(-8.0f, 8.0f, -8.0f);
         this.Shape1.setTextureSize(64, 32);
         this.Shape1.mirror = true;

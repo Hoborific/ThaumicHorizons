@@ -7,13 +7,11 @@ package com.kentington.thaumichorizons.common.items;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.ForgeHooks;
@@ -60,7 +58,7 @@ public class ItemGolemPowder extends Item {
         if (world.isRemote) {
             return true;
         }
-        if (!blocky.hasTileEntity(md) && !blocky.isAir((IBlockAccess) world, p_77648_4_, p_77648_5_, p_77648_6_)
+        if (!blocky.hasTileEntity(md) && !blocky.isAir(world, p_77648_4_, p_77648_5_, p_77648_6_)
                 && (blocky.isOpaqueCube() || ItemFocusAnimation.isWhitelisted(blocky, md))
                 && blocky.getBlockHardness(world, p_77648_4_, p_77648_5_, p_77648_6_) != -1.0f) {
             WorldSettings.GameType gt = WorldSettings.GameType.SURVIVAL;
@@ -95,8 +93,8 @@ public class ItemGolemPowder extends Item {
                         1.0f);
                 golem.setHomeArea((int) golem.posX, (int) golem.posY, (int) golem.posZ, 32);
                 golem.setOwner(player.getCommandSenderName());
-                world.spawnEntityInWorld((Entity) golem);
-                world.setEntityState((Entity) golem, (byte) 7);
+                world.spawnEntityInWorld(golem);
+                world.setEntityState(golem, (byte) 7);
             } else {
                 Minecraft.getMinecraft().effectRenderer
                         .addBlockDestroyEffects(p_77648_4_, p_77648_5_, p_77648_6_, blocky, md);

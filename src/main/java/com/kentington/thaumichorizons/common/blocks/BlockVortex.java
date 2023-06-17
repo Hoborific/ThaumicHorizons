@@ -132,8 +132,8 @@ public class BlockVortex extends BlockContainer {
 
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
-        par3List.add(new ItemStack((Block) this, 1, 0));
-        par3List.add(new ItemStack((Block) this, 1, 1));
+        par3List.add(new ItemStack(this, 1, 0));
+        par3List.add(new ItemStack(this, 1, 1));
     }
 
     public void breakBlock(final World world, final int x, final int y, final int z, final Block block, final int md) {

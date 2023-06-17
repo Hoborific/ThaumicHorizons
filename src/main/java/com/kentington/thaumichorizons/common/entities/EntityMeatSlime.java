@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
@@ -37,7 +36,7 @@ public class EntityMeatSlime extends EntitySlime {
                         this.posZ + f2,
                         this.rand.nextFloat() * 360.0f,
                         0.0f);
-                this.worldObj.spawnEntityInWorld((Entity) entityslime);
+                this.worldObj.spawnEntityInWorld(entityslime);
             }
         }
         super.setDead();

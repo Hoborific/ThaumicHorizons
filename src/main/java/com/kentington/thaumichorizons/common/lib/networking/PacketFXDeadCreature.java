@@ -5,7 +5,6 @@
 package com.kentington.thaumichorizons.common.lib.networking;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.particle.EntitySpellParticleFX;
 import net.minecraft.world.World;
 
@@ -33,7 +32,7 @@ public class PacketFXDeadCreature implements IMessage, IMessageHandler<PacketFXD
 
     @SideOnly(Side.CLIENT)
     public IMessage onMessage(final PacketFXDeadCreature message, final MessageContext ctx) {
-        final World world = (World) Minecraft.getMinecraft().theWorld;
+        final World world = Minecraft.getMinecraft().theWorld;
         for (int i = 0; i < 36; ++i) {
             final EntitySpellParticleFX fb = new EntitySpellParticleFX(world, this.x, this.y, this.z, 0.0, 0.0, 0.0);
             fb.setRBGColorF(0.8f, 0.2f, 0.2f);
@@ -41,7 +40,7 @@ public class PacketFXDeadCreature implements IMessage, IMessageHandler<PacketFXD
             fb.motionY = (world.rand.nextFloat() - 0.5f) * 0.2f;
             fb.motionZ = (world.rand.nextFloat() - 0.5f) * 0.4f;
             fb.noClip = true;
-            FMLClientHandler.instance().getClient().effectRenderer.addEffect((EntityFX) fb);
+            FMLClientHandler.instance().getClient().effectRenderer.addEffect(fb);
         }
         world.playSoundEffect(this.x + 0.5, this.y, this.z + 0.5, "thaumcraft:gore", 2.0f, 1.0f);
         return null;

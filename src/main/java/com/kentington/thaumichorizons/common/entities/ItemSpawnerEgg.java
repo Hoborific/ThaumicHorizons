@@ -15,7 +15,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -138,7 +137,7 @@ public class ItemSpawnerEgg extends Item {
                         0.0f);
                 entityliving.rotationYawHead = entityliving.rotationYaw;
                 entityliving.renderYawOffset = entityliving.rotationYaw;
-                entityliving.onSpawnWithEgg((IEntityLivingData) null);
+                entityliving.onSpawnWithEgg(null);
                 par0World.spawnEntityInWorld(entity);
                 entityliving.playLivingSound();
             }

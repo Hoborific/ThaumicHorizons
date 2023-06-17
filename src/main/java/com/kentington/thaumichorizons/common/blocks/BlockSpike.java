@@ -177,64 +177,64 @@ public class BlockSpike extends BlockContainer {
         final int md = p_149668_1_.getBlockMetadata(p_149668_2_, p_149668_3_, p_149668_4_);
         if (md == 0) {
             return AxisAlignedBB.getBoundingBox(
-                    (double) p_149668_2_,
-                    (double) (p_149668_3_ + f),
-                    (double) p_149668_4_,
-                    (double) (p_149668_2_ + 1),
-                    (double) (p_149668_3_ + 1),
-                    (double) (p_149668_4_ + 1));
+                    p_149668_2_,
+                    p_149668_3_ + f,
+                    p_149668_4_,
+                    p_149668_2_ + 1,
+                    p_149668_3_ + 1,
+                    p_149668_4_ + 1);
         }
         if (md == 1) {
             return AxisAlignedBB.getBoundingBox(
-                    (double) p_149668_2_,
-                    (double) p_149668_3_,
-                    (double) p_149668_4_,
-                    (double) (p_149668_2_ + 1),
-                    (double) (p_149668_3_ + 1 - f),
-                    (double) (p_149668_4_ + 1));
+                    p_149668_2_,
+                    p_149668_3_,
+                    p_149668_4_,
+                    p_149668_2_ + 1,
+                    p_149668_3_ + 1 - f,
+                    p_149668_4_ + 1);
         }
         if (md == 4) {
             return AxisAlignedBB.getBoundingBox(
-                    (double) (p_149668_2_ + f),
-                    (double) p_149668_3_,
-                    (double) p_149668_4_,
-                    (double) (p_149668_2_ + 1),
-                    (double) (p_149668_3_ + 1),
-                    (double) (p_149668_4_ + 1));
+                    p_149668_2_ + f,
+                    p_149668_3_,
+                    p_149668_4_,
+                    p_149668_2_ + 1,
+                    p_149668_3_ + 1,
+                    p_149668_4_ + 1);
         }
         if (md == 5) {
             return AxisAlignedBB.getBoundingBox(
-                    (double) p_149668_2_,
-                    (double) p_149668_3_,
-                    (double) p_149668_4_,
-                    (double) (p_149668_2_ + 1 - f),
-                    (double) (p_149668_3_ + 1),
-                    (double) (p_149668_4_ + 1));
+                    p_149668_2_,
+                    p_149668_3_,
+                    p_149668_4_,
+                    p_149668_2_ + 1 - f,
+                    p_149668_3_ + 1,
+                    p_149668_4_ + 1);
         }
         if (md == 2) {
             return AxisAlignedBB.getBoundingBox(
-                    (double) p_149668_2_,
-                    (double) p_149668_3_,
-                    (double) (p_149668_4_ + f),
-                    (double) (p_149668_2_ + 1),
-                    (double) (p_149668_3_ + 1),
-                    (double) (p_149668_4_ + 1));
+                    p_149668_2_,
+                    p_149668_3_,
+                    p_149668_4_ + f,
+                    p_149668_2_ + 1,
+                    p_149668_3_ + 1,
+                    p_149668_4_ + 1);
         }
         if (md == 3) {
             return AxisAlignedBB.getBoundingBox(
-                    (double) p_149668_2_,
-                    (double) p_149668_3_,
-                    (double) p_149668_4_,
-                    (double) (p_149668_2_ + 1),
-                    (double) (p_149668_3_ + 1),
-                    (double) (p_149668_4_ + 1 - f));
+                    p_149668_2_,
+                    p_149668_3_,
+                    p_149668_4_,
+                    p_149668_2_ + 1,
+                    p_149668_3_ + 1,
+                    p_149668_4_ + 1 - f);
         }
         return AxisAlignedBB.getBoundingBox(
-                (double) (p_149668_2_ + f),
-                (double) p_149668_3_,
-                (double) (p_149668_4_ + f),
-                (double) (p_149668_2_ + 1 - f),
-                (double) (p_149668_3_ + 1 - f),
-                (double) (p_149668_4_ + 1 - f));
+                p_149668_2_ + f,
+                p_149668_3_,
+                p_149668_4_ + f,
+                p_149668_2_ + 1 - f,
+                p_149668_3_ + 1 - f,
+                p_149668_4_ + 1 - f);
     }
 }

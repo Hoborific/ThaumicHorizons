@@ -35,25 +35,25 @@ public class ModelGuardianPanther extends ModelBase {
         this.setTextureOffset("head.nose", 0, 24);
         this.setTextureOffset("head.ear1", 0, 10);
         this.setTextureOffset("head.ear2", 6, 10);
-        (this.ocelotHead = new ModelRenderer((ModelBase) this, "head")).addBox("main", -5.0f, -4.0f, -6.0f, 10, 8, 10);
+        (this.ocelotHead = new ModelRenderer(this, "head")).addBox("main", -5.0f, -4.0f, -6.0f, 10, 8, 10);
         this.ocelotHead.addBox("nose", -3.0f, 0.0f, -8.0f, 6, 4, 4);
         this.ocelotHead.addBox("ear1", -4.0f, -6.0f, 0.0f, 2, 2, 4);
         this.ocelotHead.addBox("ear2", 2.0f, -6.0f, 0.0f, 2, 2, 4);
         this.ocelotHead.setRotationPoint(0.0f, 30.0f, -18.0f);
-        (this.ocelotBody = new ModelRenderer((ModelBase) this, 20, 0)).addBox(-4.0f, 6.0f, -16.0f, 8, 32, 12, 0.0f);
+        (this.ocelotBody = new ModelRenderer(this, 20, 0)).addBox(-4.0f, 6.0f, -16.0f, 8, 32, 12, 0.0f);
         this.ocelotBody.setRotationPoint(0.0f, 24.0f, -20.0f);
-        (this.ocelotTail = new ModelRenderer((ModelBase) this, 0, 15)).addBox(-1.0f, 0.0f, 0.0f, 2, 16, 2);
+        (this.ocelotTail = new ModelRenderer(this, 0, 15)).addBox(-1.0f, 0.0f, 0.0f, 2, 16, 2);
         this.ocelotTail.rotateAngleX = 0.9f;
         this.ocelotTail.setRotationPoint(0.0f, 30.0f, 16.0f);
-        (this.ocelotTail2 = new ModelRenderer((ModelBase) this, 4, 15)).addBox(-1.0f, 0.0f, 0.0f, 2, 16, 2);
+        (this.ocelotTail2 = new ModelRenderer(this, 4, 15)).addBox(-1.0f, 0.0f, 0.0f, 2, 16, 2);
         this.ocelotTail2.setRotationPoint(0.0f, 40.0f, 28.0f);
-        (this.ocelotBackLeftLeg = new ModelRenderer((ModelBase) this, 8, 13)).addBox(-2.0f, 0.0f, 2.0f, 4, 12, 4);
+        (this.ocelotBackLeftLeg = new ModelRenderer(this, 8, 13)).addBox(-2.0f, 0.0f, 2.0f, 4, 12, 4);
         this.ocelotBackLeftLeg.setRotationPoint(2.2f, 36.0f, 10.0f);
-        (this.ocelotBackRightLeg = new ModelRenderer((ModelBase) this, 8, 13)).addBox(-2.0f, 0.0f, 2.0f, 4, 12, 4);
+        (this.ocelotBackRightLeg = new ModelRenderer(this, 8, 13)).addBox(-2.0f, 0.0f, 2.0f, 4, 12, 4);
         this.ocelotBackRightLeg.setRotationPoint(-2.2f, 36.0f, 10.0f);
-        (this.ocelotFrontLeftLeg = new ModelRenderer((ModelBase) this, 40, 0)).addBox(-2.0f, 0.0f, 0.0f, 4, 20, 4);
+        (this.ocelotFrontLeftLeg = new ModelRenderer(this, 40, 0)).addBox(-2.0f, 0.0f, 0.0f, 4, 20, 4);
         this.ocelotFrontLeftLeg.setRotationPoint(2.4f, 27.6f, -10.0f);
-        (this.ocelotFrontRightLeg = new ModelRenderer((ModelBase) this, 40, 0)).addBox(-1.0f, 0.0f, 0.0f, 4, 10, 4);
+        (this.ocelotFrontRightLeg = new ModelRenderer(this, 40, 0)).addBox(-1.0f, 0.0f, 0.0f, 4, 10, 4);
         this.ocelotFrontRightLeg.setRotationPoint(-2.4f, 27.6f, -10.0f);
     }
 

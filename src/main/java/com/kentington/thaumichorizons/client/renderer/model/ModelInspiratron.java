@@ -18,22 +18,22 @@ public class ModelInspiratron extends ModelBase {
     public ModelInspiratron() {
         this.textureWidth = 64;
         this.textureHeight = 64;
-        (this.Jar = new ModelRenderer((ModelBase) this, 0, 0)).addBox(0.0f, 0.0f, 0.0f, 10, 14, 10);
+        (this.Jar = new ModelRenderer(this, 0, 0)).addBox(0.0f, 0.0f, 0.0f, 10, 14, 10);
         this.Jar.setRotationPoint(-5.0f, 11.0f, -5.0f);
         this.Jar.setTextureSize(64, 64);
         this.Jar.mirror = true;
         this.setRotation(this.Jar, 0.0f, 0.0f, 0.0f);
-        (this.BottomA = new ModelRenderer((ModelBase) this, 0, 39)).addBox(0.0f, 0.0f, 0.0f, 16, 1, 16);
+        (this.BottomA = new ModelRenderer(this, 0, 39)).addBox(0.0f, 0.0f, 0.0f, 16, 1, 16);
         this.BottomA.setRotationPoint(-8.0f, 23.0f, -8.0f);
         this.BottomA.setTextureSize(64, 64);
         this.BottomA.mirror = true;
         this.setRotation(this.BottomA, 0.0f, 0.0f, 0.0f);
-        (this.Bottom1B = new ModelRenderer((ModelBase) this, 0, 24)).addBox(0.0f, 0.0f, 0.0f, 12, 3, 12);
+        (this.Bottom1B = new ModelRenderer(this, 0, 24)).addBox(0.0f, 0.0f, 0.0f, 12, 3, 12);
         this.Bottom1B.setRotationPoint(-6.0f, 20.0f, -6.0f);
         this.Bottom1B.setTextureSize(64, 64);
         this.Bottom1B.mirror = true;
         this.setRotation(this.Bottom1B, 0.0f, 0.0f, 0.0f);
-        (this.Top = new ModelRenderer((ModelBase) this, 0, 24)).addBox(0.0f, 0.0f, 0.0f, 12, 1, 12);
+        (this.Top = new ModelRenderer(this, 0, 24)).addBox(0.0f, 0.0f, 0.0f, 12, 1, 12);
         this.Top.setRotationPoint(-6.0f, 10.0f, -6.0f);
         this.Top.setTextureSize(64, 64);
         this.Top.mirror = true;

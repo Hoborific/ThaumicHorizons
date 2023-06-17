@@ -27,12 +27,12 @@ public class BlockDust extends Block {
             final int p_149668_3_, final int p_149668_4_) {
         final float f = 0.125f;
         return AxisAlignedBB.getBoundingBox(
-                (double) p_149668_2_,
-                (double) p_149668_3_,
-                (double) p_149668_4_,
-                (double) (p_149668_2_ + 1),
-                (double) (p_149668_3_ + 1 - f),
-                (double) (p_149668_4_ + 1));
+                p_149668_2_,
+                p_149668_3_,
+                p_149668_4_,
+                p_149668_2_ + 1,
+                p_149668_3_ + 1 - f,
+                p_149668_4_ + 1);
     }
 
     public void onEntityCollidedWithBlock(final World p_149670_1_, final int p_149670_2_, final int p_149670_3_,

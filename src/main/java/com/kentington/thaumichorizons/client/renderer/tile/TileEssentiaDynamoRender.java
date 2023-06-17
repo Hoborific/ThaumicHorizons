@@ -5,7 +5,6 @@
 package com.kentington.thaumichorizons.client.renderer.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -50,7 +49,7 @@ public class TileEssentiaDynamoRender extends TileEntitySpecialRenderer {
                     tco.essentia.getColor(),
                     0.3f);
             fb.noClip = true;
-            ParticleEngine.instance.addEffect(tco.getWorldObj(), (EntityFX) fb);
+            ParticleEngine.instance.addEffect(tco.getWorldObj(), fb);
         }
         if (tco.rise >= 0.3f && tco.ticksProvided > 0) {
             GL11.glPushMatrix();
@@ -63,7 +62,7 @@ public class TileEssentiaDynamoRender extends TileEntitySpecialRenderer {
             final int i = (int) ((nt / 40000000L + x) % frames);
             UtilsFX.renderFacingQuad(
                     tco.xCoord + 0.5,
-                    (double) (tco.yCoord + 0.5f),
+                    tco.yCoord + 0.5f,
                     tco.zCoord + 0.5,
                     0.0f,
                     0.2f,

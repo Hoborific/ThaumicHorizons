@@ -16,7 +16,7 @@ public class THGuiFactory implements IModGuiFactory {
     public void initialize(final Minecraft minecraftInstance) {}
 
     public Class<? extends GuiScreen> mainConfigGuiClass() {
-        return (Class<? extends GuiScreen>) THConfigGUI.class;
+        return THConfigGUI.class;
     }
 
     public Set<IModGuiFactory.RuntimeOptionCategoryElement> runtimeGuiCategories() {

@@ -26,7 +26,7 @@ public class EntityAIOwnerHurtByTargetTH extends EntityAITarget {
     public boolean shouldExecute() {
         final EntityInfusionProperties prop = (EntityInfusionProperties) this.theDefendingTameable
                 .getExtendedProperties("CreatureInfusion");
-        final EntityLivingBase entitylivingbase = (EntityLivingBase) this.theDefendingTameable.worldObj
+        final EntityLivingBase entitylivingbase = this.theDefendingTameable.worldObj
                 .getPlayerEntityByName(prop.getOwner());
         if (entitylivingbase == null) {
             return false;
@@ -40,7 +40,7 @@ public class EntityAIOwnerHurtByTargetTH extends EntityAITarget {
         this.taskOwner.setAttackTarget(this.theOwnerAttacker);
         final EntityInfusionProperties prop = (EntityInfusionProperties) this.theDefendingTameable
                 .getExtendedProperties("CreatureInfusion");
-        final EntityLivingBase entitylivingbase = (EntityLivingBase) this.theDefendingTameable.worldObj
+        final EntityLivingBase entitylivingbase = this.theDefendingTameable.worldObj
                 .getPlayerEntityByName(prop.getOwner());
         if (entitylivingbase != null) {
             this.field_142051_e = entitylivingbase.func_142015_aE();

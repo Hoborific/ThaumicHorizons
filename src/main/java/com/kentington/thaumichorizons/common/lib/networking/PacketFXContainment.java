@@ -5,8 +5,6 @@
 package com.kentington.thaumichorizons.common.lib.networking;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EntityFX;
-import net.minecraft.world.World;
 
 import com.kentington.thaumichorizons.client.fx.FXContainment;
 
@@ -34,12 +32,8 @@ public class PacketFXContainment implements IMessage, IMessageHandler<PacketFXCo
 
     @SideOnly(Side.CLIENT)
     public IMessage onMessage(final PacketFXContainment message, final MessageContext ctx) {
-        final FXContainment fb = new FXContainment(
-                (World) Minecraft.getMinecraft().theWorld,
-                message.x,
-                message.y,
-                message.z);
-        ParticleEngine.instance.addEffect((World) Minecraft.getMinecraft().theWorld, (EntityFX) fb);
+        final FXContainment fb = new FXContainment(Minecraft.getMinecraft().theWorld, message.x, message.y, message.z);
+        ParticleEngine.instance.addEffect(Minecraft.getMinecraft().theWorld, fb);
         return null;
     }
 

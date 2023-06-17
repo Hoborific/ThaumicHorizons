@@ -7,7 +7,6 @@ package com.kentington.thaumichorizons.client.renderer.item;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -52,7 +51,7 @@ public class ItemCorpseEffigyRender implements IItemRenderer {
             GL11.glScalef(0.5f, 0.5f, 0.5f);
         }
         UtilsFX.bindTexture(new ResourceLocation("thaumichorizons", this.tx1));
-        this.corpse.render((Entity) null, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.125f);
+        this.corpse.render(null, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.125f);
         GL11.glPopMatrix();
     }
 }

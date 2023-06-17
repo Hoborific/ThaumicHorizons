@@ -40,7 +40,7 @@ public class RenderWizardCow extends RenderCow {
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
-        super.doRender((EntityLiving) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+        super.doRender(p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         if (RenderWizardCow.cowAspects.containsKey(p_76986_1_.getUniqueID().toString())) {
             this.renderMyNode(

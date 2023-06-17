@@ -34,11 +34,11 @@ public class RenderGolemTH extends RenderGolemBase {
     public RenderGolemTH(final ModelBase arg0) {
         super(arg0);
         this.voidGolem = new ResourceLocation("thaumichorizons", "textures/models/golem_void.png");
-        this.accessories = (ModelBase) new ModelGolemAccessories(0.0f, 30.0f);
+        this.accessories = new ModelGolemAccessories(0.0f, 30.0f);
         if (arg0 instanceof ModelGolemTH) {
             final ModelGolemTH mg = new ModelGolemTH(false);
             mg.pass = 2;
-            this.damage = (ModelBase) mg;
+            this.damage = mg;
         }
     }
 
@@ -57,7 +57,7 @@ public class RenderGolemTH extends RenderGolemBase {
 
     public void render(final EntityGolemTH e, final double par2, final double par4, final double par6, final float par8,
             final float par9) {
-        super.doRender((EntityLiving) e, par2, par4, par6, par8, par9);
+        super.doRender(e, par2, par4, par6, par8, par9);
     }
 
     public void doRender(final EntityLiving par1EntityLiving, final double par2, final double par4, final double par6,
@@ -80,8 +80,7 @@ public class RenderGolemTH extends RenderGolemBase {
                 GL11.glScaled(0.175, 0.175, 0.175);
                 GL11.glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
                 final Tessellator tessellator = Tessellator.instance;
-                final IIcon icon = ConfigItems.itemGolemCore
-                        .getIconFromDamage((int) ((EntityGolemTH) entity).getCore());
+                final IIcon icon = ConfigItems.itemGolemCore.getIconFromDamage(((EntityGolemTH) entity).getCore());
                 final float f1 = icon.getMaxU();
                 final float f2 = icon.getMinV();
                 final float f3 = icon.getMinU();
@@ -103,7 +102,7 @@ public class RenderGolemTH extends RenderGolemBase {
                 GL11.glScaled(0.1, 0.1, 0.1);
                 final Tessellator tessellator2 = Tessellator.instance;
                 final IIcon icon2 = ConfigItems.itemGolemUpgrade
-                        .getIconFromDamage((int) ((EntityGolemTH) entity).getUpgrade(a));
+                        .getIconFromDamage(((EntityGolemTH) entity).getUpgrade(a));
                 final float f5 = icon2.getMaxU();
                 final float f6 = icon2.getMinV();
                 final float f7 = icon2.getMinU();
@@ -111,10 +110,10 @@ public class RenderGolemTH extends RenderGolemBase {
                 this.renderManager.renderEngine.bindTexture(TextureMap.locationItemsTexture);
                 tessellator2.startDrawingQuads();
                 tessellator2.setNormal(0.0f, 0.0f, 1.0f);
-                tessellator2.addVertexWithUV(0.0, 0.0, 0.0, (double) f5, (double) f8);
-                tessellator2.addVertexWithUV(1.0, 0.0, 0.0, (double) f7, (double) f8);
-                tessellator2.addVertexWithUV(1.0, 1.0, 0.0, (double) f7, (double) f6);
-                tessellator2.addVertexWithUV(0.0, 1.0, 0.0, (double) f5, (double) f6);
+                tessellator2.addVertexWithUV(0.0, 0.0, 0.0, f5, f8);
+                tessellator2.addVertexWithUV(1.0, 0.0, 0.0, f7, f8);
+                tessellator2.addVertexWithUV(1.0, 1.0, 0.0, f7, f6);
+                tessellator2.addVertexWithUV(0.0, 1.0, 0.0, f5, f6);
                 tessellator2.draw();
                 GL11.glPopMatrix();
             }

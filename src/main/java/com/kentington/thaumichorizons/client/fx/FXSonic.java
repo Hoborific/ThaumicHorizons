@@ -85,7 +85,7 @@ public class FXSonic extends EntityFX {
         final float xx = (float) (this.prevPosX + (this.posX - this.prevPosX) * f - FXSonic.interpPosX);
         final float yy = (float) (this.prevPosY + (this.posY - this.prevPosY) * f - FXSonic.interpPosY);
         final float zz = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * f - FXSonic.interpPosZ);
-        GL11.glTranslated((double) xx, (double) yy, (double) zz);
+        GL11.glTranslated(xx, yy, zz);
         float b = 1.0f;
         final int frame = Math.min(15, (int) (14.0f * fade) + 1);
         UtilsFX.bindTexture("textures/models/ripple" + frame + ".png");

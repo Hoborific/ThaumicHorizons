@@ -52,30 +52,10 @@ public class RenderSoul extends Render {
         final float x3 = (i + 1) / this.size1;
         tessellator.startDrawingQuads();
         tessellator.setBrightness(240);
-        tessellator.addVertexWithUV(
-                (double) (f7 - f1 * f6 - f4 * f6),
-                (double) (f8 - f2 * f6),
-                (double) (f9 - f3 * f6 - f5 * f6),
-                (double) x3,
-                0.0);
-        tessellator.addVertexWithUV(
-                (double) (f7 - f1 * f6 + f4 * f6),
-                (double) (f8 + f2 * f6),
-                (double) (f9 - f3 * f6 + f5 * f6),
-                (double) x3,
-                1.0);
-        tessellator.addVertexWithUV(
-                (double) (f7 + f1 * f6 + f4 * f6),
-                (double) (f8 + f2 * f6),
-                (double) (f9 + f3 * f6 + f5 * f6),
-                (double) x2,
-                1.0);
-        tessellator.addVertexWithUV(
-                (double) (f7 + f1 * f6 - f4 * f6),
-                (double) (f8 - f2 * f6),
-                (double) (f9 + f3 * f6 - f5 * f6),
-                (double) x2,
-                0.0);
+        tessellator.addVertexWithUV(f7 - f1 * f6 - f4 * f6, f8 - f2 * f6, f9 - f3 * f6 - f5 * f6, x3, 0.0);
+        tessellator.addVertexWithUV(f7 - f1 * f6 + f4 * f6, f8 + f2 * f6, f9 - f3 * f6 + f5 * f6, x3, 1.0);
+        tessellator.addVertexWithUV(f7 + f1 * f6 + f4 * f6, f8 + f2 * f6, f9 + f3 * f6 + f5 * f6, x2, 1.0);
+        tessellator.addVertexWithUV(f7 + f1 * f6 - f4 * f6, f8 - f2 * f6, f9 + f3 * f6 - f5 * f6, x2, 0.0);
         tessellator.draw();
         GL11.glDisable(3042);
         GL11.glDepthMask(true);

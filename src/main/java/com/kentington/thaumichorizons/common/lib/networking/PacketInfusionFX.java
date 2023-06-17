@@ -49,9 +49,9 @@ public class PacketInfusionFX implements IMessage, IMessageHandler<PacketInfusio
         buffer.writeInt(this.y);
         buffer.writeInt(this.z);
         buffer.writeInt(this.color);
-        buffer.writeByte((int) this.dx);
-        buffer.writeByte((int) this.dy);
-        buffer.writeByte((int) this.dz);
+        buffer.writeByte(this.dx);
+        buffer.writeByte(this.dy);
+        buffer.writeByte(this.dz);
     }
 
     public void fromBytes(final ByteBuf buffer) {

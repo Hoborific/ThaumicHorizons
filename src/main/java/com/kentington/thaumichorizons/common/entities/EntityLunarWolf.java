@@ -33,7 +33,7 @@ public class EntityLunarWolf extends EntityWolf {
         final int tix = (int) (7.0f - this.worldObj.getCurrentMoonPhaseFactor() * 4.0f);
         if (this.ticksExisted % tix == 0) {
             final List<EntityPlayer> players = (List<EntityPlayer>) this.worldObj.getEntitiesWithinAABB(
-                    (Class) EntityPlayer.class,
+                    EntityPlayer.class,
                     AxisAlignedBB.getBoundingBox(
                             this.posX - 5.0,
                             this.posY - 5.0,

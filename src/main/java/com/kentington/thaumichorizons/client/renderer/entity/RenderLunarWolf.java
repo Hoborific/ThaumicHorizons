@@ -30,7 +30,7 @@ public class RenderLunarWolf extends RenderWolf {
 
     public void doRender(final EntityLunarWolf p_76986_1_, final double p_76986_2_, final double p_76986_4_,
             final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
-        super.doRender((EntityLiving) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+        super.doRender(p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
         if (p_76986_1_.worldObj.getWorldTime() % 24000L < 12000L) {
             return;
         }

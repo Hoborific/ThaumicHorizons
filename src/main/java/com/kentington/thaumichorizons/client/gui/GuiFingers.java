@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
@@ -34,7 +32,7 @@ public class GuiFingers extends GuiContainer {
     ArrayList<Aspect> primals;
 
     public GuiFingers(final InventoryPlayer par1InventoryPlayer) {
-        super((Container) new ContainerFingers(par1InventoryPlayer));
+        super(new ContainerFingers(par1InventoryPlayer));
         this.aspectLocs = new int[][] { { 72, 21 }, { 24, 43 }, { 24, 102 }, { 72, 124 }, { 120, 102 }, { 120, 43 } };
         this.primals = Aspect.getPrimalAspects();
         this.tileEntity = ((ContainerFingers) this.inventorySlots).tileEntity;
@@ -59,9 +57,8 @@ public class GuiFingers extends GuiContainer {
             wand = (ItemWandCasting) this.tileEntity.getStackInSlot(10).getItem();
         }
         AspectList cost = null;
-        if (ThaumcraftCraftingManager.findMatchingArcaneRecipe((IInventory) this.tileEntity, this.ip.player) != null) {
-            cost = ThaumcraftCraftingManager
-                    .findMatchingArcaneRecipeAspects((IInventory) this.tileEntity, this.ip.player);
+        if (ThaumcraftCraftingManager.findMatchingArcaneRecipe(this.tileEntity, this.ip.player) != null) {
+            cost = ThaumcraftCraftingManager.findMatchingArcaneRecipeAspects(this.tileEntity, this.ip.player);
             int count = 0;
             for (final Aspect primal : this.primals) {
                 float amt = cost.getAmount(primal);
@@ -84,7 +81,7 @@ public class GuiFingers extends GuiContainer {
                             primal,
                             amt,
                             0,
-                            (double) this.zLevel,
+                            this.zLevel,
                             771,
                             alpha,
                             false);
@@ -106,13 +103,13 @@ public class GuiFingers extends GuiContainer {
             GuiFingers.itemRender.renderItemAndEffectIntoGUI(
                     this.mc.fontRenderer,
                     this.mc.renderEngine,
-                    ThaumcraftCraftingManager.findMatchingArcaneRecipe((IInventory) this.tileEntity, this.ip.player),
+                    ThaumcraftCraftingManager.findMatchingArcaneRecipe(this.tileEntity, this.ip.player),
                     var5 + 160,
                     var6 + 64);
             GuiFingers.itemRender.renderItemOverlayIntoGUI(
                     this.mc.fontRenderer,
                     this.mc.renderEngine,
-                    ThaumcraftCraftingManager.findMatchingArcaneRecipe((IInventory) this.tileEntity, this.ip.player),
+                    ThaumcraftCraftingManager.findMatchingArcaneRecipe(this.tileEntity, this.ip.player),
                     var5 + 160,
                     var6 + 64);
             GuiFingers.itemRender.renderWithColor = true;

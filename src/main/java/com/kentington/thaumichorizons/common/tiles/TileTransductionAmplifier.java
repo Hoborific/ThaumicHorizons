@@ -6,7 +6,6 @@ package com.kentington.thaumichorizons.common.tiles;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,7 +18,6 @@ import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.blocks.BlockTransductionAmplifier;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -51,19 +49,13 @@ public class TileTransductionAmplifier extends TileThaumcraft {
         super.updateEntity();
 
         if (this.worldObj.provider.dimensionId == ThaumicHorizons.dimensionPocketId) {
-            this.worldObj.createExplosion(
-                    (Entity) null,
-                    (double) (this.xCoord),
-                    (double) (this.yCoord),
-                    (double) (this.zCoord),
-                    1.0f,
-                    false);
+            this.worldObj.createExplosion(null, this.xCoord, this.yCoord, this.zCoord, 1.0f, false);
         }
 
         if (!this.fireOnce) {
             this.direction = (byte) this.getBlockMetadata();
             this.worldObj.getBlock(this.xCoord, this.yCoord, this.zCoord)
-                    .onNeighborBlockChange(this.worldObj, this.xCoord, this.yCoord, this.zCoord, (Block) null);
+                    .onNeighborBlockChange(this.worldObj, this.xCoord, this.yCoord, this.zCoord, null);
             this.fireOnce = true;
         }
         if (this.activated) {
@@ -78,7 +70,7 @@ public class TileTransductionAmplifier extends TileThaumcraft {
             if (this.direction == -1) {
                 this.direction = (byte) this.getBlockMetadata();
             }
-            final ForgeDirection dir = ForgeDirection.getOrientation((int) this.direction);
+            final ForgeDirection dir = ForgeDirection.getOrientation(this.direction);
             if (dir == ForgeDirection.UP && this.worldObj
                     .getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof TileNodeEnergized) {
                 this.boostNode(this.xCoord, this.yCoord - 1, this.zCoord);
@@ -117,7 +109,7 @@ public class TileTransductionAmplifier extends TileThaumcraft {
             if (this.direction == -1) {
                 this.direction = (byte) this.getBlockMetadata();
             }
-            final ForgeDirection dir = ForgeDirection.getOrientation((int) this.direction);
+            final ForgeDirection dir = ForgeDirection.getOrientation(this.direction);
             if (dir == ForgeDirection.UP && this.worldObj
                     .getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof TileNodeEnergized) {
                 this.unboostNode(this.xCoord, this.yCoord - 1, this.zCoord);
@@ -157,7 +149,7 @@ public class TileTransductionAmplifier extends TileThaumcraft {
             int ecks = this.xCoord;
             final int why = this.yCoord;
             int zee = this.zCoord;
-            final ForgeDirection dir2 = ForgeDirection.getOrientation((int) this.direction);
+            final ForgeDirection dir2 = ForgeDirection.getOrientation(this.direction);
             if (dir2 == ForgeDirection.NORTH && (this.worldObj
                     .getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1) instanceof TileNodeEnergized
                     || this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1) instanceof TileNode)) {
@@ -210,7 +202,7 @@ public class TileTransductionAmplifier extends TileThaumcraft {
                 final int dz = this.worldObj.rand.nextInt(16) - 8;
                 if (this.worldObj.isAirBlock(this.xCoord + dx, this.yCoord + dy, this.zCoord + dz)) {
                     PacketHandler.INSTANCE.sendToAllAround(
-                            (IMessage) new PacketFXBlockZap(
+                            new PacketFXBlockZap(
                                     this.xCoord + 0.5f,
                                     this.yCoord + 0.5f,
                                     this.zCoord + 0.5f,
@@ -219,9 +211,9 @@ public class TileTransductionAmplifier extends TileThaumcraft {
                                     this.zCoord + 0.5f + dz),
                             new NetworkRegistry.TargetPoint(
                                     this.worldObj.provider.dimensionId,
-                                    (double) this.xCoord,
-                                    (double) this.yCoord,
-                                    (double) this.zCoord,
+                                    this.xCoord,
+                                    this.yCoord,
+                                    this.zCoord,
                                     32.0));
                     if (dy > 0) {
                         this.worldObj.setBlock(
@@ -240,18 +232,18 @@ public class TileTransductionAmplifier extends TileThaumcraft {
             }
             if (transducers > 1 && this.count % 50 == 0) {
                 final List<Entity> targets = (List<Entity>) this.worldObj.getEntitiesWithinAABB(
-                        (Class) EntityLivingBase.class,
+                        EntityLivingBase.class,
                         AxisAlignedBB.getBoundingBox(
-                                (double) this.xCoord,
-                                (double) this.yCoord,
-                                (double) this.zCoord,
-                                (double) (this.xCoord + 1),
-                                (double) (this.yCoord + 1),
-                                (double) (this.zCoord + 1)).expand(10.0, 10.0, 10.0));
+                                this.xCoord,
+                                this.yCoord,
+                                this.zCoord,
+                                this.xCoord + 1,
+                                this.yCoord + 1,
+                                this.zCoord + 1).expand(10.0, 10.0, 10.0));
                 if (targets != null && targets.size() > 0) {
                     for (final Entity target : targets) {
                         PacketHandler.INSTANCE.sendToAllAround(
-                                (IMessage) new PacketFXBlockZap(
+                                new PacketFXBlockZap(
                                         this.xCoord + 0.5f,
                                         this.yCoord + 0.5f,
                                         this.zCoord + 0.5f,
@@ -260,9 +252,9 @@ public class TileTransductionAmplifier extends TileThaumcraft {
                                         (float) target.posZ),
                                 new NetworkRegistry.TargetPoint(
                                         this.worldObj.provider.dimensionId,
-                                        (double) this.xCoord,
-                                        (double) this.yCoord,
-                                        (double) this.zCoord,
+                                        this.xCoord,
+                                        this.yCoord,
+                                        this.zCoord,
                                         32.0));
                         target.attackEntityFrom(DamageSource.magic, (float) (4 + this.worldObj.rand.nextInt(1)));
                     }
@@ -293,7 +285,7 @@ public class TileTransductionAmplifier extends TileThaumcraft {
     }
 
     public void unBoostNode(final int x, final int y, final int z) {
-        final ForgeDirection dir = ForgeDirection.getOrientation((int) this.direction);
+        final ForgeDirection dir = ForgeDirection.getOrientation(this.direction);
         if (dir == ForgeDirection.UP && this.worldObj
                 .getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof TileNodeEnergized) {
             this.unboostNode(this.xCoord, this.yCoord - 1, this.zCoord);

@@ -9,13 +9,9 @@ import java.util.Arrays;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -35,7 +31,6 @@ import com.kentington.thaumichorizons.common.lib.networking.PacketFXBlocksplosio
 import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -133,38 +128,31 @@ public class EntityGolemTH extends EntityGolemBase {
             return super.isValidTarget(target) || target instanceof EntityCreeper;
         }
         return target.isEntityAlive()
-                && (!(target instanceof EntityPlayer)
-                        || !((EntityPlayer) target).getCommandSenderName().equals(this.getOwnerName()))
+                && (!(target instanceof EntityPlayer) || !target.getCommandSenderName().equals(this.getOwnerName()))
                 && !target.getCommandSenderName().equals(this.getCommandSenderName());
     }
 
     public boolean setupGolem() {
         super.setupGolem();
         if (this.getCore() == -1) {
-            this.tasks.addTask(0, (EntityAIBase) new AIAvoidCreeperSwell((EntityGolemBase) this));
-            this.targetTasks.addTask(1, (EntityAIBase) new AIHurtByTarget((EntityCreature) this, false));
-            this.targetTasks.addTask(2, (EntityAIBase) new AINearestAttackableTarget((EntityGolemBase) this, 0, true));
-            this.tasks.addTask(3, (EntityAIBase) new AIGolemAttackOnCollide((EntityGolemBase) this));
-            this.tasks.addTask(5, (EntityAIBase) new AIOpenDoor((EntityGolemBase) this, true));
+            this.tasks.addTask(0, new AIAvoidCreeperSwell(this));
+            this.targetTasks.addTask(1, new AIHurtByTarget(this, false));
+            this.targetTasks.addTask(2, new AINearestAttackableTarget(this, 0, true));
+            this.tasks.addTask(3, new AIGolemAttackOnCollide(this));
+            this.tasks.addTask(5, new AIOpenDoor(this, true));
             if (!this.kaboom) {
-                this.tasks.addTask(
-                        6,
-                        (EntityAIBase) new EntityAIFollowPlayer(this, this.getAIMoveSpeed() * 3.0f, 2.0f, 12.0f));
+                this.tasks.addTask(6, new EntityAIFollowPlayer(this, this.getAIMoveSpeed() * 3.0f, 2.0f, 12.0f));
             } else {
-                this.tasks.addTask(
-                        6,
-                        (EntityAIBase) new EntityAIFollowPlayer(this, this.getAIMoveSpeed() * 3.0f, 8.0f, 12.0f));
+                this.tasks.addTask(6, new EntityAIFollowPlayer(this, this.getAIMoveSpeed() * 3.0f, 8.0f, 12.0f));
             }
-            this.tasks.addTask(
-                    7,
-                    (EntityAIBase) new EntityAIWatchClosest((EntityLiving) this, (Class) EntityPlayer.class, 6.0f));
-            this.tasks.addTask(8, (EntityAIBase) new EntityAILookIdle((EntityLiving) this));
+            this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0f));
+            this.tasks.addTask(8, new EntityAILookIdle(this));
             this.paused = false;
             this.inactive = false;
             this.bootup = 0.0f;
         }
         if (!this.worldObj.isRemote) {
-            this.dataWatcher.updateObject(19, (Object) (byte) this.type.ordinal());
+            this.dataWatcher.updateObject(19, (byte) this.type.ordinal());
         }
         this.getNavigator().setAvoidsWater(
                 this.getGolemTHType() != EnumGolemTHType.ROCK && this.getGolemTHType() != EnumGolemTHType.METAL
@@ -173,8 +161,7 @@ public class EntityGolemTH extends EntityGolemBase {
         try {
             bonus = (this.getGolemDecoration().contains("H") ? 5 : 0);
         } catch (Exception ignored) {}
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth)
-                .setBaseValue((double) (this.getGolemTHType().health + bonus));
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(this.getGolemTHType().health + bonus);
         return true;
     }
 
@@ -189,13 +176,13 @@ public class EntityGolemTH extends EntityGolemBase {
         if (ds.getSourceOfDamage() != null && this.getUpgradeAmount(5) > 0
                 && ds.getSourceOfDamage().getEntityId() != this.getEntityId()) {
             ds.getSourceOfDamage().attackEntityFrom(
-                    DamageSource.causeThornsDamage((Entity) this),
+                    DamageSource.causeThornsDamage(this),
                     (float) (this.getUpgradeAmount(5) * 2 + this.rand.nextInt(2 * this.getUpgradeAmount(5))));
             ds.getSourceOfDamage().playSound("damage.thorns", 0.5f, 1.0f);
         } else if (ds.getSourceOfDamage() != null && this.blocky == Blocks.cactus
                 && ds.getSourceOfDamage().getEntityId() != this.getEntityId()) {
                     ds.getSourceOfDamage().attackEntityFrom(
-                            DamageSource.causeThornsDamage((Entity) this),
+                            DamageSource.causeThornsDamage(this),
                             (float) (this.getUpgradeAmount(5) * 2 + this.rand.nextInt(2)));
                     ds.getSourceOfDamage().playSound("damage.thorns", 0.5f, 1.0f);
                 }
@@ -252,7 +239,7 @@ public class EntityGolemTH extends EntityGolemBase {
                         case 0: {
                             if (player != null) {
                                 player.addChatMessage(
-                                        (IChatComponent) new ChatComponentText(
+                                        new ChatComponentText(
                                                 EnumChatFormatting.ITALIC + ""
                                                         + EnumChatFormatting.DARK_PURPLE
                                                         + StatCollector
@@ -264,7 +251,7 @@ public class EntityGolemTH extends EntityGolemBase {
                         case 1: {
                             if (player != null) {
                                 player.addChatMessage(
-                                        (IChatComponent) new ChatComponentText(
+                                        new ChatComponentText(
                                                 EnumChatFormatting.ITALIC + ""
                                                         + EnumChatFormatting.DARK_PURPLE
                                                         + StatCollector
@@ -276,7 +263,7 @@ public class EntityGolemTH extends EntityGolemBase {
                         case 2: {
                             if (player != null) {
                                 player.addChatMessage(
-                                        (IChatComponent) new ChatComponentText(
+                                        new ChatComponentText(
                                                 EnumChatFormatting.ITALIC + ""
                                                         + EnumChatFormatting.DARK_PURPLE
                                                         + StatCollector
@@ -291,7 +278,7 @@ public class EntityGolemTH extends EntityGolemBase {
                                     .burst(this.worldObj, this.posX, this.posY + this.height / 2.0f, this.posZ, 2.0f);
                             final EntityEldritchGuardian scaryThing = new EntityEldritchGuardian(this.worldObj);
                             scaryThing.setPosition(this.posX, this.posY, this.posZ);
-                            this.worldObj.spawnEntityInWorld((Entity) scaryThing);
+                            this.worldObj.spawnEntityInWorld(scaryThing);
                             scaryThing.setHomeArea((int) this.posX, (int) this.posY, (int) this.posZ, 32);
                             break;
                         }
@@ -312,7 +299,7 @@ public class EntityGolemTH extends EntityGolemBase {
                     this.regenTimer *= (int) 0.66f;
                 }
                 if (!this.worldObj.isRemote && this.getHealth() < this.getMaxHealth()) {
-                    this.worldObj.setEntityState((Entity) this, (byte) 5);
+                    this.worldObj.setEntityState(this, (byte) 5);
                     this.heal(1.0f);
                 }
             }
@@ -422,7 +409,7 @@ public class EntityGolemTH extends EntityGolemBase {
                 new IIcon[] { bottom, top, east, west, north, south },
                 (this.blocky == Blocks.grass) ? 1 : ((this.blocky == Blocks.cake) ? 2 : 0));
         this.texture = new ResourceLocation("thaumichorizons", "TEMPGOLEMTEX" + this.getEntityId());
-        Minecraft.getMinecraft().getTextureManager().loadTexture(this.texture, (ITextureObject) newTex);
+        Minecraft.getMinecraft().getTextureManager().loadTexture(this.texture, newTex);
     }
 
     public boolean interact(final EntityPlayer player) {
@@ -443,11 +430,11 @@ public class EntityGolemTH extends EntityGolemBase {
             this.setupGolemInventory();
             --itemstack.stackSize;
             if (itemstack.stackSize <= 0) {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
             }
-            this.worldObj.playSoundAtEntity((Entity) this, "thaumcraft:upgrade", 0.5f, 1.0f);
+            this.worldObj.playSoundAtEntity(this, "thaumcraft:upgrade", 0.5f, 1.0f);
             player.swingItem();
-            this.worldObj.setEntityState((Entity) this, (byte) 7);
+            this.worldObj.setEntityState(this, (byte) 7);
             return true;
         }
         if (this.getCore() == -1) {
@@ -461,9 +448,9 @@ public class EntityGolemTH extends EntityGolemBase {
                     this.setupGolemInventory();
                     --itemstack.stackSize;
                     if (itemstack.stackSize <= 0) {
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                     }
-                    this.worldObj.playSoundAtEntity((Entity) this, "thaumcraft:upgrade", 0.5f, 1.0f);
+                    this.worldObj.playSoundAtEntity(this, "thaumcraft:upgrade", 0.5f, 1.0f);
                     player.swingItem();
                     return true;
                 }
@@ -478,11 +465,11 @@ public class EntityGolemTH extends EntityGolemBase {
         this.spawnExplosionParticle();
         this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "thaumcraft:craftfail", 1.0f, 1.0f);
         if (this.blocky != null && this.blocky != Blocks.air && this.blocky.getMaterial() == Material.tnt) {
-            this.worldObj.createExplosion((Entity) this, this.posX, this.posY, this.posZ, 4.0f, true);
+            this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 4.0f, true);
             return;
         }
         if (this.kaboom) {
-            this.worldObj.createExplosion((Entity) this, this.posX, this.posY, this.posZ, 3.0f, true);
+            this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 3.0f, true);
             return;
         }
         if (this.worldObj.isAirBlock(
@@ -500,7 +487,7 @@ public class EntityGolemTH extends EntityGolemBase {
                 final SimpleNetworkWrapper instance = PacketHandler.INSTANCE;
                 final Block blocky = this.blocky;
                 instance.sendToAllAround(
-                        (IMessage) new PacketFXBlocksplosion(
+                        new PacketFXBlocksplosion(
                                 Block.getIdFromBlock(this.blocky),
                                 this.md,
                                 (int) Math.round(this.posX - 0.5),
@@ -508,9 +495,9 @@ public class EntityGolemTH extends EntityGolemBase {
                                 (int) Math.round(this.posZ - 0.5)),
                         new NetworkRegistry.TargetPoint(
                                 this.worldObj.provider.dimensionId,
-                                (double) (int) Math.round(this.posX - 0.5),
-                                (double) (int) Math.round(this.posY),
-                                (double) (int) Math.round(this.posZ - 0.5),
+                                (int) Math.round(this.posX - 0.5),
+                                (int) Math.round(this.posY),
+                                (int) Math.round(this.posZ - 0.5),
                                 32.0));
             }
             return;
@@ -532,7 +519,7 @@ public class EntityGolemTH extends EntityGolemBase {
                         final SimpleNetworkWrapper instance2 = PacketHandler.INSTANCE;
                         final Block blocky2 = this.blocky;
                         instance2.sendToAllAround(
-                                (IMessage) new PacketFXBlocksplosion(
+                                new PacketFXBlocksplosion(
                                         Block.getIdFromBlock(this.blocky),
                                         this.md,
                                         (int) Math.round(this.posX - 0.5) + x,
@@ -540,9 +527,9 @@ public class EntityGolemTH extends EntityGolemBase {
                                         (int) Math.round(this.posZ - 0.5) + z),
                                 new NetworkRegistry.TargetPoint(
                                         this.worldObj.provider.dimensionId,
-                                        (double) ((int) Math.round(this.posX - 0.5) + x),
-                                        (double) (int) Math.round(this.posY),
-                                        (double) ((int) Math.round(this.posZ - 0.5) + z),
+                                        (int) Math.round(this.posX - 0.5) + x,
+                                        (int) Math.round(this.posY),
+                                        (int) Math.round(this.posZ - 0.5) + z,
                                         32.0));
                     }
                     return;
@@ -566,7 +553,7 @@ public class EntityGolemTH extends EntityGolemBase {
                         final SimpleNetworkWrapper instance3 = PacketHandler.INSTANCE;
                         final Block blocky3 = this.blocky;
                         instance3.sendToAllAround(
-                                (IMessage) new PacketFXBlocksplosion(
+                                new PacketFXBlocksplosion(
                                         Block.getIdFromBlock(this.blocky),
                                         this.md,
                                         (int) Math.round(this.posX - 0.5) + x,
@@ -574,9 +561,9 @@ public class EntityGolemTH extends EntityGolemBase {
                                         (int) Math.round(this.posZ - 0.5) + z),
                                 new NetworkRegistry.TargetPoint(
                                         this.worldObj.provider.dimensionId,
-                                        (double) ((int) Math.round(this.posX - 0.5) + x),
-                                        (double) ((int) Math.round(this.posY) - 1),
-                                        (double) ((int) Math.round(this.posZ - 0.5) + z),
+                                        (int) Math.round(this.posX - 0.5) + x,
+                                        (int) Math.round(this.posY) - 1,
+                                        (int) Math.round(this.posZ - 0.5) + z,
                                         32.0));
                     }
                     return;
@@ -600,7 +587,7 @@ public class EntityGolemTH extends EntityGolemBase {
                         final SimpleNetworkWrapper instance4 = PacketHandler.INSTANCE;
                         final Block blocky4 = this.blocky;
                         instance4.sendToAllAround(
-                                (IMessage) new PacketFXBlocksplosion(
+                                new PacketFXBlocksplosion(
                                         Block.getIdFromBlock(this.blocky),
                                         this.md,
                                         (int) Math.round(this.posX - 0.5) + x,
@@ -608,9 +595,9 @@ public class EntityGolemTH extends EntityGolemBase {
                                         (int) Math.round(this.posZ - 0.5) + z),
                                 new NetworkRegistry.TargetPoint(
                                         this.worldObj.provider.dimensionId,
-                                        (double) ((int) Math.round(this.posX - 0.5) + x),
-                                        (double) ((int) Math.round(this.posY) + 1),
-                                        (double) ((int) Math.round(this.posZ - 0.5) + z),
+                                        (int) Math.round(this.posX - 0.5) + x,
+                                        (int) Math.round(this.posY) + 1,
+                                        (int) Math.round(this.posZ - 0.5) + z,
                                         32.0));
                     }
                     return;
@@ -630,7 +617,7 @@ public class EntityGolemTH extends EntityGolemBase {
         data.writeByte(this.md);
         data.writeByte(this.upgrades.length);
         for (final byte b : this.upgrades) {
-            data.writeByte((int) b);
+            data.writeByte(b);
         }
     }
 
@@ -683,8 +670,7 @@ public class EntityGolemTH extends EntityGolemBase {
             try {
                 bonus = (this.getGolemDecoration().contains("H") ? 5 : 0);
             } catch (Exception ignored) {}
-            this.getEntityAttribute(SharedMonsterAttributes.maxHealth)
-                    .setBaseValue((double) (this.type.health + bonus));
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(this.type.health + bonus);
         } else if (par1 == 6) {
             this.leftArm = 5;
         } else if (par1 == 8) {

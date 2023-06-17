@@ -21,7 +21,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -98,7 +97,7 @@ public class TileCloud extends TileThaumcraft {
                                         this.xCoord,
                                         this.yCoord - this.howManyDown,
                                         this.zCoord,
-                                        (Block) Blocks.fire);
+                                        Blocks.fire);
                                 ThaumicHorizons.proxy.smeltFX(
                                         this.xCoord,
                                         this.yCoord - this.howManyDown,
@@ -143,7 +142,7 @@ public class TileCloud extends TileThaumcraft {
                                     break;
                                 }
                                 if (this.cachedBlock.isFlammable(
-                                        (IBlockAccess) this.worldObj,
+                                        this.worldObj,
                                         this.xCoord,
                                         this.yCoord - this.howManyDown,
                                         this.zCoord,
@@ -152,7 +151,7 @@ public class TileCloud extends TileThaumcraft {
                                             this.xCoord,
                                             this.yCoord - this.howManyDown,
                                             this.zCoord,
-                                            (Block) Blocks.fire);
+                                            Blocks.fire);
                                     ThaumicHorizons.proxy.smeltFX(
                                             this.xCoord,
                                             this.yCoord - this.howManyDown,
@@ -189,7 +188,7 @@ public class TileCloud extends TileThaumcraft {
                                 break;
                             }
                             if (this.cachedBlock.isFlammable(
-                                    (IBlockAccess) this.worldObj,
+                                    this.worldObj,
                                     this.xCoord,
                                     this.yCoord - this.howManyDown,
                                     this.zCoord,
@@ -294,7 +293,7 @@ public class TileCloud extends TileThaumcraft {
                                             ent.rotationPitch);
                                     entitycow.setHealth(((EntityCow) ent).getHealth());
                                     entitycow.renderYawOffset = ((EntityCow) ent).renderYawOffset;
-                                    this.worldObj.spawnEntityInWorld((Entity) entitycow);
+                                    this.worldObj.spawnEntityInWorld(entitycow);
                                     this.worldObj.spawnParticle(
                                             "largeexplode",
                                             ent.posX,
@@ -318,7 +317,7 @@ public class TileCloud extends TileThaumcraft {
                         switch (this.md) {
                             case 2: {
                                 this.worldObj.spawnEntityInWorld(
-                                        (Entity) new EntityLightningBoltFinite(
+                                        new EntityLightningBoltFinite(
                                                 this.worldObj,
                                                 this.xCoord + 0.5,
                                                 this.yCoord - this.howManyDown,
@@ -444,7 +443,7 @@ public class TileCloud extends TileThaumcraft {
                                         this.zCoord + this.worldObj.rand.nextDouble(),
                                         asp,
                                         1);
-                                this.worldObj.spawnEntityInWorld((Entity) orb);
+                                this.worldObj.spawnEntityInWorld(orb);
                                 break;
                             }
                             case 7: {
@@ -454,7 +453,7 @@ public class TileCloud extends TileThaumcraft {
                                         this.yCoord + 0.5,
                                         this.zCoord + this.worldObj.rand.nextDouble(),
                                         this.worldObj.rand.nextInt(4));
-                                this.worldObj.spawnEntityInWorld((Entity) xporb);
+                                this.worldObj.spawnEntityInWorld(xporb);
                                 break;
                             }
                             case 8: {
@@ -510,14 +509,14 @@ public class TileCloud extends TileThaumcraft {
                                                 this.xCoord,
                                                 this.yCoord - this.howManyDown,
                                                 this.zCoord,
-                                                (Block) Blocks.mycelium);
+                                                Blocks.mycelium);
                                         break Label_4978;
                                     }
                                     this.worldObj.setBlock(
                                             this.xCoord,
                                             this.yCoord - this.howManyDown,
                                             this.zCoord,
-                                            (Block) Blocks.grass);
+                                            Blocks.grass);
                                     break Label_4978;
                                 } else if (this.cachedBlock == Blocks.stone || this.cachedBlock == Blocks.mycelium) {
                                     if (this.worldObj.rand.nextInt(3) == 1) {
@@ -525,14 +524,14 @@ public class TileCloud extends TileThaumcraft {
                                                 this.xCoord,
                                                 this.yCoord - this.howManyDown + 1,
                                                 this.zCoord,
-                                                (Block) Blocks.brown_mushroom);
+                                                Blocks.brown_mushroom);
                                         break Label_4978;
                                     }
                                     this.worldObj.setBlock(
                                             this.xCoord,
                                             this.yCoord - this.howManyDown + 1,
                                             this.zCoord,
-                                            (Block) Blocks.red_mushroom);
+                                            Blocks.red_mushroom);
                                     break Label_4978;
                                 } else {
                                     if (this.cachedBlock == Blocks.grass) {
@@ -556,7 +555,7 @@ public class TileCloud extends TileThaumcraft {
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
-                                                            (Block) Blocks.tallgrass);
+                                                            Blocks.tallgrass);
                                                     this.worldObj.setBlockMetadataWithNotify(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -570,7 +569,7 @@ public class TileCloud extends TileThaumcraft {
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
-                                                            (Block) Blocks.tallgrass);
+                                                            Blocks.tallgrass);
                                                     this.worldObj.setBlockMetadataWithNotify(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -584,7 +583,7 @@ public class TileCloud extends TileThaumcraft {
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
-                                                            (Block) Blocks.yellow_flower);
+                                                            Blocks.yellow_flower);
                                                     break;
                                                 }
                                                 case 3:
@@ -593,7 +592,7 @@ public class TileCloud extends TileThaumcraft {
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
-                                                            (Block) Blocks.red_flower);
+                                                            Blocks.red_flower);
                                                     this.worldObj.setBlockMetadataWithNotify(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -607,7 +606,7 @@ public class TileCloud extends TileThaumcraft {
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
-                                                            (Block) Blocks.red_flower);
+                                                            Blocks.red_flower);
                                                     this.worldObj.setBlockMetadataWithNotify(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -621,7 +620,7 @@ public class TileCloud extends TileThaumcraft {
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
-                                                            (Block) Blocks.red_flower);
+                                                            Blocks.red_flower);
                                                     this.worldObj.setBlockMetadataWithNotify(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -635,7 +634,7 @@ public class TileCloud extends TileThaumcraft {
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
-                                                            (Block) Blocks.red_flower);
+                                                            Blocks.red_flower);
                                                     this.worldObj.setBlockMetadataWithNotify(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -649,7 +648,7 @@ public class TileCloud extends TileThaumcraft {
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
-                                                            (Block) Blocks.red_flower);
+                                                            Blocks.red_flower);
                                                     this.worldObj.setBlockMetadataWithNotify(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -663,7 +662,7 @@ public class TileCloud extends TileThaumcraft {
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
-                                                            (Block) Blocks.red_flower);
+                                                            Blocks.red_flower);
                                                     this.worldObj.setBlockMetadataWithNotify(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -677,7 +676,7 @@ public class TileCloud extends TileThaumcraft {
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
-                                                            (Block) Blocks.red_flower);
+                                                            Blocks.red_flower);
                                                     this.worldObj.setBlockMetadataWithNotify(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -691,7 +690,7 @@ public class TileCloud extends TileThaumcraft {
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
-                                                            (Block) Blocks.red_flower);
+                                                            Blocks.red_flower);
                                                     this.worldObj.setBlockMetadataWithNotify(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -705,7 +704,7 @@ public class TileCloud extends TileThaumcraft {
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
-                                                            (Block) Blocks.red_flower);
+                                                            Blocks.red_flower);
                                                     this.worldObj.setBlockMetadataWithNotify(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -851,7 +850,7 @@ public class TileCloud extends TileThaumcraft {
                             }
                             case 9: {
                                 this.worldObj.spawnEntityInWorld(
-                                        (Entity) new EntityLightningBoltFinite(
+                                        new EntityLightningBoltFinite(
                                                 this.worldObj,
                                                 this.xCoord + 0.5,
                                                 this.yCoord - this.howManyDown,
@@ -874,7 +873,7 @@ public class TileCloud extends TileThaumcraft {
                 this.yCoord + 0.5,
                 this.zCoord + this.worldObj.rand.nextDouble(),
                 itemStack);
-        this.worldObj.spawnEntityInWorld((Entity) theItem);
+        this.worldObj.spawnEntityInWorld(theItem);
     }
 
     @Override
@@ -898,19 +897,14 @@ public class TileCloud extends TileThaumcraft {
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return AxisAlignedBB.getBoundingBox(
-                (double) (this.xCoord - 32),
-                0.0,
-                (double) (this.zCoord - 32),
-                (double) (this.xCoord + 32),
-                256.0,
-                (double) (this.zCoord + 32));
+        return AxisAlignedBB
+                .getBoundingBox(this.xCoord - 32, 0.0, this.zCoord - 32, this.xCoord + 32, 256.0, this.zCoord + 32);
     }
 
     public void findBlockBelow() {
         final MovingObjectPosition mop = this.worldObj.rayTraceBlocks(
                 Vec3.createVectorHelper(this.xCoord + 0.5, this.yCoord - 0.5, this.zCoord + 0.5),
-                Vec3.createVectorHelper(this.xCoord + 0.5, (double) (this.yCoord - 256), this.zCoord + 0.5));
+                Vec3.createVectorHelper(this.xCoord + 0.5, this.yCoord - 256, this.zCoord + 0.5));
         if (mop != null) {
             this.howManyDown = this.yCoord - mop.blockY;
             this.cachedBlock = this.worldObj.getBlock(this.xCoord, mop.blockY, this.zCoord);
@@ -923,14 +917,14 @@ public class TileCloud extends TileThaumcraft {
 
     public List getCrittersBelow() {
         return this.worldObj.getEntitiesWithinAABBExcludingEntity(
-                (Entity) null,
+                null,
                 AxisAlignedBB.getBoundingBox(
-                        (double) this.xCoord,
-                        (double) (this.yCoord - this.howManyDown),
-                        (double) this.zCoord,
-                        (double) (this.xCoord + 1),
-                        (double) this.yCoord,
-                        (double) (this.zCoord + 1)));
+                        this.xCoord,
+                        this.yCoord - this.howManyDown,
+                        this.zCoord,
+                        this.xCoord + 1,
+                        this.yCoord,
+                        this.zCoord + 1));
     }
 
     static {

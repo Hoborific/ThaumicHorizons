@@ -7,12 +7,10 @@ package com.kentington.thaumichorizons.common.items.lenses;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
@@ -96,9 +94,9 @@ public class LensManager {
                     return;
                 }
                 if ((Integer) lenses.get(var13) < 1000) {
-                    player.inventory.setInventorySlotContents((Integer) lenses.get(var13), (ItemStack) null);
+                    player.inventory.setInventorySlotContents((Integer) lenses.get(var13), null);
                 }
-                w.playSoundAtEntity((Entity) player, "thaumcraft:cameraticks", 0.3f, 1.0f);
+                w.playSoundAtEntity(player, "thaumcraft:cameraticks", 0.3f, 1.0f);
                 String currentLens = "";
                 if (is.stackTagCompound != null) {
                     currentLens = is.stackTagCompound.getString("Lens");
@@ -122,7 +120,7 @@ public class LensManager {
             if (!currentLens2.equals("") && (addLensToPouch(player, oldLens, pouches)
                     || player.inventory.addItemStackToInventory(oldLens))) {
                 setLensItem(is, null);
-                w.playSoundAtEntity((Entity) player, "thaumcraft:cameraticks", 0.3f, 0.9f);
+                w.playSoundAtEntity(player, "thaumcraft:cameraticks", 0.3f, 0.9f);
             }
         }
         if (oldLens != null) {
@@ -155,7 +153,7 @@ public class LensManager {
             final HashMap<Integer, Integer> pouches) {
         for (int value : pouches.values()) {
             final IInventory baubles = BaublesApi.getBaubles(player);
-            final int pouchslot = (Integer) value;
+            final int pouchslot = value;
             ItemStack pouch;
             if (pouchslot >= 0) {
                 pouch = player.inventory.mainInventory[pouchslot];
@@ -169,7 +167,7 @@ public class LensManager {
                     inv[q] = lens.copy();
                     ((ItemLensCase) pouch.getItem()).setInventory(pouch, inv);
                     if (pouchslot >= 0) {
-                        player.inventory.setInventorySlotContents((int) pouchslot, pouch);
+                        player.inventory.setInventorySlotContents(pouchslot, pouch);
                         player.inventory.markDirty();
                     } else {
                         baubles.setInventorySlotContents(pouchslot + 4, pouch);
@@ -223,10 +221,10 @@ public class LensManager {
                 goggles.stackTagCompound = new NBTTagCompound();
             }
             if (goggles.stackTagCompound.getCompoundTag("display").hasNoTags()) {
-                goggles.stackTagCompound.setTag("display", (NBTBase) new NBTTagCompound());
+                goggles.stackTagCompound.setTag("display", new NBTTagCompound());
             }
             if (goggles.stackTagCompound.getCompoundTag("display").getTagList("Lore", 8).tagCount() == 0) {
-                goggles.stackTagCompound.getCompoundTag("display").setTag("Lore", (NBTBase) new NBTTagList());
+                goggles.stackTagCompound.getCompoundTag("display").setTag("Lore", new NBTTagList());
             }
             lore = goggles.stackTagCompound.getCompoundTag("display").getTagList("Lore", 8);
             lensIndex = 0;
@@ -245,7 +243,7 @@ public class LensManager {
             }
             goggles.stackTagCompound.setInteger("LensIndex", lore.tagCount());
             lore.appendTag(
-                    (NBTBase) new NBTTagString(
+                    new NBTTagString(
                             StatCollector.translateToLocal("item." + ((ILens) lens.getItem()).lensName() + ".name")));
         }
     }

@@ -4,12 +4,10 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -37,7 +35,7 @@ public class TileRecombinator extends TileThaumcraft {
         super.updateEntity();
         if (!this.fireOnce) {
             this.worldObj.getBlock(this.xCoord, this.yCoord, this.zCoord)
-                    .onNeighborBlockChange(this.worldObj, this.xCoord, this.yCoord, this.zCoord, (Block) null);
+                    .onNeighborBlockChange(this.worldObj, this.xCoord, this.yCoord, this.zCoord, null);
             this.fireOnce = true;
         }
         if (this.activated) {
@@ -158,7 +156,7 @@ public class TileRecombinator extends TileThaumcraft {
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord - 1, this.zCoord);
         tile.markDirty();
         PacketHandler.INSTANCE.sendToAllAround(
-                (IMessage) new PacketFXBlockZap(
+                new PacketFXBlockZap(
                         this.xCoord + x + 0.5f,
                         this.yCoord + y + 0.5f,
                         this.zCoord + z + 0.5f,
@@ -167,9 +165,9 @@ public class TileRecombinator extends TileThaumcraft {
                         this.zCoord + 0.5f),
                 new NetworkRegistry.TargetPoint(
                         this.worldObj.provider.dimensionId,
-                        (double) this.xCoord,
-                        (double) this.yCoord,
-                        (double) this.zCoord,
+                        this.xCoord,
+                        this.yCoord,
+                        this.zCoord,
                         32.0));
     }
 

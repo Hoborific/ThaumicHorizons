@@ -46,7 +46,7 @@ public class TileNodeMonitor extends TileThaumcraft {
         if (this.direction == -1) {
             this.direction = (byte) this.getBlockMetadata();
         }
-        final ForgeDirection dir = ForgeDirection.getOrientation((int) this.direction);
+        final ForgeDirection dir = ForgeDirection.getOrientation(this.direction);
         if (dir == ForgeDirection.UP
                 && this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof INode) {
             this.activated = this.aspectCritical(this.xCoord, this.yCoord - 1, this.zCoord);

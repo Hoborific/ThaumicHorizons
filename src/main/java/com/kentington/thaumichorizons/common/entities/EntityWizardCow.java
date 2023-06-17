@@ -8,14 +8,12 @@ import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 import com.kentington.thaumichorizons.common.lib.networking.PacketGetCowData;
 import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import io.netty.buffer.ByteBuf;
 import thaumcraft.api.aspects.Aspect;
@@ -40,7 +38,7 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
         this.aspects = new AspectList();
         this.essentia = new AspectList();
         if (p_i1683_1_.isRemote) {
-            PacketHandler.INSTANCE.sendToServer((IMessage) new PacketGetCowData(this.getEntityId()));
+            PacketHandler.INSTANCE.sendToServer(new PacketGetCowData(this.getEntityId()));
         }
     }
 
@@ -207,10 +205,10 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
         p_70014_1_.setInteger("nodeType", this.nodeType);
         final NBTTagCompound aspectTag = new NBTTagCompound();
         this.aspects.writeToNBT(aspectTag);
-        p_70014_1_.setTag("aspects", (NBTBase) aspectTag);
+        p_70014_1_.setTag("aspects", aspectTag);
         final NBTTagCompound essentiaTag = new NBTTagCompound();
         this.essentia.writeToNBT(essentiaTag);
-        p_70014_1_.setTag("essentia", (NBTBase) essentiaTag);
+        p_70014_1_.setTag("essentia", essentiaTag);
     }
 
     public void readEntityFromNBT(final NBTTagCompound p_70037_1_) {

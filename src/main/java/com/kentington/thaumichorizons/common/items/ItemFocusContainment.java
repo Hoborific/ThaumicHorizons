@@ -14,7 +14,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -22,7 +21,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
@@ -36,7 +34,6 @@ import com.kentington.thaumichorizons.common.lib.networking.PacketFXContainment;
 import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.api.aspects.Aspect;
@@ -128,7 +125,7 @@ public class ItemFocusContainment extends ItemFocusBasic {
         if (!this.canJarEntity(p)) {
             if (p.ticksExisted % 5 == 0) {
                 p.addChatMessage(
-                        (IChatComponent) new ChatComponentText(
+                        new ChatComponentText(
                                 EnumChatFormatting.ITALIC + ""
                                         + EnumChatFormatting.GRAY
                                         + StatCollector.translateToLocal("thaumichorizons.noJar")));
@@ -141,8 +138,8 @@ public class ItemFocusContainment extends ItemFocusBasic {
             return;
         }
         final String pp = "R" + p.getDisplayName();
-        final Entity ent = getPointedEntity(p.worldObj, (EntityLivingBase) p, 10.0);
-        final MovingObjectPosition mop = BlockUtils.getTargetBlock(p.worldObj, (Entity) p, true);
+        final Entity ent = getPointedEntity(p.worldObj, p, 10.0);
+        final MovingObjectPosition mop = BlockUtils.getTargetBlock(p.worldObj, p, true);
         final Vec3 v = p.getLookVec();
         double tx = p.posX + v.xCoord * 10.0;
         double ty = p.posY + v.yCoord * 10.0;
@@ -182,7 +179,7 @@ public class ItemFocusContainment extends ItemFocusBasic {
                             true,
                             (impact > 0) ? 2.0f : 0.0f,
                             ItemFocusContainment.beam.get(pp),
-                            (int) impact));
+                            impact));
         }
         if (ent != null && ent instanceof EntityLiving
                 && !(ent instanceof EntityPlayer)
@@ -247,7 +244,7 @@ public class ItemFocusContainment extends ItemFocusBasic {
                         }
                         if (!p.worldObj.isRemote) {
                             PacketHandler.INSTANCE.sendToAllAround(
-                                    (IMessage) new PacketFXContainment(ent.posX, ent.posY, ent.posZ),
+                                    new PacketFXContainment(ent.posX, ent.posY, ent.posZ),
                                     new NetworkRegistry.TargetPoint(
                                             p.worldObj.provider.dimensionId,
                                             ent.posX,
@@ -272,9 +269,9 @@ public class ItemFocusContainment extends ItemFocusBasic {
         final Vec3 vec3d3 = vec3d.addVector(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range);
         final float f1 = 1.1f;
         final List list = world.getEntitiesWithinAABBExcludingEntity(
-                (Entity) entityplayer,
+                entityplayer,
                 entityplayer.boundingBox.addCoord(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range)
-                        .expand((double) f1, (double) f1, (double) f1));
+                        .expand(f1, f1, f1));
         double d2 = 0.0;
         for (Object o : list) {
             final Entity entity = (Entity) o;
@@ -286,7 +283,7 @@ public class ItemFocusContainment extends ItemFocusBasic {
                     Vec3.createVectorHelper(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ),
                     false) == null) {
                 final float f2 = Math.max(0.8f, entity.getCollisionBorderSize());
-                final AxisAlignedBB axisalignedbb = entity.boundingBox.expand((double) f2, (double) f2, (double) f2);
+                final AxisAlignedBB axisalignedbb = entity.boundingBox.expand(f2, f2, f2);
                 final MovingObjectPosition movingobjectposition = axisalignedbb.calculateIntercept(vec3d, vec3d3);
                 if (axisalignedbb.isVecInside(vec3d)) {
                     if (0.0 < d2 || d2 == 0.0) {
@@ -306,18 +303,11 @@ public class ItemFocusContainment extends ItemFocusBasic {
     }
 
     boolean canJarEntity(final EntityPlayer p) {
-        return InventoryUtils.inventoryContains(
-                (IInventory) p.inventory,
-                new ItemStack(ConfigBlocks.blockJar, 1, 0),
-                0,
-                true,
-                true,
-                false)
-                && InventoryUtils.placeItemStackIntoInventory(
-                        new ItemStack(ThaumicHorizons.blockJar),
-                        (IInventory) p.inventory,
-                        0,
-                        false) == null;
+        return InventoryUtils
+                .inventoryContains(p.inventory, new ItemStack(ConfigBlocks.blockJar, 1, 0), 0, true, true, false)
+                && InventoryUtils
+                        .placeItemStackIntoInventory(new ItemStack(ThaumicHorizons.blockJar), p.inventory, 0, false)
+                        == null;
     }
 
     void jarEntity(final EntityPlayer p, final NBTTagCompound tag, final String name, final double x, final double y,
@@ -332,7 +322,7 @@ public class ItemFocusContainment extends ItemFocusBasic {
         }
         if (!p.worldObj.isRemote) {
             PacketHandler.INSTANCE.sendToAllAround(
-                    (IMessage) new PacketFXContainment(x, y, z),
+                    new PacketFXContainment(x, y, z),
                     new NetworkRegistry.TargetPoint(p.worldObj.provider.dimensionId, x, y, z, 32.0));
         }
     }

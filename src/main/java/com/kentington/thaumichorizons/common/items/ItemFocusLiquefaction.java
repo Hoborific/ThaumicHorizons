@@ -26,7 +26,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.ForgeHooks;
@@ -105,8 +104,8 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
             ItemFocusLiquefaction.lastX.putIfAbsent(pp, 0);
             ItemFocusLiquefaction.lastY.putIfAbsent(pp, 0);
             ItemFocusLiquefaction.lastZ.putIfAbsent(pp, 0);
-            final MovingObjectPosition mop = BlockUtils.getTargetBlock(p.worldObj, (Entity) p, true);
-            final Entity ent = getPointedEntity(p.worldObj, (EntityLivingBase) p, 10.0);
+            final MovingObjectPosition mop = BlockUtils.getTargetBlock(p.worldObj, p, true);
+            final Entity ent = getPointedEntity(p.worldObj, p, 10.0);
             final Vec3 v = p.getLookVec();
             double tx = p.posX + v.xCoord * 10.0;
             double ty = p.posY + v.yCoord * 10.0;
@@ -158,23 +157,15 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                 final Block bi = p.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
                 final int md = p.worldObj.getBlockMetadata(mop.blockX, mop.blockY, mop.blockZ);
                 final int meltable = this.isMeltableBlock(bi, md);
-                final boolean flammable = bi.isFlammable(
-                        (IBlockAccess) p.worldObj,
-                        mop.blockX,
-                        mop.blockY,
-                        mop.blockZ,
-                        ForgeDirection.UNKNOWN);
+                final boolean flammable = bi
+                        .isFlammable(p.worldObj, mop.blockX, mop.blockY, mop.blockZ, ForgeDirection.UNKNOWN);
                 if (meltable > 0 || flammable
                         || FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(bi, 1, md)) != null) {
                     final int pot = wand.getFocusPotency(stack);
                     final float speed = 0.15f + pot * 0.05f;
                     float hardness = 2.0f;
-                    if (meltable > 0 || bi.isFlammable(
-                            (IBlockAccess) p.worldObj,
-                            mop.blockX,
-                            mop.blockY,
-                            mop.blockZ,
-                            ForgeDirection.UP)) {
+                    if (meltable > 0
+                            || bi.isFlammable(p.worldObj, mop.blockX, mop.blockY, mop.blockZ, ForgeDirection.UP)) {
                         hardness = 0.25f;
                     }
                     if (meltable == 6) {
@@ -228,8 +219,7 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
             } else if (ent instanceof EntityLiving
                     && wand.consumeAllVis(stack, p, ItemFocusLiquefaction.costCritter, true, true)) {
                         ThaumicHorizons.proxy.smeltFX(ent.posX - 0.5, ent.posY, ent.posZ - 0.5, p.worldObj, 5, false);
-                        ((EntityLiving) ent)
-                                .attackEntityFrom(DamageSource.inFire, 1.0f + 0.5f * wand.getFocusPotency(stack));
+                        ent.attackEntityFrom(DamageSource.inFire, 1.0f + 0.5f * wand.getFocusPotency(stack));
                     } else
                 if (ent instanceof EntityItem
                         && FurnaceRecipes.smelting().getSmeltingResult(((EntityItem) ent).getEntityItem()) != null) {
@@ -344,9 +334,9 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
         final Vec3 vec3d3 = vec3d.addVector(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range);
         final float f1 = 1.1f;
         final List list = world.getEntitiesWithinAABBExcludingEntity(
-                (Entity) entityplayer,
+                entityplayer,
                 entityplayer.boundingBox.addCoord(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range)
-                        .expand((double) f1, (double) f1, (double) f1));
+                        .expand(f1, f1, f1));
         double d2 = 0.0;
         for (Object o : list) {
             final Entity entity = (Entity) o;
@@ -358,7 +348,7 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                     Vec3.createVectorHelper(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ),
                     false) == null) {
                 final float f2 = Math.max(0.8f, entity.getCollisionBorderSize());
-                final AxisAlignedBB axisalignedbb = entity.boundingBox.expand((double) f2, (double) f2, (double) f2);
+                final AxisAlignedBB axisalignedbb = entity.boundingBox.expand(f2, f2, f2);
                 final MovingObjectPosition movingobjectposition = axisalignedbb.calculateIntercept(vec3d, vec3d3);
                 if (axisalignedbb.isVecInside(vec3d)) {
                     if (0.0 < d2 || d2 == 0.0) {
@@ -397,7 +387,7 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
         }
         final int md = p.worldObj.getBlockMetadata(x, y, z);
         final int meltable = this.isMeltableBlock(bi, md);
-        final boolean flammable = bi.isFlammable((IBlockAccess) p.worldObj, x, y, z, ForgeDirection.UNKNOWN);
+        final boolean flammable = bi.isFlammable(p.worldObj, x, y, z, ForgeDirection.UNKNOWN);
         ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(bi, 1, md));
         if (result != null && wand.consumeAllVis(stack, p, this.getVisCost(stack), true, true)) {
             if (this.getUpgradeLevel(wand.getFocusItem(stack), ItemFocusLiquefaction.purity) > 0
@@ -418,13 +408,8 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                     }
                 }
                 if (bonus.stackSize > 0) {
-                    final EntityItem bonusEntity = new EntityItem(
-                            p.worldObj,
-                            (double) (x + 0.5f),
-                            (double) (y + 0.5f),
-                            (double) (z + 0.5f),
-                            bonus);
-                    p.worldObj.spawnEntityInWorld((Entity) bonusEntity);
+                    final EntityItem bonusEntity = new EntityItem(p.worldObj, x + 0.5f, y + 0.5f, z + 0.5f, bonus);
+                    p.worldObj.spawnEntityInWorld(bonusEntity);
                 }
             }
             if (result.getItem() instanceof ItemBlock) {
@@ -432,13 +417,9 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                 p.worldObj.setBlockMetadataWithNotify(x, y, z, result.getItemDamage(), 3);
             } else {
                 p.worldObj.setBlockToAir(x, y, z);
-                final EntityItem theItem = new EntityItem(
-                        p.worldObj,
-                        (double) (x + 0.5f),
-                        (double) (y + 0.5f),
-                        (double) (z + 0.5f));
+                final EntityItem theItem = new EntityItem(p.worldObj, x + 0.5f, y + 0.5f, z + 0.5f);
                 theItem.setEntityItemStack(result.copy());
-                p.worldObj.spawnEntityInWorld((Entity) theItem);
+                p.worldObj.spawnEntityInWorld(theItem);
             }
         } else if (meltable > 0 && wand.consumeAllVis(stack, p, this.getVisCost(stack), true, true)) {
             if (meltable == 1) {
@@ -458,7 +439,7 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                 p.worldObj.setBlock(x, y, z, Blocks.lava, 0, 3);
             }
         } else if (flammable && wand.consumeAllVis(stack, p, this.getVisCost(stack), true, true)) {
-            p.worldObj.setBlock(x, y, z, (Block) Blocks.fire);
+            p.worldObj.setBlock(x, y, z, Blocks.fire);
         }
         ItemFocusLiquefaction.lastX.put(pp, Integer.MAX_VALUE);
         ItemFocusLiquefaction.lastY.put(pp, Integer.MAX_VALUE);

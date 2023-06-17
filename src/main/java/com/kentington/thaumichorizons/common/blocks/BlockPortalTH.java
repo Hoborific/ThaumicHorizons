@@ -13,7 +13,6 @@ import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
@@ -127,7 +126,7 @@ public class BlockPortalTH extends BlockBreakable {
                 ((EntityPlayerMP) player).mcServer.getConfigurationManager().transferPlayerToDimension(
                         (EntityPlayerMP) player,
                         targetDim,
-                        (Teleporter) new GatewayTeleporter(
+                        new GatewayTeleporter(
                                 mServer.worldServerForDimension(ThaumicHorizons.dimensionPocketId),
                                 targetX,
                                 targetY,
@@ -183,7 +182,7 @@ public class BlockPortalTH extends BlockBreakable {
                     ((EntityPlayerMP) player).mcServer.getConfigurationManager().transferPlayerToDimension(
                             (EntityPlayerMP) player,
                             ThaumicHorizons.dimensionPocketId,
-                            (Teleporter) new GatewayTeleporter(
+                            new GatewayTeleporter(
                                     mServer2.worldServerForDimension(ThaumicHorizons.dimensionPocketId),
                                     targetX,
                                     targetY,

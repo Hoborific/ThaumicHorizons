@@ -9,7 +9,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
@@ -37,11 +36,8 @@ public class TileInspiratron extends TileThaumcraft implements ISoulReceiver, IS
             Entity entity = null;
             this.rotb = this.rota;
             if (entity == null) {
-                entity = (Entity) this.worldObj.getClosestPlayer(
-                        (double) (this.xCoord + 0.5f),
-                        (double) (this.yCoord + 0.5f),
-                        (double) (this.zCoord + 0.5f),
-                        6.0);
+                entity = this.worldObj
+                        .getClosestPlayer(this.xCoord + 0.5f, this.yCoord + 0.5f, this.zCoord + 0.5f, 6.0);
             }
             if (entity != null) {
                 final double d = entity.posX - (this.xCoord + 0.5f);
@@ -208,13 +204,13 @@ public class TileInspiratron extends TileThaumcraft implements ISoulReceiver, IS
         if (this.paper != null) {
             this.paper.writeToNBT(nbttagcompound2);
         }
-        nbttaglist.appendTag((NBTBase) nbttagcompound2);
+        nbttaglist.appendTag(nbttagcompound2);
         final NBTTagCompound nbttagcompound3 = new NBTTagCompound();
         if (this.knowledge != null) {
             this.knowledge.writeToNBT(nbttagcompound3);
         }
-        nbttaglist.appendTag((NBTBase) nbttagcompound3);
-        nbttagcompound.setTag("Items", (NBTBase) nbttaglist);
+        nbttaglist.appendTag(nbttagcompound3);
+        nbttagcompound.setTag("Items", nbttaglist);
     }
 
     @Override

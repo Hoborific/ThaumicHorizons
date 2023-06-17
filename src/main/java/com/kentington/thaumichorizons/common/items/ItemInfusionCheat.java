@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.INpc;
@@ -110,16 +109,16 @@ public class ItemInfusionCheat extends Item {
 
     @SideOnly(Side.CLIENT)
     public void getSubItems(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
-        par3List.add(new ItemStack((Item) this, 1, 1));
-        par3List.add(new ItemStack((Item) this, 1, 2));
-        par3List.add(new ItemStack((Item) this, 1, 3));
-        par3List.add(new ItemStack((Item) this, 1, 4));
-        par3List.add(new ItemStack((Item) this, 1, 5));
-        par3List.add(new ItemStack((Item) this, 1, 6));
-        par3List.add(new ItemStack((Item) this, 1, 7));
-        par3List.add(new ItemStack((Item) this, 1, 8));
-        par3List.add(new ItemStack((Item) this, 1, 9));
-        par3List.add(new ItemStack((Item) this, 1, 10));
+        par3List.add(new ItemStack(this, 1, 1));
+        par3List.add(new ItemStack(this, 1, 2));
+        par3List.add(new ItemStack(this, 1, 3));
+        par3List.add(new ItemStack(this, 1, 4));
+        par3List.add(new ItemStack(this, 1, 5));
+        par3List.add(new ItemStack(this, 1, 6));
+        par3List.add(new ItemStack(this, 1, 7));
+        par3List.add(new ItemStack(this, 1, 8));
+        par3List.add(new ItemStack(this, 1, 9));
+        par3List.add(new ItemStack(this, 1, 10));
     }
 
     public String getItemStackDisplayName(final ItemStack stack) {
@@ -170,7 +169,7 @@ public class ItemInfusionCheat extends Item {
     }
 
     public ItemStack onItemRightClick(final ItemStack p_77659_1_, final World world, final EntityPlayer p) {
-        final Entity ent = ItemFocusContainment.getPointedEntity(world, (EntityLivingBase) p, 1.5);
+        final Entity ent = ItemFocusContainment.getPointedEntity(world, p, 1.5);
         if (ent instanceof EntityLiving && this.isValidInfusionTarget((EntityLiving) ent)) {
             final EntityLiving critter = (EntityLiving) ent;
             for (final CreatureInfusionRecipe recipe : ThaumicHorizons.critterRecipes) {
@@ -180,27 +179,24 @@ public class ItemInfusionCheat extends Item {
                         && !((EntityInfusionProperties) critter.getExtendedProperties("CreatureInfusion"))
                                 .hasInfusion(recipe.getID(null))) {
                     final NBTTagCompound tagMods = (NBTTagCompound) recipe.getRecipeOutput();
-                    final Multimap map = (Multimap) HashMultimap.create();
+                    final Multimap map = HashMultimap.create();
                     if (tagMods.getDouble("generic.movementSpeed") > 0.0) {
                         map.put(
-                                (Object) "generic.movementSpeed",
-                                (Object) new AttributeModifier(
+                                "generic.movementSpeed",
+                                new AttributeModifier(
                                         "generic.movementSpeed",
                                         tagMods.getDouble("generic.movementSpeed") / 10.0,
                                         1));
                     }
                     if (tagMods.getDouble("generic.maxHealth") > 0.0) {
                         map.put(
-                                (Object) "generic.maxHealth",
-                                (Object) new AttributeModifier(
-                                        "generic.maxHealth",
-                                        tagMods.getDouble("generic.maxHealth"),
-                                        1));
+                                "generic.maxHealth",
+                                new AttributeModifier("generic.maxHealth", tagMods.getDouble("generic.maxHealth"), 1));
                     }
                     if (tagMods.getDouble("generic.attackDamage") > 0.0) {
                         map.put(
-                                (Object) "generic.attackDamage",
-                                (Object) new AttributeModifier(
+                                "generic.attackDamage",
+                                new AttributeModifier(
                                         "generic.attackDamage",
                                         tagMods.getDouble("generic.attackDamage"),
                                         1));
@@ -230,7 +226,7 @@ public class ItemInfusionCheat extends Item {
                         ((EntityInfusionProperties) critter.getExtendedProperties("CreatureInfusion"))
                                 .addCost(recipe.getAspects());
                         critter.func_110163_bv();
-                        ThaumicHorizons.instance.eventHandlerEntity.applyInfusions((EntityLivingBase) critter);
+                        ThaumicHorizons.instance.eventHandlerEntity.applyInfusions(critter);
                         Thaumcraft.proxy
                                 .burst(world, critter.posX, critter.posY + critter.getEyeHeight(), critter.posZ, 1.0f);
                     }

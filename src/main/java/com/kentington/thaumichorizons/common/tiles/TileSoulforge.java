@@ -63,9 +63,9 @@ public class TileSoulforge extends TileThaumcraft implements ISoulReceiver, IEss
             }
             System.arraycopy(newVillagerTypes, 0, villagerTypes, 5, newVillagerTypes.length);
             final int which = world.rand.nextInt(villagerTypes.length);
-            soul.getTagCompound().setInteger("villagerType", (int) villagerTypes[which]);
+            soul.getTagCompound().setInteger("villagerType", villagerTypes[which]);
             final EntityVillager dummyVillager = new EntityVillager(this.worldObj);
-            dummyVillager.setProfession((int) villagerTypes[which]);
+            dummyVillager.setProfession(villagerTypes[which]);
             soul.getTagCompound().setString("jarredCritterName", dummyVillager.getCommandSenderName());
             player.inventory.decrStackSize(
                     InventoryUtils.isPlayerCarrying(player, new ItemStack(ConfigBlocks.blockJar, 1, 0)),

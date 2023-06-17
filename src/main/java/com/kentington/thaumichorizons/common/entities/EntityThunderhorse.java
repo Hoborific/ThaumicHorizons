@@ -6,7 +6,6 @@ package com.kentington.thaumichorizons.common.entities;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -33,10 +32,10 @@ public class EntityThunderhorse extends EntityHorse {
     public void readEntityFromNBT(final NBTTagCompound p_70037_1_) {
         super.readEntityFromNBT(p_70037_1_);
         if (!(this.initialized = p_70037_1_.getBoolean("initialized"))) {
-            final Multimap map = (Multimap) HashMultimap.create();
-            map.put((Object) "generic.movementSpeed", (Object) new AttributeModifier("generic.movementSpeed", 0.1, 1));
-            map.put((Object) "horse.jumpStrength", (Object) new AttributeModifier("horse.jumpStrength", 0.25, 1));
-            map.put((Object) "generic.maxHealth", (Object) new AttributeModifier("generic.maxHealth", 4.0, 1));
+            final Multimap map = HashMultimap.create();
+            map.put("generic.movementSpeed", new AttributeModifier("generic.movementSpeed", 0.1, 1));
+            map.put("horse.jumpStrength", new AttributeModifier("horse.jumpStrength", 0.25, 1));
+            map.put("generic.maxHealth", new AttributeModifier("generic.maxHealth", 4.0, 1));
             this.getAttributeMap().applyAttributeModifiers(map);
             this.initialized = true;
         }
@@ -62,7 +61,7 @@ public class EntityThunderhorse extends EntityHorse {
             if (block.getMaterial() != Material.air) {
                 final Block.SoundType soundtype = block.stepSound;
                 this.worldObj.playSoundAtEntity(
-                        (Entity) this,
+                        this,
                         soundtype.getStepResourcePath(),
                         soundtype.getVolume() * 0.5f,
                         soundtype.getPitch() * 0.75f);

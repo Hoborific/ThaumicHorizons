@@ -18,9 +18,7 @@ import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
@@ -28,7 +26,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
@@ -150,7 +147,7 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
     }
 
     public void writeEntityToNBT(final NBTTagCompound p_70014_1_) {
-        p_70014_1_.setTag("effects", (NBTBase) this.effects);
+        p_70014_1_.setTag("effects", this.effects);
         p_70014_1_.setShort("xTile", (short) this.field_145791_d);
         p_70014_1_.setShort("yTile", (short) this.field_145792_e);
         p_70014_1_.setShort("zTile", (short) this.field_145789_f);
@@ -158,7 +155,7 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
         p_70014_1_.setByte("inTile", (byte) Block.getIdFromBlock(this.field_145790_g));
         p_70014_1_.setByte("inData", (byte) this.inData);
         p_70014_1_.setByte("shake", this.arrowShake);
-        p_70014_1_.setByte("inGround", (byte) (byte) (this.inGround ? 1 : 0));
+        p_70014_1_.setByte("inGround", (byte) (this.inGround ? 1 : 0));
         p_70014_1_.setByte("pickup", (byte) this.canBePickedUp);
         p_70014_1_.setDouble("damage", this.damage);
         p_70014_1_.setInteger("color", this.color);
@@ -214,9 +211,8 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
                         "random.pop",
                         0.2f,
                         ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7f + 1.0f) * 2.0f);
-                p_70100_1_.onItemPickup(
-                        (Entity) new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, psuedoPotion),
-                        1);
+                p_70100_1_
+                        .onItemPickup(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, psuedoPotion), 1);
                 this.setDead();
             }
         }
@@ -236,7 +232,7 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
         final Block block = this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
         if (block.getMaterial() != Material.air) {
             block.setBlockBoundsBasedOnState(
-                    (IBlockAccess) this.worldObj,
+                    this.worldObj,
                     this.field_145791_d,
                     this.field_145792_e,
                     this.field_145789_f);
@@ -285,15 +281,14 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
             }
             Entity entity = null;
             final List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(
-                    (Entity) this,
+                    this,
                     this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0, 1.0, 1.0));
             double d0 = 0.0;
             for (Object o : list) {
                 final Entity entity2 = (Entity) o;
                 if (entity2.canBeCollidedWith() && (entity2 != this.shootingEntity || this.ticksInAir >= 5)) {
                     final float f2 = 0.3f;
-                    final AxisAlignedBB axisalignedbb2 = entity2.boundingBox
-                            .expand((double) f2, (double) f2, (double) f2);
+                    final AxisAlignedBB axisalignedbb2 = entity2.boundingBox.expand(f2, f2, f2);
                     final MovingObjectPosition movingobjectposition2 = axisalignedbb2.calculateIntercept(vec31, vec32);
                     if (movingobjectposition2 != null) {
                         final double d2 = vec31.distanceTo(movingobjectposition2.hitVec);
@@ -324,9 +319,9 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
                     }
                     DamageSource damagesource = null;
                     if (this.shootingEntity == null) {
-                        damagesource = DamageSource.causeThrownDamage((Entity) this, (Entity) this);
+                        damagesource = DamageSource.causeThrownDamage(this, this);
                     } else {
-                        damagesource = DamageSource.causeThrownDamage((Entity) this, (Entity) this.shootingEntity);
+                        damagesource = DamageSource.causeThrownDamage(this, this.shootingEntity);
                     }
                     if (this.isBurning() && !(movingobjectposition.entityHit instanceof EntityEnderman)) {
                         movingobjectposition.entityHit.setFire(5);
@@ -348,14 +343,14 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
                                 }
                             }
                             if (this.shootingEntity != null && this.shootingEntity instanceof EntityLivingBase) {
-                                EnchantmentHelper.func_151384_a(entitylivingbase, (Entity) this.shootingEntity);
-                                EnchantmentHelper.func_151385_b(this.shootingEntity, (Entity) entitylivingbase);
+                                EnchantmentHelper.func_151384_a(entitylivingbase, this.shootingEntity);
+                                EnchantmentHelper.func_151385_b(this.shootingEntity, entitylivingbase);
                             }
                             if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity
                                     && movingobjectposition.entityHit instanceof EntityPlayer
                                     && this.shootingEntity instanceof EntityPlayerMP) {
                                 ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler
-                                        .sendPacket((Packet) new S2BPacketChangeGameState(6, 0.0f));
+                                        .sendPacket(new S2BPacketChangeGameState(6, 0.0f));
                             }
                         }
                         this.playSound("random.bowhit", 1.0f, 1.2f / (this.rand.nextFloat() * 0.2f + 0.9f));
@@ -397,7 +392,7 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
                                 this.field_145791_d,
                                 this.field_145792_e,
                                 this.field_145789_f,
-                                (Entity) this);
+                                this);
                     }
                 }
             }
@@ -512,7 +507,7 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
     }
 
     protected void entityInit() {
-        this.dataWatcher.addObject(16, (Object) (byte) 0);
+        this.dataWatcher.addObject(16, (byte) 0);
     }
 
     protected boolean canTriggerWalking() {
@@ -543,9 +538,9 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
     public void setIsCritical(final boolean p_70243_1_) {
         final byte b0 = this.dataWatcher.getWatchableObjectByte(16);
         if (p_70243_1_) {
-            this.dataWatcher.updateObject(16, (Object) (byte) (b0 | 0x1));
+            this.dataWatcher.updateObject(16, (byte) (b0 | 0x1));
         } else {
-            this.dataWatcher.updateObject(16, (Object) (byte) (b0 & 0xFFFFFFFE));
+            this.dataWatcher.updateObject(16, (byte) (b0 & 0xFFFFFFFE));
         }
     }
 

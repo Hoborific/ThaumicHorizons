@@ -50,7 +50,7 @@ public class TileVisDynamoRender extends TileEntitySpecialRenderer {
             final int i = (int) ((nt / 40000000L + x) % frames);
             UtilsFX.renderFacingQuad(
                     tco.xCoord + 0.5,
-                    (double) (tco.yCoord + 0.5f),
+                    tco.yCoord + 0.5f,
                     tco.zCoord + 0.5,
                     0.0f,
                     0.2f,

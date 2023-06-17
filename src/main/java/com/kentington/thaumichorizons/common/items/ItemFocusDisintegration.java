@@ -105,8 +105,8 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
             ItemFocusDisintegration.lastX.putIfAbsent(pp, 0);
             ItemFocusDisintegration.lastY.putIfAbsent(pp, 0);
             ItemFocusDisintegration.lastZ.putIfAbsent(pp, 0);
-            final MovingObjectPosition mop = BlockUtils.getTargetBlock(p.worldObj, (Entity) p, true);
-            final Entity ent = getPointedEntity(p.worldObj, (EntityLivingBase) p, 10.0);
+            final MovingObjectPosition mop = BlockUtils.getTargetBlock(p.worldObj, p, true);
+            final Entity ent = getPointedEntity(p.worldObj, p, 10.0);
             final Vec3 v = p.getLookVec();
             double tx = p.posX + v.xCoord * 10.0;
             double ty = p.posY + v.yCoord * 10.0;
@@ -223,7 +223,7 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                             ((EntityLiving) ent).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 40, 0));
                         }
                         ThaumicHorizons.proxy.disintegrateFX(ent.posX - 0.5, ent.posY, ent.posZ - 0.5, p, 5, false);
-                        ((EntityLiving) ent).attackEntityFrom(
+                        ent.attackEntityFrom(
                                 DamageSourceThaumcraft.dissolve,
                                 0.5f + 0.25f * wand.getFocusPotency(stack)
                                         + 0.5f * this.getUpgradeLevel(
@@ -258,7 +258,7 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                                                     ((ItemCrystalEssence) stack.getItem())
                                                             .setAspects(stack, new AspectList().add(asp, 1));
                                                     p.worldObj.spawnEntityInWorld(
-                                                            (Entity) new EntityItemInvulnerable(
+                                                            new EntityItemInvulnerable(
                                                                     p.worldObj,
                                                                     ent.posX,
                                                                     ent.posY,
@@ -352,9 +352,9 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
         final Vec3 vec3d3 = vec3d.addVector(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range);
         final float f1 = 1.1f;
         final List list = world.getEntitiesWithinAABBExcludingEntity(
-                (Entity) entityplayer,
+                entityplayer,
                 entityplayer.boundingBox.addCoord(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range)
-                        .expand((double) f1, (double) f1, (double) f1));
+                        .expand(f1, f1, f1));
         double d2 = 0.0;
         for (Object o : list) {
             final Entity entity = (Entity) o;
@@ -368,8 +368,7 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                         Vec3.createVectorHelper(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ),
                         false) == null) {
                     final float f2 = Math.max(0.8f, entity.getCollisionBorderSize());
-                    final AxisAlignedBB axisalignedbb = entity.boundingBox
-                            .expand((double) f2, (double) f2, (double) f2);
+                    final AxisAlignedBB axisalignedbb = entity.boundingBox.expand(f2, f2, f2);
                     final MovingObjectPosition movingobjectposition = axisalignedbb.calculateIntercept(vec3d, vec3d3);
                     if (axisalignedbb.isVecInside(vec3d)) {
                         if (0.0 < d2 || d2 == 0.0) {
@@ -419,7 +418,7 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                     stack = new ItemStack(ConfigItems.itemCrystalEssence, aspects.getAmount(asp));
                     ((ItemCrystalEssence) stack.getItem()).setAspects(stack, new AspectList().add(asp, 1));
                     p.worldObj.spawnEntityInWorld(
-                            (Entity) new EntityItemInvulnerable(p.worldObj, x + 0.5, y + 0.5, z + 0.5, stack));
+                            new EntityItemInvulnerable(p.worldObj, x + 0.5, y + 0.5, z + 0.5, stack));
                 }
                 ThaumicHorizons.proxy.disintegrateExplodeFX(p.worldObj, x + 0.5, y + 0.5, z + 0.5);
             }

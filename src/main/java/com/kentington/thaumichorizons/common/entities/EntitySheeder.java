@@ -7,9 +7,6 @@ package com.kentington.thaumichorizons.common.entities;
 import java.util.ArrayList;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIEatGrass;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIPanic;
@@ -38,17 +35,15 @@ public class EntitySheeder extends EntitySpider implements IShearable {
 
     public EntitySheeder(final World p_i1743_1_) {
         super(p_i1743_1_);
-        this.sheeder = new EntityAIEatGrass((EntityLiving) this);
+        this.sheeder = new EntityAIEatGrass(this);
         this.getNavigator().setAvoidsWater(true);
-        this.tasks.addTask(0, (EntityAIBase) new EntityAISwimming((EntityLiving) this));
-        this.tasks.addTask(1, (EntityAIBase) new EntityAIPanic((EntityCreature) this, 0.5));
-        this.tasks.addTask(3, (EntityAIBase) new EntityAITempt((EntityCreature) this, 0.44, Items.wheat, false));
-        this.tasks.addTask(5, (EntityAIBase) this.sheeder);
-        this.tasks.addTask(6, (EntityAIBase) new EntityAIWander((EntityCreature) this, 0.4));
-        this.tasks.addTask(
-                7,
-                (EntityAIBase) new EntityAIWatchClosest((EntityLiving) this, (Class) EntityPlayer.class, 6.0f));
-        this.tasks.addTask(8, (EntityAIBase) new EntityAILookIdle((EntityLiving) this));
+        this.tasks.addTask(0, new EntityAISwimming(this));
+        this.tasks.addTask(1, new EntityAIPanic(this, 0.5));
+        this.tasks.addTask(3, new EntityAITempt(this, 0.44, Items.wheat, false));
+        this.tasks.addTask(5, this.sheeder);
+        this.tasks.addTask(6, new EntityAIWander(this, 0.4));
+        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0f));
+        this.tasks.addTask(8, new EntityAILookIdle(this));
     }
 
     public void onUpdate() {
@@ -86,9 +81,9 @@ public class EntitySheeder extends EntitySpider implements IShearable {
     public void setSheared(final boolean p_70893_1_) {
         final byte b0 = this.dataWatcher.getWatchableObjectByte(16);
         if (p_70893_1_) {
-            this.dataWatcher.updateObject(16, (Object) (byte) (b0 | 0x10));
+            this.dataWatcher.updateObject(16, (byte) (b0 | 0x10));
         } else {
-            this.dataWatcher.updateObject(16, (Object) (byte) (b0 & 0xFFFFFFEF));
+            this.dataWatcher.updateObject(16, (byte) (b0 & 0xFFFFFFEF));
         }
     }
 

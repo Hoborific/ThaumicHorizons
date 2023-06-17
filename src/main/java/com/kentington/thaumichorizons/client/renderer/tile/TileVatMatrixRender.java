@@ -73,10 +73,10 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer {
             tessellator.setColorRGBA_I(16777215, (int) (255.0f * (1.0f - f3)));
             tessellator.addVertex(0.0, 0.0, 0.0);
             tessellator.setColorRGBA_I(13369599, 0);
-            tessellator.addVertex(-0.866 * f4, (double) fa, (double) (-0.5f * f4));
-            tessellator.addVertex(0.866 * f4, (double) fa, (double) (-0.5f * f4));
-            tessellator.addVertex(0.0, (double) fa, (double) (f4));
-            tessellator.addVertex(-0.866 * f4, (double) fa, (double) (-0.5f * f4));
+            tessellator.addVertex(-0.866 * f4, fa, -0.5f * f4);
+            tessellator.addVertex(0.866 * f4, fa, -0.5f * f4);
+            tessellator.addVertex(0.0, fa, f4);
+            tessellator.addVertex(-0.866 * f4, fa, -0.5f * f4);
             tessellator.draw();
         }
         GL11.glPopMatrix();
@@ -120,16 +120,14 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer {
         for (int a = 0; a < 2; ++a) {
             for (int b4 = 0; b4 < 2; ++b4) {
                 for (int c = 0; c < 2; ++c) {
-                    b1 = (float) (MathHelper.sin((double) ((ticks + a * 10) / (15.0f - instability / 2.0f)))
+                    b1 = (float) (MathHelper.sin((ticks + a * 10) / (15.0f - instability / 2.0f)) * 0.009999999776482582
+                            * startUp
+                            * instability);
+                    b2 = (float) (MathHelper.sin((ticks + b4 * 10) / (14.0f - instability / 2.0f))
                             * 0.009999999776482582
                             * startUp
                             * instability);
-                    b2 = (float) (MathHelper.sin((double) ((ticks + b4 * 10) / (14.0f - instability / 2.0f)))
-                            * 0.009999999776482582
-                            * startUp
-                            * instability);
-                    b3 = (float) (MathHelper.sin((double) ((ticks + c * 10) / (13.0f - instability / 2.0f)))
-                            * 0.009999999776482582
+                    b3 = (float) (MathHelper.sin((ticks + c * 10) / (13.0f - instability / 2.0f)) * 0.009999999776482582
                             * startUp
                             * instability);
                     aa = ((a == 0) ? -1 : 1);
@@ -159,16 +157,14 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer {
         for (int a = 0; a < 2; ++a) {
             for (int b4 = 0; b4 < 2; ++b4) {
                 for (int c = 0; c < 2; ++c) {
-                    b1 = (float) (MathHelper.sin((double) ((ticks + a * 10) / (15.0f - instability / 2.0f)))
+                    b1 = (float) (MathHelper.sin((ticks + a * 10) / (15.0f - instability / 2.0f)) * 0.009999999776482582
+                            * startUp
+                            * instability);
+                    b2 = (float) (MathHelper.sin((ticks + b4 * 10) / (14.0f - instability / 2.0f))
                             * 0.009999999776482582
                             * startUp
                             * instability);
-                    b2 = (float) (MathHelper.sin((double) ((ticks + b4 * 10) / (14.0f - instability / 2.0f)))
-                            * 0.009999999776482582
-                            * startUp
-                            * instability);
-                    b3 = (float) (MathHelper.sin((double) ((ticks + c * 10) / (13.0f - instability / 2.0f)))
-                            * 0.009999999776482582
+                    b3 = (float) (MathHelper.sin((ticks + c * 10) / (13.0f - instability / 2.0f)) * 0.009999999776482582
                             * startUp
                             * instability);
                     aa = ((a == 0) ? -1 : 1);
@@ -194,8 +190,8 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer {
                             0.8f,
                             0.1f,
                             1.0f,
-                            (float) ((MathHelper.sin((double) ((ticks + a * 2 + b4 * 3 + c * 4) / 4.0f))
-                                    * 0.10000000149011612 + 0.20000000298023224) * startUp));
+                            (float) ((MathHelper.sin((ticks + a * 2 + b4 * 3 + c * 4) / 4.0f) * 0.10000000149011612
+                                    + 0.20000000298023224) * startUp));
                     this.model_over.render();
                     GL11.glPopMatrix();
                 }

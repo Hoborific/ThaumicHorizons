@@ -7,7 +7,6 @@ package com.kentington.thaumichorizons.common.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
@@ -40,7 +39,7 @@ public class BlockEvanescent extends Block {
 
     @SideOnly(Side.CLIENT)
     public void breakBlock(final World world, final int x, final int y, final int z, final Block block, final int md) {
-        ThaumicHorizons.instance.renderEventHandler.resetBlocks((EntityPlayer) Minecraft.getMinecraft().thePlayer);
+        ThaumicHorizons.instance.renderEventHandler.resetBlocks(Minecraft.getMinecraft().thePlayer);
     }
 
     public boolean canPlaceBlockAt(final World p_149742_1_, final int p_149742_2_, final int p_149742_3_,

@@ -152,12 +152,12 @@ public class BlockCloud extends BlockContainer {
                 && ((ItemWandCasting) player.getHeldItem().getItem())
                         .consumeVis(player.getHeldItem(), player, Aspect.AIR, 100, false)) {
             world.spawnEntityInWorld(
-                    (Entity) new EntityItemInvulnerable(
+                    new EntityItemInvulnerable(
                             world,
                             x + 0.5,
                             y + 0.5,
                             z + 0.5,
-                            new ItemStack((Block) this, 1, world.getBlockMetadata(x, y, z))));
+                            new ItemStack(this, 1, world.getBlockMetadata(x, y, z))));
             world.setBlockToAir(x, y, z);
             world.markBlockForUpdate(x, y, z);
             return true;
@@ -168,17 +168,17 @@ public class BlockCloud extends BlockContainer {
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
         if (!this.glow) {
-            par3List.add(new ItemStack((Block) this, 1, 0));
-            par3List.add(new ItemStack((Block) this, 1, 2));
-            par3List.add(new ItemStack((Block) this, 1, 3));
-            par3List.add(new ItemStack((Block) this, 1, 5));
-            par3List.add(new ItemStack((Block) this, 1, 8));
+            par3List.add(new ItemStack(this, 1, 0));
+            par3List.add(new ItemStack(this, 1, 2));
+            par3List.add(new ItemStack(this, 1, 3));
+            par3List.add(new ItemStack(this, 1, 5));
+            par3List.add(new ItemStack(this, 1, 8));
         } else {
-            par3List.add(new ItemStack((Block) this, 1, 1));
-            par3List.add(new ItemStack((Block) this, 1, 4));
-            par3List.add(new ItemStack((Block) this, 1, 6));
-            par3List.add(new ItemStack((Block) this, 1, 7));
-            par3List.add(new ItemStack((Block) this, 1, 9));
+            par3List.add(new ItemStack(this, 1, 1));
+            par3List.add(new ItemStack(this, 1, 4));
+            par3List.add(new ItemStack(this, 1, 6));
+            par3List.add(new ItemStack(this, 1, 7));
+            par3List.add(new ItemStack(this, 1, 9));
         }
     }
 

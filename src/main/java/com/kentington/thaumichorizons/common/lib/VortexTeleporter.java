@@ -24,7 +24,7 @@ public class VortexTeleporter extends Teleporter {
     public void placeInPortal(final Entity p_77185_1_, final double p_77185_2_, final double p_77185_4_,
             final double p_77185_6_, final float p_77185_8_) {
         if (this.worldServerInstance.provider.dimensionId == ThaumicHorizons.dimensionPocketId) {
-            p_77185_1_.setPosition(0.5, 129.0, (double) (256 * this.planeNum + 0.5f));
+            p_77185_1_.setPosition(0.5, 129.0, 256 * this.planeNum + 0.5f);
         } else {
             p_77185_1_.setPosition(
                     PocketPlaneData.positions.get(this.planeNum).xCoord,
