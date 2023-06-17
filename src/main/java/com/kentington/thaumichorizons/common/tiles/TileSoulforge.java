@@ -61,9 +61,7 @@ public class TileSoulforge extends TileThaumcraft implements ISoulReceiver, IEss
             for (int i = 0; i < 5; ++i) {
                 villagerTypes[i] = i;
             }
-            for (int j = 0; j < newVillagerTypes.length; ++j) {
-                villagerTypes[j + 5] = newVillagerTypes[j];
-            }
+            System.arraycopy(newVillagerTypes, 0, villagerTypes, 5, newVillagerTypes.length);
             final int which = world.rand.nextInt(villagerTypes.length);
             soul.getTagCompound().setInteger("villagerType", (int) villagerTypes[which]);
             final EntityVillager dummyVillager = new EntityVillager(this.worldObj);
