@@ -47,7 +47,7 @@ public class EntityInfusionProperties implements IExtendedEntityProperties {
         final NBTTagCompound aspects = new NBTTagCompound();
         this.infusionCosts.writeToNBT(aspects);
         properties.setTag("InfusionCosts", (NBTBase) aspects);
-        if (this.owner != null && this.owner != "") {
+        if (this.owner != null && !this.owner.equals("")) {
             properties.setString("owner", this.owner);
         }
         properties.setBoolean("sitting", this.sitting);
