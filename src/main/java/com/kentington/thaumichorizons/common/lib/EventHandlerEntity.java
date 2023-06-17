@@ -159,7 +159,7 @@ public class EventHandlerEntity {
                 if (infusions[i] != 0) {
                     if (infusions[i] == 1) {
                         final PotionEffect effect = new PotionEffect(Potion.jump.id, Integer.MAX_VALUE, 0, true);
-                        effect.setCurativeItems(new ArrayList<ItemStack>());
+                        effect.setCurativeItems(new ArrayList<>());
                         entity.addPotionEffect(effect);
                     } else if (infusions[i] == 3) {
                         final PotionEffect effect = new PotionEffect(
@@ -167,11 +167,11 @@ public class EventHandlerEntity {
                                 Integer.MAX_VALUE,
                                 0,
                                 true);
-                        effect.setCurativeItems(new ArrayList<ItemStack>());
+                        effect.setCurativeItems(new ArrayList<>());
                         entity.addPotionEffect(effect);
                     } else if (infusions[i] == 4) {
                         final PotionEffect effect = new PotionEffect(Potion.resistance.id, Integer.MAX_VALUE, 0, true);
-                        effect.setCurativeItems(new ArrayList<ItemStack>());
+                        effect.setCurativeItems(new ArrayList<>());
                         entity.addPotionEffect(effect);
                         ThaumicHorizons.instance.renderEventHandler.thingsThatSparkle.add(entity);
                     } else if (infusions[i] == 8 && !entity.getEntityData().hasKey("runicCharge")) {
@@ -188,22 +188,22 @@ public class EventHandlerEntity {
         for (int infusion : infusions) {
             if (infusion == 1) {
                 PotionEffect effect = new PotionEffect(Potion.jump.id, Integer.MAX_VALUE, 0, true);
-                effect.setCurativeItems(new ArrayList<ItemStack>());
+                effect.setCurativeItems(new ArrayList<>());
                 ((EntityLivingBase) entity).addPotionEffect(effect);
                 effect = new PotionEffect(Potion.moveSpeed.id, Integer.MAX_VALUE, 0, true);
-                effect.setCurativeItems(new ArrayList<ItemStack>());
+                effect.setCurativeItems(new ArrayList<>());
                 ((EntityLivingBase) entity).addPotionEffect(effect);
             } else if (infusion == 3) {
                 final PotionEffect effect = new PotionEffect(Potion.regeneration.id, Integer.MAX_VALUE, 0, true);
-                effect.setCurativeItems(new ArrayList<ItemStack>());
+                effect.setCurativeItems(new ArrayList<>());
                 ((EntityLivingBase) entity).addPotionEffect(effect);
             } else if (infusion == 4) {
                 final PotionEffect effect = new PotionEffect(Potion.resistance.id, Integer.MAX_VALUE, 0, true);
-                effect.setCurativeItems(new ArrayList<ItemStack>());
+                effect.setCurativeItems(new ArrayList<>());
                 ((EntityLivingBase) entity).addPotionEffect(effect);
             } else if (infusion == 10 && !toggled) {
                 final PotionEffect effect = new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 0, true);
-                effect.setCurativeItems(new ArrayList<ItemStack>());
+                effect.setCurativeItems(new ArrayList<>());
                 ((EntityLivingBase) entity).addPotionEffect(effect);
                 entity.setInvisible(true);
             }
@@ -317,7 +317,7 @@ public class EventHandlerEntity {
                     || player.getActivePotionEffect(Potion.potionTypes[Config.potionTaintPoisonID]) != null)) {
 
                 final Collection activePotionEffects = event.entityLiving.getActivePotionEffects();
-                final ArrayList<PotionEffect> toAdd = new ArrayList<PotionEffect>();
+                final ArrayList<PotionEffect> toAdd = new ArrayList<>();
 
                 for (Object activePotionEffect : activePotionEffects) {
                     final PotionEffect effect = (PotionEffect) activePotionEffect;

@@ -174,7 +174,7 @@ public class ItemSpawnerEgg extends Item {
     }
 
     static {
-        ItemSpawnerEgg.spawnList = new ArrayList<EntityEggStuff>();
+        ItemSpawnerEgg.spawnList = new ArrayList<>();
     }
 
     static class EntityEggStuff {

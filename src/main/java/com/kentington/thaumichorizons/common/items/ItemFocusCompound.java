@@ -80,7 +80,7 @@ public class ItemFocusCompound extends ItemFocusBasic {
     public Aspect chooseRandomFilteredFromSource(final AspectList filter, final boolean preserve,
             final AspectList nodeAspects, final World world) {
         final int min = preserve ? 1 : 0;
-        final ArrayList<Aspect> validaspects = new ArrayList<Aspect>();
+        final ArrayList<Aspect> validaspects = new ArrayList<>();
         for (final Aspect prim : nodeAspects.getAspects()) {
             if (filter.getAmount(prim) > 0 && nodeAspects.getAmount(prim) > min) {
                 validaspects.add(prim);

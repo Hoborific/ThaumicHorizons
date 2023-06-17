@@ -914,7 +914,7 @@ public class PocketPlaneData {
             solidity = 1.0f;
         }
         final int numCaves = (int) (data.radius * data.radius * data.radius / 10000 * (solidity + 0.1f));
-        final HashMap<Aspect, Number> dressing = new HashMap<Aspect, Number>();
+        final HashMap<Aspect, Number> dressing = new HashMap<>();
         if (aspects.getAmount(Aspect.EARTH) > 0) {
             dressing.put(Aspect.EARTH, aspectFraction(Aspect.EARTH, aspects));
         }
@@ -1163,7 +1163,7 @@ public class PocketPlaneData {
     public static void drawPockets(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data,
             final World world, final AspectList aspects, final int noise) {
         final int numPockets = data.radius * data.radius * data.radius / 200;
-        final HashMap<Aspect, Number> probabilities = new HashMap<Aspect, Number>();
+        final HashMap<Aspect, Number> probabilities = new HashMap<>();
         if (aspects.getAmount(Aspect.EARTH) > 0) {
             probabilities.put(Aspect.EARTH, aspectFraction(Aspect.EARTH, aspects));
         }

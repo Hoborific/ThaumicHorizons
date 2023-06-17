@@ -45,7 +45,7 @@ public class CreatureInfusionRecipe {
         if (this.recipeInput != null && !central.isAssignableFrom(this.recipeInput)) {
             return false;
         }
-        final ArrayList<ItemStack> ii = new ArrayList<ItemStack>();
+        final ArrayList<ItemStack> ii = new ArrayList<>();
         for (final ItemStack is : input) {
             ii.add(is.copy());
         }

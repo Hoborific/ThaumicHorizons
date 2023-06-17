@@ -508,11 +508,11 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
                 new AspectList().add(Aspect.ORDER, 8));
         cost = new AspectList().add(Aspect.FIRE, 40);
         costCritter = new AspectList().add(Aspect.FIRE, 15);
-        ItemFocusLiquefaction.soundDelay = new HashMap<String, Long>();
-        ItemFocusLiquefaction.beam = new HashMap<String, Object>();
-        ItemFocusLiquefaction.breakcount = new HashMap<String, Float>();
-        ItemFocusLiquefaction.lastX = new HashMap<String, Integer>();
-        ItemFocusLiquefaction.lastY = new HashMap<String, Integer>();
-        ItemFocusLiquefaction.lastZ = new HashMap<String, Integer>();
+        ItemFocusLiquefaction.soundDelay = new HashMap<>();
+        ItemFocusLiquefaction.beam = new HashMap<>();
+        ItemFocusLiquefaction.breakcount = new HashMap<>();
+        ItemFocusLiquefaction.lastX = new HashMap<>();
+        ItemFocusLiquefaction.lastY = new HashMap<>();
+        ItemFocusLiquefaction.lastZ = new HashMap<>();
     }
 }

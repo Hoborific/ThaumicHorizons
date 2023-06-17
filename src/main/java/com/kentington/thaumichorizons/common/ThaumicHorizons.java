@@ -3852,9 +3852,9 @@ public class ThaumicHorizons {
     static {
         portal = new MaterialPortalTH(MapColor.airColor);
         tabTH = new CreativeTabTH(CreativeTabs.getNextID(), "thaumichorizons");
-        incarnationItems = new HashMap<Item, Integer>();
-        critterRecipes = new ArrayList<CreatureInfusionRecipe>();
-        selfRecipes = new ArrayList<SelfInfusionRecipe>();
-        classBanList = new ArrayList<Class>();
+        incarnationItems = new HashMap<>();
+        critterRecipes = new ArrayList<>();
+        selfRecipes = new ArrayList<>();
+        classBanList = new ArrayList<>();
     }
 }

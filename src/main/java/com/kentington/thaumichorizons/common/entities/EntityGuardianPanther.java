@@ -39,7 +39,7 @@ public class EntityGuardianPanther extends EntityOcelot implements IEntityInfuse
     public EntityGuardianPanther(final World p_i1688_1_) {
         super(p_i1688_1_);
         this.setSize(1.2f, 1.6f);
-        final ArrayList<EntityAITasks.EntityAITaskEntry> toRemove = new ArrayList<EntityAITasks.EntityAITaskEntry>();
+        final ArrayList<EntityAITasks.EntityAITaskEntry> toRemove = new ArrayList<>();
         List<EntityAITasks.EntityAITaskEntry> list4 = this.tasks.taskEntries;
         for (final EntityAITasks.EntityAITaskEntry task : list4) {
             toRemove.add(task);

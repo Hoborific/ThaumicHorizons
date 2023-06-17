@@ -481,11 +481,11 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                 new AspectList().add(Aspect.DEATH, 8));
         cost = new AspectList().add(Aspect.FIRE, 30).add(Aspect.ENTROPY, 30).add(Aspect.EARTH, 30);
         costCritter = new AspectList().add(Aspect.FIRE, 12).add(Aspect.ENTROPY, 12).add(Aspect.EARTH, 12);
-        ItemFocusDisintegration.soundDelay = new HashMap<String, Long>();
-        ItemFocusDisintegration.beam = new HashMap<String, Object>();
-        ItemFocusDisintegration.breakcount = new HashMap<String, Float>();
-        ItemFocusDisintegration.lastX = new HashMap<String, Integer>();
-        ItemFocusDisintegration.lastY = new HashMap<String, Integer>();
-        ItemFocusDisintegration.lastZ = new HashMap<String, Integer>();
+        ItemFocusDisintegration.soundDelay = new HashMap<>();
+        ItemFocusDisintegration.beam = new HashMap<>();
+        ItemFocusDisintegration.breakcount = new HashMap<>();
+        ItemFocusDisintegration.lastX = new HashMap<>();
+        ItemFocusDisintegration.lastY = new HashMap<>();
+        ItemFocusDisintegration.lastZ = new HashMap<>();
     }
 }

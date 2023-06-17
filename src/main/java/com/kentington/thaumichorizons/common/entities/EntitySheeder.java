@@ -74,7 +74,7 @@ public class EntitySheeder extends EntitySpider implements IShearable {
 
     public ArrayList<ItemStack> onSheared(final ItemStack item, final IBlockAccess world, final int x, final int y,
             final int z, final int fortune) {
-        final ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+        final ArrayList<ItemStack> ret = new ArrayList<>();
         this.setSheared(true);
         for (int i = 2 + this.rand.nextInt(4), j = 0; j < i; ++j) {
             ret.add(new ItemStack(Items.string, 1, 0));

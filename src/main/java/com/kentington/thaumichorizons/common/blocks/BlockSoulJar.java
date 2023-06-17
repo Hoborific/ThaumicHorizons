@@ -97,7 +97,7 @@ public class BlockSoulJar extends BlockContainer {
 
     public ArrayList<ItemStack> getDrops(final World world, final int x, final int y, final int z, final int metadata,
             final int fortune) {
-        final ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
+        final ArrayList<ItemStack> drops = new ArrayList<>();
         final TileEntity te = world.getTileEntity(x, y, z);
         if (te != null && te instanceof TileSoulJar) {
             final ItemStack drop = new ItemStack((Block) this);

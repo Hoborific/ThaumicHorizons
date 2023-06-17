@@ -361,10 +361,10 @@ public class ItemFocusContainment extends ItemFocusBasic {
                 "focus.upgrade.slow.name",
                 "focus.upgrade.slow.text",
                 new AspectList().add(Aspect.TRAP, 8));
-        ItemFocusContainment.beam = new HashMap<String, Object>();
-        ItemFocusContainment.hitCritters = new HashMap<String, Entity>();
-        ItemFocusContainment.contain = new HashMap<String, Float>();
-        ItemFocusContainment.soundDelay = new HashMap<String, Long>();
+        ItemFocusContainment.beam = new HashMap<>();
+        ItemFocusContainment.hitCritters = new HashMap<>();
+        ItemFocusContainment.contain = new HashMap<>();
+        ItemFocusContainment.soundDelay = new HashMap<>();
         cost = new AspectList().add(Aspect.AIR, 10).add(Aspect.ENTROPY, 10);
     }
 }

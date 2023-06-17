@@ -269,16 +269,14 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
                 || this.providePerditio
                 || this.provideTerra) {
             if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId) == null) {
-                VisNetHandler.sources.put(
-                        this.worldObj.provider.dimensionId,
-                        new HashMap<WorldCoordinates, WeakReference<TileVisNode>>());
+                VisNetHandler.sources.put(this.worldObj.provider.dimensionId, new HashMap<>());
             }
             if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId).get(
                     new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
                     == null) {
                 VisNetHandler.sources.get(this.worldObj.provider.dimensionId).put(
                         new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId),
-                        new WeakReference<TileVisNode>(this));
+                        new WeakReference<>(this));
             } else if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId).get(
                     new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
                     .get() == null) {
@@ -294,7 +292,7 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
                                         this.yCoord,
                                         this.zCoord,
                                         this.worldObj.provider.dimensionId),
-                                new WeakReference<TileVisNode>(this));
+                                new WeakReference<>(this));
                     }
         }
         return wandstack;

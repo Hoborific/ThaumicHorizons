@@ -36,7 +36,7 @@ public class SelfInfusionRecipe {
                 && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), this.research)) {
             return false;
         }
-        final ArrayList<ItemStack> ii = new ArrayList<ItemStack>();
+        final ArrayList<ItemStack> ii = new ArrayList<>();
         for (final ItemStack is : input) {
             ii.add(is.copy());
         }

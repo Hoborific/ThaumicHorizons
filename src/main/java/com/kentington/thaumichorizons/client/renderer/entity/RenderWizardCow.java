@@ -220,8 +220,8 @@ public class RenderWizardCow extends RenderCow {
     }
 
     static {
-        RenderWizardCow.cowAspects = new HashMap<String, AspectList>();
-        RenderWizardCow.cowTypes = new HashMap<String, NodeType>();
-        RenderWizardCow.cowMods = new HashMap<String, NodeModifier>();
+        RenderWizardCow.cowAspects = new HashMap<>();
+        RenderWizardCow.cowTypes = new HashMap<>();
+        RenderWizardCow.cowMods = new HashMap<>();
     }
 }

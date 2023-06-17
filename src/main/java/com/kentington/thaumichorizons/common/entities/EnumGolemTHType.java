@@ -58,7 +58,7 @@ public enum EnumGolemTHType {
     }
 
     private static void initMapping() {
-        EnumGolemTHType.codeToTypeMapping = new HashMap<Integer, EnumGolemTHType>();
+        EnumGolemTHType.codeToTypeMapping = new HashMap<>();
         for (final EnumGolemTHType s : values()) {
             EnumGolemTHType.codeToTypeMapping.put(s.ordinal(), s);
         }

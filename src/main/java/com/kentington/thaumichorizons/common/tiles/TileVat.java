@@ -118,7 +118,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
         this.entityContained = null;
         this.selfInfusions = new int[12];
         this.selfInfusionHealth = 20.0f;
-        this.pedestals = new ArrayList<ChunkCoordinates>();
+        this.pedestals = new ArrayList<>();
         this.dangerCount = 0;
         this.checkSurroundings = true;
         this.symmetry = 0;
@@ -134,8 +134,8 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
         this.count = 0;
         this.craftCount = 0;
         this.countDelay = 10;
-        this.ingredients = new ArrayList<ItemStack>();
-        this.sourceFX = new HashMap<String, SourceFX>();
+        this.ingredients = new ArrayList<>();
+        this.sourceFX = new HashMap<>();
     }
 
     public boolean activate(final EntityPlayer player, final boolean direct) {
@@ -595,7 +595,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
 
     public void startInfusion(final EntityPlayer player) {
         this.getSurroundings();
-        final ArrayList<ItemStack> components = new ArrayList<ItemStack>();
+        final ArrayList<ItemStack> components = new ArrayList<>();
         for (final ChunkCoordinates cc : this.pedestals) {
             final TileEntity te = this.worldObj.getTileEntity(cc.posX, cc.posY, cc.posZ);
             if (te != null && te instanceof TilePedestal) {
@@ -623,7 +623,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
                 return;
             }
             this.recipeType = 0;
-            this.recipeIngredients = new ArrayList<ItemStack>();
+            this.recipeIngredients = new ArrayList<>();
             for (final ItemStack ing : recipe.getComponents()) {
                 this.recipeIngredients.add(ing.copy());
             }
@@ -648,7 +648,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
                 }
             }
             this.recipeType = 1;
-            this.recipeIngredients = new ArrayList<ItemStack>();
+            this.recipeIngredients = new ArrayList<>();
             for (final ItemStack ing : recipe2.getComponents()) {
                 this.recipeIngredients.add(ing.copy());
             }
@@ -677,7 +677,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
     }
 
     private void getSurroundings() {
-        final ArrayList<ChunkCoordinates> stuff = new ArrayList<ChunkCoordinates>();
+        final ArrayList<ChunkCoordinates> stuff = new ArrayList<>();
         this.pedestals.clear();
         try {
             for (int xx = -12; xx <= 12; ++xx) {
@@ -1423,7 +1423,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
     public void readFromNBT(final NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
         final NBTTagList nbttaglist = nbtCompound.getTagList("recipein", 10);
-        this.recipeIngredients = new ArrayList<ItemStack>();
+        this.recipeIngredients = new ArrayList<>();
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
             final NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
             final byte b0 = nbttagcompound1.getByte("item");

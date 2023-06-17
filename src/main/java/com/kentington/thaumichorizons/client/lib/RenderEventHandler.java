@@ -72,10 +72,10 @@ public class RenderEventHandler {
     public ArrayList<EntityLivingBase> thingsThatSparkle;
 
     public RenderEventHandler() {
-        this.foci = new TreeMap<String, Integer>();
-        this.fociItem = new HashMap<String, ItemStack>();
-        this.fociHover = new HashMap<String, Boolean>();
-        this.fociScale = new HashMap<String, Float>();
+        this.foci = new TreeMap<>();
+        this.fociItem = new HashMap<>();
+        this.fociHover = new HashMap<>();
+        this.fociScale = new HashMap<>();
         this.lastTime = 0L;
         this.lastState = false;
         this.breakProgress = 0.0f;
@@ -85,7 +85,7 @@ public class RenderEventHandler {
         this.evanescentStage = 0;
         this.tempBlock = new Block[3][3];
         this.tempMD = new int[3][3];
-        this.thingsThatSparkle = new ArrayList<EntityLivingBase>();
+        this.thingsThatSparkle = new ArrayList<>();
     }
 
     @SideOnly(Side.CLIENT)
