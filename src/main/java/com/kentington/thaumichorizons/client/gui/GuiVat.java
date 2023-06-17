@@ -77,10 +77,10 @@ public class GuiVat extends GuiContainer {
                 }
             }
         } else if (this.tile.mode == 4 || this.tile.mode == 2) {
-            final float health2 = this.tile.selfInfusionHealth / 2.0f;
+            final float adjustedSelfInfusionHealth = this.tile.selfInfusionHealth / 2.0f;
             final float max2 = 10.0f;
             for (int j = 0; j < (int) max2; ++j) {
-                if (health2 >= j) {
+                if (adjustedSelfInfusionHealth >= j) {
                     this.drawTexturedModalRect(
                             var5 + 56 + 7 * j - 63 * (j / 9),
                             var6 + 12 + 7 * (j / 9),
@@ -96,7 +96,7 @@ public class GuiVat extends GuiContainer {
                             120,
                             7,
                             6);
-                    if (health2 >= j - 0.5f) {
+                    if (adjustedSelfInfusionHealth >= j - 0.5f) {
                         this.drawTexturedModalRect(
                                 var5 + 56 + 7 * j - 63 * (j / 9),
                                 var6 + 12 + 7 * (j / 9),
