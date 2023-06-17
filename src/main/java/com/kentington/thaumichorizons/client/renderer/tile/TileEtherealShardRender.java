@@ -67,7 +67,7 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer {
         try {
             final Color col2 = new Color((int) red, (int) green, (int) blue);
             UtilsFX.bindTexture("textures/models/crystal.png");
-            final Random rand = new Random(tco.getBlockMetadata() + tco.xCoord + tco.yCoord * tco.zCoord);
+            final Random rand = new Random(tco.getBlockMetadata() + tco.xCoord + (long) tco.yCoord * tco.zCoord);
             this.drawCrystal(0, (float) x, (float) y, (float) z, tco.rotation, 0.0f, rand, col2.getRGB(), 1.1f);
             final long nt = System.nanoTime();
             UtilsFX.bindTexture(TileEtherealShardRender.tx2);
