@@ -120,12 +120,14 @@ public class ItemSyringeInjection extends ItemPotion {
         @SuppressWarnings("unchecked") // Vanilla code uses raw types
         final List<PotionEffect> potionEffects = Items.potionitem.getEffects(itemStack);
         final HashMultimap<IAttribute, AttributeModifier> hashmultimap = HashMultimap.create();
+
         if (potionEffects != null && !potionEffects.isEmpty()) {
             for (PotionEffect potioneffect : potionEffects) {
                 String message = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
                 final Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
                 @SuppressWarnings("unchecked") // Vanilla code uses raw types
                 final Map<IAttribute, AttributeModifier> map = potion.func_111186_k();
+
                 if (map != null && map.size() > 0) {
                     for (final Map.Entry<IAttribute, AttributeModifier> entry : map.entrySet()) {
                         final AttributeModifier attributemodifier = (AttributeModifier) entry.getValue();
