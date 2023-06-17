@@ -188,7 +188,7 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer {
         final int var19 = (int) (210.0f * shade);
         final int var20 = var19 % 65536;
         final int var21 = var19 / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, var20 / 1.0f, var21 / 1.0f);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, var20, var21);
         GL11.glColor4f(r, g, b, 1.0f);
         this.model.render();
         GL11.glScalef(1.0f, 1.0f, 1.0f);

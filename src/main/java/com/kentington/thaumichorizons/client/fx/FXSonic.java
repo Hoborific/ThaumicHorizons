@@ -94,7 +94,7 @@ public class FXSonic extends EntityFX {
         final int i = 220;
         final int j = i % 65536;
         final int k = i / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0f, k / 1.0f);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j, k);
         GL11.glRotatef(-this.yaw, 0.0f, 1.0f, 0.0f);
         GL11.glRotatef(this.pitch, 1.0f, 0.0f, 0.0f);
         GL11.glScaled(0.5, 0.5, -0.5);

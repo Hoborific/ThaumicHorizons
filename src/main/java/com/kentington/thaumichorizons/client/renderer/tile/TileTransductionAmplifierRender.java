@@ -70,7 +70,7 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
             final int j = 50 + (int) (170.0f * (v * 2.5f * scale));
             final int k = j % 65536;
             final int l = j / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0f, l / 1.0f);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k, l);
         }
         UtilsFX.bindTexture("textures/models/node_converter_over.png");
         this.model.renderPart("lock");
@@ -80,7 +80,7 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
             if (tile.getWorldObj() != null) {
                 final int k = bright % 65536;
                 final int l = bright / 65536;
-                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0f, l / 1.0f);
+                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k, l);
             }
             GL11.glRotatef((float) (90 * a), 0.0f, 0.0f, 1.0f);
             GL11.glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
@@ -94,7 +94,7 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
                 final int i = 50 + (int) (170.0f * (v * 2.5f * scale2));
                 final int m = i % 65536;
                 final int l2 = i / 65536;
-                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, m / 1.0f, l2 / 1.0f);
+                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, m, l2);
             }
             UtilsFX.bindTexture("textures/models/node_converter_over.png");
             this.model.renderPart("piston");

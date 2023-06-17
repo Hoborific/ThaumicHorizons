@@ -116,19 +116,19 @@ public class BlockCloud extends BlockContainer {
                 d3 = p_150186_3_ + 1 + d0;
             }
             if (l == 1 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_ - 1, p_150186_4_).isOpaqueCube()) {
-                d3 = p_150186_3_ + 0 - d0;
+                d3 = p_150186_3_ - d0;
             }
             if (l == 2 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_, p_150186_4_ + 1).isOpaqueCube()) {
                 d4 = p_150186_4_ + 1 + d0;
             }
             if (l == 3 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_, p_150186_4_ - 1).isOpaqueCube()) {
-                d4 = p_150186_4_ + 0 - d0;
+                d4 = p_150186_4_ - d0;
             }
             if (l == 4 && !p_150186_1_.getBlock(p_150186_2_ + 1, p_150186_3_, p_150186_4_).isOpaqueCube()) {
                 d2 = p_150186_2_ + 1 + d0;
             }
             if (l == 5 && !p_150186_1_.getBlock(p_150186_2_ - 1, p_150186_3_, p_150186_4_).isOpaqueCube()) {
-                d2 = p_150186_2_ + 0 - d0;
+                d2 = p_150186_2_ - d0;
             }
             if (random.nextInt(10) == 0 && (d2 < p_150186_2_ || d2 > p_150186_2_ + 1
                     || d3 < 0.0

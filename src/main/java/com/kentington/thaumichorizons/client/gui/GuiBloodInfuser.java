@@ -151,13 +151,7 @@ public class GuiBloodInfuser extends GuiContainer {
                         if (potion.hasStatusIcon()) {
                             this.mc.getTextureManager().bindTexture(GuiBloodInfuser.field_147001_a);
                             final int l = potion.getStatusIconIndex();
-                            this.drawTexturedModalRect(
-                                    j * 18 + 171,
-                                    k * 18 + 72,
-                                    0 + l % 8 * 18,
-                                    198 + l / 8 * 18,
-                                    18,
-                                    18);
+                            this.drawTexturedModalRect(j * 18 + 171, k * 18 + 72, l % 8 * 18, 198 + l / 8 * 18, 18, 18);
                             this.fontRendererObj.drawString(
                                     "" + this.mousedEffects.get(key),
                                     j * 18 + 171,
@@ -216,7 +210,7 @@ public class GuiBloodInfuser extends GuiContainer {
                     if (potion != null) {
                         this.mc.getTextureManager().bindTexture(GuiBloodInfuser.field_147001_a);
                         final int l = potion.getStatusIconIndex();
-                        this.drawTexturedModalRect(j * 18 + 171, k * 18 + 28, 0 + l % 8 * 18, 198 + l / 8 * 18, 18, 18);
+                        this.drawTexturedModalRect(j * 18 + 171, k * 18 + 28, l % 8 * 18, 198 + l / 8 * 18, 18, 18);
                         this.fontRendererObj.drawString(
                                 "" + (this.cachedEffects.getCompoundTagAt(index).getByte("Amplifier") + 1),
                                 j * 18 + 171,

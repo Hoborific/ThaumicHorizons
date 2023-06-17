@@ -182,8 +182,7 @@ public class EntityBoatThaumium extends EntityBoat {
         final byte b0 = 5;
         double d0 = 0.0;
         for (int i = 0; i < b0; ++i) {
-            final double d2 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 0) / b0
-                    - 0.125;
+            final double d2 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * i / b0 - 0.125;
             final double d3 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 1) / b0
                     - 0.125;
             final AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(

@@ -97,7 +97,7 @@ public class RenderTaintfeeder extends RenderPig {
         final char c0 = '\uf0f0';
         final int j = c0 % 65536;
         final int k = c0 / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0f, k / 1.0f);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j, k);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.32f + 0.32f * f);
         return 1;
     }

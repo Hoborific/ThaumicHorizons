@@ -75,7 +75,7 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer {
             tessellator.setColorRGBA_I(13369599, 0);
             tessellator.addVertex(-0.866 * f4, (double) fa, (double) (-0.5f * f4));
             tessellator.addVertex(0.866 * f4, (double) fa, (double) (-0.5f * f4));
-            tessellator.addVertex(0.0, (double) fa, (double) (1.0f * f4));
+            tessellator.addVertex(0.0, (double) fa, (double) (f4));
             tessellator.addVertex(-0.866 * f4, (double) fa, (double) (-0.5f * f4));
             tessellator.draw();
         }
@@ -189,7 +189,7 @@ public class TileVatMatrixRender extends TileEntitySpecialRenderer {
                     final int j = 15728880;
                     final int k = j % 65536;
                     final int l = j / 65536;
-                    OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0f, l / 1.0f);
+                    OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k, l);
                     GL11.glColor4f(
                             0.8f,
                             0.1f,
