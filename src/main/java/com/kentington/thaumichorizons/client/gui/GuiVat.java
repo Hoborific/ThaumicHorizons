@@ -46,10 +46,10 @@ public class GuiVat extends GuiContainer {
         }
         if (this.tile.getEntity() != null) {
             final EntityLivingBase critter = this.tile.getEntity();
-            final float health = critter.getHealth() / 2.0f;
+            final float adjustedCritterHealth = critter.getHealth() / 2.0f;
             final float max = critter.getMaxHealth() / 2.0f;
             for (int i = 0; i < (int) max; ++i) {
-                if (health >= i) {
+                if (adjustedCritterHealth >= i) {
                     this.drawTexturedModalRect(
                             var5 + 56 + 7 * i - 63 * (i / 9),
                             var6 + 12 + 7 * (i / 9),
@@ -65,7 +65,7 @@ public class GuiVat extends GuiContainer {
                             120,
                             7,
                             6);
-                    if (health >= i - 0.5f) {
+                    if (adjustedCritterHealth >= i - 0.5f) {
                         this.drawTexturedModalRect(
                                 var5 + 56 + 7 * i - 63 * (i / 9),
                                 var6 + 12 + 7 * (i / 9),
