@@ -13,6 +13,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
@@ -116,22 +117,23 @@ public class ItemSyringeInjection extends ItemPotion {
     @SideOnly(Side.CLIENT)
     public void addInformation(final ItemStack itemStack, final EntityPlayer player, final List messages,
             final boolean ignored) {
+        @SuppressWarnings("unchecked") // Vanilla code uses raw types
         final List<PotionEffect> potionEffects = Items.potionitem.getEffects(itemStack);
-        final HashMultimap hashmultimap = HashMultimap.create();
+        final HashMultimap<IAttribute, AttributeModifier> hashmultimap = HashMultimap.create();
         if (potionEffects != null && !potionEffects.isEmpty()) {
             for (PotionEffect potioneffect : potionEffects) {
                 String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
                 final Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
-                final Map map = potion.func_111186_k();
-                final List<Map.Entry> mapset = (List<Map.Entry>) map.entrySet();
+                @SuppressWarnings("unchecked") // Vanilla code uses raw types
+                final Map<IAttribute, AttributeModifier> map = potion.func_111186_k();
                 if (map != null && map.size() > 0) {
-                    for (final Map.Entry entry : mapset) {
+                    for (final Map.Entry<IAttribute, AttributeModifier> entry : map.entrySet()) {
                         final AttributeModifier attributemodifier = (AttributeModifier) entry.getValue();
                         final AttributeModifier attributemodifier2 = new AttributeModifier(
                                 attributemodifier.getName(),
                                 potion.func_111183_a(potioneffect.getAmplifier(), attributemodifier),
                                 attributemodifier.getOperation());
-                        hashmultimap.put(entry.getKey(), (Object) attributemodifier2);
+                        hashmultimap.put(entry.getKey(), attributemodifier2);
                     }
                 }
                 if (potioneffect.getAmplifier() > 0) {
@@ -154,7 +156,7 @@ public class ItemSyringeInjection extends ItemPotion {
         if (!hashmultimap.isEmpty()) {
             messages.add("");
             messages.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
-            for (final Map.Entry entry2 : (List<Map.Entry>) hashmultimap.entries()) {
+            for (final Map.Entry<IAttribute, AttributeModifier> entry2 : hashmultimap.entries()) {
                 final AttributeModifier attributemodifier3 = (AttributeModifier) entry2.getValue();
                 final double d0 = attributemodifier3.getAmount();
                 double d2;
