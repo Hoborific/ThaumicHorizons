@@ -19,19 +19,19 @@ public class RecipeVoidPuttyRepair implements IRecipe {
         ItemStack itemstack = null;
         final ArrayList<ItemStack> arraylist = new ArrayList<>();
         for (int i = 0; i < craftingInventory.getSizeInventory(); ++i) {
-            final ItemStack itemstack2 = craftingInventory.getStackInSlot(i);
-            if (itemstack2 != null) {
-                if (itemstack2.getItem().isDamageable() && itemstack2.getItem().isRepairable()
-                        && itemstack2.getItem().isDamaged(itemstack2)) {
+            final ItemStack stackInSlot = craftingInventory.getStackInSlot(i);
+            if (stackInSlot != null) {
+                if (stackInSlot.getItem().isDamageable() && stackInSlot.getItem().isRepairable()
+                        && stackInSlot.getItem().isDamaged(stackInSlot)) {
                     if (itemstack != null) {
                         return null;
                     }
-                    itemstack = itemstack2;
+                    itemstack = stackInSlot;
                 } else {
-                    if (itemstack2.getItem() != ThaumicHorizons.itemVoidPutty) {
+                    if (stackInSlot.getItem() != ThaumicHorizons.itemVoidPutty) {
                         return null;
                     }
-                    arraylist.add(itemstack2);
+                    arraylist.add(stackInSlot);
                 }
             }
         }
