@@ -86,11 +86,8 @@ public class WandManagerTH implements IWandTriggerManager {
         for (int yy = 0; yy < 4; ++yy) {
             for (int zz = 0; zz < 3; ++zz) {
                 for (int xx = 0; xx < 3; ++xx) {
-                    int md = 0;
-                    if (world.getBlock(x + xx, y + yy, z + zz) == Blocks.water
-                            || world.getBlock(x + xx, y + yy, z + zz) == Blocks.flowing_water) {
-                        md = 0;
-                    } else if (world.getBlock(x + xx, y + yy, z + zz) == Blocks.glass) {
+                    int md = 0; // Blocks.water || Blocks.flowing_water
+                    if (world.getBlock(x + xx, y + yy, z + zz) == Blocks.glass) {
                         md = 10;
                     } else if (world.getBlock(x + xx, y + yy, z + zz) == ConfigBlocks.blockWoodenDevice) {
                         if (yy == 0 && ((xx == 1 && zz == 0) || (xx == 1 && zz == 2)

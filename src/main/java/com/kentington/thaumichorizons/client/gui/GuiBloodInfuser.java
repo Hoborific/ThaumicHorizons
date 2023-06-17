@@ -167,12 +167,10 @@ public class GuiBloodInfuser extends GuiContainer {
                         } else {
                             this.mc.getTextureManager()
                                     .bindTexture(new ResourceLocation("thaumichorizons", "textures/misc/potions.png"));
-                            int ecks2 = 0;
+                            int ecks2 = 0; // Potion.heal.id
                             final int why2 = 216;
                             if (potion.getId() == 23) {
                                 ecks2 = 36;
-                            } else if (potion.getId() == Potion.heal.id) {
-                                ecks2 = 0;
                             } else if (potion.getId() == Potion.harm.id) {
                                 ecks2 = 18;
                             }

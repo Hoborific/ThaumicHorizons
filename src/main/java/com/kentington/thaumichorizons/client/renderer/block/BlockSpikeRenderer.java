@@ -25,10 +25,8 @@ public class BlockSpikeRenderer extends BlockRenderer implements ISimpleBlockRen
         GL11.glPushMatrix();
         GL11.glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
         GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
-        byte type = 0;
-        if (block == ThaumicHorizons.blockSpike) {
-            type = 0;
-        } else if (block == ThaumicHorizons.blockSpikeTooth) {
+        byte type = 0; // ThaumicHorizons.blockSpike
+        if (block == ThaumicHorizons.blockSpikeTooth) {
             type = 2;
         } else if (block == ThaumicHorizons.blockSpikeWood) {
             type = 1;
