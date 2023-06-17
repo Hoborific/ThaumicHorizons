@@ -75,7 +75,8 @@ public class TileCloudRender extends TileEntitySpecialRenderer {
             final double d3 = f2 * 0.025 * (1.0 - (b0 & 0x1) * 2.5);
             tessellator.startDrawingQuads();
             switch (tco.md) {
-                case 1: {
+                case 1:
+                case 7: {
                     tessellator.setColorRGBA(255, 255, 255, 255);
                     break;
                 }
@@ -93,10 +94,6 @@ public class TileCloudRender extends TileEntitySpecialRenderer {
                 }
                 case 6: {
                     tessellator.setColorRGBA(170, 64, 200, 255);
-                    break;
-                }
-                case 7: {
-                    tessellator.setColorRGBA(255, 255, 255, 255);
                     break;
                 }
                 case 8: {

@@ -310,10 +310,8 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
     @Override
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
-            case 1: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
-                        ItemFocusLiquefaction.nuggets };
-            }
+            case 1:
+            case 4:
             case 2: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
                         ItemFocusLiquefaction.nuggets };
@@ -321,10 +319,6 @@ public class ItemFocusLiquefaction extends ItemFocusBasic {
             case 3: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
                         FocusUpgradeType.enlarge };
-            }
-            case 4: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
-                        ItemFocusLiquefaction.nuggets };
             }
             case 5: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,

@@ -99,9 +99,6 @@ public class ItemDummy extends Item {
             case 3: {
                 return this.iconChicken;
             }
-            case 4: {
-                return this.iconCat;
-            }
             case 5: {
                 return this.iconDog;
             }

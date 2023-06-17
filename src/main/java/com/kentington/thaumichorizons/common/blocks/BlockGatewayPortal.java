@@ -197,12 +197,8 @@ public class BlockGatewayPortal extends Block {
                     }
                     // break;
                 }
-                case 1: {
-                    return this.leftSide(isXAligned, side);
-                }
-                case 2: {
-                    return this.leftSide(isXAligned, side);
-                }
+                case 1:
+                case 2:
                 case 3: {
                     return this.leftSide(isXAligned, side);
                 }
@@ -276,10 +272,9 @@ public class BlockGatewayPortal extends Block {
                     }
                     return this.lapiz;
                 }
-                case 6: {
-                    return this.bottomSide(isXAligned, side);
-                }
-                case 7: {
+                case 6:
+                case 7:
+                case 9: {
                     return this.bottomSide(isXAligned, side);
                 }
                 case 8: {
@@ -313,9 +308,6 @@ public class BlockGatewayPortal extends Block {
                         }
                     }
                     return this.lapiz;
-                }
-                case 9: {
-                    return this.bottomSide(isXAligned, side);
                 }
                 case 10: {
                     switch (side) {
@@ -355,12 +347,8 @@ public class BlockGatewayPortal extends Block {
                     }
                     // break;
                 }
-                case 11: {
-                    return this.rightSide(isXAligned, side);
-                }
-                case 12: {
-                    return this.rightSide(isXAligned, side);
-                }
+                case 11:
+                case 12:
                 case 13: {
                     return this.rightSide(isXAligned, side);
                 }

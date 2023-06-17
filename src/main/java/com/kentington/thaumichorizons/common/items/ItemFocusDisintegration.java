@@ -319,18 +319,14 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
     @Override
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
-            case 1: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
-            }
+            case 1:
+            case 4:
             case 2: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
             }
             case 3: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
                         FocusUpgradeType.enlarge };
-            }
-            case 4: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
             }
             case 5: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,

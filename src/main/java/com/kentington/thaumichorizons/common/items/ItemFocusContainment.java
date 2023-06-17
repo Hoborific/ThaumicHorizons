@@ -98,22 +98,15 @@ public class ItemFocusContainment extends ItemFocusBasic {
     @Override
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
-            case 1: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
-            }
-            case 2: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
-                        ItemFocusContainment.slow };
-            }
+            case 1:
+            case 5:
             case 3: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
             }
+            case 2:
             case 4: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
                         ItemFocusContainment.slow };
-            }
-            case 5: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
             }
             default: {
                 return null;

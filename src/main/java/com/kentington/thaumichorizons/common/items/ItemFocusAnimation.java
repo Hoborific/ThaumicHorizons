@@ -74,18 +74,14 @@ public class ItemFocusAnimation extends ItemFocusBasic {
     @Override
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
-            case 1: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend };
-            }
+            case 1:
+            case 4:
             case 2: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend };
             }
             case 3: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend,
                         ItemFocusAnimation.berserk };
-            }
-            case 4: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend };
             }
             case 5: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend,

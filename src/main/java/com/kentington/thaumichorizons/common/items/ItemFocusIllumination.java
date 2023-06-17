@@ -88,20 +88,14 @@ public class ItemFocusIllumination extends ItemFocusBasic {
     @Override
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
-            case 1: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal };
-            }
+            case 1:
+            case 5:
+            case 4:
             case 2: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal };
             }
             case 3: {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, ItemFocusIllumination.solar };
-            }
-            case 4: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal };
-            }
-            case 5: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal };
             }
             default: {
                 return null;

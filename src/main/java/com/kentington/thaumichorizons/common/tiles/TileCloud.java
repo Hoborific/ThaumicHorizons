@@ -89,7 +89,8 @@ public class TileCloud extends TileThaumcraft {
                 if (this.worldObj.getTotalWorldTime() % 10L == 0L) {
                     this.findBlockBelow();
                     switch (this.md) {
-                        case 1: {
+                        case 1:
+                        case 4: {
                             final int meltable = ((ItemFocusLiquefaction) ThaumicHorizons.itemFocusLiquefaction)
                                     .isMeltableBlock(this.cachedBlock, this.cachedMD);
                             if (meltable == 1) {
@@ -204,81 +205,6 @@ public class TileCloud extends TileThaumcraft {
                             }
                             break;
                         }
-                        case 4: {
-                            final int meltable = ((ItemFocusLiquefaction) ThaumicHorizons.itemFocusLiquefaction)
-                                    .isMeltableBlock(this.cachedBlock, this.cachedMD);
-                            if (meltable == 1) {
-                                this.worldObj.setBlock(
-                                        this.xCoord,
-                                        this.yCoord - this.howManyDown,
-                                        this.zCoord,
-                                        (Block) Blocks.fire);
-                                ThaumicHorizons.proxy.smeltFX(
-                                        this.xCoord,
-                                        this.yCoord - this.howManyDown,
-                                        this.zCoord,
-                                        this.worldObj,
-                                        25,
-                                        false);
-                                break;
-                            }
-                            if (meltable == 2) {
-                                if (this.worldObj.provider.dimensionId != -1) {
-                                    this.worldObj.setBlock(
-                                            this.xCoord,
-                                            this.yCoord - this.howManyDown,
-                                            this.zCoord,
-                                            Blocks.water,
-                                            0,
-                                            3);
-                                    break;
-                                }
-                                this.worldObj.setBlockToAir(this.xCoord, this.yCoord - this.howManyDown, this.zCoord);
-                            } else {
-                                if (meltable == 3) {
-                                    this.worldObj.setBlock(
-                                            this.xCoord,
-                                            this.yCoord - this.howManyDown,
-                                            this.zCoord,
-                                            Blocks.dirt,
-                                            0,
-                                            3);
-                                    break;
-                                }
-                                if (meltable == 4) {
-                                    Blocks.tnt.onBlockDestroyedByPlayer(
-                                            this.worldObj,
-                                            this.xCoord,
-                                            this.yCoord - this.howManyDown,
-                                            this.zCoord,
-                                            1);
-                                    this.worldObj
-                                            .setBlockToAir(this.xCoord, this.yCoord - this.howManyDown, this.zCoord);
-                                    break;
-                                }
-                                if (this.cachedBlock.isFlammable(
-                                        (IBlockAccess) this.worldObj,
-                                        this.xCoord,
-                                        this.yCoord - this.howManyDown,
-                                        this.zCoord,
-                                        ForgeDirection.UNKNOWN)) {
-                                    this.worldObj.setBlock(
-                                            this.xCoord,
-                                            this.yCoord - this.howManyDown,
-                                            this.zCoord,
-                                            (Block) Blocks.fire);
-                                    ThaumicHorizons.proxy.smeltFX(
-                                            this.xCoord,
-                                            this.yCoord - this.howManyDown,
-                                            this.zCoord,
-                                            this.worldObj,
-                                            25,
-                                            false);
-                                    break;
-                                }
-                            }
-                            break;
-                        }
                         default: {
                             if (this.worldObj.getBiomeGenForCoords(this.xCoord, this.zCoord)
                                     .getFloatTemperature(this.xCoord, this.yCoord, this.zCoord) >= 0.15) {
@@ -328,7 +254,8 @@ public class TileCloud extends TileThaumcraft {
                     }
                 }
                 switch (this.md) {
-                    case 1: {
+                    case 1:
+                    case 4: {
                         final List<Entity> critters = this.getCrittersBelow();
                         for (final Entity ent : critters) {
                             ent.setFire(6);
@@ -339,13 +266,6 @@ public class TileCloud extends TileThaumcraft {
                         final List<Entity> critters = this.getCrittersBelow();
                         for (final Entity ent : critters) {
                             ent.attackEntityFrom(DamageSourceThaumcraft.dissolve, 1.0f);
-                        }
-                        break;
-                    }
-                    case 4: {
-                        final List<Entity> critters = this.getCrittersBelow();
-                        for (final Entity ent : critters) {
-                            ent.setFire(6);
                         }
                         break;
                     }
@@ -667,20 +587,7 @@ public class TileCloud extends TileThaumcraft {
                                                             (Block) Blocks.yellow_flower);
                                                     break;
                                                 }
-                                                case 3: {
-                                                    this.worldObj.setBlock(
-                                                            this.xCoord,
-                                                            this.yCoord - this.howManyDown + 1,
-                                                            this.zCoord,
-                                                            (Block) Blocks.red_flower);
-                                                    this.worldObj.setBlockMetadataWithNotify(
-                                                            this.xCoord,
-                                                            this.yCoord - this.howManyDown + 1,
-                                                            this.zCoord,
-                                                            0,
-                                                            3);
-                                                    break;
-                                                }
+                                                case 3:
                                                 case 4: {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
