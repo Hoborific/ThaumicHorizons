@@ -63,7 +63,7 @@ public class RenderLightningBoltFinite extends RenderLightningBolt {
                     }
                     tessellator.startDrawing(5);
                     final float f2 = 0.5f;
-                    tessellator.setColorRGBA_F(0.9f * f2, 0.9f * f2, 1.0f * f2, 0.3f);
+                    tessellator.setColorRGBA_F(0.9f * f2, 0.9f * f2, f2, 0.3f);
                     double d9 = 0.1 + k1 * 0.2;
                     if (j == 0) {
                         d9 *= i2 * 0.1 + 1.0;

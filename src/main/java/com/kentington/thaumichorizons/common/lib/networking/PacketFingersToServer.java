@@ -38,10 +38,10 @@ public class PacketFingersToServer implements IMessage, IMessageHandler<PacketFi
     }
 
     public IMessage onMessage(final PacketFingersToServer message, final MessageContext ctx) {
-        final World world = (World) DimensionManager.getWorld(message.dim);
+        final World world = DimensionManager.getWorld(message.dim);
         final EntityPlayer player = (EntityPlayer) world.getEntityByID(message.playerid);
         player.openGui(
-                (Object) ThaumicHorizons.instance,
+                ThaumicHorizons.instance,
                 9,
                 player.worldObj,
                 (int) player.posX,

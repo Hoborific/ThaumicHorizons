@@ -26,22 +26,22 @@ public class ModelSyringe extends ModelBase {
     public ModelSyringe() {
         this.textureWidth = 64;
         this.textureHeight = 32;
-        (this.Body = new ModelRenderer((ModelBase) this, 0, 0)).addBox(0.0f, 0.0f, 0.0f, 9, 3, 3);
+        (this.Body = new ModelRenderer(this, 0, 0)).addBox(0.0f, 0.0f, 0.0f, 9, 3, 3);
         this.Body.setRotationPoint(-3.0f, 21.0f, -1.0f);
         this.Body.setTextureSize(64, 32);
         this.Body.mirror = true;
         this.setRotation(this.Body, 0.0f, 0.0f, 0.0f);
-        (this.Needle = new ModelRenderer((ModelBase) this, 25, 0)).addBox(0.0f, 0.0f, 0.0f, 4, 1, 1);
+        (this.Needle = new ModelRenderer(this, 25, 0)).addBox(0.0f, 0.0f, 0.0f, 4, 1, 1);
         this.Needle.setRotationPoint(-7.0f, 22.0f, 0.0f);
         this.Needle.setTextureSize(64, 32);
         this.Needle.mirror = true;
         this.setRotation(this.Needle, 0.0f, 0.0f, 0.0f);
-        (this.PlungerA = new ModelRenderer((ModelBase) this, 0, 8)).addBox(0.0f, 0.0f, 0.0f, 1, 1, 1);
+        (this.PlungerA = new ModelRenderer(this, 0, 8)).addBox(0.0f, 0.0f, 0.0f, 1, 1, 1);
         this.PlungerA.setRotationPoint(6.0f, 22.0f, 0.0f);
         this.PlungerA.setTextureSize(64, 32);
         this.PlungerA.mirror = true;
         this.setRotation(this.PlungerA, 0.0f, 0.0f, 0.0f);
-        (this.PlungerB = new ModelRenderer((ModelBase) this, 0, 12)).addBox(0.0f, 0.0f, 0.0f, 1, 3, 3);
+        (this.PlungerB = new ModelRenderer(this, 0, 12)).addBox(0.0f, 0.0f, 0.0f, 1, 3, 3);
         this.PlungerB.setRotationPoint(7.0f, 21.0f, -1.0f);
         this.PlungerB.setTextureSize(64, 32);
         this.PlungerB.mirror = true;
@@ -60,7 +60,7 @@ public class ModelSyringe extends ModelBase {
             } else {
                 GL11.glColor4f(red, green, blue, 0.5f);
             }
-        } else if (entity != null && entity instanceof EntitySyringe) {
+        } else if (entity instanceof EntitySyringe) {
             final Color col = new Color(((EntitySyringe) entity).color);
             final float red = col.getRed() / 255.0f;
             final float green = col.getGreen() / 255.0f;

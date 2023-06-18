@@ -19,7 +19,7 @@ import thaumcraft.common.container.SlotLimitedByClass;
 
 public class ContainerCase extends Container {
 
-    private World worldObj;
+    private final World worldObj;
     private int posX;
     private int posY;
     private int posZ;
@@ -30,7 +30,7 @@ public class ContainerCase extends Container {
 
     public ContainerCase(final InventoryPlayer iinventory, final World par2World, final int par3, final int par4,
             final int par5) {
-        this.input = (IInventory) new InventoryCase(this);
+        this.input = new InventoryCase(this);
         this.pouch = null;
         this.player = null;
         this.worldObj = par2World;
@@ -42,18 +42,13 @@ public class ContainerCase extends Container {
         this.blockSlot = iinventory.currentItem + 45;
         for (int a = 0; a < 18; ++a) {
             this.addSlotToContainer(
-                    (Slot) new SlotLimitedByClass(
-                            (Class) ILens.class,
-                            this.input,
-                            a,
-                            37 + a % 6 * 18,
-                            51 + a / 6 * 18));
+                    new SlotLimitedByClass(ILens.class, this.input, a, 37 + a % 6 * 18, 51 + a / 6 * 18));
         }
         this.bindPlayerInventory(iinventory);
         if (!par2World.isRemote) {
             try {
                 ((InventoryCase) this.input).stackList = ((ItemLensCase) this.pouch.getItem()).getInventory(this.pouch);
-            } catch (Exception ex) {}
+            } catch (Exception ignored) {}
         }
         this.onCraftMatrixChanged(this.input);
     }
@@ -61,12 +56,11 @@ public class ContainerCase extends Container {
     protected void bindPlayerInventory(final InventoryPlayer inventoryPlayer) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(
-                        new Slot((IInventory) inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 151 + i * 18));
+                this.addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 151 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot((IInventory) inventoryPlayer, i, 8 + i * 18, 209));
+            this.addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 209));
         }
     }
 
@@ -89,7 +83,7 @@ public class ContainerCase extends Container {
                         return null;
                     }
             if (stackInSlot.stackSize == 0) {
-                slotObject.putStack((ItemStack) null);
+                slotObject.putStack(null);
             } else {
                 slotObject.onSlotChanged();
             }

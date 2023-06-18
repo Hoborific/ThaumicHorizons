@@ -12,7 +12,7 @@ public class ModelQuarterBlock extends ModelBase {
     public ModelRenderer block;
 
     public ModelQuarterBlock() {
-        (this.block = new ModelRenderer((ModelBase) this, 0, 0)).addBox(0.0f, 0.0f, 0.0f, 16, 1, 16);
+        (this.block = new ModelRenderer(this, 0, 0)).addBox(0.0f, 0.0f, 0.0f, 16, 1, 16);
         this.block.setRotationPoint(0.0f, 0.0f, 0.0f);
         this.block.setTextureSize(64, 32);
         this.block.mirror = true;

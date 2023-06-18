@@ -34,11 +34,10 @@ public class TileVortexRender extends TileEntitySpecialRenderer {
 
     public void renderTileEntityAt(final TileEntity tile, final double x, final double y, final double z,
             final float partialTicks) {
-        if (!(tile instanceof TileVortex)) {
+        if (!(tile instanceof final TileVortex node)) {
             return;
         }
         final float size = 10.0f;
-        final TileVortex node = (TileVortex) tile;
         final double viewDistance = 64.0;
         final EntityLivingBase viewer = Minecraft.getMinecraft().renderViewEntity;
         final boolean condition = true;
@@ -242,40 +241,29 @@ public class TileVortexRender extends TileEntitySpecialRenderer {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(220);
         tessellator.setColorRGBA_I(color, (int) (alpha * 255.0f));
-        final Vec3 v1 = Vec3.createVectorHelper(
-                (double) (-arX * scale - arYZ * scale),
-                (double) (-arXZ * scale),
-                (double) (-arZ * scale - arXY * scale));
-        final Vec3 v2 = Vec3.createVectorHelper(
-                (double) (-arX * scale + arYZ * scale),
-                (double) (arXZ * scale),
-                (double) (-arZ * scale + arXY * scale));
-        final Vec3 v3 = Vec3.createVectorHelper(
-                (double) (arX * scale + arYZ * scale),
-                (double) (arXZ * scale),
-                (double) (arZ * scale + arXY * scale));
-        final Vec3 v4 = Vec3.createVectorHelper(
-                (double) (arX * scale - arYZ * scale),
-                (double) (-arXZ * scale),
-                (double) (arZ * scale - arXY * scale));
+        final Vec3 v1 = Vec3
+                .createVectorHelper(-arX * scale - arYZ * scale, -arXZ * scale, -arZ * scale - arXY * scale);
+        final Vec3 v2 = Vec3.createVectorHelper(-arX * scale + arYZ * scale, arXZ * scale, -arZ * scale + arXY * scale);
+        final Vec3 v3 = Vec3.createVectorHelper(arX * scale + arYZ * scale, arXZ * scale, arZ * scale + arXY * scale);
+        final Vec3 v4 = Vec3.createVectorHelper(arX * scale - arYZ * scale, -arXZ * scale, arZ * scale - arXY * scale);
         if (angle != 0.0f) {
             final Vec3 pvec = Vec3.createVectorHelper(iPX, iPY, iPZ);
             final Vec3 tvec = Vec3.createVectorHelper(px, py, pz);
             final Vec3 qvec = pvec.subtract(tvec).normalize();
-            QuadHelper.setAxis(qvec, (double) angle).rotate(v1);
-            QuadHelper.setAxis(qvec, (double) angle).rotate(v2);
-            QuadHelper.setAxis(qvec, (double) angle).rotate(v3);
-            QuadHelper.setAxis(qvec, (double) angle).rotate(v4);
+            QuadHelper.setAxis(qvec, angle).rotate(v1);
+            QuadHelper.setAxis(qvec, angle).rotate(v2);
+            QuadHelper.setAxis(qvec, angle).rotate(v3);
+            QuadHelper.setAxis(qvec, angle).rotate(v4);
         }
         final float f2 = 0.0f;
         final float f3 = 1.0f;
         final float f4 = 0.0f;
         final float f5 = 1.0f;
         tessellator.setNormal(0.0f, 0.0f, -1.0f);
-        tessellator.addVertexWithUV(px + v1.xCoord, py + v1.yCoord, pz + v1.zCoord, (double) f2, (double) f5);
-        tessellator.addVertexWithUV(px + v2.xCoord, py + v2.yCoord, pz + v2.zCoord, (double) f3, (double) f5);
-        tessellator.addVertexWithUV(px + v3.xCoord, py + v3.yCoord, pz + v3.zCoord, (double) f3, (double) f4);
-        tessellator.addVertexWithUV(px + v4.xCoord, py + v4.yCoord, pz + v4.zCoord, (double) f2, (double) f4);
+        tessellator.addVertexWithUV(px + v1.xCoord, py + v1.yCoord, pz + v1.zCoord, f2, f5);
+        tessellator.addVertexWithUV(px + v2.xCoord, py + v2.yCoord, pz + v2.zCoord, f3, f5);
+        tessellator.addVertexWithUV(px + v3.xCoord, py + v3.yCoord, pz + v3.zCoord, f3, f4);
+        tessellator.addVertexWithUV(px + v4.xCoord, py + v4.yCoord, pz + v4.zCoord, f2, f4);
         tessellator.draw();
     }
 

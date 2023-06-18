@@ -21,7 +21,7 @@ import com.kentington.thaumichorizons.common.tiles.TileCloud;
 
 public class TileCloudRender extends TileEntitySpecialRenderer {
 
-    private Minecraft mc;
+    private final Minecraft mc;
     Random random;
     private int rendererUpdateCount;
     private static final ResourceLocation locationRainPng;
@@ -75,41 +75,29 @@ public class TileCloudRender extends TileEntitySpecialRenderer {
             final double d3 = f2 * 0.025 * (1.0 - (b0 & 0x1) * 2.5);
             tessellator.startDrawingQuads();
             switch (tco.md) {
-                case 1: {
+                case 1, 7 -> {
                     tessellator.setColorRGBA(255, 255, 255, 255);
-                    break;
                 }
-                case 3: {
+                case 3 -> {
                     tessellator.setColorRGBA(32, 255, 64, 255);
-                    break;
                 }
-                case 4: {
+                case 4 -> {
                     tessellator.setColorRGBA(64, 64, 64, 255);
-                    break;
                 }
-                case 5: {
+                case 5 -> {
                     tessellator.setColorRGBA(255, 64, 32, 255);
-                    break;
                 }
-                case 6: {
+                case 6 -> {
                     tessellator.setColorRGBA(170, 64, 200, 255);
-                    break;
                 }
-                case 7: {
-                    tessellator.setColorRGBA(255, 255, 255, 255);
-                    break;
-                }
-                case 8: {
+                case 8 -> {
                     tessellator.setColorRGBA(160, 255, 160, 255);
-                    break;
                 }
-                case 9: {
+                case 9 -> {
                     tessellator.setColorRGBA(255, 230, 64, 255);
-                    break;
                 }
-                default: {
+                default -> {
                     tessellator.setColorRGBA(32, 64, 255, 255);
-                    break;
                 }
             }
             final double d4 = 0.0;

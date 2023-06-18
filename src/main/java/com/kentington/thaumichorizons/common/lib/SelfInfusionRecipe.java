@@ -18,7 +18,7 @@ public class SelfInfusionRecipe {
 
     protected AspectList aspects;
     protected String research;
-    private ItemStack[] components;
+    private final ItemStack[] components;
     protected int instability;
     protected int id;
 
@@ -36,7 +36,7 @@ public class SelfInfusionRecipe {
                 && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), this.research)) {
             return false;
         }
-        final ArrayList<ItemStack> ii = new ArrayList<ItemStack>();
+        final ArrayList<ItemStack> ii = new ArrayList<>();
         for (final ItemStack is : input) {
             ii.add(is.copy());
         }

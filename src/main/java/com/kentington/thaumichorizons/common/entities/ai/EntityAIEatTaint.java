@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities.ai;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.Vec3;
@@ -18,7 +17,7 @@ import thaumcraft.common.lib.utils.Utils;
 
 public class EntityAIEatTaint extends EntityAIBase {
 
-    private EntityTaintPig thePig;
+    private final EntityTaintPig thePig;
     private Vec3 targetCoordinates;
     int cooldown;
     int count;
@@ -52,9 +51,9 @@ public class EntityAIEatTaint extends EntityAIBase {
                                             (int) this.thePig.posX + x,
                                             (int) this.thePig.posZ + z).biomeID == Config.biomeTaintID)) {
                         this.targetCoordinates = Vec3.createVectorHelper(
-                                (double) ((int) this.thePig.posX + x),
-                                (double) ((int) this.thePig.posY + y),
-                                (double) ((int) this.thePig.posZ + z));
+                                (int) this.thePig.posX + x,
+                                (int) this.thePig.posY + y,
+                                (int) this.thePig.posZ + z);
                         return true;
                     }
                 }
@@ -68,7 +67,7 @@ public class EntityAIEatTaint extends EntityAIBase {
                     && this.thePig.worldObj.getBlock(x2, y2, z).getMaterial() == Config.taintMaterial)
                     || (this.thePig.worldObj.getBlock(x2, y2, z) == Blocks.grass
                             && this.thePig.worldObj.getBiomeGenForCoords(x2, z).biomeID == Config.biomeTaintID)) {
-                this.targetCoordinates = Vec3.createVectorHelper((double) x2, (double) y2, (double) z);
+                this.targetCoordinates = Vec3.createVectorHelper(x2, y2, z);
                 return true;
             }
         }
@@ -131,7 +130,7 @@ public class EntityAIEatTaint extends EntityAIBase {
                     (int) this.targetCoordinates.zCoord,
                     BiomeGenBase.plains);
             this.thePig.worldObj.playSoundAtEntity(
-                    (Entity) this.thePig,
+                    this.thePig,
                     "random.burp",
                     0.2f,
                     ((this.thePig.worldObj.rand.nextFloat() - this.thePig.worldObj.rand.nextFloat()) * 0.7f + 1.0f)
@@ -156,7 +155,7 @@ public class EntityAIEatTaint extends EntityAIBase {
                                     (int) this.targetCoordinates.zCoord,
                                     BiomeGenBase.plains);
                             this.thePig.worldObj.playSoundAtEntity(
-                                    (Entity) this.thePig,
+                                    this.thePig,
                                     "random.burp",
                                     0.2f,
                                     ((this.thePig.worldObj.rand.nextFloat() - this.thePig.worldObj.rand.nextFloat())

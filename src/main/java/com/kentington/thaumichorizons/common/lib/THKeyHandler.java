@@ -5,7 +5,6 @@
 package com.kentington.thaumichorizons.common.lib;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +12,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
 
 import org.lwjgl.input.Keyboard;
 
@@ -24,7 +22,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.api.nodes.IRevealer;
@@ -79,8 +76,7 @@ public class THKeyHandler {
                         if (!THKeyHandler.radialLock && player.inventory.armorItemInSlot(3) != null
                                 && player.inventory.armorItemInSlot(3).getItem() instanceof IRevealer) {
                             if (player.isSneaking()) {
-                                PacketHandler.INSTANCE
-                                        .sendToServer((IMessage) new PacketLensChangeToServer(player, "REMOVE"));
+                                PacketHandler.INSTANCE.sendToServer(new PacketLensChangeToServer(player, "REMOVE"));
                             } else {
                                 THKeyHandler.radialActive = true;
                             }
@@ -105,14 +101,13 @@ public class THKeyHandler {
                         if (((EntityInfusionProperties) player.getExtendedProperties("CreatureInfusion"))
                                 .hasPlayerInfusion(2) && !this.keyPressedM) {
                             player.openGui(
-                                    (Object) ThaumicHorizons.instance,
+                                    ThaumicHorizons.instance,
                                     9,
                                     player.worldObj,
                                     (int) player.posX,
                                     (int) player.posY,
                                     (int) player.posZ);
-                            PacketHandler.INSTANCE
-                                    .sendToServer((IMessage) new PacketFingersToServer(player, player.dimension));
+                            PacketHandler.INSTANCE.sendToServer(new PacketFingersToServer(player, player.dimension));
                         }
                     }
                     this.keyPressedM = true;
@@ -138,19 +133,19 @@ public class THKeyHandler {
                             if (((EntityInfusionProperties) player
                                     .getExtendedProperties("CreatureInfusion")).toggleClimb) {
                                 player.addChatMessage(
-                                        (IChatComponent) new ChatComponentText(
+                                        new ChatComponentText(
                                                 EnumChatFormatting.ITALIC + ""
                                                         + EnumChatFormatting.GRAY
                                                         + "Spider Climb disabled."));
                             } else {
                                 player.addChatMessage(
-                                        (IChatComponent) new ChatComponentText(
+                                        new ChatComponentText(
                                                 EnumChatFormatting.ITALIC + ""
                                                         + EnumChatFormatting.GRAY
                                                         + "Spider Climb enabled."));
                             }
                             PacketHandler.INSTANCE
-                                    .sendToServer((IMessage) new PacketToggleClimbToServer(player, player.dimension));
+                                    .sendToServer(new PacketToggleClimbToServer(player, player.dimension));
                         }
                     }
                     this.keyPressedC = true;
@@ -178,7 +173,7 @@ public class THKeyHandler {
                                 player.removePotionEffectClient(Potion.invisibility.id);
                                 player.setInvisible(false);
                                 player.addChatMessage(
-                                        (IChatComponent) new ChatComponentText(
+                                        new ChatComponentText(
                                                 EnumChatFormatting.ITALIC + ""
                                                         + EnumChatFormatting.GRAY
                                                         + "Chameleon Skin disabled."));
@@ -188,17 +183,17 @@ public class THKeyHandler {
                                         Integer.MAX_VALUE,
                                         0,
                                         true);
-                                effect.setCurativeItems((List) new ArrayList());
+                                effect.setCurativeItems(new ArrayList<>());
                                 player.addPotionEffect(effect);
                                 player.setInvisible(true);
                                 player.addChatMessage(
-                                        (IChatComponent) new ChatComponentText(
+                                        new ChatComponentText(
                                                 EnumChatFormatting.ITALIC + ""
                                                         + EnumChatFormatting.GRAY
                                                         + "Chameleon Skin enabled."));
                             }
-                            PacketHandler.INSTANCE.sendToServer(
-                                    (IMessage) new PacketToggleInvisibleToServer(player, player.dimension));
+                            PacketHandler.INSTANCE
+                                    .sendToServer(new PacketToggleInvisibleToServer(player, player.dimension));
                         }
                     }
                     this.keyPressedX = true;

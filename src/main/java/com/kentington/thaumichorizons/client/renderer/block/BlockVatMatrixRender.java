@@ -7,7 +7,6 @@ package com.kentington.thaumichorizons.client.renderer.block;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
@@ -27,7 +26,7 @@ public class BlockVatMatrixRender extends BlockRenderer implements ISimpleBlockR
         GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
         final TileVatMatrix tc = new TileVatMatrix();
         tc.blockMetadata = metadata;
-        TileEntityRendererDispatcher.instance.renderTileEntityAt((TileEntity) tc, 0.0, 0.0, 0.0, 0.0f);
+        TileEntityRendererDispatcher.instance.renderTileEntityAt(tc, 0.0, 0.0, 0.0, 0.0f);
         GL11.glEnable(32826);
         GL11.glPopMatrix();
     }

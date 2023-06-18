@@ -16,8 +16,7 @@ public class BlockLightSolar extends BlockLight {
 
     public void onEntityCollidedWithBlock(final World p_149670_1_, final int p_149670_2_, final int p_149670_3_,
             final int p_149670_4_, final Entity p_149670_5_) {
-        if (p_149670_5_ instanceof EntityLivingBase) {
-            final EntityLivingBase critter = (EntityLivingBase) p_149670_5_;
+        if (p_149670_5_ instanceof final EntityLivingBase critter) {
             if (critter.isEntityUndead()) {
                 critter.setFire(5);
             }

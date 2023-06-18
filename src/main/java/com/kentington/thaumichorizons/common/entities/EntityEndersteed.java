@@ -5,8 +5,6 @@
 package com.kentington.thaumichorizons.common.entities;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,8 +16,6 @@ import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
-import cpw.mods.fml.common.eventhandler.Event;
 
 public class EntityEndersteed extends EntityHorse {
 
@@ -33,10 +29,10 @@ public class EntityEndersteed extends EntityHorse {
     public void readEntityFromNBT(final NBTTagCompound p_70037_1_) {
         super.readEntityFromNBT(p_70037_1_);
         if (!(this.initialized = p_70037_1_.getBoolean("initialized"))) {
-            final Multimap map = (Multimap) HashMultimap.create();
-            map.put((Object) "generic.movementSpeed", (Object) new AttributeModifier("generic.movementSpeed", 0.1, 1));
-            map.put((Object) "horse.jumpStrength", (Object) new AttributeModifier("horse.jumpStrength", 0.25, 1));
-            map.put((Object) "generic.maxHealth", (Object) new AttributeModifier("generic.maxHealth", 4.0, 1));
+            final Multimap map = HashMultimap.create();
+            map.put("generic.movementSpeed", new AttributeModifier("generic.movementSpeed", 0.1, 1));
+            map.put("horse.jumpStrength", new AttributeModifier("horse.jumpStrength", 0.25, 1));
+            map.put("generic.maxHealth", new AttributeModifier("generic.maxHealth", 4.0, 1));
             this.getAttributeMap().applyAttributeModifiers(map);
             this.initialized = true;
         }
@@ -63,13 +59,8 @@ public class EntityEndersteed extends EntityHorse {
     }
 
     protected boolean teleportTo(final double p_70825_1_, final double p_70825_3_, final double p_70825_5_) {
-        final EnderTeleportEvent event = new EnderTeleportEvent(
-                (EntityLivingBase) this,
-                p_70825_1_,
-                p_70825_3_,
-                p_70825_5_,
-                0.0f);
-        if (MinecraftForge.EVENT_BUS.post((Event) event)) {
+        final EnderTeleportEvent event = new EnderTeleportEvent(this, p_70825_1_, p_70825_3_, p_70825_5_, 0.0f);
+        if (MinecraftForge.EVENT_BUS.post(event)) {
             return false;
         }
         final double d3 = this.posX;
@@ -93,7 +84,7 @@ public class EntityEndersteed extends EntityHorse {
             }
             if (foundGround) {
                 this.setPosition(this.posX, this.posY, this.posZ);
-                if (this.worldObj.getCollidingBoundingBoxes((Entity) this, this.boundingBox).isEmpty()
+                if (this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()
                         && !this.worldObj.isAnyLiquid(this.boundingBox)) {
                     flag = true;
                     foundAir = true;
@@ -114,7 +105,7 @@ public class EntityEndersteed extends EntityHorse {
             final double d7 = d3 + (this.posX - d3) * d6 + (this.rand.nextDouble() - 0.5) * this.width * 2.0;
             final double d8 = d4 + (this.posY - d4) * d6 + this.rand.nextDouble() * this.height;
             final double d9 = d5 + (this.posZ - d5) * d6 + (this.rand.nextDouble() - 0.5) * this.width * 2.0;
-            this.worldObj.spawnParticle("portal", d7, d8, d9, (double) f, (double) f2, (double) f3);
+            this.worldObj.spawnParticle("portal", d7, d8, d9, f, f2, f3);
         }
         this.worldObj.playSoundEffect(d3, d4, d5, "mob.endermen.portal", 1.0f, 1.0f);
         this.playSound("mob.endermen.portal", 1.0f, 1.0f);

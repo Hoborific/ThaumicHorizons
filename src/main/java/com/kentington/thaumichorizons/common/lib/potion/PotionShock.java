@@ -15,12 +15,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PotionShock extends Potion {
 
     public static PotionShock instance;
-    private int statusIconIndex;
+    private static final int statusIconIndex = 0;
     static final ResourceLocation rl;
 
     public PotionShock(final int par1, final boolean par2, final int par3) {
         super(par1, par2, par3);
-        this.setIconIndex(this.statusIconIndex = 0, 0);
+        this.setIconIndex(statusIconIndex, 0);
     }
 
     public static void init() {

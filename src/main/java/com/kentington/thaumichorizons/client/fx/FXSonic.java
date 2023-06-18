@@ -32,39 +32,32 @@ public class FXSonic extends EntityFX {
         this.particleGreen = 1.0f;
         this.particleBlue = 1.0f;
         this.particleGravity = 0.0f;
-        final double motionX = 0.0;
-        this.motionZ = motionX;
-        this.motionY = motionX;
-        this.motionX = motionX;
+        this.motionZ = 0.0;
+        this.motionY = 0.0;
+        this.motionX = 0.0;
         this.particleMaxAge = age + this.rand.nextInt(age / 2);
         this.noClip = false;
         this.setSize(0.01f, 0.01f);
         this.noClip = true;
         this.particleScale = 1.0f;
         switch (dir) {
-            case 0: {
+            case 0 -> {
                 this.pitch = 90.0f;
-                break;
             }
-            case 1: {
+            case 1 -> {
                 this.pitch = -90.0f;
-                break;
             }
-            case 2: {
+            case 2 -> {
                 this.yaw = 180.0f;
-                break;
             }
-            case 3: {
+            case 3 -> {
                 this.yaw = 0.0f;
-                break;
             }
-            case 4: {
+            case 4 -> {
                 this.yaw = 90.0f;
-                break;
             }
-            case 5: {
+            case 5 -> {
                 this.yaw = 270.0f;
-                break;
             }
         }
         this.prevPosX = this.posX;
@@ -79,14 +72,14 @@ public class FXSonic extends EntityFX {
         GL11.glDisable(2884);
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 1);
-        if (this.model == null) {
-            this.model = AdvancedModelLoader.loadModel(FXSonic.MODEL);
+        if (model == null) {
+            model = AdvancedModelLoader.loadModel(FXSonic.MODEL);
         }
         final float fade = (this.particleAge + f) / this.particleMaxAge;
         final float xx = (float) (this.prevPosX + (this.posX - this.prevPosX) * f - FXSonic.interpPosX);
         final float yy = (float) (this.prevPosY + (this.posY - this.prevPosY) * f - FXSonic.interpPosY);
         final float zz = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * f - FXSonic.interpPosZ);
-        GL11.glTranslated((double) xx, (double) yy, (double) zz);
+        GL11.glTranslated(xx, yy, zz);
         float b = 1.0f;
         final int frame = Math.min(15, (int) (14.0f * fade) + 1);
         UtilsFX.bindTexture("textures/models/ripple" + frame + ".png");
@@ -94,12 +87,12 @@ public class FXSonic extends EntityFX {
         final int i = 220;
         final int j = i % 65536;
         final int k = i / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0f, k / 1.0f);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j, k);
         GL11.glRotatef(-this.yaw, 0.0f, 1.0f, 0.0f);
         GL11.glRotatef(this.pitch, 1.0f, 0.0f, 0.0f);
         GL11.glScaled(0.5, 0.5, -0.5);
         GL11.glColor4f(0.0f, b, b, 1.0f);
-        this.model.renderAll();
+        model.renderAll();
         GL11.glDisable(3042);
         GL11.glEnable(2884);
         GL11.glPopMatrix();

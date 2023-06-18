@@ -5,10 +5,7 @@
 package com.kentington.thaumichorizons.common.lib.networking;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 import baubles.api.BaublesApi;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -22,12 +19,12 @@ public class PacketNoMoreItems implements IMessage, IMessageHandler<PacketNoMore
 
     @SideOnly(Side.CLIENT)
     public IMessage onMessage(final PacketNoMoreItems message, final MessageContext ctx) {
-        Minecraft.getMinecraft().thePlayer.inventory.clearInventory((Item) null, -1);
-        final IInventory baubles = BaublesApi.getBaubles((EntityPlayer) Minecraft.getMinecraft().thePlayer);
-        baubles.setInventorySlotContents(0, (ItemStack) null);
-        baubles.setInventorySlotContents(1, (ItemStack) null);
-        baubles.setInventorySlotContents(2, (ItemStack) null);
-        baubles.setInventorySlotContents(3, (ItemStack) null);
+        Minecraft.getMinecraft().thePlayer.inventory.clearInventory(null, -1);
+        final IInventory baubles = BaublesApi.getBaubles(Minecraft.getMinecraft().thePlayer);
+        baubles.setInventorySlotContents(0, null);
+        baubles.setInventorySlotContents(1, null);
+        baubles.setInventorySlotContents(2, null);
+        baubles.setInventorySlotContents(3, null);
         return null;
     }
 

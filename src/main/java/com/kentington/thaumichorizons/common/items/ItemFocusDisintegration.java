@@ -100,23 +100,13 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
             if (!p.worldObj.isRemote) {
                 pp = "S" + p.getCommandSenderName();
             }
-            if (ItemFocusDisintegration.soundDelay.get(pp) == null) {
-                ItemFocusDisintegration.soundDelay.put(pp, 0L);
-            }
-            if (ItemFocusDisintegration.breakcount.get(pp) == null) {
-                ItemFocusDisintegration.breakcount.put(pp, 0.0f);
-            }
-            if (ItemFocusDisintegration.lastX.get(pp) == null) {
-                ItemFocusDisintegration.lastX.put(pp, 0);
-            }
-            if (ItemFocusDisintegration.lastY.get(pp) == null) {
-                ItemFocusDisintegration.lastY.put(pp, 0);
-            }
-            if (ItemFocusDisintegration.lastZ.get(pp) == null) {
-                ItemFocusDisintegration.lastZ.put(pp, 0);
-            }
-            final MovingObjectPosition mop = BlockUtils.getTargetBlock(p.worldObj, (Entity) p, true);
-            final Entity ent = getPointedEntity(p.worldObj, (EntityLivingBase) p, 10.0);
+            ItemFocusDisintegration.soundDelay.putIfAbsent(pp, 0L);
+            ItemFocusDisintegration.breakcount.putIfAbsent(pp, 0.0f);
+            ItemFocusDisintegration.lastX.putIfAbsent(pp, 0);
+            ItemFocusDisintegration.lastY.putIfAbsent(pp, 0);
+            ItemFocusDisintegration.lastZ.putIfAbsent(pp, 0);
+            final MovingObjectPosition mop = BlockUtils.getTargetBlock(p.worldObj, p, true);
+            final Entity ent = getPointedEntity(p.worldObj, p, 10.0);
             final Vec3 v = p.getLookVec();
             double tx = p.posX + v.xCoord * 10.0;
             double ty = p.posY + v.yCoord * 10.0;
@@ -227,20 +217,20 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                         ItemFocusDisintegration.breakcount.put(pp, 0.0f);
                     }
                 }
-            } else if (ent != null && ent instanceof EntityLiving
+            } else if (ent instanceof EntityLiving
                     && wand.consumeAllVis(stack, p, ItemFocusDisintegration.costCritter, true, true)) {
                         if (this.getUpgradeLevel(wand.getFocusItem(stack), ItemFocusDisintegration.enervation) > 0) {
                             ((EntityLiving) ent).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 40, 0));
                         }
                         ThaumicHorizons.proxy.disintegrateFX(ent.posX - 0.5, ent.posY, ent.posZ - 0.5, p, 5, false);
-                        ((EntityLiving) ent).attackEntityFrom(
+                        ent.attackEntityFrom(
                                 DamageSourceThaumcraft.dissolve,
                                 0.5f + 0.25f * wand.getFocusPotency(stack)
                                         + 0.5f * this.getUpgradeLevel(
                                                 wand.getFocusItem(stack),
                                                 ItemFocusDisintegration.enervation));
                     } else
-                if (ent != null && ent instanceof EntityItem
+                if (ent instanceof EntityItem
                         && this.getAspects(
                                 ((EntityItem) ent).getEntityItem().getItem(),
                                 ((EntityItem) ent).getEntityItem().getItemDamage()) != null
@@ -268,7 +258,7 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                                                     ((ItemCrystalEssence) stack.getItem())
                                                             .setAspects(stack, new AspectList().add(asp, 1));
                                                     p.worldObj.spawnEntityInWorld(
-                                                            (Entity) new EntityItemInvulnerable(
+                                                            new EntityItemInvulnerable(
                                                                     p.worldObj,
                                                                     ent.posX,
                                                                     ent.posY,
@@ -299,21 +289,11 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
         if (!p.worldObj.isRemote) {
             pp = "S" + p.getCommandSenderName();
         }
-        if (ItemFocusDisintegration.soundDelay.get(pp) == null) {
-            ItemFocusDisintegration.soundDelay.put(pp, 0L);
-        }
-        if (ItemFocusDisintegration.breakcount.get(pp) == null) {
-            ItemFocusDisintegration.breakcount.put(pp, 0.0f);
-        }
-        if (ItemFocusDisintegration.lastX.get(pp) == null) {
-            ItemFocusDisintegration.lastX.put(pp, 0);
-        }
-        if (ItemFocusDisintegration.lastY.get(pp) == null) {
-            ItemFocusDisintegration.lastY.put(pp, 0);
-        }
-        if (ItemFocusDisintegration.lastZ.get(pp) == null) {
-            ItemFocusDisintegration.lastZ.put(pp, 0);
-        }
+        ItemFocusDisintegration.soundDelay.putIfAbsent(pp, 0L);
+        ItemFocusDisintegration.breakcount.putIfAbsent(pp, 0.0f);
+        ItemFocusDisintegration.lastX.putIfAbsent(pp, 0);
+        ItemFocusDisintegration.lastY.putIfAbsent(pp, 0);
+        ItemFocusDisintegration.lastZ.putIfAbsent(pp, 0);
         ItemFocusDisintegration.beam.put(pp, null);
         ItemFocusDisintegration.lastX.put(pp, Integer.MAX_VALUE);
         ItemFocusDisintegration.lastY.put(pp, Integer.MAX_VALUE);
@@ -339,24 +319,18 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
     @Override
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
-            case 1: {
+            case 1, 4, 2 -> {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
             }
-            case 2: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
-            }
-            case 3: {
+            case 3 -> {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
                         FocusUpgradeType.enlarge };
             }
-            case 4: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency };
-            }
-            case 5: {
+            case 5 -> {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.potency,
                         ItemFocusDisintegration.enervation };
             }
-            default: {
+            default -> {
                 return null;
             }
         }
@@ -376,12 +350,12 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
         final Vec3 vec3d3 = vec3d.addVector(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range);
         final float f1 = 1.1f;
         final List list = world.getEntitiesWithinAABBExcludingEntity(
-                (Entity) entityplayer,
+                entityplayer,
                 entityplayer.boundingBox.addCoord(vec3d2.xCoord * range, vec3d2.yCoord * range, vec3d2.zCoord * range)
-                        .expand((double) f1, (double) f1, (double) f1));
+                        .expand(f1, f1, f1));
         double d2 = 0.0;
-        for (int i = 0; i < list.size(); ++i) {
-            final Entity entity = (Entity) list.get(i);
+        for (Object o : list) {
+            final Entity entity = (Entity) o;
             if (!(entity instanceof EntityItem)
                     || ((EntityItem) entity).getEntityItem().getItem() != ConfigItems.itemCrystalEssence) {
                 if (world.rayTraceBlocks(
@@ -392,8 +366,7 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                         Vec3.createVectorHelper(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ),
                         false) == null) {
                     final float f2 = Math.max(0.8f, entity.getCollisionBorderSize());
-                    final AxisAlignedBB axisalignedbb = entity.boundingBox
-                            .expand((double) f2, (double) f2, (double) f2);
+                    final AxisAlignedBB axisalignedbb = entity.boundingBox.expand(f2, f2, f2);
                     final MovingObjectPosition movingobjectposition = axisalignedbb.calculateIntercept(vec3d, vec3d3);
                     if (axisalignedbb.isVecInside(vec3d)) {
                         if (0.0 < d2 || d2 == 0.0) {
@@ -443,7 +416,7 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                     stack = new ItemStack(ConfigItems.itemCrystalEssence, aspects.getAmount(asp));
                     ((ItemCrystalEssence) stack.getItem()).setAspects(stack, new AspectList().add(asp, 1));
                     p.worldObj.spawnEntityInWorld(
-                            (Entity) new EntityItemInvulnerable(p.worldObj, x + 0.5, y + 0.5, z + 0.5, stack));
+                            new EntityItemInvulnerable(p.worldObj, x + 0.5, y + 0.5, z + 0.5, stack));
                 }
                 ThaumicHorizons.proxy.disintegrateExplodeFX(p.worldObj, x + 0.5, y + 0.5, z + 0.5);
             }
@@ -481,11 +454,11 @@ public class ItemFocusDisintegration extends ItemFocusBasic {
                 new AspectList().add(Aspect.DEATH, 8));
         cost = new AspectList().add(Aspect.FIRE, 30).add(Aspect.ENTROPY, 30).add(Aspect.EARTH, 30);
         costCritter = new AspectList().add(Aspect.FIRE, 12).add(Aspect.ENTROPY, 12).add(Aspect.EARTH, 12);
-        ItemFocusDisintegration.soundDelay = new HashMap<String, Long>();
-        ItemFocusDisintegration.beam = new HashMap<String, Object>();
-        ItemFocusDisintegration.breakcount = new HashMap<String, Float>();
-        ItemFocusDisintegration.lastX = new HashMap<String, Integer>();
-        ItemFocusDisintegration.lastY = new HashMap<String, Integer>();
-        ItemFocusDisintegration.lastZ = new HashMap<String, Integer>();
+        ItemFocusDisintegration.soundDelay = new HashMap<>();
+        ItemFocusDisintegration.beam = new HashMap<>();
+        ItemFocusDisintegration.breakcount = new HashMap<>();
+        ItemFocusDisintegration.lastX = new HashMap<>();
+        ItemFocusDisintegration.lastY = new HashMap<>();
+        ItemFocusDisintegration.lastZ = new HashMap<>();
     }
 }

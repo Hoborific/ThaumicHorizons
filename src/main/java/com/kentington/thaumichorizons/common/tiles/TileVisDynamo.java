@@ -11,7 +11,6 @@ import java.util.HashMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.MovingObjectPosition;
@@ -202,13 +201,13 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
         nbttagcompound.setBoolean("perditio", this.providePerditio);
         nbttagcompound.setBoolean("terra", this.provideTerra);
         final NBTTagList tlist = new NBTTagList();
-        nbttagcompound.setTag("AspectsProvided", (NBTBase) tlist);
+        nbttagcompound.setTag("AspectsProvided", tlist);
         for (final Aspect aspect : this.primalsProvided.getAspects()) {
             if (aspect != null) {
                 final NBTTagCompound f = new NBTTagCompound();
                 f.setString("key", aspect.getTag());
                 f.setInteger("amount", this.primalsProvided.getAmount(aspect));
-                tlist.appendTag((NBTBase) f);
+                tlist.appendTag(f);
             }
         }
         if (this.drainEntity != null && this.drainEntity instanceof EntityPlayer) {
@@ -238,7 +237,7 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
         this.primalsProvided = al.copy();
         final String de = nbttagcompound.getString("drainer");
         if (de != null && de.length() > 0 && this.getWorldObj() != null) {
-            this.drainEntity = (Entity) this.getWorldObj().getPlayerEntityByName(de);
+            this.drainEntity = this.getWorldObj().getPlayerEntityByName(de);
             if (this.drainEntity != null) {
                 this.drainCollision = new MovingObjectPosition(
                         this.xCoord,
@@ -268,17 +267,13 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
                 || this.provideOrdo
                 || this.providePerditio
                 || this.provideTerra) {
-            if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId) == null) {
-                VisNetHandler.sources.put(
-                        this.worldObj.provider.dimensionId,
-                        new HashMap<WorldCoordinates, WeakReference<TileVisNode>>());
-            }
+            VisNetHandler.sources.computeIfAbsent(this.worldObj.provider.dimensionId, k -> new HashMap<>());
             if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId).get(
                     new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
                     == null) {
                 VisNetHandler.sources.get(this.worldObj.provider.dimensionId).put(
                         new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId),
-                        new WeakReference<TileVisNode>(this));
+                        new WeakReference<>(this));
             } else if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId).get(
                     new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
                     .get() == null) {
@@ -294,7 +289,7 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
                                         this.yCoord,
                                         this.zCoord,
                                         this.worldObj.provider.dimensionId),
-                                new WeakReference<TileVisNode>(this));
+                                new WeakReference<>(this));
                     }
         }
         return wandstack;
@@ -347,7 +342,7 @@ public class TileVisDynamo extends TileVisNode implements IAspectContainer, IWan
             }
             if (success) {
                 this.ticksProvided = 10;
-                this.drainEntity = (Entity) player;
+                this.drainEntity = player;
                 this.drainCollision = movingobjectposition;
                 int r = 0;
                 int g = 0;

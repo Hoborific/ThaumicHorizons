@@ -7,7 +7,6 @@ package com.kentington.thaumichorizons.common.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -43,7 +42,7 @@ public class BlockSlot extends BlockContainer {
             final EntityItem dropped = new EntityItem(world);
             dropped.setEntityItemStack(keystone);
             dropped.setPosition(x + 0.5, y + 0.5, z + 0.5);
-            world.spawnEntityInWorld((Entity) dropped);
+            world.spawnEntityInWorld(dropped);
         }
     }
 
@@ -66,8 +65,7 @@ public class BlockSlot extends BlockContainer {
         } else if (theItem != null && theItem.getItem() == ThaumicHorizons.itemKeystone
                 && theItem.stackTagCompound != null) {
                     tco.insertKeystone(theItem.stackTagCompound.getInteger("dimension"));
-                    final ItemStack itemStack = theItem;
-                    --itemStack.stackSize;
+                    --theItem.stackSize;
                 }
         world.markBlockForUpdate(x, y, z);
         return false;

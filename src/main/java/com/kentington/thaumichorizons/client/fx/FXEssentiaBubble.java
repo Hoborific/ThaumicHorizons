@@ -69,29 +69,29 @@ public class FXEssentiaBubble extends EntityFX {
         tessellator
                 .setColorRGBA_F(this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16, 0.5f);
         tessellator.addVertexWithUV(
-                (double) (var13 - f1 * var12 - f4 * var12),
-                (double) (var14 - f2 * var12),
-                (double) (var15 - f3 * var12 - f5 * var12),
-                (double) t2,
-                (double) t5);
+                var13 - f1 * var12 - f4 * var12,
+                var14 - f2 * var12,
+                var15 - f3 * var12 - f5 * var12,
+                t2,
+                t5);
         tessellator.addVertexWithUV(
-                (double) (var13 - f1 * var12 + f4 * var12),
-                (double) (var14 + f2 * var12),
-                (double) (var15 - f3 * var12 + f5 * var12),
-                (double) t3,
-                (double) t5);
+                var13 - f1 * var12 + f4 * var12,
+                var14 + f2 * var12,
+                var15 - f3 * var12 + f5 * var12,
+                t3,
+                t5);
         tessellator.addVertexWithUV(
-                (double) (var13 + f1 * var12 + f4 * var12),
-                (double) (var14 + f2 * var12),
-                (double) (var15 + f3 * var12 + f5 * var12),
-                (double) t3,
-                (double) t4);
+                var13 + f1 * var12 + f4 * var12,
+                var14 + f2 * var12,
+                var15 + f3 * var12 + f5 * var12,
+                t3,
+                t4);
         tessellator.addVertexWithUV(
-                (double) (var13 + f1 * var12 - f4 * var12),
-                (double) (var14 - f2 * var12),
-                (double) (var15 + f3 * var12 - f5 * var12),
-                (double) t2,
-                (double) t4);
+                var13 + f1 * var12 - f4 * var12,
+                var14 - f2 * var12,
+                var15 + f3 * var12 - f5 * var12,
+                t2,
+                t4);
     }
 
     public int getFXLayer() {

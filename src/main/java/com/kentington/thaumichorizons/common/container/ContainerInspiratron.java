@@ -9,7 +9,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
@@ -26,28 +25,22 @@ public class ContainerInspiratron extends Container {
 
     public ContainerInspiratron(final InventoryPlayer p_i1812_1_, final TileInspiratron p_i1812_2_) {
         this.tile = p_i1812_2_;
+        this.addSlotToContainer(new SlotRestricted(p_i1812_2_, 0, 15, 42, new ItemStack(Items.paper)));
         this.addSlotToContainer(
-                (Slot) new SlotRestricted((IInventory) p_i1812_2_, 0, 15, 42, new ItemStack(Items.paper)));
-        this.addSlotToContainer(
-                (Slot) new SlotRestricted(
-                        (IInventory) p_i1812_2_,
-                        1,
-                        146,
-                        42,
-                        new ItemStack(ConfigItems.itemResource, 1, 9)));
+                new SlotRestricted(p_i1812_2_, 1, 146, 42, new ItemStack(ConfigItems.itemResource, 1, 9)));
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot((IInventory) p_i1812_1_, j + i * 9 + 9, 8 + j * 18, 137 + i * 18));
+                this.addSlotToContainer(new Slot(p_i1812_1_, j + i * 9 + 9, 8 + j * 18, 137 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot((IInventory) p_i1812_1_, i, 8 + i * 18, 195));
+            this.addSlotToContainer(new Slot(p_i1812_1_, i, 8 + i * 18, 195));
         }
     }
 
     public void addCraftingToCrafters(final ICrafting par1ICrafting) {
         super.addCraftingToCrafters(par1ICrafting);
-        par1ICrafting.sendProgressBarUpdate((Container) this, 0, this.tile.progress);
+        par1ICrafting.sendProgressBarUpdate(this, 0, this.tile.progress);
     }
 
     public boolean canInteractWith(final EntityPlayer p_75145_1_) {
@@ -56,10 +49,10 @@ public class ContainerInspiratron extends Container {
 
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        for (int i = 0; i < this.crafters.size(); ++i) {
-            final ICrafting icrafting = (ICrafting) this.crafters.get(i);
+        for (Object crafter : this.crafters) {
+            final ICrafting icrafting = (ICrafting) crafter;
             if (this.progress != this.tile.progress) {
-                icrafting.sendProgressBarUpdate((Container) this, 0, this.tile.progress);
+                icrafting.sendProgressBarUpdate(this, 0, this.tile.progress);
             }
         }
         this.progress = this.tile.progress;
@@ -84,7 +77,7 @@ public class ContainerInspiratron extends Container {
                 }
                 slot.onSlotChange(itemstack2, itemstack);
                 if (itemstack2.stackSize == 0) {
-                    slot.putStack((ItemStack) null);
+                    slot.putStack(null);
                 }
                 if (itemstack2.stackSize == itemstack.stackSize) {
                     return null;
@@ -96,7 +89,7 @@ public class ContainerInspiratron extends Container {
                 }
                 slot.onSlotChange(itemstack2, itemstack);
                 if (itemstack2.stackSize == 0) {
-                    slot.putStack((ItemStack) null);
+                    slot.putStack(null);
                 }
                 if (itemstack2.stackSize == itemstack.stackSize) {
                     return null;
@@ -107,7 +100,7 @@ public class ContainerInspiratron extends Container {
                     return null;
                 }
                 if (itemstack2.stackSize == 0) {
-                    slot.putStack((ItemStack) null);
+                    slot.putStack(null);
                 }
                 if (itemstack2.stackSize == itemstack.stackSize) {
                     return null;

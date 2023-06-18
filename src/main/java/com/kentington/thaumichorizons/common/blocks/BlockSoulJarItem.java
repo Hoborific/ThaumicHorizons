@@ -9,8 +9,6 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -20,7 +18,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
@@ -43,7 +40,7 @@ public class BlockSoulJarItem extends ItemBlock {
 
     @SideOnly(Side.CLIENT)
     public void getSubItems(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
-        final ItemStack soul = new ItemStack((Item) this, 1, 0);
+        final ItemStack soul = new ItemStack(this, 1, 0);
         (soul.stackTagCompound = new NBTTagCompound()).setBoolean("isSoul", true);
         par3List.add(soul);
     }
@@ -82,7 +79,7 @@ public class BlockSoulJarItem extends ItemBlock {
             side = 1;
         } else if (block != Blocks.vine && block != Blocks.tallgrass
                 && block != Blocks.deadbush
-                && !block.isReplaceable((IBlockAccess) world, x, y, z)) {
+                && !block.isReplaceable(world, x, y, z)) {
                     if (side == 0) {
                         --y;
                     }
@@ -108,19 +105,19 @@ public class BlockSoulJarItem extends ItemBlock {
         if (!player.canPlayerEdit(x, y, z, side, stack)) {
             return false;
         }
-        if (world.canPlaceEntityOnSide(ThaumicHorizons.blockJar, x, y, z, false, side, (Entity) player, stack)) {
+        if (world.canPlaceEntityOnSide(ThaumicHorizons.blockJar, x, y, z, false, side, player, stack)) {
             final Block var12 = ThaumicHorizons.blockJar;
             final int var13 = this.getMetadata(stack.getItemDamage());
             final int var14 = ThaumicHorizons.blockJar.onBlockPlaced(world, x, y, z, side, par8, par9, par10, var13);
             if (this.placeBlockAt(stack, player, world, x, y, z, side, par8, par9, par10, var14)) {
                 final TileEntity te = world.getTileEntity(x, y, z);
-                if (te != null && te instanceof TileSoulJar && stack.hasTagCompound()) {
+                if (te instanceof TileSoulJar && stack.hasTagCompound()) {
                     ((TileSoulJar) te).jarTag = stack.getTagCompound();
                 }
                 world.playSoundEffect(
-                        (double) (x + 0.5f),
-                        (double) (y + 0.5f),
-                        (double) (z + 0.5f),
+                        x + 0.5f,
+                        y + 0.5f,
+                        z + 0.5f,
                         var12.stepSound.func_150496_b(),
                         (var12.stepSound.getVolume() + 1.0f) / 2.0f,
                         var12.stepSound.getPitch() * 0.8f);
@@ -138,7 +135,7 @@ public class BlockSoulJarItem extends ItemBlock {
             return false;
         }
         if (world.getBlock(x, y, z) == ThaumicHorizons.blockJar) {
-            ThaumicHorizons.blockJar.onBlockPlacedBy(world, x, y, z, (EntityLivingBase) player, stack);
+            ThaumicHorizons.blockJar.onBlockPlacedBy(world, x, y, z, player, stack);
             ThaumicHorizons.blockJar.onPostBlockPlaced(world, x, y, z, metadata);
         }
         return true;

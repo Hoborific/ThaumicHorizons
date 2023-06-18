@@ -4,13 +4,10 @@
 
 package com.kentington.thaumichorizons.common.items;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -31,7 +28,7 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
     public IIcon newBell;
 
     public ItemGolemPlacer() {
-        this.setCreativeTab((CreativeTabs) null);
+        this.setCreativeTab(null);
     }
 
     @SideOnly(Side.CLIENT)
@@ -81,10 +78,7 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
 
     public boolean spawnCreature(final World par0World, final double par2, final double par4, final double par6,
             final int side, final ItemStack stack, final EntityPlayer player) {
-        boolean adv = false;
-        if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("advanced")) {
-            adv = true;
-        }
+        boolean adv = stack.hasTagCompound() && stack.stackTagCompound.hasKey("advanced");
         final EntityGolemTH golem = new EntityGolemTH(par0World);
         if (golem != null) {
             golem.setLocationAndAngles(par2, par4, par6, par0World.rand.nextFloat() * 360.0f, 0.0f);
@@ -133,10 +127,10 @@ public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolem
                     golem.upgrades = tt;
                 }
             }
-            par0World.spawnEntityInWorld((Entity) golem);
+            par0World.spawnEntityInWorld(golem);
             golem.setGolemDecoration(deco);
             golem.setOwner(player.getCommandSenderName());
-            golem.setMarkers((ArrayList) ItemGolemBell.getMarkers(stack));
+            golem.setMarkers(ItemGolemBell.getMarkers(stack));
             int a2 = 0;
             for (final byte b : golem.upgrades) {
                 golem.setUpgrade(a2, b);

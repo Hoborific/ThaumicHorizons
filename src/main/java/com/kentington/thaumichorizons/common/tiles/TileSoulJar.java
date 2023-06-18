@@ -10,7 +10,6 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -48,7 +47,7 @@ public class TileSoulJar extends TileThaumcraft implements IWandable {
     @Override
     public void writeCustomNBT(final NBTTagCompound nbttagcompound) {
         super.writeCustomNBT(nbttagcompound);
-        nbttagcompound.setTag("jarTag", (NBTBase) this.jarTag);
+        nbttagcompound.setTag("jarTag", this.jarTag);
     }
 
     @Override

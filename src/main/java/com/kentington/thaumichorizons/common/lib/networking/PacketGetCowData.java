@@ -4,9 +4,6 @@
 
 package com.kentington.thaumichorizons.common.lib.networking;
 
-import java.util.Iterator;
-import java.util.Set;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
@@ -34,8 +31,7 @@ public class PacketGetCowData implements IMessage, IMessageHandler<PacketGetCowD
     public IMessage onMessage(final PacketGetCowData message, final MessageContext ctx) {
         final World world = FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld();
         final Entity ent = world.getEntityByID(message.id);
-        if (ent instanceof EntityWizardCow) {
-            final EntityWizardCow cow = (EntityWizardCow) ent;
+        if (ent instanceof final EntityWizardCow cow) {
             final AspectList ess = cow.getEssentia();
             final int mod = cow.nodeMod;
             final int type = cow.nodeType;
@@ -52,7 +48,7 @@ public class PacketGetCowData implements IMessage, IMessageHandler<PacketGetCowD
                     }
                 }
             }
-            return (IMessage) new PacketCowUpdate(types, amounts, type, mod, message.id);
+            return new PacketCowUpdate(types, amounts, type, mod, message.id);
         }
         return null;
     }
@@ -66,11 +62,9 @@ public class PacketGetCowData implements IMessage, IMessageHandler<PacketGetCowD
     }
 
     static {
-        final Set keys = Aspect.aspects.keySet();
-        final Iterator it = keys.iterator();
         final AspectList list = new AspectList();
-        while (it.hasNext()) {
-            list.add(Aspect.aspects.get(it.next()), 1);
+        for (String key : Aspect.aspects.keySet()) {
+            list.add(Aspect.aspects.get(key), 1);
         }
         PacketGetCowData.sorted = list.getAspectsSorted();
     }

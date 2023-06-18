@@ -14,8 +14,8 @@ import net.minecraft.world.biome.WorldChunkManager;
 
 public class WorldChunkManagerPocketPlane extends WorldChunkManager {
 
-    private BiomeGenBase biomeGenerator;
-    private float rainfall;
+    private final BiomeGenBase biomeGenerator;
+    private final float rainfall;
 
     public WorldChunkManagerPocketPlane(final BiomeGenBase p_i45374_1_, final float p_i45374_2_) {
         this.biomeGenerator = p_i45374_1_;

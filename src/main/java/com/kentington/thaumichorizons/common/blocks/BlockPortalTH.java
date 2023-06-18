@@ -13,7 +13,6 @@ import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
@@ -102,20 +101,13 @@ public class BlockPortalTH extends BlockBreakable {
 
                 // Note the order ACBD
                 switch (which) {
-                    case 0:
-                        portal = plane.portalA;
-                        break;
-                    case 1:
-                        portal = plane.portalC;
-                        break;
-                    case 2:
-                        portal = plane.portalB;
-                        break;
-                    case 3:
-                        portal = plane.portalD;
-                        break;
-                    default:
+                    case 0 -> portal = plane.portalA;
+                    case 1 -> portal = plane.portalC;
+                    case 2 -> portal = plane.portalB;
+                    case 3 -> portal = plane.portalD;
+                    default -> {
                         return;
+                    }
                 }
 
                 targetX = portal[0];
@@ -127,7 +119,7 @@ public class BlockPortalTH extends BlockBreakable {
                 ((EntityPlayerMP) player).mcServer.getConfigurationManager().transferPlayerToDimension(
                         (EntityPlayerMP) player,
                         targetDim,
-                        (Teleporter) new GatewayTeleporter(
+                        new GatewayTeleporter(
                                 mServer.worldServerForDimension(ThaumicHorizons.dimensionPocketId),
                                 targetX,
                                 targetY,
@@ -152,38 +144,33 @@ public class BlockPortalTH extends BlockBreakable {
                     }
                 }
                 final TileEntity te = world.getTileEntity(slotX, slotY, slotZ);
-                if (te instanceof TileSlot) {
-                    final TileSlot tco = (TileSlot) te;
+                if (te instanceof final TileSlot tco) {
                     targetY = 128;
                     float targetYaw = 0.0f;
                     switch (tco.which) {
-                        case 1: {
+                        case 1 -> {
                             targetZ = tco.pocketID * 256 + PocketPlaneData.planes.get(tco.pocketID).radius;
                             targetYaw = 180.0f;
-                            break;
                         }
-                        case 2: {
+                        case 2 -> {
                             targetZ = tco.pocketID * 256 - PocketPlaneData.planes.get(tco.pocketID).radius;
-                            break;
                         }
-                        case 3: {
+                        case 3 -> {
                             targetZ = tco.pocketID * 256;
                             targetX = PocketPlaneData.planes.get(tco.pocketID).radius;
                             targetYaw = 90.0f;
-                            break;
                         }
-                        case 4: {
+                        case 4 -> {
                             targetZ = tco.pocketID * 256;
                             targetX = -PocketPlaneData.planes.get(tco.pocketID).radius;
                             targetYaw = 270.0f;
-                            break;
                         }
                     }
                     final MinecraftServer mServer2 = FMLCommonHandler.instance().getMinecraftServerInstance();
                     ((EntityPlayerMP) player).mcServer.getConfigurationManager().transferPlayerToDimension(
                             (EntityPlayerMP) player,
                             ThaumicHorizons.dimensionPocketId,
-                            (Teleporter) new GatewayTeleporter(
+                            new GatewayTeleporter(
                                     mServer2.worldServerForDimension(ThaumicHorizons.dimensionPocketId),
                                     targetX,
                                     targetY,

@@ -116,19 +116,19 @@ public class BlockCloud extends BlockContainer {
                 d3 = p_150186_3_ + 1 + d0;
             }
             if (l == 1 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_ - 1, p_150186_4_).isOpaqueCube()) {
-                d3 = p_150186_3_ + 0 - d0;
+                d3 = p_150186_3_ - d0;
             }
             if (l == 2 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_, p_150186_4_ + 1).isOpaqueCube()) {
                 d4 = p_150186_4_ + 1 + d0;
             }
             if (l == 3 && !p_150186_1_.getBlock(p_150186_2_, p_150186_3_, p_150186_4_ - 1).isOpaqueCube()) {
-                d4 = p_150186_4_ + 0 - d0;
+                d4 = p_150186_4_ - d0;
             }
             if (l == 4 && !p_150186_1_.getBlock(p_150186_2_ + 1, p_150186_3_, p_150186_4_).isOpaqueCube()) {
                 d2 = p_150186_2_ + 1 + d0;
             }
             if (l == 5 && !p_150186_1_.getBlock(p_150186_2_ - 1, p_150186_3_, p_150186_4_).isOpaqueCube()) {
-                d2 = p_150186_2_ + 0 - d0;
+                d2 = p_150186_2_ - d0;
             }
             if (random.nextInt(10) == 0 && (d2 < p_150186_2_ || d2 > p_150186_2_ + 1
                     || d3 < 0.0
@@ -152,12 +152,12 @@ public class BlockCloud extends BlockContainer {
                 && ((ItemWandCasting) player.getHeldItem().getItem())
                         .consumeVis(player.getHeldItem(), player, Aspect.AIR, 100, false)) {
             world.spawnEntityInWorld(
-                    (Entity) new EntityItemInvulnerable(
+                    new EntityItemInvulnerable(
                             world,
                             x + 0.5,
                             y + 0.5,
                             z + 0.5,
-                            new ItemStack((Block) this, 1, world.getBlockMetadata(x, y, z))));
+                            new ItemStack(this, 1, world.getBlockMetadata(x, y, z))));
             world.setBlockToAir(x, y, z);
             world.markBlockForUpdate(x, y, z);
             return true;
@@ -168,17 +168,17 @@ public class BlockCloud extends BlockContainer {
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
         if (!this.glow) {
-            par3List.add(new ItemStack((Block) this, 1, 0));
-            par3List.add(new ItemStack((Block) this, 1, 2));
-            par3List.add(new ItemStack((Block) this, 1, 3));
-            par3List.add(new ItemStack((Block) this, 1, 5));
-            par3List.add(new ItemStack((Block) this, 1, 8));
+            par3List.add(new ItemStack(this, 1, 0));
+            par3List.add(new ItemStack(this, 1, 2));
+            par3List.add(new ItemStack(this, 1, 3));
+            par3List.add(new ItemStack(this, 1, 5));
+            par3List.add(new ItemStack(this, 1, 8));
         } else {
-            par3List.add(new ItemStack((Block) this, 1, 1));
-            par3List.add(new ItemStack((Block) this, 1, 4));
-            par3List.add(new ItemStack((Block) this, 1, 6));
-            par3List.add(new ItemStack((Block) this, 1, 7));
-            par3List.add(new ItemStack((Block) this, 1, 9));
+            par3List.add(new ItemStack(this, 1, 1));
+            par3List.add(new ItemStack(this, 1, 4));
+            par3List.add(new ItemStack(this, 1, 6));
+            par3List.add(new ItemStack(this, 1, 7));
+            par3List.add(new ItemStack(this, 1, 9));
         }
     }
 

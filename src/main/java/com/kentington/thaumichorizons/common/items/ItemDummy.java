@@ -5,7 +5,6 @@
 package com.kentington.thaumichorizons.common.items;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -29,7 +28,7 @@ public class ItemDummy extends Item {
     public IIcon iconSpider;
 
     public ItemDummy() {
-        this.setCreativeTab((CreativeTabs) null);
+        this.setCreativeTab(null);
     }
 
     @SideOnly(Side.CLIENT)
@@ -51,34 +50,34 @@ public class ItemDummy extends Item {
         }
         final int md = stack.getItemDamage();
         switch (md) {
-            case 0: {
+            case 0 -> {
                 return StatCollector.translateToLocal("entity.Cow.name");
             }
-            case 1: {
+            case 1 -> {
                 return StatCollector.translateToLocal("entity.Pig.name");
             }
-            case 2: {
+            case 2 -> {
                 return StatCollector.translateToLocal("entity.Sheep.name");
             }
-            case 3: {
+            case 3 -> {
                 return StatCollector.translateToLocal("entity.Chicken.name");
             }
-            case 4: {
+            case 4 -> {
                 return StatCollector.translateToLocal("entity.Cat.name");
             }
-            case 5: {
+            case 5 -> {
                 return StatCollector.translateToLocal("entity.Wolf.name");
             }
-            case 6: {
+            case 6 -> {
                 return StatCollector.translateToLocal("entity.horse.name");
             }
-            case 8: {
+            case 8 -> {
                 return StatCollector.translateToLocal("entity.Spider.name");
             }
-            case 15: {
+            case 15 -> {
                 return StatCollector.translateToLocal("thaumichorizons.revived");
             }
-            default: {
+            default -> {
                 return "Creature";
             }
         }
@@ -87,34 +86,31 @@ public class ItemDummy extends Item {
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(final int md) {
         switch (md) {
-            case 0: {
+            case 0 -> {
                 return this.iconCow;
             }
-            case 1: {
+            case 1 -> {
                 return this.iconPig;
             }
-            case 2: {
+            case 2 -> {
                 return this.iconSheep;
             }
-            case 3: {
+            case 3 -> {
                 return this.iconChicken;
             }
-            case 4: {
-                return this.iconCat;
-            }
-            case 5: {
+            case 5 -> {
                 return this.iconDog;
             }
-            case 6: {
+            case 6 -> {
                 return this.iconHorse;
             }
-            case 8: {
+            case 8 -> {
                 return this.iconSpider;
             }
-            case 15: {
+            case 15 -> {
                 return this.iconHuman;
             }
-            default: {
+            default -> {
                 return this.iconCat;
             }
         }

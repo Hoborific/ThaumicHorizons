@@ -17,7 +17,7 @@ import com.kentington.thaumichorizons.common.entities.EntityAlchemitePrimed;
 
 public class RenderAlchemitePrimed extends RenderEntity {
 
-    private RenderBlocks blockRenderer;
+    private final RenderBlocks blockRenderer;
 
     public RenderAlchemitePrimed() {
         this.blockRenderer = new RenderBlocks();
@@ -50,7 +50,7 @@ public class RenderAlchemitePrimed extends RenderEntity {
             GL11.glScalef(f3, f3, f3);
         }
         float f2 = (1.0f - (entity.fuse - p_76986_9_ + 1.0f) / 100.0f) * 0.8f;
-        this.bindEntityTexture((Entity) entity);
+        this.bindEntityTexture(entity);
         this.blockRenderer.renderBlockAsItem(ThaumicHorizons.blockAlchemite, 0, entity.getBrightness(p_76986_9_));
         if (entity.fuse / 5 % 2 == 0) {
             GL11.glDisable(3553);

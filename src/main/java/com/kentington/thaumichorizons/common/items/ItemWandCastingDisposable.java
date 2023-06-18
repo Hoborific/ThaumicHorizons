@@ -27,7 +27,7 @@ public class ItemWandCastingDisposable extends ItemWandCasting {
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
         this.setCreativeTab(ThaumicHorizons.tabTH);
-        final ItemStack w1 = new ItemStack((Item) this);
+        final ItemStack w1 = new ItemStack(this);
         this.setCap(w1, ThaumicHorizons.CAP_CRYSTAL);
         this.setRod(w1, ThaumicHorizons.ROD_CRYSTAL);
         for (final Aspect aspect : Aspect.getPrimalAspects()) {

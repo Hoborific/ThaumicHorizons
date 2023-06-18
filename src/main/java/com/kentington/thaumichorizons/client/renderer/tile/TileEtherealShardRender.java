@@ -27,7 +27,7 @@ import thaumcraft.client.renderers.models.ModelCrystal;
 
 public class TileEtherealShardRender extends TileEntitySpecialRenderer {
 
-    private ModelCrystal model;
+    private final ModelCrystal model;
     static String tx1;
     static String tx2;
 
@@ -67,7 +67,7 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer {
         try {
             final Color col2 = new Color((int) red, (int) green, (int) blue);
             UtilsFX.bindTexture("textures/models/crystal.png");
-            final Random rand = new Random(tco.getBlockMetadata() + tco.xCoord + tco.yCoord * tco.zCoord);
+            final Random rand = new Random(tco.getBlockMetadata() + tco.xCoord + (long) tco.yCoord * tco.zCoord);
             this.drawCrystal(0, (float) x, (float) y, (float) z, tco.rotation, 0.0f, rand, col2.getRGB(), 1.1f);
             final long nt = System.nanoTime();
             UtilsFX.bindTexture(TileEtherealShardRender.tx2);
@@ -166,7 +166,7 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer {
 
     private void drawCrystal(final int ori, final float x, final float y, final float z, final float a1, final float a2,
             final Random rand, final int color, final float size) {
-        final EntityPlayer p = (EntityPlayer) Minecraft.getMinecraft().thePlayer;
+        final EntityPlayer p = Minecraft.getMinecraft().thePlayer;
         final float shade = MathHelper.sin((p.ticksExisted + rand.nextInt(10)) / (5.0f + rand.nextFloat())) * 0.075f
                 + 0.925f;
         final Color c = new Color(color);
@@ -188,7 +188,7 @@ public class TileEtherealShardRender extends TileEntitySpecialRenderer {
         final int var19 = (int) (210.0f * shade);
         final int var20 = var19 % 65536;
         final int var21 = var19 / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, var20 / 1.0f, var21 / 1.0f);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, var20, var21);
         GL11.glColor4f(r, g, b, 1.0f);
         this.model.render();
         GL11.glScalef(1.0f, 1.0f, 1.0f);

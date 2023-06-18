@@ -88,22 +88,13 @@ public class ItemFocusIllumination extends ItemFocusBasic {
     @Override
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
-            case 1: {
+            case 1, 5, 4, 2 -> {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal };
             }
-            case 2: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal };
-            }
-            case 3: {
+            case 3 -> {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, ItemFocusIllumination.solar };
             }
-            case 4: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal };
-            }
-            case 5: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal };
-            }
-            default: {
+            default -> {
                 return null;
             }
         }
@@ -118,29 +109,23 @@ public class ItemFocusIllumination extends ItemFocusBasic {
             int y = mop.blockY;
             int z = mop.blockZ;
             switch (mop.sideHit) {
-                case 0: {
+                case 0 -> {
                     --y;
-                    break;
                 }
-                case 1: {
+                case 1 -> {
                     ++y;
-                    break;
                 }
-                case 2: {
+                case 2 -> {
                     --z;
-                    break;
                 }
-                case 3: {
+                case 3 -> {
                     ++z;
-                    break;
                 }
-                case 4: {
+                case 4 -> {
                     --x;
-                    break;
                 }
-                case 5: {
+                case 5 -> {
                     ++x;
-                    break;
                 }
             }
             if (world.isAirBlock(x, y, z)

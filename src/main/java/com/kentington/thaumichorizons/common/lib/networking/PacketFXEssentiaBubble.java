@@ -5,8 +5,6 @@
 package com.kentington.thaumichorizons.common.lib.networking;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EntityFX;
-import net.minecraft.world.World;
 
 import com.kentington.thaumichorizons.client.fx.FXEssentiaBubble;
 
@@ -38,7 +36,7 @@ public class PacketFXEssentiaBubble implements IMessage, IMessageHandler<PacketF
     public IMessage onMessage(final PacketFXEssentiaBubble message, final MessageContext ctx) {
         for (int i = 0; i < 10; ++i) {
             final FXEssentiaBubble fb = new FXEssentiaBubble(
-                    (World) Minecraft.getMinecraft().theWorld,
+                    Minecraft.getMinecraft().theWorld,
                     message.x + 1.5f * (Minecraft.getMinecraft().theWorld.rand.nextFloat() - 0.5f),
                     message.y,
                     message.z + 1.5f * (Minecraft.getMinecraft().theWorld.rand.nextFloat() - 0.5f),
@@ -47,7 +45,7 @@ public class PacketFXEssentiaBubble implements IMessage, IMessageHandler<PacketF
                     0.3f,
                     i * 2 + 2);
             fb.noClip = true;
-            ParticleEngine.instance.addEffect((World) Minecraft.getMinecraft().theWorld, (EntityFX) fb);
+            ParticleEngine.instance.addEffect(Minecraft.getMinecraft().theWorld, fb);
         }
         return null;
     }

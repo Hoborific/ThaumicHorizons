@@ -37,8 +37,8 @@ public enum EnumGolemTHType {
     public final int visCost;
     private static Map<Integer, EnumGolemTHType> codeToTypeMapping;
 
-    private EnumGolemTHType(final int health, final int armor, final float speed, final boolean fireResist,
-            final int upgrades, final int carry, final int regenDelay, final int strength, final int special) {
+    EnumGolemTHType(final int health, final int armor, final float speed, final boolean fireResist, final int upgrades,
+            final int carry, final int regenDelay, final int strength, final int special) {
         this.health = health;
         this.armor = armor;
         this.speed = speed;
@@ -58,7 +58,7 @@ public enum EnumGolemTHType {
     }
 
     private static void initMapping() {
-        EnumGolemTHType.codeToTypeMapping = new HashMap<Integer, EnumGolemTHType>();
+        EnumGolemTHType.codeToTypeMapping = new HashMap<>();
         for (final EnumGolemTHType s : values()) {
             EnumGolemTHType.codeToTypeMapping.put(s.ordinal(), s);
         }

@@ -210,24 +210,25 @@ public class TileSlot extends TileThaumcraft {
                 PocketPlaneData planeData = PocketPlaneData.planes.get(this.pocketID);
                 int[] portal;
                 switch (portalNum) {
-                    case 1:
+                    case 1 -> {
                         planeData.portalA = new int[4];
                         portal = planeData.portalA;
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         planeData.portalB = new int[4];
                         portal = planeData.portalB;
-                        break;
-                    case 3:
+                    }
+                    case 3 -> {
                         planeData.portalC = new int[4];
                         portal = planeData.portalC;
-                        break;
-                    case 4:
+                    }
+                    case 4 -> {
                         planeData.portalD = new int[4];
                         portal = planeData.portalD;
-                        break;
-                    default:
+                    }
+                    default -> {
                         return;
+                    }
                 }
                 portal[0] = this.xCoord;
                 portal[1] = this.yCoord;

@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.INpc;
@@ -72,37 +71,37 @@ public class ItemInfusionCheat extends Item {
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(final int par1) {
         switch (par1) {
-            case 1: {
+            case 1 -> {
                 return this.icon1;
             }
-            case 2: {
+            case 2 -> {
                 return this.icon2;
             }
-            case 3: {
+            case 3 -> {
                 return this.icon3;
             }
-            case 4: {
+            case 4 -> {
                 return this.icon4;
             }
-            case 5: {
+            case 5 -> {
                 return this.icon5;
             }
-            case 6: {
+            case 6 -> {
                 return this.icon6;
             }
-            case 7: {
+            case 7 -> {
                 return this.icon7;
             }
-            case 8: {
+            case 8 -> {
                 return this.icon8;
             }
-            case 9: {
+            case 9 -> {
                 return this.icon9;
             }
-            case 10: {
+            case 10 -> {
                 return this.icon10;
             }
-            default: {
+            default -> {
                 return null;
             }
         }
@@ -110,97 +109,82 @@ public class ItemInfusionCheat extends Item {
 
     @SideOnly(Side.CLIENT)
     public void getSubItems(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
-        par3List.add(new ItemStack((Item) this, 1, 1));
-        par3List.add(new ItemStack((Item) this, 1, 2));
-        par3List.add(new ItemStack((Item) this, 1, 3));
-        par3List.add(new ItemStack((Item) this, 1, 4));
-        par3List.add(new ItemStack((Item) this, 1, 5));
-        par3List.add(new ItemStack((Item) this, 1, 6));
-        par3List.add(new ItemStack((Item) this, 1, 7));
-        par3List.add(new ItemStack((Item) this, 1, 8));
-        par3List.add(new ItemStack((Item) this, 1, 9));
-        par3List.add(new ItemStack((Item) this, 1, 10));
+        par3List.add(new ItemStack(this, 1, 1));
+        par3List.add(new ItemStack(this, 1, 2));
+        par3List.add(new ItemStack(this, 1, 3));
+        par3List.add(new ItemStack(this, 1, 4));
+        par3List.add(new ItemStack(this, 1, 5));
+        par3List.add(new ItemStack(this, 1, 6));
+        par3List.add(new ItemStack(this, 1, 7));
+        par3List.add(new ItemStack(this, 1, 8));
+        par3List.add(new ItemStack(this, 1, 9));
+        par3List.add(new ItemStack(this, 1, 10));
     }
 
     public String getItemStackDisplayName(final ItemStack stack) {
         String stringy = "";
         switch (stack.getItemDamage()) {
-            case 1: {
+            case 1 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.quicksilver");
-                break;
             }
-            case 2: {
+            case 2 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.thaumClaws");
-                break;
             }
-            case 3: {
+            case 3 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.awakeBlood");
-                break;
             }
-            case 4: {
+            case 4 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.diamondSkin");
-                break;
             }
-            case 5: {
+            case 5 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.enderHeart");
-                break;
             }
-            case 6: {
+            case 6 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.shockSkin");
-                break;
             }
-            case 7: {
+            case 7 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.instilledLoyalty");
-                break;
             }
-            case 8: {
+            case 8 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.runicHide");
-                break;
             }
-            case 9: {
+            case 9 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.eldritchFangs");
-                break;
             }
-            case 10: {
+            case 10 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.portability");
-                break;
             }
         }
         return stringy;
     }
 
     public ItemStack onItemRightClick(final ItemStack p_77659_1_, final World world, final EntityPlayer p) {
-        final Entity ent = ItemFocusContainment.getPointedEntity(world, (EntityLivingBase) p, 1.5);
-        if (ent != null && ent instanceof EntityLiving && this.isValidInfusionTarget((EntityLiving) ent)) {
-            final EntityLiving critter = (EntityLiving) ent;
+        final Entity ent = ItemFocusContainment.getPointedEntity(world, p, 1.5);
+        if (ent instanceof final EntityLiving critter && this.isValidInfusionTarget((EntityLiving) ent)) {
             for (final CreatureInfusionRecipe recipe : ThaumicHorizons.critterRecipes) {
                 boolean blockLoyalty = false;
                 if (recipe.getID(null) == p_77659_1_.getItemDamage()
-                        && recipe.getRecipeOutput() instanceof NBTTagCompound
+                        && recipe.getRecipeOutput() instanceof final NBTTagCompound tagMods
                         && !((EntityInfusionProperties) critter.getExtendedProperties("CreatureInfusion"))
                                 .hasInfusion(recipe.getID(null))) {
-                    final NBTTagCompound tagMods = (NBTTagCompound) recipe.getRecipeOutput();
-                    final Multimap map = (Multimap) HashMultimap.create();
+                    final Multimap map = HashMultimap.create();
                     if (tagMods.getDouble("generic.movementSpeed") > 0.0) {
                         map.put(
-                                (Object) "generic.movementSpeed",
-                                (Object) new AttributeModifier(
+                                "generic.movementSpeed",
+                                new AttributeModifier(
                                         "generic.movementSpeed",
                                         tagMods.getDouble("generic.movementSpeed") / 10.0,
                                         1));
                     }
                     if (tagMods.getDouble("generic.maxHealth") > 0.0) {
                         map.put(
-                                (Object) "generic.maxHealth",
-                                (Object) new AttributeModifier(
-                                        "generic.maxHealth",
-                                        tagMods.getDouble("generic.maxHealth"),
-                                        1));
+                                "generic.maxHealth",
+                                new AttributeModifier("generic.maxHealth", tagMods.getDouble("generic.maxHealth"), 1));
                     }
                     if (tagMods.getDouble("generic.attackDamage") > 0.0) {
                         map.put(
-                                (Object) "generic.attackDamage",
-                                (Object) new AttributeModifier(
+                                "generic.attackDamage",
+                                new AttributeModifier(
                                         "generic.attackDamage",
                                         tagMods.getDouble("generic.attackDamage"),
                                         1));
@@ -210,7 +194,7 @@ public class ItemInfusionCheat extends Item {
                     }
                     final Set<String> keys = (Set<String>) tagMods.func_150296_c();
                     for (final String s : keys) {
-                        if (!s.substring(0, 8).equals("generic.")) {
+                        if (!s.startsWith("generic.")) {
                             if (tagMods.getInteger(s) == 7) {
                                 if (critter.tasks.taskEntries.size() == 0) {
                                     blockLoyalty = true;
@@ -230,7 +214,7 @@ public class ItemInfusionCheat extends Item {
                         ((EntityInfusionProperties) critter.getExtendedProperties("CreatureInfusion"))
                                 .addCost(recipe.getAspects());
                         critter.func_110163_bv();
-                        ThaumicHorizons.instance.eventHandlerEntity.applyInfusions((EntityLivingBase) critter);
+                        ThaumicHorizons.instance.eventHandlerEntity.applyInfusions(critter);
                         Thaumcraft.proxy
                                 .burst(world, critter.posX, critter.posY + critter.getEyeHeight(), critter.posZ, 1.0f);
                     }

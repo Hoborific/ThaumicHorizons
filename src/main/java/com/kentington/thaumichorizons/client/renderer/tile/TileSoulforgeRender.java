@@ -17,8 +17,8 @@ import thaumcraft.client.renderers.models.ModelBrain;
 
 public class TileSoulforgeRender extends TileEntitySpecialRenderer {
 
-    private ModelBrain brain;
-    private ModelSoulforge forge;
+    private final ModelBrain brain;
+    private final ModelSoulforge forge;
     static String tx1;
     static String tx2;
     static String tx3;

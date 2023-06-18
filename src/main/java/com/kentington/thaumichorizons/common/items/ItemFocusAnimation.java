@@ -7,7 +7,6 @@ package com.kentington.thaumichorizons.common.items;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -16,7 +15,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.ForgeHooks;
@@ -74,24 +72,18 @@ public class ItemFocusAnimation extends ItemFocusBasic {
     @Override
     public FocusUpgradeType[] getPossibleUpgradesByRank(final ItemStack focusstack, final int rank) {
         switch (rank) {
-            case 1: {
+            case 1, 4, 2 -> {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend };
             }
-            case 2: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend };
-            }
-            case 3: {
+            case 3 -> {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend,
                         ItemFocusAnimation.berserk };
             }
-            case 4: {
-                return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend };
-            }
-            case 5: {
+            case 5 -> {
                 return new FocusUpgradeType[] { FocusUpgradeType.frugal, FocusUpgradeType.extend,
                         ItemFocusAnimation.detonation };
             }
-            default: {
+            default -> {
                 return null;
             }
         }
@@ -107,7 +99,7 @@ public class ItemFocusAnimation extends ItemFocusBasic {
             final int z = mop.blockZ;
             final Block blocky = world.getBlock(x, y, z);
             final int md = world.getBlockMetadata(x, y, z);
-            if (!blocky.hasTileEntity(md) && !blocky.isAir((IBlockAccess) world, x, y, z)
+            if (!blocky.hasTileEntity(md) && !blocky.isAir(world, x, y, z)
                     && (blocky.isOpaqueCube() || isWhitelisted(blocky, md))
                     && blocky.getBlockHardness(world, x, y, z) != -1.0f) {
                 WorldSettings.GameType gt = WorldSettings.GameType.SURVIVAL;
@@ -148,8 +140,8 @@ public class ItemFocusAnimation extends ItemFocusBasic {
                     world.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, "thaumcraft:wand", 1.0f, 1.0f);
                     golem.setHomeArea((int) golem.posX, (int) golem.posY, (int) golem.posZ, 32);
                     golem.setOwner(player.getCommandSenderName());
-                    world.spawnEntityInWorld((Entity) golem);
-                    world.setEntityState((Entity) golem, (byte) 7);
+                    world.spawnEntityInWorld(golem);
+                    world.setEntityState(golem, (byte) 7);
                 } else {
                     Minecraft.getMinecraft().effectRenderer.addBlockDestroyEffects(x, y, z, blocky, md);
                     player.swingItem();

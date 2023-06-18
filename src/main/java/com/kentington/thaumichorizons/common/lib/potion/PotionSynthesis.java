@@ -15,12 +15,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PotionSynthesis extends Potion {
 
     public static PotionSynthesis instance;
-    private int statusIconIndex;
+    private static final int statusIconIndex = 1;
     static final ResourceLocation rl;
 
     public PotionSynthesis(final int par1, final boolean par2, final int par3) {
         super(par1, par2, par3);
-        this.setIconIndex(this.statusIconIndex = 1, 0);
+        this.setIconIndex(statusIconIndex, 0);
     }
 
     public static void init() {

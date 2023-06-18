@@ -8,14 +8,12 @@ import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 import com.kentington.thaumichorizons.common.lib.networking.PacketGetCowData;
 import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import io.netty.buffer.ByteBuf;
 import thaumcraft.api.aspects.Aspect;
@@ -40,7 +38,7 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
         this.aspects = new AspectList();
         this.essentia = new AspectList();
         if (p_i1683_1_.isRemote) {
-            PacketHandler.INSTANCE.sendToServer((IMessage) new PacketGetCowData(this.getEntityId()));
+            PacketHandler.INSTANCE.sendToServer(new PacketGetCowData(this.getEntityId()));
         }
     }
 
@@ -92,44 +90,35 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
             this.hasNode = true;
             final NodeModifier mod = ((ItemJarNode) itemstack.getItem()).getNodeModifier(itemstack);
             switch (mod) {
-                case BRIGHT: {
+                case BRIGHT -> {
                     this.nodeMod = 1;
-                    break;
                 }
-                case PALE: {
+                case PALE -> {
                     this.nodeMod = -1;
-                    break;
                 }
-                case FADING: {
+                case FADING -> {
                     this.nodeMod = -2;
-                    break;
                 }
             }
             final NodeType type = ((ItemJarNode) itemstack.getItem()).getNodeType(itemstack);
             switch (type) {
-                case NORMAL: {
+                case NORMAL -> {
                     this.nodeType = 1;
-                    break;
                 }
-                case UNSTABLE: {
+                case UNSTABLE -> {
                     this.nodeType = 2;
-                    break;
                 }
-                case DARK: {
+                case DARK -> {
                     this.nodeType = 3;
-                    break;
                 }
-                case TAINTED: {
+                case TAINTED -> {
                     this.nodeType = 4;
-                    break;
                 }
-                case HUNGRY: {
+                case HUNGRY -> {
                     this.nodeType = 5;
-                    break;
                 }
-                case PURE: {
+                case PURE -> {
                     this.nodeType = 6;
-                    break;
                 }
             }
             p_70085_1_.inventory
@@ -142,22 +131,22 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
 
     public NodeType getNodeType() {
         switch (this.nodeType) {
-            case 2: {
+            case 2 -> {
                 return NodeType.UNSTABLE;
             }
-            case 3: {
+            case 3 -> {
                 return NodeType.DARK;
             }
-            case 4: {
+            case 4 -> {
                 return NodeType.TAINTED;
             }
-            case 5: {
+            case 5 -> {
                 return NodeType.HUNGRY;
             }
-            case 6: {
+            case 6 -> {
                 return NodeType.PURE;
             }
-            default: {
+            default -> {
                 return NodeType.NORMAL;
             }
         }
@@ -165,16 +154,16 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
 
     public NodeModifier getNodeMod() {
         switch (this.nodeMod) {
-            case 1: {
+            case 1 -> {
                 return NodeModifier.BRIGHT;
             }
-            case -1: {
+            case -1 -> {
                 return NodeModifier.PALE;
             }
-            case -2: {
+            case -2 -> {
                 return NodeModifier.FADING;
             }
-            default: {
+            default -> {
                 return null;
             }
         }
@@ -207,10 +196,10 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
         p_70014_1_.setInteger("nodeType", this.nodeType);
         final NBTTagCompound aspectTag = new NBTTagCompound();
         this.aspects.writeToNBT(aspectTag);
-        p_70014_1_.setTag("aspects", (NBTBase) aspectTag);
+        p_70014_1_.setTag("aspects", aspectTag);
         final NBTTagCompound essentiaTag = new NBTTagCompound();
         this.essentia.writeToNBT(essentiaTag);
-        p_70014_1_.setTag("essentia", (NBTBase) essentiaTag);
+        p_70014_1_.setTag("essentia", essentiaTag);
     }
 
     public void readEntityFromNBT(final NBTTagCompound p_70037_1_) {

@@ -8,7 +8,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StatCollector;
 
 import cpw.mods.fml.relauncher.Side;
@@ -29,7 +28,7 @@ public class TileSoulBeacon extends TileThaumcraft {
         p.getEntityData().setIntArray("soulBeaconCoords", new int[] { this.xCoord, this.yCoord, this.zCoord });
         p.getEntityData().setInteger("soulBeaconDim", this.worldObj.provider.dimensionId);
         p.addChatMessage(
-                (IChatComponent) new ChatComponentText(
+                new ChatComponentText(
                         EnumChatFormatting.ITALIC + ""
                                 + EnumChatFormatting.GRAY
                                 + StatCollector.translateToLocal("thaumichorizons.setBeacon")));

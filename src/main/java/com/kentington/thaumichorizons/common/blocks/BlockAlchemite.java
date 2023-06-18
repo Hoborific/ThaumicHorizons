@@ -6,7 +6,6 @@ package com.kentington.thaumichorizons.common.blocks;
 
 import net.minecraft.block.BlockTNT;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
@@ -42,7 +41,7 @@ public class BlockAlchemite extends BlockTNT {
                     p_149723_4_ + 0.5f,
                     p_149723_5_.getExplosivePlacedBy());
             entitytntprimed.fuse = p_149723_1_.rand.nextInt(entitytntprimed.fuse / 4) + entitytntprimed.fuse / 8;
-            p_149723_1_.spawnEntityInWorld((Entity) entitytntprimed);
+            p_149723_1_.spawnEntityInWorld(entitytntprimed);
         }
     }
 
@@ -55,8 +54,8 @@ public class BlockAlchemite extends BlockTNT {
                     p_150114_3_ + 0.5f,
                     p_150114_4_ + 0.5f,
                     p_150114_6_);
-            p_150114_1_.spawnEntityInWorld((Entity) entitytntprimed);
-            p_150114_1_.playSoundAtEntity((Entity) entitytntprimed, "game.tnt.primed", 1.0f, 1.0f);
+            p_150114_1_.spawnEntityInWorld(entitytntprimed);
+            p_150114_1_.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0f, 1.0f);
         }
     }
 

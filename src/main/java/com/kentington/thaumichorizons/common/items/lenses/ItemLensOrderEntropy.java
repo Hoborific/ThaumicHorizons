@@ -28,7 +28,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.api.ThaumcraftApi;
@@ -70,7 +69,7 @@ public class ItemLensOrderEntropy extends Item implements ILens {
             double x = 0.0;
             double y = 0.0;
             double z = 0.0;
-            final EntityPlayer p = (EntityPlayer) Minecraft.getMinecraft().thePlayer;
+            final EntityPlayer p = Minecraft.getMinecraft().thePlayer;
             this.isNew = false;
             String text = "?";
             final ScanResult scan = this.doScan(new ItemStack(ConfigItems.itemThaumometer), p.worldObj, p, this.count);
@@ -85,25 +84,22 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                     if (stack.getItem() != null) {
                         try {
                             text = stack.getDisplayName();
-                        } catch (Exception e) {}
+                        } catch (Exception ignored) {}
                     } else if (stack.getItem() != null) {
                         try {
                             text = stack.getItem().getItemStackDisplayName(stack);
-                        } catch (Exception ex) {}
+                        } catch (Exception ignored) {}
                     }
                 }
                 if (scan.type == 2) {
                     if (!(scan.entity instanceof EntityItem)) {
                         text = scan.entity.getCommandSenderName();
-                        x = scan.entity.posX;
-                        y = scan.entity.posY;
-                        z = scan.entity.posZ;
                     } else {
                         text = ((EntityItem) scan.entity).getEntityItem().getDisplayName();
-                        x = scan.entity.posX;
-                        y = scan.entity.posY;
-                        z = scan.entity.posZ;
                     }
+                    x = scan.entity.posX;
+                    y = scan.entity.posY;
+                    z = scan.entity.posZ;
                 } else {
                     final MovingObjectPosition mop = EntityUtils.getMovingObjectPositionFromPlayer(p.worldObj, p, true);
                     if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
@@ -111,9 +107,7 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                         y = mop.blockY;
                         z = mop.blockZ;
                         final TileEntity tile = p.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
-                        if (scan.type == 3 && scan.phenomena.startsWith("NODE")
-                                && tile != null
-                                && tile instanceof INode) {
+                        if (scan.type == 3 && scan.phenomena.startsWith("NODE") && tile instanceof INode) {
                             if (!this.isNew) {
                                 aspects = ((INode) tile).getAspects();
                             }
@@ -149,7 +143,7 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                 if (this.count <= 5) {
                     this.startScan = null;
                     if (ScanManager.completeScan(p, scan, "@")) {
-                        PacketHandler.INSTANCE.sendToServer((IMessage) new PacketScannedToServer(scan, p, "@"));
+                        PacketHandler.INSTANCE.sendToServer(new PacketScannedToServer(scan, p, "@"));
                     }
                     this.count = 250;
                 }
@@ -182,11 +176,7 @@ public class ItemLensOrderEntropy extends Item implements ILens {
             int yOff = 0;
             int thisRow = 0;
             final int size = 18;
-            if (aspects.size() - num < 5) {
-                thisRow = aspects.size() - num;
-            } else {
-                thisRow = 5;
-            }
+            thisRow = Math.min(aspects.size() - num, 5);
             for (final Aspect asp : aspects.getAspects()) {
                 yOff = num / 5 * size;
                 this.drawAspectTag(
@@ -196,11 +186,7 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                         h / 2 + 16 + yOff,
                         w);
                 if (++num % 5 == 0) {
-                    if (aspects.size() - num < 5) {
-                        thisRow = aspects.size() - num;
-                    } else {
-                        thisRow = 5;
-                    }
+                    thisRow = Math.min(aspects.size() - num, 5);
                 }
             }
         }
@@ -215,7 +201,7 @@ public class ItemLensOrderEntropy extends Item implements ILens {
     }
 
     private ScanResult doScan(final ItemStack stack, final World world, final EntityPlayer p, final int count) {
-        final Entity pointedEntity = EntityUtils.getPointedEntity(p.worldObj, (Entity) p, 0.5, 10.0, 0.0f, true);
+        final Entity pointedEntity = EntityUtils.getPointedEntity(p.worldObj, p, 0.5, 10.0, 0.0f, true);
         if (pointedEntity == null) {
             final MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(p.worldObj, p, true);
             if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
@@ -225,9 +211,9 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                     if (ScanManager.isValidScanTarget(p, sr, "@")) {
                         Thaumcraft.proxy.blockRunes(
                                 world,
-                                (double) mop.blockX,
+                                mop.blockX,
                                 mop.blockY + 0.25,
-                                (double) mop.blockZ,
+                                mop.blockZ,
                                 0.3f + world.rand.nextFloat() * 0.7f,
                                 0.0f,
                                 0.3f + world.rand.nextFloat() * 0.7f,
@@ -247,7 +233,7 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                             if (is == null) {
                                 is = BlockUtils.createStackedBlock(bi, md);
                             }
-                        } catch (Exception ex) {}
+                        } catch (Exception ignored) {}
                         try {
                             if (is == null) {
                                 sr2 = new ScanResult((byte) 1, Block.getIdFromBlock(bi), md, null, "");
@@ -259,13 +245,13 @@ public class ItemLensOrderEntropy extends Item implements ILens {
                                         null,
                                         "");
                             }
-                        } catch (Exception ex2) {}
+                        } catch (Exception ignored) {}
                         if (ScanManager.isValidScanTarget(p, sr2, "@")) {
                             Thaumcraft.proxy.blockRunes(
                                     world,
-                                    (double) mop.blockX,
+                                    mop.blockX,
                                     mop.blockY + 0.25,
-                                    (double) mop.blockZ,
+                                    mop.blockZ,
                                     0.3f + world.rand.nextFloat() * 0.7f,
                                     0.0f,
                                     0.3f + world.rand.nextFloat() * 0.7f,

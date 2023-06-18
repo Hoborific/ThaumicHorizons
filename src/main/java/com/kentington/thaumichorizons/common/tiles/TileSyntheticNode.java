@@ -11,7 +11,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.MovingObjectPosition;
@@ -37,8 +36,8 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
     AspectList aspects;
     AspectList fractionalAspects;
     AspectList aspectsMax;
-    private NodeType nodeType;
-    private NodeModifier nodeModifier;
+    private final NodeType nodeType;
+    private final NodeModifier nodeModifier;
     public float rotation;
     float increment;
     public Entity drainEntity;
@@ -127,8 +126,8 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
     @Override
     public boolean takeFromContainer(final AspectList ot) {
         final Aspect[] toRemove = ot.getAspects();
-        for (int i = 0; i < toRemove.length; ++i) {
-            if (!this.aspects.reduce(toRemove[i], ot.getAmount(toRemove[i]))) {
+        for (Aspect aspect : toRemove) {
+            if (!this.aspects.reduce(aspect, ot.getAmount(aspect))) {
                 return false;
             }
         }
@@ -221,7 +220,7 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
                 }
             }
             if (success) {
-                this.drainEntity = (Entity) player;
+                this.drainEntity = player;
                 this.drainCollision = movingobjectposition;
                 this.targetColor = new Color(this.drainColor);
             } else {
@@ -246,7 +245,7 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
 
     public Aspect chooseRandomFilteredFromSource(final AspectList filter, final boolean preserve) {
         final int min = preserve ? 1 : 0;
-        final ArrayList<Aspect> validaspects = new ArrayList<Aspect>();
+        final ArrayList<Aspect> validaspects = new ArrayList<>();
         for (final Aspect prim : this.aspects.getAspects()) {
             if (filter.getAmount(prim) > 0 && this.aspects.getAmount(prim) > min) {
                 validaspects.add(prim);
@@ -355,33 +354,33 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
     public void writeCustomNBT(final NBTTagCompound nbttagcompound) {
         super.writeCustomNBT(nbttagcompound);
         final NBTTagList tlist = new NBTTagList();
-        nbttagcompound.setTag("AspectsMax", (NBTBase) tlist);
+        nbttagcompound.setTag("AspectsMax", tlist);
         for (final Aspect aspect : this.aspectsMax.getAspects()) {
             if (aspect != null) {
                 final NBTTagCompound f = new NBTTagCompound();
                 f.setString("key", aspect.getTag());
                 f.setInteger("amount", this.aspectsMax.getAmount(aspect));
-                tlist.appendTag((NBTBase) f);
+                tlist.appendTag(f);
             }
         }
         final NBTTagList tlist2 = new NBTTagList();
-        nbttagcompound.setTag("Aspects", (NBTBase) tlist2);
+        nbttagcompound.setTag("Aspects", tlist2);
         for (final Aspect aspect2 : this.aspects.getAspects()) {
             if (aspect2 != null) {
                 final NBTTagCompound f2 = new NBTTagCompound();
                 f2.setString("key", aspect2.getTag());
                 f2.setInteger("amount", this.aspects.getAmount(aspect2));
-                tlist2.appendTag((NBTBase) f2);
+                tlist2.appendTag(f2);
             }
         }
         final NBTTagList tlist3 = new NBTTagList();
-        nbttagcompound.setTag("AspectsFractional", (NBTBase) tlist3);
+        nbttagcompound.setTag("AspectsFractional", tlist3);
         for (final Aspect aspect3 : this.fractionalAspects.getAspects()) {
             if (aspect3 != null) {
                 final NBTTagCompound f3 = new NBTTagCompound();
                 f3.setString("key", aspect3.getTag());
                 f3.setInteger("amount", this.fractionalAspects.getAmount(aspect3));
-                tlist3.appendTag((NBTBase) f3);
+                tlist3.appendTag(f3);
             }
         }
         if (this.drainEntity != null && this.drainEntity instanceof EntityPlayer) {
@@ -422,7 +421,7 @@ public class TileSyntheticNode extends TileVisNode implements INode, IWandable {
         this.fractionalAspects = al3.copy();
         final String de = nbttagcompound.getString("drainer");
         if (de != null && de.length() > 0 && this.getWorldObj() != null) {
-            this.drainEntity = (Entity) this.getWorldObj().getPlayerEntityByName(de);
+            this.drainEntity = this.getWorldObj().getPlayerEntityByName(de);
             if (this.drainEntity != null) {
                 this.drainCollision = new MovingObjectPosition(
                         this.xCoord,

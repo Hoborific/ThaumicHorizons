@@ -8,13 +8,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
@@ -22,8 +20,6 @@ import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.lib.NightmareTeleporter;
 import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 import com.kentington.thaumichorizons.common.lib.networking.PacketMountNightmare;
-
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 
 public class EntityNightmare extends EntityEndersteed {
 
@@ -59,10 +55,9 @@ public class EntityNightmare extends EntityEndersteed {
     }
 
     private void netherport(final int dim) {
-        this.worldObj
-                .newExplosion((Entity) this, this.posX, this.posY + this.height / 2.0f, this.posZ, 2.0f, true, true);
+        this.worldObj.newExplosion(this, this.posX, this.posY + this.height / 2.0f, this.posZ, 2.0f, true, true);
         EntityPlayerMP player = (EntityPlayerMP) this.riddenByEntity;
-        player.mountEntity((Entity) null);
+        player.mountEntity(null);
         Entity newNightmare;
         if (this.dimension == 0) {
             player = this.playerTravelToDimension(player, -1);
@@ -73,9 +68,9 @@ public class EntityNightmare extends EntityEndersteed {
         }
         player.rotationYaw = newNightmare.rotationYaw;
         player.rotationPitch = newNightmare.rotationPitch;
-        player.mountEntity((Entity) null);
+        player.mountEntity(null);
         player.mountEntity(newNightmare);
-        PacketHandler.INSTANCE.sendTo((IMessage) new PacketMountNightmare(newNightmare, (EntityPlayer) player), player);
+        PacketHandler.INSTANCE.sendTo(new PacketMountNightmare(newNightmare, player), player);
     }
 
     public Entity nightmareTravelToDimension(final int p_71027_1_) {
@@ -86,29 +81,20 @@ public class EntityNightmare extends EntityEndersteed {
             final WorldServer worldserver = minecraftserver.worldServerForDimension(j);
             final WorldServer worldserver2 = minecraftserver.worldServerForDimension(p_71027_1_);
             this.dimension = p_71027_1_;
-            this.worldObj.removeEntity((Entity) this);
+            this.worldObj.removeEntity(this);
             this.isDead = false;
             this.worldObj.theProfiler.startSection("reposition");
             if (p_71027_1_ == -1) {
-                minecraftserver.getConfigurationManager().transferEntityToWorld(
-                        (Entity) this,
-                        j,
-                        worldserver,
-                        worldserver2,
-                        (Teleporter) this.nightmareTeleporterNether);
+                minecraftserver.getConfigurationManager()
+                        .transferEntityToWorld(this, j, worldserver, worldserver2, this.nightmareTeleporterNether);
             } else {
-                minecraftserver.getConfigurationManager().transferEntityToWorld(
-                        (Entity) this,
-                        j,
-                        worldserver,
-                        worldserver2,
-                        (Teleporter) this.nightmareTeleporterOverworld);
+                minecraftserver.getConfigurationManager()
+                        .transferEntityToWorld(this, j, worldserver, worldserver2, this.nightmareTeleporterOverworld);
             }
             this.worldObj.theProfiler.endStartSection("reloading");
-            final Entity entity = EntityList
-                    .createEntityByName(EntityList.getEntityString((Entity) this), (World) worldserver2);
+            final Entity entity = EntityList.createEntityByName(EntityList.getEntityString(this), worldserver2);
             if (entity != null) {
-                entity.copyDataFrom((Entity) this, true);
+                entity.copyDataFrom(this, true);
                 worldserver2.spawnEntityInWorld(entity);
             }
             this.isDead = true;
@@ -124,10 +110,10 @@ public class EntityNightmare extends EntityEndersteed {
     public EntityPlayerMP playerTravelToDimension(final EntityPlayerMP player, final int p_71027_1_) {
         if (p_71027_1_ == -1) {
             player.mcServer.getConfigurationManager()
-                    .transferPlayerToDimension(player, p_71027_1_, (Teleporter) this.nightmareTeleporterNether);
+                    .transferPlayerToDimension(player, p_71027_1_, this.nightmareTeleporterNether);
         } else {
             player.mcServer.getConfigurationManager()
-                    .transferPlayerToDimension(player, p_71027_1_, (Teleporter) this.nightmareTeleporterOverworld);
+                    .transferPlayerToDimension(player, p_71027_1_, this.nightmareTeleporterOverworld);
         }
         return player;
     }

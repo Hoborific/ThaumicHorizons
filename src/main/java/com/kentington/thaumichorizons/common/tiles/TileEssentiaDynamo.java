@@ -7,7 +7,6 @@ package com.kentington.thaumichorizons.common.tiles;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -148,17 +147,13 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
     public int addEssentia(final Aspect aspect, final int amount, final ForgeDirection face) {
         this.ticksProvided += 21;
         this.essentia = aspect;
-        if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId) == null) {
-            VisNetHandler.sources.put(
-                    this.worldObj.provider.dimensionId,
-                    new HashMap<WorldCoordinates, WeakReference<TileVisNode>>());
-        }
+        VisNetHandler.sources.computeIfAbsent(this.worldObj.provider.dimensionId, k -> new HashMap<>());
         if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId)
                 .get(new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
                 == null) {
             VisNetHandler.sources.get(this.worldObj.provider.dimensionId).put(
                     new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId),
-                    new WeakReference<TileVisNode>(this));
+                    new WeakReference<>(this));
         } else if (VisNetHandler.sources.get(this.worldObj.provider.dimensionId)
                 .get(new WorldCoordinates(this.xCoord, this.yCoord, this.zCoord, this.worldObj.provider.dimensionId))
                 .get() == null) {
@@ -174,7 +169,7 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
                                     this.yCoord,
                                     this.zCoord,
                                     this.worldObj.provider.dimensionId),
-                            new WeakReference<TileVisNode>(this));
+                            new WeakReference<>(this));
                 }
         this.markDirty();
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
@@ -301,13 +296,13 @@ public class TileEssentiaDynamo extends TileVisNode implements IAspectContainer,
         }
         nbttagcompound.setInteger("ticks", this.ticksProvided);
         final NBTTagList tlist = new NBTTagList();
-        nbttagcompound.setTag("AspectsProvided", (NBTBase) tlist);
+        nbttagcompound.setTag("AspectsProvided", tlist);
         for (final Aspect aspect : this.primalsProvided.getAspects()) {
             if (aspect != null) {
                 final NBTTagCompound f = new NBTTagCompound();
                 f.setString("key", aspect.getTag());
                 f.setInteger("amount", this.primalsProvided.getAmount(aspect));
-                tlist.appendTag((NBTBase) f);
+                tlist.appendTag(f);
             }
         }
     }

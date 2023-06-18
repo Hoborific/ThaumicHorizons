@@ -77,14 +77,4 @@ public class ItemKeystone extends Item {
         }
         return super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
     }
-
-    // public ItemStack onItemRightClick(final ItemStack stack, final World world, final EntityPlayer p) {
-    // if (stack.getTagCompound() == null && p.dimension == ThaumicHorizons.dimensionPocketId && !world.isRemote)
-    // {
-    // final ItemStack newStack = new ItemStack(ThaumicHorizons.itemKeystone);
-    // (newStack.stackTagCompound = new NBTTagCompound()).setInteger("dimension", ((int)p.posZ + 128) / 256);
-    // return newStack;
-    // }
-    // return stack;
-    // }
 }

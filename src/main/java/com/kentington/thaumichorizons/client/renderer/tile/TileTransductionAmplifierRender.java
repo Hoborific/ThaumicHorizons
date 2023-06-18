@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
@@ -25,7 +24,7 @@ import thaumcraft.client.lib.UtilsFX;
 @SideOnly(Side.CLIENT)
 public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
 
-    private IModelCustom model;
+    private final IModelCustom model;
     private static final ResourceLocation MODEL;
 
     public TileTransductionAmplifierRender() {
@@ -37,11 +36,8 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
         int bright = 20;
         GL11.glPushMatrix();
         if (tile.getWorldObj() != null) {
-            bright = tile.getBlockType().getMixedBrightnessForBlock(
-                    (IBlockAccess) tile.getWorldObj(),
-                    tile.xCoord,
-                    tile.yCoord,
-                    tile.zCoord);
+            bright = tile.getBlockType()
+                    .getMixedBrightnessForBlock(tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
             tile.direction = (byte) tile.getBlockMetadata();
             if (tile.direction == 3) {
                 GL11.glTranslatef((float) par2 + 0.5f, (float) par4 + 0.5f, (float) par6 + 1.0f);
@@ -70,7 +66,7 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
             final int j = 50 + (int) (170.0f * (v * 2.5f * scale));
             final int k = j % 65536;
             final int l = j / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0f, l / 1.0f);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k, l);
         }
         UtilsFX.bindTexture("textures/models/node_converter_over.png");
         this.model.renderPart("lock");
@@ -78,10 +74,9 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
         for (int a = 0; a < 4; ++a) {
             GL11.glPushMatrix();
             if (tile.getWorldObj() != null) {
-                final int j = bright;
-                final int k = j % 65536;
-                final int l = j / 65536;
-                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k / 1.0f, l / 1.0f);
+                final int k = bright % 65536;
+                final int l = bright / 65536;
+                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, k, l);
             }
             GL11.glRotatef((float) (90 * a), 0.0f, 0.0f, 1.0f);
             GL11.glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
@@ -95,7 +90,7 @@ public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {
                 final int i = 50 + (int) (170.0f * (v * 2.5f * scale2));
                 final int m = i % 65536;
                 final int l2 = i / 65536;
-                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, m / 1.0f, l2 / 1.0f);
+                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, m, l2);
             }
             UtilsFX.bindTexture("textures/models/node_converter_over.png");
             this.model.renderPart("piston");

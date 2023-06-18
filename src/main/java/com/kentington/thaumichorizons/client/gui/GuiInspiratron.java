@@ -6,7 +6,6 @@ package com.kentington.thaumichorizons.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -21,7 +20,7 @@ public class GuiInspiratron extends GuiContainer {
     TileInspiratron tile;
 
     public GuiInspiratron(final InventoryPlayer player, final TileInspiratron tile) {
-        super((Container) new ContainerInspiratron(player, tile));
+        super(new ContainerInspiratron(player, tile));
         this.tile = tile;
         this.xSize = 175;
         this.ySize = 219;

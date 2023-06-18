@@ -7,9 +7,7 @@ package com.kentington.thaumichorizons.common.entities;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.boss.EntityWither;
@@ -35,74 +33,20 @@ public class EntityGravekeeper extends EntityOcelot {
         super(p_i1688_1_);
         List<EntityAITasks.EntityAITaskEntry> task = tasks.taskEntries;
         this.tasks.removeTask(task.get(6).action);
-        this.targetTasks.addTask(
-                2,
-                (EntityAIBase) new EntityAINearestAttackableTarget(
-                        (EntityCreature) this,
-                        (Class) EntitySkeleton.class,
-                        0,
-                        false));
-        this.targetTasks.addTask(
-                3,
-                (EntityAIBase) new EntityAINearestAttackableTarget(
-                        (EntityCreature) this,
-                        (Class) EntityZombie.class,
-                        0,
-                        false));
-        this.targetTasks.addTask(
-                4,
-                (EntityAIBase) new EntityAINearestAttackableTarget(
-                        (EntityCreature) this,
-                        (Class) EntityWither.class,
-                        0,
-                        false));
-        this.targetTasks.addTask(
-                5,
-                (EntityAIBase) new EntityAINearestAttackableTarget(
-                        (EntityCreature) this,
-                        (Class) EntityPigZombie.class,
-                        0,
-                        false));
-        this.targetTasks.addTask(
-                6,
-                (EntityAIBase) new EntityAINearestAttackableTarget(
-                        (EntityCreature) this,
-                        (Class) EntityGiantZombie.class,
-                        0,
-                        false));
-        this.targetTasks.addTask(
-                7,
-                (EntityAIBase) new EntityAINearestAttackableTarget(
-                        (EntityCreature) this,
-                        (Class) EntityBrainyZombie.class,
-                        0,
-                        false));
-        this.targetTasks.addTask(
-                8,
-                (EntityAIBase) new EntityAINearestAttackableTarget(
-                        (EntityCreature) this,
-                        (Class) EntityEldritchGuardian.class,
-                        0,
-                        false));
-        this.targetTasks.addTask(
-                9,
-                (EntityAIBase) new EntityAINearestAttackableTarget(
-                        (EntityCreature) this,
-                        (Class) EntityGiantBrainyZombie.class,
-                        0,
-                        false));
-        this.targetTasks.addTask(
-                10,
-                (EntityAIBase) new EntityAINearestAttackableTarget(
-                        (EntityCreature) this,
-                        (Class) EntityInhabitedZombie.class,
-                        0,
-                        false));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntitySkeleton.class, 0, false));
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityZombie.class, 0, false));
+        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityWither.class, 0, false));
+        this.targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntityPigZombie.class, 0, false));
+        this.targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntityGiantZombie.class, 0, false));
+        this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityBrainyZombie.class, 0, false));
+        this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityEldritchGuardian.class, 0, false));
+        this.targetTasks.addTask(9, new EntityAINearestAttackableTarget(this, EntityGiantBrainyZombie.class, 0, false));
+        this.targetTasks.addTask(10, new EntityAINearestAttackableTarget(this, EntityInhabitedZombie.class, 0, false));
     }
 
     public boolean attackEntityAsMob(final Entity p_70652_1_) {
         return (p_70652_1_ instanceof EntityLivingBase && ((EntityLivingBase) p_70652_1_).isEntityUndead())
-                || p_70652_1_.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase) this), 2.0f);
+                || p_70652_1_.attackEntityFrom(DamageSource.causeMobDamage(this), 2.0f);
     }
 
     public String getCommandSenderName() {
@@ -114,7 +58,7 @@ public class EntityGravekeeper extends EntityOcelot {
     public void updateAITick() {
         super.updateAITick();
         final List<EntityLivingBase> critters = (List<EntityLivingBase>) this.worldObj.getEntitiesWithinAABB(
-                (Class) EntityLivingBase.class,
+                EntityLivingBase.class,
                 AxisAlignedBB.getBoundingBox(
                         this.posX - 5.0,
                         this.posY - 5.0,
@@ -145,7 +89,7 @@ public class EntityGravekeeper extends EntityOcelot {
     protected void entityInit() {
         super.entityInit();
         final byte b0 = this.dataWatcher.getWatchableObjectByte(16);
-        this.dataWatcher.updateObject(16, (Object) (byte) (b0 | 0x4));
+        this.dataWatcher.updateObject(16, (byte) (b0 | 0x4));
     }
 
     public boolean isTamed() {

@@ -4,8 +4,6 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import java.util.Iterator;
-
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -55,22 +53,19 @@ public class TileSoulforge extends TileThaumcraft implements ISoulReceiver, IEss
             soul.getTagCompound().setBoolean("isSoul", true);
             final Integer[] newVillagerTypes = new Integer[VillagerRegistry.getRegisteredVillagers().size()];
             int pointer = 0;
-            final Iterator<Integer> it = VillagerRegistry.getRegisteredVillagers().iterator();
-            while (it.hasNext()) {
-                newVillagerTypes[pointer] = it.next();
+            for (int villagerType : VillagerRegistry.getRegisteredVillagers()) {
+                newVillagerTypes[pointer] = villagerType;
                 ++pointer;
             }
             final Integer[] villagerTypes = new Integer[newVillagerTypes.length + 5];
             for (int i = 0; i < 5; ++i) {
                 villagerTypes[i] = i;
             }
-            for (int j = 0; j < newVillagerTypes.length; ++j) {
-                villagerTypes[j + 5] = newVillagerTypes[j];
-            }
+            System.arraycopy(newVillagerTypes, 0, villagerTypes, 5, newVillagerTypes.length);
             final int which = world.rand.nextInt(villagerTypes.length);
-            soul.getTagCompound().setInteger("villagerType", (int) villagerTypes[which]);
+            soul.getTagCompound().setInteger("villagerType", villagerTypes[which]);
             final EntityVillager dummyVillager = new EntityVillager(this.worldObj);
-            dummyVillager.setProfession((int) villagerTypes[which]);
+            dummyVillager.setProfession(villagerTypes[which]);
             soul.getTagCompound().setString("jarredCritterName", dummyVillager.getCommandSenderName());
             player.inventory.decrStackSize(
                     InventoryUtils.isPlayerCarrying(player, new ItemStack(ConfigBlocks.blockJar, 1, 0)),

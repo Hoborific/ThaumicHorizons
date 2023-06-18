@@ -143,25 +143,25 @@ public class BlockTransductionAmplifier extends BlockContainer {
     public boolean isSideSolid(final IBlockAccess world, final int x, final int y, final int z,
             final ForgeDirection side) {
         switch (world.getBlockMetadata(x, y, z)) {
-            case 0: {
+            case 0 -> {
                 return side == ForgeDirection.DOWN;
             }
-            case 1: {
+            case 1 -> {
                 return side == ForgeDirection.UP;
             }
-            case 2: {
+            case 2 -> {
                 return side == ForgeDirection.NORTH;
             }
-            case 3: {
+            case 3 -> {
                 return side == ForgeDirection.SOUTH;
             }
-            case 4: {
+            case 4 -> {
                 return side == ForgeDirection.WEST;
             }
-            case 5: {
+            case 5 -> {
                 return side == ForgeDirection.EAST;
             }
-            default: {
+            default -> {
                 return false;
             }
         }

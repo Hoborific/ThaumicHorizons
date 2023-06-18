@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -80,7 +79,7 @@ public class ItemFocusCompound extends ItemFocusBasic {
     public Aspect chooseRandomFilteredFromSource(final AspectList filter, final boolean preserve,
             final AspectList nodeAspects, final World world) {
         final int min = preserve ? 1 : 0;
-        final ArrayList<Aspect> validaspects = new ArrayList<Aspect>();
+        final ArrayList<Aspect> validaspects = new ArrayList<>();
         for (final Aspect prim : nodeAspects.getAspects()) {
             if (filter.getAmount(prim) > 0 && nodeAspects.getAmount(prim) > min) {
                 validaspects.add(prim);
@@ -100,8 +99,7 @@ public class ItemFocusCompound extends ItemFocusBasic {
     public void onUsingFocusTick(final ItemStack wandstack, final EntityPlayer player, final int count) {
         boolean mfu = false;
         final ItemWandCasting wand = (ItemWandCasting) wandstack.getItem();
-        final MovingObjectPosition movingobjectposition = BlockUtils
-                .getTargetBlock(player.worldObj, (Entity) player, true);
+        final MovingObjectPosition movingobjectposition = BlockUtils.getTargetBlock(player.worldObj, player, true);
         int i = 0;
         int j = 0;
         int k = 0;
@@ -174,7 +172,7 @@ public class ItemFocusCompound extends ItemFocusBasic {
                         col.getGreen() / 255.0f,
                         col.getBlue() / 255.0f,
                         true,
-                        (Object) node);
+                        node);
             }
             if (mfu) {
                 player.worldObj.markBlockForUpdate(i, j, k);

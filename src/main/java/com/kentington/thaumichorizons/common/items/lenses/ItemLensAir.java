@@ -50,9 +50,9 @@ public class ItemLensAir extends Item implements ILens {
         if (mc.gameSettings.thirdPersonView > 0) {
             return;
         }
-        final EntityPlayer player = (EntityPlayer) mc.thePlayer;
+        final EntityPlayer player = mc.thePlayer;
         final List<Entity> critters = (List<Entity>) player.worldObj.getEntitiesWithinAABBExcludingEntity(
-                (Entity) mc.thePlayer,
+                mc.thePlayer,
                 AxisAlignedBB.getBoundingBox(
                         player.posX - 24.0,
                         player.posY - 24.0,

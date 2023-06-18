@@ -32,8 +32,8 @@ public class ItemSyringeBlood extends Item {
 
     @SideOnly(Side.CLIENT)
     public void getSubItems(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
-        par3List.add(new ItemStack((Item) this, 1, 0));
-        par3List.add(new ItemStack((Item) this, 1, 1));
+        par3List.add(new ItemStack(this, 1, 0));
+        par3List.add(new ItemStack(this, 1, 1));
     }
 
     @SideOnly(Side.CLIENT)

@@ -81,33 +81,27 @@ public class BlockGatewayPortal extends Block {
             if (world.getBlock(x + 1, y, z) == ThaumicHorizons.blockGateway) {
                 slotZ = z;
                 switch (md) {
-                    case 6: {
+                    case 6 -> {
                         slotX = x + 1;
-                        break;
                     }
-                    case 7: {
+                    case 7 -> {
                         slotX = x;
-                        break;
                     }
-                    case 9: {
+                    case 9 -> {
                         slotX = x - 1;
-                        break;
                     }
                 }
             } else {
                 slotX = x;
                 switch (md) {
-                    case 6: {
+                    case 6 -> {
                         slotZ = z + 1;
-                        break;
                     }
-                    case 7: {
+                    case 7 -> {
                         slotZ = z;
-                        break;
                     }
-                    case 9: {
+                    case 9 -> {
                         slotZ = z - 1;
-                        break;
                     }
                 }
             }
@@ -159,92 +153,86 @@ public class BlockGatewayPortal extends Block {
                 || world.getBlock(x - 1, y, z) == ThaumicHorizons.blockPortal;
         Label_0410: {
             switch (world.getBlockMetadata(x, y, z)) {
-                case 0: {
+                case 0 -> {
                     switch (side) {
-                        case 0: {
+                        case 0 -> {
                             return this.lapiz;
                         }
-                        case 1: {
+                        case 1 -> {
                             return this.stone;
                         }
-                        case 2: {
+                        case 2 -> {
                             if (isXAligned) {
                                 return this.CornerTR;
                             }
                             return this.stone;
                         }
-                        case 3: {
+                        case 3 -> {
                             if (isXAligned) {
                                 return this.CornerTL;
                             }
                             return this.stone;
                         }
-                        case 4: {
+                        case 4 -> {
                             if (isXAligned) {
                                 return this.stone;
                             }
                             return this.CornerTL;
                         }
-                        case 5: {
+                        case 5 -> {
                             if (isXAligned) {
                                 return this.stone;
                             }
                             return this.CornerTR;
                         }
-                        default: {
+                        default -> {
                             return this.leftSide(isXAligned, side);
                         }
                     }
                     // break;
                 }
-                case 1: {
+                case 1, 2, 3 -> {
                     return this.leftSide(isXAligned, side);
                 }
-                case 2: {
-                    return this.leftSide(isXAligned, side);
-                }
-                case 3: {
-                    return this.leftSide(isXAligned, side);
-                }
-                case 4: {
+                case 4 -> {
                     switch (side) {
-                        case 0: {
+                        case 0 -> {
                             return this.stone;
                         }
-                        case 1: {
+                        case 1 -> {
                             return this.lapiz;
                         }
-                        case 2: {
+                        case 2 -> {
                             if (isXAligned) {
                                 return this.CornerBR;
                             }
                             return this.stone;
                         }
-                        case 3: {
+                        case 3 -> {
                             if (isXAligned) {
                                 return this.CornerBL;
                             }
                             return this.stone;
                         }
-                        case 4: {
+                        case 4 -> {
                             if (isXAligned) {
                                 return this.stone;
                             }
                             return this.CornerBL;
                         }
-                        case 5: {
+                        case 5 -> {
                             if (isXAligned) {
                                 return this.stone;
                             }
                             return this.CornerBR;
                         }
-                        default: {
+                        default -> {
                             break Label_0410;
                         }
                     }
                     // break;
                 }
-                case 5: {
+                case 5 -> {
                     switch (side) {
                         case 0: {
                             return this.lapiz;
@@ -276,13 +264,10 @@ public class BlockGatewayPortal extends Block {
                     }
                     return this.lapiz;
                 }
-                case 6: {
+                case 6, 7, 9 -> {
                     return this.bottomSide(isXAligned, side);
                 }
-                case 7: {
-                    return this.bottomSide(isXAligned, side);
-                }
-                case 8: {
+                case 8 -> {
                     switch (side) {
                         case 0: {
                             return this.lapiz;
@@ -314,89 +299,80 @@ public class BlockGatewayPortal extends Block {
                     }
                     return this.lapiz;
                 }
-                case 9: {
-                    return this.bottomSide(isXAligned, side);
-                }
-                case 10: {
+                case 10 -> {
                     switch (side) {
-                        case 0: {
+                        case 0 -> {
                             return this.stone;
                         }
-                        case 1: {
+                        case 1 -> {
                             return this.lapiz;
                         }
-                        case 2: {
+                        case 2 -> {
                             if (isXAligned) {
                                 return this.CornerTL;
                             }
                             return this.stone;
                         }
-                        case 3: {
+                        case 3 -> {
                             if (isXAligned) {
                                 return this.CornerTR;
                             }
                             return this.stone;
                         }
-                        case 4: {
+                        case 4 -> {
                             if (isXAligned) {
                                 return this.stone;
                             }
                             return this.CornerTR;
                         }
-                        case 5: {
+                        case 5 -> {
                             if (isXAligned) {
                                 return this.stone;
                             }
                             return this.CornerTL;
                         }
-                        default: {
+                        default -> {
                             return this.rightSide(isXAligned, side);
                         }
                     }
                     // break;
                 }
-                case 11: {
+                case 11, 12, 13 -> {
                     return this.rightSide(isXAligned, side);
                 }
-                case 12: {
-                    return this.rightSide(isXAligned, side);
-                }
-                case 13: {
-                    return this.rightSide(isXAligned, side);
-                }
-                case 14: {
+                case 14 -> {
                     switch (side) {
-                        case 0: {
+                        case 0 -> {
                             return this.stone;
                         }
-                        case 1: {
+                        case 1 -> {
                             return this.lapiz;
                         }
-                        case 2: {
+                        case 2 -> {
                             if (isXAligned) {
                                 return this.CornerBL;
                             }
                             return this.stone;
                         }
-                        case 3: {
+                        case 3 -> {
                             if (isXAligned) {
                                 return this.CornerBR;
                             }
                             return this.stone;
                         }
-                        case 4: {
+                        case 4 -> {
                             if (isXAligned) {
                                 return this.stone;
                             }
                             return this.CornerBR;
                         }
-                        case 5: {
+                        case 5 -> {
                             if (isXAligned) {
                                 return this.stone;
                             }
                             return this.CornerBL;
                         }
-                        default: {
+                        default -> {
                             break Label_0410;
                         }
                     }
@@ -410,31 +386,31 @@ public class BlockGatewayPortal extends Block {
     IIcon leftSide(final boolean xAligned, final int side) {
         if (xAligned) {
             switch (side) {
-                case 2: {
+                case 2 -> {
                     return this.R;
                 }
-                case 3: {
+                case 3 -> {
                     return this.L;
                 }
-                case 4: {
+                case 4 -> {
                     return this.stone;
                 }
-                default: {
+                default -> {
                     return this.lapiz;
                 }
             }
         } else {
             switch (side) {
-                case 2: {
+                case 2 -> {
                     return this.stone;
                 }
-                case 4: {
+                case 4 -> {
                     return this.L;
                 }
-                case 5: {
+                case 5 -> {
                     return this.R;
                 }
-                default: {
+                default -> {
                     return this.lapiz;
                 }
             }
@@ -444,31 +420,31 @@ public class BlockGatewayPortal extends Block {
     IIcon rightSide(final boolean xAligned, final int side) {
         if (xAligned) {
             switch (side) {
-                case 2: {
+                case 2 -> {
                     return this.L;
                 }
-                case 3: {
+                case 3 -> {
                     return this.R;
                 }
-                case 5: {
+                case 5 -> {
                     return this.stone;
                 }
-                default: {
+                default -> {
                     return this.lapiz;
                 }
             }
         } else {
             switch (side) {
-                case 3: {
+                case 3 -> {
                     return this.stone;
                 }
-                case 4: {
+                case 4 -> {
                     return this.R;
                 }
-                case 5: {
+                case 5 -> {
                     return this.L;
                 }
-                default: {
+                default -> {
                     return this.lapiz;
                 }
             }
@@ -477,13 +453,13 @@ public class BlockGatewayPortal extends Block {
 
     IIcon bottomSide(final boolean xAligned, final int side) {
         switch (side) {
-            case 0: {
+            case 0 -> {
                 return this.stone;
             }
-            case 1: {
+            case 1 -> {
                 return this.lapiz;
             }
-            default: {
+            default -> {
                 return this.B;
             }
         }

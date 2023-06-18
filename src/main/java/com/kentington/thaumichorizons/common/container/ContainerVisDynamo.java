@@ -25,37 +25,37 @@ public class ContainerVisDynamo extends Container {
 
     public boolean enchantItem(final EntityPlayer par1EntityPlayer, final int button) {
         switch (button) {
-            case 1: {
+            case 1 -> {
                 this.tile.provideAer = !this.tile.provideAer;
                 this.tile.markDirty();
                 return true;
             }
-            case 2: {
+            case 2 -> {
                 this.tile.provideTerra = !this.tile.provideTerra;
                 this.tile.markDirty();
                 return true;
             }
-            case 3: {
+            case 3 -> {
                 this.tile.provideIgnis = !this.tile.provideIgnis;
                 this.tile.markDirty();
                 return true;
             }
-            case 4: {
+            case 4 -> {
                 this.tile.provideAqua = !this.tile.provideAqua;
                 this.tile.markDirty();
                 return true;
             }
-            case 5: {
+            case 5 -> {
                 this.tile.provideOrdo = !this.tile.provideOrdo;
                 this.tile.markDirty();
                 return true;
             }
-            case 6: {
+            case 6 -> {
                 this.tile.providePerditio = !this.tile.providePerditio;
                 this.tile.markDirty();
                 return true;
             }
-            default: {
+            default -> {
                 return false;
             }
         }

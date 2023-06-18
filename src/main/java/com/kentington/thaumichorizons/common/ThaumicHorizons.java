@@ -232,7 +232,6 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GT_OreDictUnificator;
 import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.ThaumcraftApi.EntityTagsNBT;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.CrucibleRecipe;
@@ -490,10 +489,10 @@ public class ThaumicHorizons {
         ROD_CRYSTAL = new WandRod(
                 "disposable",
                 250,
-                (ItemStack) null,
+                null,
                 99,
                 new ResourceLocation("thaumichorizons", "textures/models/crystalRod.png"));
-        CAP_CRYSTAL = new WandCap("disposable", 0.9F, (ItemStack) null, 99);
+        CAP_CRYSTAL = new WandCap("disposable", 0.9F, null, 99);
         CAP_CRYSTAL.setTexture(new ResourceLocation("thaumichorizons", "textures/models/crystalCap.png"));
         ROD_CRYSTAL.setGlowing(true);
         blockSynthNode = new BlockSyntheticNode();
@@ -830,9 +829,14 @@ public class ThaumicHorizons {
                             "GOLEMBELL",
                             new ItemStack(itemGolemBellTH),
                             (new AspectList()).add(Aspect.ORDER, 5),
-                            new Object[] { "QQ ", "QQ ", "  S", Character.valueOf('S'), "stickWood",
-                                    Character.valueOf('Q'), Items.quartz }));
-            alcheponics.setPages(new ResearchPage[] { alcheponics1, alcheponics2 });
+                            "QQ ",
+                            "QQ ",
+                            "  S",
+                            'S',
+                            "stickWood",
+                            'Q',
+                            Items.quartz));
+            alcheponics.setPages(alcheponics1, alcheponics2);
             alcheponics.setSiblings("GOLEMBELL");
             alcheponics.setConcealed();
             ResearchCategories.addResearch(alcheponics);
@@ -879,8 +883,13 @@ public class ThaumicHorizons {
         ResearchPage alcheponics5 = new ResearchPage(recipeAlcheponicsMelon);
         ResearchPage alcheponics6 = new ResearchPage(recipeAlcheponicsPumpkin);
         alcheponics.setPages(
-                new ResearchPage[] { alcheponics1, alcheponics2, alcheponicsE, alcheponics3, alcheponics4, alcheponics5,
-                        alcheponics6 });
+                alcheponics1,
+                alcheponics2,
+                alcheponicsE,
+                alcheponics3,
+                alcheponics4,
+                alcheponics5,
+                alcheponics6);
         ResearchCategories.addResearch(alcheponics);
         recipeAlchIncubation = ThaumcraftApi.addCrucibleRecipe(
                 "alchIncubation",
@@ -897,8 +906,8 @@ public class ThaumicHorizons {
                 new ItemStack(itemEggIncubated));
         ResearchPage alchIncubation1 = new ResearchPage("alchIncubation1");
         ResearchPage alchIncubation2 = new ResearchPage(recipeAlchIncubation);
-        alchIncubation.setPages(new ResearchPage[] { alchIncubation1, alchIncubation2 });
-        alchIncubation.setParents(new String[] { "alcheponics" });
+        alchIncubation.setPages(alchIncubation1, alchIncubation2);
+        alchIncubation.setParents("alcheponics");
         alchIncubation.setSecondary();
         ResearchCategories.addResearch(alchIncubation);
         recipeMeatGrowthPork = ThaumcraftApi.addCrucibleRecipe(
@@ -928,8 +937,8 @@ public class ThaumicHorizons {
         CrucibleRecipe[] meats = new CrucibleRecipe[] { recipeMeatGrowthPork, recipeMeatGrowthBeef,
                 recipeMeatGrowthChicken };
         ResearchPage meatGrowth2 = new ResearchPage(meats);
-        meatGrowth.setPages(new ResearchPage[] { meatGrowth1, meatGrowth2 });
-        meatGrowth.setParents(new String[] { "alchIncubation" });
+        meatGrowth.setPages(meatGrowth1, meatGrowth2);
+        meatGrowth.setParents("alchIncubation");
         ResearchCategories.addResearch(meatGrowth);
         recipeLeatherBeef = ThaumcraftApi.addCrucibleRecipe(
                 "fleshLeather",
@@ -957,8 +966,8 @@ public class ThaumicHorizons {
         ResearchPage fleshLeather1 = new ResearchPage("fleshLeather1");
         CrucibleRecipe[] leathers = new CrucibleRecipe[] { recipeLeatherBeef, recipeLeatherPork, recipeLeatherZombie };
         ResearchPage fleshLeather2 = new ResearchPage(leathers);
-        fleshLeather.setPages(new ResearchPage[] { fleshLeather1, fleshLeather2 });
-        fleshLeather.setParents(new String[] { "meatGrowth" });
+        fleshLeather.setPages(fleshLeather1, fleshLeather2);
+        fleshLeather.setParents("meatGrowth");
         fleshLeather.setSecondary();
         ResearchCategories.addResearch(fleshLeather);
         shardTransFire = ThaumcraftApi.addCrucibleRecipe(
@@ -1005,7 +1014,7 @@ public class ThaumicHorizons {
         CrucibleRecipe[] shardTranses = new CrucibleRecipe[] { shardTransFire, shardTransWater, shardTransAir,
                 shardTransEarth, shardTransOrder, shardTransEntropy };
         ResearchPage shardTrans2 = new ResearchPage(shardTranses);
-        shardTrans.setPages(new ResearchPage[] { shardTrans1, shardTrans2 });
+        shardTrans.setPages(shardTrans1, shardTrans2);
         shardTrans.setSecondary();
         ResearchCategories.addResearch(shardTrans);
         recipeEtherealShard = ThaumcraftApi.addInfusionCraftingRecipe(
@@ -1028,9 +1037,9 @@ public class ThaumicHorizons {
         ResearchPage etherealShard1 = new ResearchPage("etherealShard1");
         ResearchPage etherealShard2 = new ResearchPage(recipeEtherealShard);
         ResearchPage etherealShard3 = new ResearchPage("etherealShard2");
-        etherealShard.setPages(new ResearchPage[] { etherealShard1, etherealShard2, etherealShard3 });
-        etherealShard.setParents(new String[] { "shardTrans" });
-        etherealShard.setParentsHidden(new String[] { "INFUSION", "VISPOWER" });
+        etherealShard.setPages(etherealShard1, etherealShard2, etherealShard3);
+        etherealShard.setParents("shardTrans");
+        etherealShard.setParentsHidden("INFUSION", "VISPOWER");
         etherealShard.setConcealed();
         ResearchCategories.addResearch(etherealShard);
         recipeAlchemite = ThaumcraftApi.addCrucibleRecipe(
@@ -1049,8 +1058,8 @@ public class ThaumicHorizons {
                 new ItemStack(blockAlchemite));
         ResearchPage alchemite1 = new ResearchPage("alchemite1");
         ResearchPage alchemite2 = new ResearchPage(recipeAlchemite);
-        alchemite.setPages(new ResearchPage[] { alchemite1, alchemite2 });
-        alchemite.setParentsHidden(new String[] { "ESSENTIACRYSTAL" });
+        alchemite.setPages(alchemite1, alchemite2);
+        alchemite.setParentsHidden("ESSENTIACRYSTAL");
         ResearchCategories.addResearch(alchemite);
         recipeVisDynamo = ThaumcraftApi.addInfusionCraftingRecipe(
                 "visDynamo",
@@ -1071,8 +1080,8 @@ public class ThaumicHorizons {
                 new ItemStack(blockVisDynamo));
         ResearchPage visDynamo1 = new ResearchPage("visDynamo1");
         ResearchPage visDynamo2 = new ResearchPage(recipeVisDynamo);
-        visDynamo.setPages(new ResearchPage[] { visDynamo1, visDynamo2 });
-        visDynamo.setParentsHidden(new String[] { "INFUSION", "VISPOWER" });
+        visDynamo.setPages(visDynamo1, visDynamo2);
+        visDynamo.setParentsHidden("INFUSION", "VISPOWER");
         ResearchCategories.addResearch(visDynamo);
         recipeEssentiaDynamo = ThaumcraftApi.addInfusionCraftingRecipe(
                 "essentiaDynamo",
@@ -1097,9 +1106,9 @@ public class ThaumicHorizons {
         ResearchPage essentiaDynamo1 = new ResearchPage("essentiaDynamo1");
         ResearchPage essentiaDynamo2 = new ResearchPage(recipeEssentiaDynamo);
         ResearchPage essentiaDynamo3 = new ResearchPage("essentiaDynamo2");
-        essentiaDynamo.setPages(new ResearchPage[] { essentiaDynamo1, essentiaDynamo2, essentiaDynamo3 });
-        essentiaDynamo.setParentsHidden(new String[] { "INFUSION", "VISPOWER", "THAUMIUM" });
-        essentiaDynamo.setParents(new String[] { "visDynamo" });
+        essentiaDynamo.setPages(essentiaDynamo1, essentiaDynamo2, essentiaDynamo3);
+        essentiaDynamo.setParentsHidden("INFUSION", "VISPOWER", "THAUMIUM");
+        essentiaDynamo.setParents("visDynamo");
         essentiaDynamo.setSecondary();
         essentiaDynamo.setConcealed();
         ResearchCategories.addResearch(essentiaDynamo);
@@ -1121,8 +1130,8 @@ public class ThaumicHorizons {
                 new ItemStack(blockNodeMonitor));
         ResearchPage nodeMonitor1 = new ResearchPage("nodeMonitor1");
         ResearchPage nodeMonitor2 = new ResearchPage(recipeNodeMonitor);
-        nodeMonitor.setParents(new String[] { "INFUSION" });
-        nodeMonitor.setPages(new ResearchPage[] { nodeMonitor1, nodeMonitor2 });
+        nodeMonitor.setParents("INFUSION");
+        nodeMonitor.setPages(nodeMonitor1, nodeMonitor2);
         ResearchCategories.addResearch(nodeMonitor);
         recipeSoulSieve = ThaumcraftApi.addInfusionCraftingRecipe(
                 "soulExtractor",
@@ -1145,9 +1154,9 @@ public class ThaumicHorizons {
         ResearchPage soulSieve1 = new ResearchPage("soulExtractor1");
         ResearchPage soulSieve2 = new ResearchPage(recipeSoulSieve);
         ResearchPage soulSieve3 = new ResearchPage("soulExtractor2");
-        soulSieve.setPages(new ResearchPage[] { soulSieve1, soulSieve2, soulSieve3 });
-        soulSieve.setItemTriggers(new ItemStack[] { new ItemStack(Blocks.soul_sand) });
-        soulSieve.setParents(new String[] { "JARBRAIN", "ENCHFABRIC" });
+        soulSieve.setPages(soulSieve1, soulSieve2, soulSieve3);
+        soulSieve.setItemTriggers(new ItemStack(Blocks.soul_sand));
+        soulSieve.setParents("JARBRAIN", "ENCHFABRIC");
         soulSieve.setHidden();
         ResearchCategories.addResearch(soulSieve);
         ThaumcraftApi.addWarpToResearch("soulExtractor", 3);
@@ -1170,8 +1179,8 @@ public class ThaumicHorizons {
         ResearchPage inspiratron1 = new ResearchPage("soulKnowledge1");
         ResearchPage inspiratron2 = new ResearchPage(recipeInspiratron);
         ResearchPage inspiratron3 = new ResearchPage("soulKnowledge2");
-        inspiratron.setPages(new ResearchPage[] { inspiratron1, inspiratron2, inspiratron3 });
-        inspiratron.setParents(new String[] { "soulExtractor" });
+        inspiratron.setPages(inspiratron1, inspiratron2, inspiratron3);
+        inspiratron.setParents("soulExtractor");
         ResearchCategories.addResearch(inspiratron);
         inspiratron.setConcealed();
         ThaumcraftApi.addWarpToResearch("soulKnowledge", 2);
@@ -1197,8 +1206,8 @@ public class ThaumicHorizons {
         ResearchPage soulforge2 = new ResearchPage(recipeSoulforge);
         ResearchPage soulforge3 = new ResearchPage("soulAssembler2");
         ResearchPage soulforge4 = new ResearchPage("soulAssembler3");
-        soulforge.setPages(new ResearchPage[] { soulforge1, soulforge2, soulforge3, soulforge4 });
-        soulforge.setParents(new String[] { "soulKnowledge" });
+        soulforge.setPages(soulforge1, soulforge2, soulforge3, soulforge4);
+        soulforge.setParents("soulKnowledge");
         ResearchCategories.addResearch(soulforge);
         soulforge.setConcealed();
         ThaumcraftApi.addWarpToResearch("soulAssembler", 2);
@@ -1223,8 +1232,8 @@ public class ThaumicHorizons {
         ResearchPage focusContainment1 = new ResearchPage("focusContainment1");
         ResearchPage focusContainment2 = new ResearchPage(recipeFocusContainment);
         ResearchPage focusContainment3 = new ResearchPage("focusContainment2");
-        focusContainment.setPages(new ResearchPage[] { focusContainment1, focusContainment2, focusContainment3 });
-        focusContainment.setParentsHidden(new String[] { "DISTILESSENTIA", "FOCUSPORTABLEHOLE" });
+        focusContainment.setPages(focusContainment1, focusContainment2, focusContainment3);
+        focusContainment.setParentsHidden("DISTILESSENTIA", "FOCUSPORTABLEHOLE");
         focusContainment.setConcealed();
         ResearchCategories.addResearch(focusContainment);
         recipeAmuletMirror = ThaumcraftApi.addInfusionCraftingRecipe(
@@ -1245,17 +1254,21 @@ public class ThaumicHorizons {
                 new ItemStack(itemAmuletMirror));
         ResearchPage amuletMirror1 = new ResearchPage("mirrorAmulet1");
         ResearchPage amuletMirror2 = new ResearchPage(recipeAmuletMirror);
-        amuletMirror.setPages(new ResearchPage[] { amuletMirror1, amuletMirror2 });
-        amuletMirror.setParents(new String[] { "cloneSelf" });
-        amuletMirror.setParentsHidden(new String[] { "MIRROR" });
+        amuletMirror.setPages(amuletMirror1, amuletMirror2);
+        amuletMirror.setParents("cloneSelf");
+        amuletMirror.setParentsHidden("MIRROR");
         amuletMirror.setConcealed();
         ResearchCategories.addResearch(amuletMirror);
         recipeSyringe = ThaumcraftApi.addArcaneCraftingRecipe(
                 "essentiaInjection",
                 new ItemStack(itemSyringeEmpty, 1, 2),
                 (new AspectList()).add(Aspect.WATER, 1).add(Aspect.ORDER, 1),
-                new Object[] { "P", "N", Character.valueOf('P'), new ItemStack(ConfigItems.itemEssence, 1, 0),
-                        Character.valueOf('N'), "nuggetIron" });
+                "P",
+                "N",
+                'P',
+                new ItemStack(ConfigItems.itemEssence, 1, 0),
+                'N',
+                "nuggetIron");
         recipeBloodInfuser = ThaumcraftApi.addInfusionCraftingRecipe(
                 "essentiaInjection",
                 new ItemStack(blockBloodInfuser),
@@ -1281,20 +1294,26 @@ public class ThaumicHorizons {
         ResearchPage bloodInfusion5 = new ResearchPage("essentiaInjection3");
         ResearchPage bloodInfusion6 = new ResearchPage("essentiaInjection4");
         bloodInfusion.setPages(
-                new ResearchPage[] { bloodInfusion1, bloodInfusion2, bloodInfusion3, bloodInfusion4, bloodInfusion5,
-                        bloodInfusion6 });
-        bloodInfusion.setParents(new String[] { "meatGrowth" });
-        bloodInfusion.setParentsHidden(new String[] { "THAUMATORIUM", "INFUSION" });
+                bloodInfusion1,
+                bloodInfusion2,
+                bloodInfusion3,
+                bloodInfusion4,
+                bloodInfusion5,
+                bloodInfusion6);
+        bloodInfusion.setParents("meatGrowth");
+        bloodInfusion.setParentsHidden("THAUMATORIUM", "INFUSION");
         ResearchCategories.addResearch(bloodInfusion);
         ThaumcraftApi.addWarpToResearch("essentiaInjection", 1);
         recipeBlastPhial = ThaumcraftApi.addShapelessArcaneCraftingRecipe(
                 "blastPhial",
                 new ItemStack(itemSyringeHuman, 4, 1),
                 (new AspectList()).add(Aspect.FIRE, 1).add(Aspect.WATER, 1).add(Aspect.ENTROPY, 1),
-                new Object[] { new ItemStack(ConfigItems.itemEssence, 1, 0),
-                        new ItemStack(ConfigItems.itemEssence, 1, 0), new ItemStack(Items.gunpowder),
-                        new ItemStack(ConfigItems.itemEssence, 1, 0), new ItemStack(ConfigItems.itemEssence, 1, 0),
-                        new ItemStack(itemSyringeHuman, 1, 0) });
+                new ItemStack(ConfigItems.itemEssence, 1, 0),
+                new ItemStack(ConfigItems.itemEssence, 1, 0),
+                new ItemStack(Items.gunpowder),
+                new ItemStack(ConfigItems.itemEssence, 1, 0),
+                new ItemStack(ConfigItems.itemEssence, 1, 0),
+                new ItemStack(itemSyringeHuman, 1, 0));
         ResearchItem blastPhial = new ResearchItem(
                 "blastPhial",
                 "ThaumicHorizons",
@@ -1305,8 +1324,8 @@ public class ThaumicHorizons {
                 new ItemStack(itemSyringeHuman, 1, 1));
         ResearchPage blastPhial1 = new ResearchPage("blastPhial1");
         ResearchPage blastPhial2 = new ResearchPage(recipeBlastPhial);
-        blastPhial.setPages(new ResearchPage[] { blastPhial1, blastPhial2 });
-        blastPhial.setParents(new String[] { "essentiaInjection" });
+        blastPhial.setPages(blastPhial1, blastPhial2);
+        blastPhial.setParents("essentiaInjection");
         blastPhial.setSecondary();
         blastPhial.setConcealed();
         ResearchCategories.addResearch(blastPhial);
@@ -1328,8 +1347,8 @@ public class ThaumicHorizons {
                         new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemShard, 1, 0) });
         ResearchPage injector1 = new ResearchPage("injector1");
         ResearchPage injector2 = new ResearchPage(recipeInjector);
-        injector.setPages(new ResearchPage[] { injector1, injector2 });
-        injector.setParents(new String[] { "blastPhial", "BONEBOW" });
+        injector.setPages(injector1, injector2);
+        injector.setParents("blastPhial", "BONEBOW");
         injector.setConcealed();
         ResearchCategories.addResearch(injector);
         ResearchItem curativeVat = new ResearchItem(
@@ -1344,43 +1363,53 @@ public class ThaumicHorizons {
         ConfigResearch.recipes.put(
                 "CurativeVat",
                 Arrays.asList(
-                        new Object[] {
-                                (new AspectList()).add(Aspect.WATER, 50).add(Aspect.EARTH, 50).add(Aspect.ORDER, 50),
-                                Integer.valueOf(3), Integer.valueOf(4), Integer.valueOf(3),
-                                Arrays.asList(
-                                        new Object[] { new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(Blocks.glass), new ItemStack(Blocks.glass),
-                                                new ItemStack(Blocks.glass), new ItemStack(Blocks.glass),
-                                                new ItemStack(Blocks.water), new ItemStack(Blocks.glass),
-                                                new ItemStack(Blocks.glass), new ItemStack(Blocks.glass),
-                                                new ItemStack(Blocks.glass), new ItemStack(Blocks.glass),
-                                                new ItemStack(Blocks.glass), new ItemStack(Blocks.glass),
-                                                new ItemStack(Blocks.glass), new ItemStack(Blocks.water),
-                                                new ItemStack(Blocks.glass), new ItemStack(Blocks.glass),
-                                                new ItemStack(Blocks.glass), new ItemStack(Blocks.glass),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-                                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6) }) }));
+                        (new AspectList()).add(Aspect.WATER, 50).add(Aspect.EARTH, 50).add(Aspect.ORDER, 50),
+                        3,
+                        4,
+                        3,
+                        Arrays.asList(
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.water),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.water),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(Blocks.glass),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6))));
         ResearchPage curativeVat1 = new ResearchPage("healingVat1");
         ResearchPage curativeVat2 = new ResearchPage((List) ConfigResearch.recipes.get("CurativeVat"));
         ResearchPage curativeVat3 = new ResearchPage("healingVat2");
         ResearchPage curativeVatContainment = new ResearchPage("focusContainment", "healingVatContainment");
-        curativeVat.setPages(new ResearchPage[] { curativeVat1, curativeVat2, curativeVat3, curativeVatContainment });
-        curativeVat.setParents(new String[] { "essentiaInjection", "fleshLeather" });
+        curativeVat.setPages(curativeVat1, curativeVat2, curativeVat3, curativeVatContainment);
+        curativeVat.setParents("essentiaInjection", "fleshLeather");
         curativeVat.setSpecial();
         ResearchCategories.addResearch(curativeVat);
         ResearchItem incarnationVat = new ResearchItem(
@@ -1400,8 +1429,8 @@ public class ThaumicHorizons {
         ResearchPage incarnationVat1 = new ResearchPage("incarnationVat1");
         ResearchPage incarnationVat2 = new ResearchPage(recipeNutrients);
         ResearchPage incarnationVat3 = new ResearchPage("incarnationVat2");
-        incarnationVat.setPages(new ResearchPage[] { incarnationVat1, incarnationVat2, incarnationVat3 });
-        incarnationVat.setParents(new String[] { "healingVat" });
+        incarnationVat.setPages(incarnationVat1, incarnationVat2, incarnationVat3);
+        incarnationVat.setParents("healingVat");
         incarnationVat.setSecondary();
         incarnationVat.setConcealed();
         ResearchCategories.addResearch(incarnationVat);
@@ -1427,10 +1456,9 @@ public class ThaumicHorizons {
         ResearchPage infusionVat3 = new ResearchPage("infusionVat2");
         ResearchPage infusionVat4 = new ResearchPage("infusionVat3");
         ResearchPage infusionVatClone = new ResearchPage("incarnationVat", "infusionVatClone");
-        infusionVat.setPages(
-                new ResearchPage[] { infusionVat1, infusionVat2, infusionVat3, infusionVat4, infusionVatClone });
-        infusionVat.setParents(new String[] { "healingVat", "INFUSION", "focusContainment" });
-        infusionVat.setSiblings(new String[] { "generalInfusion" });
+        infusionVat.setPages(infusionVat1, infusionVat2, infusionVat3, infusionVat4, infusionVatClone);
+        infusionVat.setParents("healingVat", "INFUSION", "focusContainment");
+        infusionVat.setSiblings("generalInfusion");
         infusionVat.setConcealed();
         ResearchCategories.addResearch(infusionVat);
         ResearchItem cloneVillager = new ResearchItem(
@@ -1453,9 +1481,9 @@ public class ThaumicHorizons {
         ResearchPage cloneVillager1 = new ResearchPage("cloneVillager1");
         ResearchPage cloneVillager2 = new ResearchPage(recipeCorpseEffigy);
         ResearchPage cloneVillager3 = new ResearchPage("cloneVillager2");
-        cloneVillager.setPages(new ResearchPage[] { cloneVillager1, cloneVillager2, cloneVillager3 });
-        cloneVillager.setParents(new String[] { "incarnationVat", "soulAssembler" });
-        cloneVillager.setSiblings(new String[] { "nightmare" });
+        cloneVillager.setPages(cloneVillager1, cloneVillager2, cloneVillager3);
+        cloneVillager.setParents("incarnationVat", "soulAssembler");
+        cloneVillager.setSiblings("nightmare");
         cloneVillager.setConcealed();
         ResearchCategories.addResearch(cloneVillager);
         ThaumcraftApi.addWarpToResearch("cloneVillager", 3);
@@ -1469,9 +1497,9 @@ public class ThaumicHorizons {
                 new ResourceLocation("thaumichorizons", "textures/misc/skull.png"));
         ResearchPage nightmare1 = new ResearchPage("nightmare1");
         ResearchPage nightmare2 = new ResearchPage("nightmare2");
-        nightmare.setPages(new ResearchPage[] { nightmare1, nightmare2 });
+        nightmare.setPages(nightmare1, nightmare2);
         nightmare.setRound();
-        nightmare.setParents(new String[] { "cloneVillager" });
+        nightmare.setParents("cloneVillager");
         nightmare.setConcealed();
         ResearchCategories.addResearch(nightmare);
         ResearchItem cloneSelf = new ResearchItem(
@@ -1496,9 +1524,9 @@ public class ThaumicHorizons {
         ResearchPage cloneSelf1 = new ResearchPage("cloneSelf1");
         ResearchPage cloneSelf2 = new ResearchPage(recipeSoulBeacon);
         ResearchPage cloneSelf3 = new ResearchPage("cloneSelf2");
-        cloneSelf.setPages(new ResearchPage[] { cloneSelf1, cloneSelf2, cloneSelf3 });
+        cloneSelf.setPages(cloneSelf1, cloneSelf2, cloneSelf3);
         cloneSelf.setConcealed();
-        cloneSelf.setParents(new String[] { "nightmare", "PRIMPEARL" });
+        cloneSelf.setParents("nightmare", "PRIMPEARL");
         ResearchCategories.addResearch(cloneSelf);
         ThaumcraftApi.addWarpToResearch("cloneSelf", 5);
         ResearchItem lens = new ResearchItem(
@@ -1519,8 +1547,8 @@ public class ThaumicHorizons {
                         new ItemStack(Items.golden_carrot), new ItemStack(ConfigItems.itemShard, 1, 1) });
         ResearchPage lens1 = new ResearchPage("lensFire1");
         ResearchPage lens2 = new ResearchPage(recipeLensFire);
-        lens.setPages(new ResearchPage[] { lens1, lens2 });
-        lens.setParents(new String[] { "GOGGLES", "INFUSION" });
+        lens.setPages(lens1, lens2);
+        lens.setParents("GOGGLES", "INFUSION");
         ResearchCategories.addResearch(lens);
         ResearchItem lensWater = new ResearchItem(
                 "lensWater",
@@ -1541,8 +1569,8 @@ public class ThaumicHorizons {
                         new ItemStack(ConfigItems.itemShard, 1, 2) });
         ResearchPage lensWater1 = new ResearchPage("lensWater1");
         ResearchPage lensWater2 = new ResearchPage(recipeLensWater);
-        lensWater.setPages(new ResearchPage[] { lensWater1, lensWater2 });
-        lensWater.setParents(new String[] { "lensFire", "ARCANEEAR" });
+        lensWater.setPages(lensWater1, lensWater2);
+        lensWater.setParents("lensFire", "ARCANEEAR");
         lensWater.setConcealed();
         ResearchCategories.addResearch(lensWater);
         ResearchItem lensEarth = new ResearchItem(
@@ -1563,8 +1591,8 @@ public class ThaumicHorizons {
                         new ItemStack(Items.ender_eye), new ItemStack(ConfigItems.itemShard, 1, 3) });
         ResearchPage lensEarth1 = new ResearchPage("lensEarth1");
         ResearchPage lensEarth2 = new ResearchPage(recipeLensEarth);
-        lensEarth.setPages(new ResearchPage[] { lensEarth1, lensEarth2 });
-        lensEarth.setParents(new String[] { "lensFire" });
+        lensEarth.setPages(lensEarth1, lensEarth2);
+        lensEarth.setParents("lensFire");
         lensEarth.setConcealed();
         ResearchCategories.addResearch(lensEarth);
         ResearchItem lensAir = new ResearchItem(
@@ -1586,8 +1614,8 @@ public class ThaumicHorizons {
                         new ItemStack(Items.egg), new ItemStack(ConfigItems.itemShard, 1, 0) });
         ResearchPage lensAir1 = new ResearchPage("lensAir1");
         ResearchPage lensAir2 = new ResearchPage(recipeLensAir);
-        lensAir.setPages(new ResearchPage[] { lensAir1, lensAir2 });
-        lensAir.setParents(new String[] { "lensFire" });
+        lensAir.setPages(lensAir1, lensAir2);
+        lensAir.setParents("lensFire");
         lensAir.setConcealed();
         ResearchCategories.addResearch(lensAir);
         ResearchItem lensOrderEntropy = new ResearchItem(
@@ -1608,8 +1636,8 @@ public class ThaumicHorizons {
                         new ItemStack(Items.book), new ItemStack(ConfigItems.itemShard, 1, 4) });
         ResearchPage lensOrderEntropy1 = new ResearchPage("lensOrderEntropy1");
         ResearchPage lensOrderEntropy2 = new ResearchPage(recipeLensOrderEntropy);
-        lensOrderEntropy.setPages(new ResearchPage[] { lensOrderEntropy1, lensOrderEntropy2 });
-        lensOrderEntropy.setParents(new String[] { "lensFire" });
+        lensOrderEntropy.setPages(lensOrderEntropy1, lensOrderEntropy2);
+        lensOrderEntropy.setParents("lensFire");
         lensOrderEntropy.setConcealed();
         ResearchCategories.addResearch(lensOrderEntropy);
         ResearchItem lensCase = new ResearchItem(
@@ -1624,14 +1652,20 @@ public class ThaumicHorizons {
                 "lensCase",
                 new ItemStack(itemLensCase),
                 (new AspectList()).add(Aspect.EARTH, 10).add(Aspect.ORDER, 10).add(Aspect.ENTROPY, 10),
-                new Object[] { "LGL", "LBL", "LLL", Character.valueOf('B'),
-                        new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2), Character.valueOf('L'), Items.leather,
-                        Character.valueOf('G'), Items.iron_ingot });
+                "LGL",
+                "LBL",
+                "LLL",
+                'B',
+                new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2),
+                'L',
+                Items.leather,
+                'G',
+                Items.iron_ingot);
         ResearchPage lensCase1 = new ResearchPage("lensCase1");
         ResearchPage lensCase2 = new ResearchPage(recipeLensCase);
-        lensCase.setPages(new ResearchPage[] { lensCase1, lensCase2 });
+        lensCase.setPages(lensCase1, lensCase2);
         lensCase.setSecondary();
-        lensCase.setParents(new String[] { "lensAir", "lensWater", "lensEarth", "lensOrderEntropy", "FOCUSPOUCH" });
+        lensCase.setParents("lensAir", "lensWater", "lensEarth", "lensOrderEntropy", "FOCUSPOUCH");
         lensCase.setConcealed();
         ResearchCategories.addResearch(lensCase);
         ResearchItem focusLiquefaction = new ResearchItem(
@@ -1653,8 +1687,8 @@ public class ThaumicHorizons {
                         new ItemStack(ConfigItems.itemFocusExcavation) });
         ResearchPage focusLiquefaction1 = new ResearchPage("focusLiquefaction1");
         ResearchPage focusLiquefaction2 = new ResearchPage(recipeFocusLiquefaction);
-        focusLiquefaction.setPages(new ResearchPage[] { focusLiquefaction1, focusLiquefaction2 });
-        focusLiquefaction.setParents(new String[] { "focusIllumination", "FOCUSEXCAVATION" });
+        focusLiquefaction.setPages(focusLiquefaction1, focusLiquefaction2);
+        focusLiquefaction.setParents("focusIllumination", "FOCUSEXCAVATION");
         focusLiquefaction.setConcealed();
         ResearchCategories.addResearch(focusLiquefaction);
         ResearchItem focusDisintegration = new ResearchItem(
@@ -1677,8 +1711,8 @@ public class ThaumicHorizons {
                         new ItemStack(ConfigItems.itemResource, 1, 0) });
         ResearchPage focusDisintegration1 = new ResearchPage("focusDisintegration1");
         ResearchPage focusDisintegration2 = new ResearchPage(recipeFocusDisintegration);
-        focusDisintegration.setPages(new ResearchPage[] { focusDisintegration1, focusDisintegration2 });
-        focusDisintegration.setParents(new String[] { "focusLiquefaction", "alchemite", "LIQUIDDEATH" });
+        focusDisintegration.setPages(focusDisintegration1, focusDisintegration2);
+        focusDisintegration.setParents("focusLiquefaction", "alchemite", "LIQUIDDEATH");
         focusDisintegration.setConcealed();
         ResearchCategories.addResearch(focusDisintegration);
         GameRegistry.addRecipe(new RecipesFocusIlluminationDyes());
@@ -1697,8 +1731,8 @@ public class ThaumicHorizons {
                 (new AspectList()).add(Aspect.LIGHT, 12).add(Aspect.ENERGY, 8).add(Aspect.FIRE, 8));
         ResearchPage focusIllumination1 = new ResearchPage("focusIllumination1");
         ResearchPage focusIllumination2 = new ResearchPage(recipeFocusIllumination);
-        focusIllumination.setPages(new ResearchPage[] { focusIllumination1, focusIllumination2 });
-        focusIllumination.setParents(new String[] { "FOCUSFIRE" });
+        focusIllumination.setPages(focusIllumination1, focusIllumination2);
+        focusIllumination.setParents("FOCUSFIRE");
         focusIllumination.setConcealed();
         ResearchCategories.addResearch(focusIllumination);
         ResearchItem focusAnimation = new ResearchItem(
@@ -1727,8 +1761,8 @@ public class ThaumicHorizons {
         ResearchPage focusAnimation1 = new ResearchPage("focusAnimation1");
         ResearchPage focusAnimation2 = new ResearchPage(recipeFocusAnimation);
         ResearchPage focusAnimation3 = new ResearchPage("focusAnimation2");
-        focusAnimation.setPages(new ResearchPage[] { focusAnimation1, focusAnimation2, focusAnimation3 });
-        focusAnimation.setParents(new String[] { "PRIMPEARL", "golemPowder" });
+        focusAnimation.setPages(focusAnimation1, focusAnimation2, focusAnimation3);
+        focusAnimation.setParents("PRIMPEARL", "golemPowder");
         focusAnimation.setConcealed();
         ResearchCategories.addResearch(focusAnimation);
         ConfigResearch.recipes.put(
@@ -1754,11 +1788,13 @@ public class ThaumicHorizons {
                 "greatwoodBoat",
                 new ItemStack(itemBoatGreatwood),
                 (new AspectList()).add(Aspect.ORDER, 5).add(Aspect.EARTH, 5).add(Aspect.WATER, 5),
-                new Object[] { "G G", "GGG", Character.valueOf('G'),
-                        new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0) });
+                "G G",
+                "GGG",
+                'G',
+                new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0));
         ResearchPage boatGreatwood1 = new ResearchPage("greatwoodBoat1");
         ResearchPage boatGreatwood2 = new ResearchPage(recipeGreatwoodBoat);
-        boatGreatwood.setPages(new ResearchPage[] { boatGreatwood1, boatGreatwood2 });
+        boatGreatwood.setPages(boatGreatwood1, boatGreatwood2);
         boatGreatwood.setSecondary();
         ResearchCategories.addResearch(boatGreatwood);
         ResearchItem boatThaumium = new ResearchItem(
@@ -1774,13 +1810,19 @@ public class ThaumicHorizons {
                 new ItemStack(itemBoatThaumium),
                 (new AspectList()).add(Aspect.FIRE, 10).add(Aspect.WATER, 10).add(Aspect.ORDER, 10)
                         .add(Aspect.EARTH, 10),
-                new Object[] { "STS", "TBT", "STS", Character.valueOf('S'), new ItemStack(ConfigItems.itemShard, 1, 2),
-                        Character.valueOf('T'), new ItemStack(ConfigItems.itemResource, 1, 2), Character.valueOf('B'),
-                        new ItemStack(itemBoatGreatwood) });
+                "STS",
+                "TBT",
+                "STS",
+                'S',
+                new ItemStack(ConfigItems.itemShard, 1, 2),
+                'T',
+                new ItemStack(ConfigItems.itemResource, 1, 2),
+                'B',
+                new ItemStack(itemBoatGreatwood));
         ResearchPage boatThaumium1 = new ResearchPage("thaumiumBoat1");
         ResearchPage boatThaumium2 = new ResearchPage(recipeThaumiumBoat);
-        boatThaumium.setPages(new ResearchPage[] { boatThaumium1, boatThaumium2 });
-        boatThaumium.setParents(new String[] { "greatwoodBoat", "THAUMIUM" });
+        boatThaumium.setPages(boatThaumium1, boatThaumium2);
+        boatThaumium.setParents("greatwoodBoat", "THAUMIUM");
         ResearchCategories.addResearch(boatThaumium);
         ResearchItem golemPowder = new ResearchItem(
                 "golemPowder",
@@ -1799,8 +1841,8 @@ public class ThaumicHorizons {
         ResearchPage golemPowder2 = new ResearchPage(recipeGolemPowder);
         ResearchPage golemPowder3 = new ResearchPage("golemPowder2");
         ResearchPage golemPowder4 = new ResearchPage("golemPowder3");
-        golemPowder.setPages(new ResearchPage[] { golemPowder1, golemPowder2, golemPowder3, golemPowder4 });
-        golemPowder.setParents(new String[] { "GOLEMTHAUMIUM", "ADVANCEDGOLEM", "incarnationVat" });
+        golemPowder.setPages(golemPowder1, golemPowder2, golemPowder3, golemPowder4);
+        golemPowder.setParents("GOLEMTHAUMIUM", "ADVANCEDGOLEM", "incarnationVat");
         golemPowder.setConcealed();
         ResearchCategories.addResearch(golemPowder);
         ResearchItem planarTheory = new ResearchItem(
@@ -1816,15 +1858,20 @@ public class ThaumicHorizons {
                 new ItemStack(itemPlanarConduit),
                 (new AspectList()).add(Aspect.FIRE, 50).add(Aspect.WATER, 50).add(Aspect.ORDER, 50)
                         .add(Aspect.ENTROPY, 50).add(Aspect.EARTH, 50).add(Aspect.AIR, 50),
-                new Object[] { "VEV", "EPE", "VEV", Character.valueOf('V'),
-                        new ItemStack(ConfigItems.itemResource, 1, 16), Character.valueOf('E'),
-                        new ItemStack(ConfigItems.itemWispEssence, 1, 32767), Character.valueOf('P'),
-                        new ItemStack(Items.ender_pearl) });
+                "VEV",
+                "EPE",
+                "VEV",
+                'V',
+                new ItemStack(ConfigItems.itemResource, 1, 16),
+                'E',
+                new ItemStack(ConfigItems.itemWispEssence, 1, 32767),
+                'P',
+                new ItemStack(Items.ender_pearl));
         ResearchPage planarTheory1 = new ResearchPage("planarTheory1");
         ResearchPage planarTheory2 = new ResearchPage(recipeConduit);
         ResearchPage planarTheory3 = new ResearchPage("planarTheory2");
-        planarTheory.setPages(new ResearchPage[] { planarTheory1, planarTheory2, planarTheory3 });
-        planarTheory.setParents(new String[] { "VISPOWER", "VOIDMETAL" });
+        planarTheory.setPages(planarTheory1, planarTheory2, planarTheory3);
+        planarTheory.setParents("VISPOWER", "VOIDMETAL");
         planarTheory.setConcealed();
         ResearchCategories.addResearch(planarTheory);
         ResearchItem transductionAmplifier = new ResearchItem(
@@ -1839,17 +1886,24 @@ public class ThaumicHorizons {
                 "transductionAmplifier",
                 new ItemStack(blockTransducer),
                 (new AspectList()).add(Aspect.AIR, 10).add(Aspect.FIRE, 10).add(Aspect.ORDER, 10),
-                new Object[] { " C ", "ATA", "RNR", Character.valueOf('C'), new ItemStack(itemPlanarConduit),
-                        Character.valueOf('A'), new ItemStack(ConfigItems.itemResource, 1, 6), Character.valueOf('T'),
-                        new ItemStack(ConfigBlocks.blockStoneDevice, 1, 11), Character.valueOf('R'),
-                        new ItemStack(Blocks.redstone_block), Character.valueOf('N'),
-                        new ItemStack(ConfigItems.itemResource, 1, 1) });
+                " C ",
+                "ATA",
+                "RNR",
+                'C',
+                new ItemStack(itemPlanarConduit),
+                'A',
+                new ItemStack(ConfigItems.itemResource, 1, 6),
+                'T',
+                new ItemStack(ConfigBlocks.blockStoneDevice, 1, 11),
+                'R',
+                new ItemStack(Blocks.redstone_block),
+                'N',
+                new ItemStack(ConfigItems.itemResource, 1, 1));
         ResearchPage transductionAmplifier1 = new ResearchPage("transductionAmplifier1");
         ResearchPage transductionAmplifier2 = new ResearchPage(recipeTransducer);
         ResearchPage transductionAmplifier3 = new ResearchPage("transductionAmplifier2");
-        transductionAmplifier.setPages(
-                new ResearchPage[] { transductionAmplifier1, transductionAmplifier2, transductionAmplifier3 });
-        transductionAmplifier.setParents(new String[] { "planarTheory" });
+        transductionAmplifier.setPages(transductionAmplifier1, transductionAmplifier2, transductionAmplifier3);
+        transductionAmplifier.setParents("planarTheory");
         transductionAmplifier.setConcealed();
         ResearchCategories.addResearch(transductionAmplifier);
         ResearchItem vortexStabilizer = new ResearchItem(
@@ -1871,8 +1925,8 @@ public class ThaumicHorizons {
                         new ItemStack(ConfigItems.itemResource, 1, 6), new ItemStack(ConfigItems.itemResource, 1, 2) });
         ResearchPage vortexStabilizer1 = new ResearchPage("vortexStabilizer1");
         ResearchPage vortexStabilizer2 = new ResearchPage(recipeVortexStabilizer);
-        vortexStabilizer.setPages(new ResearchPage[] { vortexStabilizer1, vortexStabilizer2 });
-        vortexStabilizer.setParents(new String[] { "planarTheory" });
+        vortexStabilizer.setPages(vortexStabilizer1, vortexStabilizer2);
+        vortexStabilizer.setParents("planarTheory");
         vortexStabilizer.setConcealed();
         ResearchCategories.addResearch(vortexStabilizer);
         ResearchItem recombinator = new ResearchItem(
@@ -1900,8 +1954,8 @@ public class ThaumicHorizons {
         ResearchPage recombinator2 = new ResearchPage(recipeRecombinator);
         ResearchPage recombinator3 = new ResearchPage("recombinator2");
         ResearchPage recombinator4 = new ResearchPage("recombinator3");
-        recombinator.setPages(new ResearchPage[] { recombinator1, recombinator2, recombinator3, recombinator4 });
-        recombinator.setParents(new String[] { "planarTheory", "PRIMPEARL" });
+        recombinator.setPages(recombinator1, recombinator2, recombinator3, recombinator4);
+        recombinator.setParents("planarTheory", "PRIMPEARL");
         recombinator.setConcealed();
         ResearchCategories.addResearch(recombinator);
         ResearchItem newHorizons = new ResearchItem(
@@ -1915,8 +1969,8 @@ public class ThaumicHorizons {
         ResearchPage newHorizons1 = new ResearchPage("planarRift1");
         ResearchPage newHorizons2 = new ResearchPage("planarRift2");
         ResearchPage newHorizons3 = new ResearchPage("planarRift3");
-        newHorizons.setPages(new ResearchPage[] { newHorizons1, newHorizons2, newHorizons3 });
-        newHorizons.setParents(new String[] { "vortexStabilizer", "transductionAmplifier" });
+        newHorizons.setPages(newHorizons1, newHorizons2, newHorizons3);
+        newHorizons.setParents("vortexStabilizer", "transductionAmplifier");
         newHorizons.setConcealed();
         ThaumcraftApi.addWarpToResearch("planarRift", 3);
         newHorizons.setSpecial();
@@ -1930,8 +1984,8 @@ public class ThaumicHorizons {
                 1,
                 new ResourceLocation("thaumichorizons", "textures/misc/wisp.png"));
         ResearchPage wispSpawn1 = new ResearchPage("wispSpawn1");
-        wispSpawn.setPages(new ResearchPage[] { wispSpawn1 });
-        wispSpawn.setParents(new String[] { "planarRift" });
+        wispSpawn.setPages(wispSpawn1);
+        wispSpawn.setParents("planarRift");
         wispSpawn.setConcealed();
         ResearchCategories.addResearch(wispSpawn);
         ResearchItem crystalWand = new ResearchItem(
@@ -1947,13 +2001,17 @@ public class ThaumicHorizons {
                 new ItemStack(itemCrystalWand),
                 (new AspectList()).add(Aspect.AIR, 25).add(Aspect.EARTH, 25).add(Aspect.FIRE, 25).add(Aspect.WATER, 25)
                         .add(Aspect.ORDER, 25).add(Aspect.ENTROPY, 25),
-                new Object[] { "  B", " C ", "B  ", Character.valueOf('C'),
-                        new ItemStack(ConfigBlocks.blockCrystal, 1, 6), Character.valueOf('B'),
-                        new ItemStack(ConfigItems.itemShard, 1, 6) });
+                "  B",
+                " C ",
+                "B  ",
+                'C',
+                new ItemStack(ConfigBlocks.blockCrystal, 1, 6),
+                'B',
+                new ItemStack(ConfigItems.itemShard, 1, 6));
         ResearchPage crystalWand1 = new ResearchPage("crystalWand1");
         ResearchPage crystalWand2 = new ResearchPage(recipeCrystalWand);
-        crystalWand.setPages(new ResearchPage[] { crystalWand1, crystalWand2 });
-        crystalWand.setParents(new String[] { "planarRift" });
+        crystalWand.setPages(crystalWand1, crystalWand2);
+        crystalWand.setParents("planarRift");
         crystalWand.setConcealed();
         ResearchCategories.addResearch(crystalWand);
         GameRegistry.addRecipe(new RecipeVoidPuttyRepair());
@@ -1967,13 +2025,13 @@ public class ThaumicHorizons {
                 new ItemStack(itemVoidPutty));
         ResearchPage voidPutty1 = new ResearchPage("voidPutty1");
         ItemStack damaged = new ItemStack(ConfigItems.itemSwordElemental, 1, 32767);
-        ArrayList voidComponents = new ArrayList();
+        ArrayList<ItemStack> voidComponents = new ArrayList<>();
         voidComponents.add(damaged);
         voidComponents.add(new ItemStack(itemVoidPutty));
         ResearchPage voidPutty2 = new ResearchPage(
                 new ShapelessRecipes(new ItemStack(ConfigItems.itemSwordElemental), voidComponents));
-        voidPutty.setPages(new ResearchPage[] { voidPutty1, voidPutty2 });
-        voidPutty.setParents(new String[] { "planarRift" });
+        voidPutty.setPages(voidPutty1, voidPutty2);
+        voidPutty.setParents("planarRift");
         voidPutty.setConcealed();
         ResearchCategories.addResearch(voidPutty);
         ResearchItem voidGolem = new ResearchItem(
@@ -1985,9 +2043,9 @@ public class ThaumicHorizons {
                 1,
                 new ResourceLocation("thaumichorizons", "textures/misc/voidgolem.png"));
         ResearchPage voidGolem1 = new ResearchPage("voidGolem1");
-        voidGolem.setPages(new ResearchPage[] { voidGolem1 });
-        voidGolem.setParentsHidden(new String[] { "golemPowder" });
-        voidGolem.setParents(new String[] { "wispSpawn" });
+        voidGolem.setPages(voidGolem1);
+        voidGolem.setParentsHidden("golemPowder");
+        voidGolem.setParents("wispSpawn");
         voidGolem.setConcealed();
         ThaumcraftApi.addWarpToResearch("voidGolem", 1);
         ResearchCategories.addResearch(voidGolem);
@@ -2037,8 +2095,8 @@ public class ThaumicHorizons {
                 ResearchPage dummyInputStack = new ResearchPage("pocketPlane2");
                 ResearchPage generalInfusion = new ResearchPage("pocketPlane3");
                 infusion1 = new ResearchPage(recipeKeystone);
-                dummyTag.setPages(new ResearchPage[] { dummyStack, dummyInputStack, generalInfusion, infusion1 });
-                dummyTag.setParents(new String[] { "planarRift", "PRIMPEARL" });
+                dummyTag.setPages(dummyStack, dummyInputStack, generalInfusion, infusion1);
+                dummyTag.setParents("planarRift", "PRIMPEARL");
                 dummyTag.setConcealed();
                 ResearchCategories.addResearch(dummyTag);
                 ResearchItem infusion2 = new ResearchItem(
@@ -2052,13 +2110,13 @@ public class ThaumicHorizons {
                 infusion3 = new ResearchPage("planarClouds1");
                 infusion4 = new ResearchPage("planarClouds2");
                 infusion5 = new ResearchPage("planarClouds3");
-                infusion2.setPages(new ResearchPage[] { infusion3, infusion4, infusion5 });
+                infusion2.setPages(infusion3, infusion4, infusion5);
                 infusion2.setItemTriggers(
-                        new ItemStack[] { new ItemStack(blockCloud, 1, 32767),
-                                new ItemStack(blockCloudGlowing, 1, 32767) });
+                        new ItemStack(blockCloud, 1, 32767),
+                        new ItemStack(blockCloudGlowing, 1, 32767));
                 infusion2.setLost();
                 infusion2.setRound();
-                infusion2.setParents(new String[] { "pocketPlane" });
+                infusion2.setParents("pocketPlane");
                 ResearchCategories.addResearch(infusion2);
                 ResearchItem infusion6 = new ResearchItem(
                         "leviathan",
@@ -2070,11 +2128,11 @@ public class ThaumicHorizons {
                         new ItemStack(blockLeviathan));
                 infusion7 = new ResearchPage("leviathan1");
                 infusion8 = new ResearchPage("leviathan2");
-                infusion6.setPages(new ResearchPage[] { infusion7, infusion8 });
-                infusion6.setItemTriggers(new ItemStack[] { new ItemStack(blockLeviathan) });
+                infusion6.setPages(infusion7, infusion8);
+                infusion6.setItemTriggers(new ItemStack(blockLeviathan));
                 infusion6.setLost();
                 infusion6.setRound();
-                infusion6.setParents(new String[] { "pocketPlane" });
+                infusion6.setParents("pocketPlane");
                 ResearchCategories.addResearch(infusion6);
                 ThaumcraftApi.addWarpToResearch("planarKeystone", 5);
                 ResearchItem infusion9 = new ResearchItem(
@@ -2128,37 +2186,40 @@ public class ThaumicHorizons {
                 ConfigResearch.recipes.put(
                         "PlanarGateway",
                         Arrays.asList(
-                                new Object[] {
-                                        (new AspectList())
-                                                .add(Aspect.AIR, 250).add(Aspect.FIRE, 250).add(
-                                                        Aspect.WATER,
-                                                        250)
-                                                .add(Aspect.EARTH, 250).add(Aspect.ENTROPY, 250).add(Aspect.ORDER, 250),
-                                        Integer.valueOf(5), Integer.valueOf(5), Integer.valueOf(1),
-                                        Arrays.asList(
-                                                new Object[] { new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3),
-                                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
-                                                        new ItemStack(blockSlot),
-                                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
-                                                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3),
-                                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
-                                                        infusion13, infusion13, infusion13,
-                                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
-                                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
-                                                        infusion13, infusion13, infusion13,
-                                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
-                                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
-                                                        infusion13, infusion13, infusion13,
-                                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
-                                                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3),
-                                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
-                                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
-                                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
-                                                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3) }) }));
+                                (new AspectList()).add(Aspect.AIR, 250).add(Aspect.FIRE, 250).add(Aspect.WATER, 250)
+                                        .add(Aspect.EARTH, 250).add(Aspect.ENTROPY, 250).add(Aspect.ORDER, 250),
+                                5,
+                                5,
+                                1,
+                                Arrays.asList(
+                                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3),
+                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
+                                        new ItemStack(blockSlot),
+                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
+                                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3),
+                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
+                                        infusion13,
+                                        infusion13,
+                                        infusion13,
+                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
+                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
+                                        infusion13,
+                                        infusion13,
+                                        infusion13,
+                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
+                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
+                                        infusion13,
+                                        infusion13,
+                                        infusion13,
+                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
+                                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3),
+                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
+                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
+                                        new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 11),
+                                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3))));
                 infusion13b = new ResearchPage((List) ConfigResearch.recipes.get("PlanarGateway"));
-                infusion9.setPages(
-                        new ResearchPage[] { infusion10, infusion11, infusion12, instilledLoyalty, infusion13b });
-                infusion9.setParents(new String[] { "pocketPlane" });
+                infusion9.setPages(infusion10, infusion11, infusion12, instilledLoyalty, infusion13b);
+                infusion9.setParents("pocketPlane");
                 infusion9.setConcealed();
                 ResearchCategories.addResearch(infusion9);
             }
@@ -2242,9 +2303,19 @@ public class ThaumicHorizons {
         generalInfusion1.setRound();
         generalInfusion1.setConcealed();
         generalInfusion1.setPages(
-                new ResearchPage[] { infusion1, infusion21, infusion3, infusion4, infusion5, infusion61, infusion7,
-                        infusion8, infusion91, infusion10, infusion11, infusion12 });
-        generalInfusion1.setParents(new String[] { "infusionVat" });
+                infusion1,
+                infusion21,
+                infusion3,
+                infusion4,
+                infusion5,
+                infusion61,
+                infusion7,
+                infusion8,
+                infusion91,
+                infusion10,
+                infusion11,
+                infusion12);
+        generalInfusion1.setParents("infusionVat");
         ResearchCategories.addResearch(generalInfusion1);
         ResearchItem instilledLoyalty1 = new ResearchItem(
                 "instilledLoyalty",
@@ -2266,8 +2337,8 @@ public class ThaumicHorizons {
                         dummyInputStack1,
                         new ItemStack[] { new ItemStack(Items.saddle), new ItemStack(ConfigItems.itemZombieBrain),
                                 new ItemStack(Items.golden_apple) }));
-        instilledLoyalty1.setPages(new ResearchPage[] { infusion131, infusion14, infusion13b });
-        instilledLoyalty1.setParents(new String[] { "generalInfusion" });
+        instilledLoyalty1.setPages(infusion131, infusion14, infusion13b);
+        instilledLoyalty1.setParents("generalInfusion");
         instilledLoyalty1.setConcealed();
         ResearchCategories.addResearch(instilledLoyalty1);
         ResearchItem runicHide = new ResearchItem(
@@ -2292,8 +2363,8 @@ public class ThaumicHorizons {
                                 new ItemStack(ConfigItems.itemResource, 1, 7),
                                 new ItemStack(ConfigItems.itemResource, 1, 1),
                                 new ItemStack(ConfigItems.itemInkwell) }));
-        runicHide.setPages(new ResearchPage[] { infusion15, infusion16 });
-        runicHide.setParents(new String[] { "generalInfusion", "RUNICAUGMENTATION" });
+        runicHide.setPages(infusion15, infusion16);
+        runicHide.setParents("generalInfusion", "RUNICAUGMENTATION");
         runicHide.setSecondary();
         runicHide.setConcealed();
         ResearchCategories.addResearch(runicHide);
@@ -2319,9 +2390,9 @@ public class ThaumicHorizons {
                                 new ItemStack(ConfigBlocks.blockCustomPlant, 1, 5),
                                 new ItemStack(ConfigItems.itemResource, 1, 16),
                                 new ItemStack(ConfigBlocks.blockCustomPlant, 1, 5) }));
-        eldritchFangs.setPages(new ResearchPage[] { infusion17, infusion18 });
+        eldritchFangs.setPages(infusion17, infusion18);
         eldritchFangs.setConcealed();
-        eldritchFangs.setParents(new String[] { "generalInfusion", "VOIDMETAL" });
+        eldritchFangs.setParents("generalInfusion", "VOIDMETAL");
         ResearchCategories.addResearch(eldritchFangs);
         ResearchItem portability = new ResearchItem(
                 "portability",
@@ -2341,9 +2412,9 @@ public class ThaumicHorizons {
                         (new AspectList()).add(Aspect.VOID, 16).add(Aspect.TRAP, 16),
                         dummyInputStack1,
                         new ItemStack[] { new ItemStack(ConfigBlocks.blockJar), new ItemStack(Items.ender_pearl) }));
-        portability.setPages(new ResearchPage[] { portability1, portability2 });
+        portability.setPages(portability1, portability2);
         portability.setConcealed();
-        portability.setParents(new String[] { "generalInfusion" });
+        portability.setParents("generalInfusion");
         ResearchCategories.addResearch(portability);
         ResearchItem sheepInfusion = new ResearchItem(
                 "sheepInfusion",
@@ -2380,8 +2451,8 @@ public class ThaumicHorizons {
                         (new AspectList()).add(Aspect.TOOL, 8).add(Aspect.CLOTH, 4),
                         dummyInputStack1,
                         new ItemStack[] { new ItemStack(Items.shears), new ItemStack(Items.comparator) }));
-        sheepInfusion.setParents(new String[] { "generalInfusion" });
-        sheepInfusion.setPages(new ResearchPage[] { sheepInfusion1, sheepInfusion2, sheepInfusion3 });
+        sheepInfusion.setParents("generalInfusion");
+        sheepInfusion.setPages(sheepInfusion1, sheepInfusion2, sheepInfusion3);
         sheepInfusion.setSecondary();
         sheepInfusion.setConcealed();
         ResearchCategories.addResearch(sheepInfusion);
@@ -2436,11 +2507,9 @@ public class ThaumicHorizons {
                         new ItemStack[] { new ItemStack(Items.bone), new ItemStack(Blocks.gold_block),
                                 new ItemStack(ConfigItems.itemResource, 1, 6),
                                 new ItemStack(ConfigBlocks.blockMagicalLog, 1, 1) }));
-        catInfusion.setParents(new String[] { "generalInfusion" });
+        catInfusion.setParents("generalInfusion");
         catInfusion.setConcealed();
-        catInfusion.setPages(
-                new ResearchPage[] { catInfusion1, catInfusion2, catInfusion3, catInfusion4, catInfusion5,
-                        catInfusion6 });
+        catInfusion.setPages(catInfusion1, catInfusion2, catInfusion3, catInfusion4, catInfusion5, catInfusion6);
         ResearchCategories.addResearch(catInfusion);
         ResearchItem cowInfusion = new ResearchItem(
                 "cowInfusion",
@@ -2465,25 +2534,28 @@ public class ThaumicHorizons {
                         dummyInputStack1,
                         new ItemStack[] { new ItemStack(Items.dye, 1, 3), new ItemStack(Items.sugar),
                                 new ItemStack(Items.dye, 1, 3), new ItemStack(Items.sugar) }));
-        IRecipe chocolate = GameRegistry.addShapedRecipe(
-                new ItemStack(itemBarChocolate),
-                new Object[] { "M", Character.valueOf('M'), new ItemStack(itemBucketChocolate) });
+        IRecipe chocolate = GameRegistry
+                .addShapedRecipe(new ItemStack(itemBarChocolate), "M", 'M', new ItemStack(itemBucketChocolate));
         ResearchPage cowInfusion3 = new ResearchPage(chocolate);
         ResearchPage cowInfusion4 = new ResearchPage(
                 ThaumcraftApi.addShapelessArcaneCraftingRecipe(
                         "cowInfusion",
                         new ItemStack(itemIceCream),
                         (new AspectList()).add(Aspect.WATER, 1),
-                        new Object[] { new ItemStack(itemBucketChocolate), new ItemStack(Items.wheat) }));
+                        new ItemStack(itemBucketChocolate),
+                        new ItemStack(Items.wheat)));
         GameRegistry.addShapelessRecipe(
                 new ItemStack(blockChocolate),
-                new Object[] { new ItemStack(itemBarChocolate), new ItemStack(itemBarChocolate),
-                        new ItemStack(itemBarChocolate), new ItemStack(itemBarChocolate),
-                        new ItemStack(itemBarChocolate), new ItemStack(itemBarChocolate),
-                        new ItemStack(itemBarChocolate), new ItemStack(itemBarChocolate),
-                        new ItemStack(itemBarChocolate) });
-        GameRegistry
-                .addShapelessRecipe(new ItemStack(itemBarChocolate, 9), new Object[] { new ItemStack(blockChocolate) });
+                new ItemStack(itemBarChocolate),
+                new ItemStack(itemBarChocolate),
+                new ItemStack(itemBarChocolate),
+                new ItemStack(itemBarChocolate),
+                new ItemStack(itemBarChocolate),
+                new ItemStack(itemBarChocolate),
+                new ItemStack(itemBarChocolate),
+                new ItemStack(itemBarChocolate),
+                new ItemStack(itemBarChocolate));
+        GameRegistry.addShapelessRecipe(new ItemStack(itemBarChocolate, 9), new ItemStack(blockChocolate));
         ResearchPage cowInfusion5 = new ResearchPage("cowInfusion2");
         dummyTag1 = new NBTTagCompound();
         dummyTag1.setString("infName", "entity.MushroomCow.name");
@@ -2498,11 +2570,9 @@ public class ThaumicHorizons {
                         dummyInputStack1,
                         new ItemStack[] { new ItemStack(Blocks.brown_mushroom), new ItemStack(Blocks.red_mushroom),
                                 new ItemStack(Blocks.brown_mushroom), new ItemStack(Blocks.red_mushroom) }));
-        cowInfusion.setParents(new String[] { "generalInfusion" });
+        cowInfusion.setParents("generalInfusion");
         cowInfusion.setConcealed();
-        cowInfusion.setPages(
-                new ResearchPage[] { cowInfusion1, cowInfusion2, cowInfusion3, cowInfusion4, cowInfusion5,
-                        cowInfusion6 });
+        cowInfusion.setPages(cowInfusion1, cowInfusion2, cowInfusion3, cowInfusion4, cowInfusion5, cowInfusion6);
         ResearchCategories.addResearch(cowInfusion);
         ResearchItem chickenInfusion = new ResearchItem(
                 "chickenInfusion",
@@ -2544,12 +2614,11 @@ public class ThaumicHorizons {
                                 new ItemStack(ConfigBlocks.blockMetalDevice, 1, 0) }));
         GameRegistry.addSmelting(itemGoldEgg, new ItemStack(Items.gold_nugget), 1.0F);
         ResearchPage chickenInfusion6 = new ResearchPage(new ItemStack(itemGoldEgg));
-        chickenInfusion.setParents(new String[] { "generalInfusion" });
+        chickenInfusion.setParents("generalInfusion");
         chickenInfusion.setSecondary();
         chickenInfusion.setConcealed();
-        chickenInfusion.setPages(
-                new ResearchPage[] { chickenInfusion1, chickenInfusion2, chickenInfusion3, chickenInfusion4,
-                        chickenInfusion6 });
+        chickenInfusion
+                .setPages(chickenInfusion1, chickenInfusion2, chickenInfusion3, chickenInfusion4, chickenInfusion6);
         ResearchCategories.addResearch(chickenInfusion);
         ResearchItem pigInfusion = new ResearchItem(
                 "pigInfusion",
@@ -2594,9 +2663,9 @@ public class ThaumicHorizons {
                                 new ItemStack(ConfigBlocks.blockMagicalLog, 1, 1),
                                 new ItemStack(ConfigBlocks.blockJar, 1, 3),
                                 new ItemStack(ConfigBlocks.blockMagicalLog, 1, 1) }));
-        pigInfusion.setParents(new String[] { "generalInfusion" });
+        pigInfusion.setParents("generalInfusion");
         pigInfusion.setConcealed();
-        pigInfusion.setPages(new ResearchPage[] { pigInfusion1, pigInfusion2, pigInfusion3, pigInfusion4 });
+        pigInfusion.setPages(pigInfusion1, pigInfusion2, pigInfusion3, pigInfusion4);
         ResearchCategories.addResearch(pigInfusion);
         ResearchItem dogInfusion = new ResearchItem(
                 "dogInfusion",
@@ -2656,11 +2725,9 @@ public class ThaumicHorizons {
                         dummyInputStack1,
                         new ItemStack[] { new ItemStack(Items.lava_bucket), new ItemStack(Items.blaze_rod),
                                 new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(Items.blaze_rod) }));
-        dogInfusion.setParents(new String[] { "generalInfusion" });
+        dogInfusion.setParents("generalInfusion");
         dogInfusion.setConcealed();
-        dogInfusion.setPages(
-                new ResearchPage[] { dogInfusion1, dogInfusion2, dogInfusion3, dogInfusion4, dogInfusion5,
-                        dogInfusion6 });
+        dogInfusion.setPages(dogInfusion1, dogInfusion2, dogInfusion3, dogInfusion4, dogInfusion5, dogInfusion6);
         ResearchCategories.addResearch(dogInfusion);
         ResearchItem horseInfusion = new ResearchItem(
                 "horseInfusion",
@@ -2714,10 +2781,9 @@ public class ThaumicHorizons {
                         dummyInputStack1,
                         new ItemStack[] { new ItemStack(Items.bone), new ItemStack(Items.bone),
                                 new ItemStack(Items.bone), new ItemStack(Items.bone) }));
-        horseInfusion.setParents(new String[] { "generalInfusion" });
+        horseInfusion.setParents("generalInfusion");
         horseInfusion.setConcealed();
-        horseInfusion.setPages(
-                new ResearchPage[] { horseInfusion1, horseInfusion2, horseInfusion3, horseInfusion4, horseInfusion5 });
+        horseInfusion.setPages(horseInfusion1, horseInfusion2, horseInfusion3, horseInfusion4, horseInfusion5);
         ResearchCategories.addResearch(horseInfusion);
         dummyTag1 = new NBTTagCompound();
         dummyTag1.setString("infName", "entity.ThaumicHorizons.Endersteed.name");
@@ -3056,7 +3122,7 @@ public class ThaumicHorizons {
                                 new ItemStack(Blocks.ladder) }));
         spiderClimb.setParents("humanInfusion");
         spiderClimb.setConcealed();
-        spiderClimb.setPages(new ResearchPage[] { spiderClimb1, spiderClimb2 });
+        spiderClimb.setPages(spiderClimb1, spiderClimb2);
         ResearchCategories.addResearch(spiderClimb);
         ResearchItem chameleonSkin = new ResearchItem(
                 "chameleonSkin",
@@ -3084,7 +3150,7 @@ public class ThaumicHorizons {
                                 new ItemStack(Items.dye, 1, 0), new ItemStack(Items.dye, 1, 15) }));
         chameleonSkin.setParents("humanInfusion");
         chameleonSkin.setConcealed();
-        chameleonSkin.setPages(new ResearchPage[] { chameleonSkin1, chameleonSkin2 });
+        chameleonSkin.setPages(chameleonSkin1, chameleonSkin2);
         ResearchCategories.addResearch(chameleonSkin);
         incarnationItems.put(Items.beef, 92);
         incarnationItems.put(Items.porkchop, 90);
@@ -3313,7 +3379,7 @@ public class ThaumicHorizons {
                         tag,
                         3,
                         (new AspectList()).add(Aspect.MOTION, 16).add(Aspect.MECHANISM, 8).add(Aspect.FLIGHT, 4),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.potionitem, 1, 8226),
                                 new ItemStack(ConfigItems.itemResource, 1, 3),
                                 new ItemStack(ConfigItems.itemResource, 1, 3) },
@@ -3327,7 +3393,7 @@ public class ThaumicHorizons {
                         tag,
                         3,
                         (new AspectList()).add(Aspect.WEAPON, 12).add(Aspect.METAL, 8).add(Aspect.MAGIC, 8),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(ConfigItems.itemSwordThaumium),
                                 new ItemStack(ConfigItems.itemSwordThaumium) },
                         2));
@@ -3339,7 +3405,7 @@ public class ThaumicHorizons {
                         tag,
                         4,
                         (new AspectList()).add(Aspect.HEAL, 8).add(Aspect.LIFE, 16).add(Aspect.MIND, 4),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.speckled_melon), new ItemStack(itemSyringeHuman),
                                 new ItemStack(Items.golden_apple), new ItemStack(itemSyringeHuman) },
                         3));
@@ -3351,7 +3417,7 @@ public class ThaumicHorizons {
                         tag,
                         4,
                         (new AspectList()).add(Aspect.ARMOR, 16).add(Aspect.CRYSTAL, 16).add(Aspect.BEAST, 8),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.leather), new ItemStack(Items.diamond),
                                 new ItemStack(Items.diamond) },
                         4));
@@ -3363,7 +3429,7 @@ public class ThaumicHorizons {
                         tag,
                         6,
                         (new AspectList()).add(Aspect.ELDRITCH, 16).add(Aspect.TRAVEL, 16).add(Aspect.FLESH, 16),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.ender_pearl), new ItemStack(Items.egg),
                                 new ItemStack(Items.egg) },
                         5));
@@ -3375,7 +3441,7 @@ public class ThaumicHorizons {
                         tag,
                         5,
                         (new AspectList()).add(Aspect.ENERGY, 16).add(Aspect.WEAPON, 12).add(Aspect.WEATHER, 4),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(ConfigItems.itemShard, 1, 0),
                                 new ItemStack(Items.quartz), new ItemStack(Items.redstone) },
                         6));
@@ -3387,7 +3453,7 @@ public class ThaumicHorizons {
                         tag,
                         6,
                         (new AspectList()).add(Aspect.MIND, 4).add(Aspect.BEAST, 3).add(Aspect.EXCHANGE, 3),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.saddle), new ItemStack(ConfigItems.itemZombieBrain),
                                 new ItemStack(Items.golden_apple) },
                         7));
@@ -3400,7 +3466,7 @@ public class ThaumicHorizons {
                         7,
                         (new AspectList()).add(Aspect.ARMOR, 16).add(Aspect.MAGIC, 32).add(Aspect.ENERGY, 16)
                                 .add(Aspect.FLESH, 8),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(Items.diamond), new ItemStack(ConfigItems.itemResource, 1, 6),
                                 new ItemStack(ConfigItems.itemResource, 1, 7),
                                 new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemInkwell) },
@@ -3415,7 +3481,7 @@ public class ThaumicHorizons {
                         8,
                         (new AspectList()).add(Aspect.ELDRITCH, 8).add(Aspect.WEAPON, 16).add(Aspect.METAL, 16)
                                 .add(Aspect.POISON, 32),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 16),
                                 new ItemStack(ConfigBlocks.blockCustomPlant, 1, 5),
                                 new ItemStack(ConfigItems.itemResource, 1, 16),
@@ -3429,7 +3495,7 @@ public class ThaumicHorizons {
                         tag,
                         6,
                         (new AspectList()).add(Aspect.VOID, 16).add(Aspect.TRAP, 16),
-                        (Class) null,
+                        null,
                         new ItemStack[] { new ItemStack(ConfigBlocks.blockJar), new ItemStack(Items.ender_pearl) },
                         10));
         classBanList.add(EntityGhast.class);
@@ -3541,17 +3607,12 @@ public class ThaumicHorizons {
                                 new ItemStack(Items.dye, 1, 4), new ItemStack(Items.dye, 1, 11),
                                 new ItemStack(Items.dye, 1, 0), new ItemStack(Items.dye, 1, 15) },
                         10));
-        // selfRecipes.add(new SelfInfusionRecipe("runicSkin", 12, (new AspectList()).add(Aspect.ARMOR,
-        // 128).add(Aspect.MAGIC, 512).add(Aspect.ENERGY, 128).add(Aspect.FLESH, 64), new ItemStack[]{new
-        // ItemStack(Items.diamond), new ItemStack(ConfigItems.itemResource, 1, 6), new
-        // ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(ConfigItems.itemResource, 1, 1), new
-        // ItemStack(ConfigItems.itemInkwell)}, 11));
         addAspectsToAllTheThings();
     }
 
     public static CreatureInfusionRecipe getCreatureInfusion(EntityLivingBase entityContained,
             ArrayList<ItemStack> components, EntityPlayer player) {
-        Iterator var3 = critterRecipes.iterator();
+        Iterator<CreatureInfusionRecipe> var3 = critterRecipes.iterator();
 
         CreatureInfusionRecipe recipe;
         do {
@@ -3559,14 +3620,14 @@ public class ThaumicHorizons {
                 return null;
             }
 
-            recipe = (CreatureInfusionRecipe) var3.next();
+            recipe = var3.next();
         } while (!recipe.matches(components, entityContained.getClass(), player.worldObj, player));
 
         return recipe;
     }
 
     public static SelfInfusionRecipe getSelfInfusion(ArrayList<ItemStack> components, EntityPlayer player) {
-        Iterator var2 = selfRecipes.iterator();
+        Iterator<SelfInfusionRecipe> var2 = selfRecipes.iterator();
 
         SelfInfusionRecipe recipe;
         do {
@@ -3574,7 +3635,7 @@ public class ThaumicHorizons {
                 return null;
             }
 
-            recipe = (SelfInfusionRecipe) var2.next();
+            recipe = var2.next();
         } while (!recipe.matches(components, player.worldObj, player));
 
         return recipe;
@@ -3588,11 +3649,7 @@ public class ThaumicHorizons {
         if (potionOffset < 128 - customPotions) {
             Potion[] potionTypes = new Potion[potionOffset + customPotions];
             System.arraycopy(Potion.potionTypes, 0, potionTypes, 0, potionOffset);
-            Utils.setPrivateFinalValue(
-                    Potion.class,
-                    null,
-                    potionTypes,
-                    new String[] { "potionTypes", "field_76425_a", "a" });
+            Utils.setPrivateFinalValue(Potion.class, null, potionTypes, "potionTypes", "field_76425_a", "a");
 
             var4 = potionOffset++ - 1;
         } else {
@@ -3636,11 +3693,9 @@ public class ThaumicHorizons {
     }
 
     static int getNextPotionId(int start) {
-        if (Potion.potionTypes != null && start > 0
-                && start < Potion.potionTypes.length
-                && Potion.potionTypes[start] == null) {
-            return start;
-        } else {
+        if (Potion.potionTypes == null || start <= 0
+                || start >= Potion.potionTypes.length
+                || Potion.potionTypes[start] != null) {
             ++start;
             if (start < 128) {
                 start = getNextPotionId(start);
@@ -3648,82 +3703,65 @@ public class ThaumicHorizons {
                 start = -1;
             }
 
-            return start;
         }
+        return start;
     }
 
     static void addAspectsToAllTheThings() {
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.ChromaticSheep",
                 (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.EARTH, 2).add(Aspect.SENSES, 2)
-                        .add(Aspect.EXCHANGE, 2),
-                new EntityTagsNBT[0]);
+                        .add(Aspect.EXCHANGE, 2));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.SelfShearingSheep",
-                (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.EARTH, 2).add(Aspect.TOOL, 2).add(Aspect.CLOTH, 2),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.EARTH, 2).add(Aspect.TOOL, 2).add(Aspect.CLOTH, 2));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.GuardianPanther",
-                (new AspectList()).add(Aspect.BEAST, 4).add(Aspect.WEAPON, 4).add(Aspect.ENTROPY, 4),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 4).add(Aspect.WEAPON, 4).add(Aspect.ENTROPY, 4));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.Familiar",
-                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.MAGIC, 3).add(Aspect.AURA, 3),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.MAGIC, 3).add(Aspect.AURA, 3));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.Gravekeeper",
-                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.DEATH, 3).add(Aspect.ORDER, 3),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.DEATH, 3).add(Aspect.ORDER, 3));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.ChocolateCow",
-                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.EARTH, 3).add(Aspect.SENSES, 3),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.EARTH, 3).add(Aspect.SENSES, 3));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.ScholarChicken",
                 (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.FLIGHT, 2).add(Aspect.AIR, 1).add(Aspect.DARKNESS, 2)
-                        .add(Aspect.MIND, 2),
-                new EntityTagsNBT[0]);
+                        .add(Aspect.MIND, 2));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.GoldChicken",
-                (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.FLIGHT, 2).add(Aspect.AIR, 1).add(Aspect.GREED, 3),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.FLIGHT, 2).add(Aspect.AIR, 1).add(Aspect.GREED, 3));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.OrePig",
-                (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.EARTH, 2).add(Aspect.METAL, 4),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.EARTH, 2).add(Aspect.METAL, 4));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.TaintEaterPig",
-                (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.EARTH, 2).add(Aspect.HEAL, 2).add(Aspect.ORDER, 2),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.EARTH, 2).add(Aspect.HEAL, 2).add(Aspect.ORDER, 2));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.Seawolf",
-                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.EARTH, 3).add(Aspect.WATER, 3),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.EARTH, 3).add(Aspect.WATER, 3));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.LunarWolf",
-                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.EARTH, 3).add(Aspect.MAGIC, 3),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.EARTH, 3).add(Aspect.MAGIC, 3));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.NetherHound",
-                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.EARTH, 3).add(Aspect.FIRE, 3),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.EARTH, 3).add(Aspect.FIRE, 3));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.GolemTH",
-                (new AspectList()).add(Aspect.AIR, 2).add(Aspect.EARTH, 2).add(Aspect.MAGIC, 2),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.AIR, 2).add(Aspect.EARTH, 2).add(Aspect.MAGIC, 2));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.Endersteed",
-                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.ELDRITCH, 4),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.ELDRITCH, 4));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.NightmareTH",
                 (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.ELDRITCH, 4).add(Aspect.FIRE, 4)
-                        .add(Aspect.TRAVEL, 4),
-                new EntityTagsNBT[0]);
+                        .add(Aspect.TRAVEL, 4));
         ThaumcraftApi.registerEntityTag(
                 "ThaumicHorizons.Sheeder",
-                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.CLOTH, 4),
-                new EntityTagsNBT[0]);
+                (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.CLOTH, 4));
         ThaumcraftApi.registerObjectTag(
                 new ItemStack(itemEggIncubated),
                 (new AspectList()).add(Aspect.SLIME, 2).add(Aspect.LIFE, 2).add(Aspect.BEAST, 2));
@@ -3868,9 +3906,9 @@ public class ThaumicHorizons {
     static {
         portal = new MaterialPortalTH(MapColor.airColor);
         tabTH = new CreativeTabTH(CreativeTabs.getNextID(), "thaumichorizons");
-        incarnationItems = new HashMap<Item, Integer>();
-        critterRecipes = new ArrayList<CreatureInfusionRecipe>();
-        selfRecipes = new ArrayList<SelfInfusionRecipe>();
-        classBanList = new ArrayList<Class>();
+        incarnationItems = new HashMap<>();
+        critterRecipes = new ArrayList<>();
+        selfRecipes = new ArrayList<>();
+        classBanList = new ArrayList<>();
     }
 }

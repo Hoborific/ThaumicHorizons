@@ -4,12 +4,10 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -37,7 +35,7 @@ public class TileRecombinator extends TileThaumcraft {
         super.updateEntity();
         if (!this.fireOnce) {
             this.worldObj.getBlock(this.xCoord, this.yCoord, this.zCoord)
-                    .onNeighborBlockChange(this.worldObj, this.xCoord, this.yCoord, this.zCoord, (Block) null);
+                    .onNeighborBlockChange(this.worldObj, this.xCoord, this.yCoord, this.zCoord, null);
             this.fireOnce = true;
         }
         if (this.activated) {
@@ -59,20 +57,17 @@ public class TileRecombinator extends TileThaumcraft {
         }
         if (!this.worldObj.isRemote && this.activated
                 && this.count > 50
-                && this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof TileNode) {
-            final TileNode tile = (TileNode) this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord);
+                && this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof final TileNode tile) {
             final int x = this.worldObj.rand.nextInt(5) - this.worldObj.rand.nextInt(5);
             final int y = this.worldObj.rand.nextInt(5) - this.worldObj.rand.nextInt(5) - 1;
             final int z = this.worldObj.rand.nextInt(5) - this.worldObj.rand.nextInt(5);
             if (x != 0 || y != -1 || z != 0) {
                 final TileEntity te = this.worldObj.getTileEntity(this.xCoord + x, this.yCoord + y, this.zCoord + z);
-                if (te != null && te instanceof TileNode
-                        && this.worldObj.getBlock(this.xCoord + x, this.yCoord + y, this.zCoord + z)
-                                == ConfigBlocks.blockAiry) {
+                if (te instanceof final TileNode nd && this.worldObj.getBlock(this.xCoord + x, this.yCoord + y, this.zCoord + z)
+                        == ConfigBlocks.blockAiry) {
                     if (te instanceof TileNode && ((TileNode) te).getLock() > 0) {
                         return;
                     }
-                    final TileNode nd = (TileNode) te;
                     if (nd.getAspects().size() == 0) {
                         return;
                     }
@@ -159,7 +154,7 @@ public class TileRecombinator extends TileThaumcraft {
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord - 1, this.zCoord);
         tile.markDirty();
         PacketHandler.INSTANCE.sendToAllAround(
-                (IMessage) new PacketFXBlockZap(
+                new PacketFXBlockZap(
                         this.xCoord + x + 0.5f,
                         this.yCoord + y + 0.5f,
                         this.zCoord + z + 0.5f,
@@ -168,9 +163,9 @@ public class TileRecombinator extends TileThaumcraft {
                         this.zCoord + 0.5f),
                 new NetworkRegistry.TargetPoint(
                         this.worldObj.provider.dimensionId,
-                        (double) this.xCoord,
-                        (double) this.yCoord,
-                        (double) this.zCoord,
+                        this.xCoord,
+                        this.yCoord,
+                        this.zCoord,
                         32.0));
     }
 

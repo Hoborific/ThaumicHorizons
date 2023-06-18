@@ -10,9 +10,9 @@ import java.util.Map;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
@@ -99,13 +99,12 @@ public class ItemSyringeInjection extends ItemPotion {
                 --p_77659_1_.stackSize;
             }
             p_77659_2_.playSoundAtEntity(
-                    (Entity) p_77659_3_,
+                    p_77659_3_,
                     "random.bow",
                     0.5f,
                     0.4f / (ItemSyringeInjection.itemRand.nextFloat() * 0.4f + 0.8f));
             if (!p_77659_2_.isRemote) {
-                p_77659_2_.spawnEntityInWorld(
-                        (Entity) new EntityBlastPhial(p_77659_2_, (EntityLivingBase) p_77659_3_, 0.5f, p_77659_1_));
+                p_77659_2_.spawnEntityInWorld(new EntityBlastPhial(p_77659_2_, p_77659_3_, 0.5f, p_77659_1_));
             }
             return p_77659_1_;
         }
@@ -114,71 +113,73 @@ public class ItemSyringeInjection extends ItemPotion {
     }
 
     @SideOnly(Side.CLIENT)
-    public void addInformation(final ItemStack p_77624_1_, final EntityPlayer p_77624_2_, final List p_77624_3_,
-            final boolean p_77624_4_) {
-        final List<PotionEffect> list1 = Items.potionitem.getEffects(p_77624_1_);
-        final HashMultimap hashmultimap = HashMultimap.create();
-        if (list1 != null && !list1.isEmpty()) {
-            for (PotionEffect potioneffect : list1) {
-                String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
+    public void addInformation(final ItemStack itemStack, final EntityPlayer player, final List messages,
+            final boolean ignored) {
+        @SuppressWarnings("unchecked") // Vanilla code uses raw types
+        final List<PotionEffect> potionEffects = Items.potionitem.getEffects(itemStack);
+        final HashMultimap<IAttribute, AttributeModifier> preparedEffects = HashMultimap.create();
+
+        if (potionEffects != null && !potionEffects.isEmpty()) {
+            for (PotionEffect potioneffect : potionEffects) {
+                String message = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
                 final Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
-                final Map map = potion.func_111186_k();
-                final List<Map.Entry> mapset = (List<Map.Entry>) map.entrySet();
-                if (map != null && map.size() > 0) {
-                    for (final Map.Entry entry : mapset) {
-                        final AttributeModifier attributemodifier = (AttributeModifier) entry.getValue();
-                        final AttributeModifier attributemodifier2 = new AttributeModifier(
-                                attributemodifier.getName(),
-                                potion.func_111183_a(potioneffect.getAmplifier(), attributemodifier),
-                                attributemodifier.getOperation());
-                        hashmultimap.put(entry.getKey(), (Object) attributemodifier2);
+                @SuppressWarnings("unchecked") // Vanilla code uses raw types
+                final Map<IAttribute, AttributeModifier> map = potion.func_111186_k();
+
+                if (map != null && !map.isEmpty()) {
+                    for (final Map.Entry<IAttribute, AttributeModifier> entry : map.entrySet()) {
+                        final AttributeModifier entryValue = entry.getValue();
+                        final AttributeModifier attributeModifier = new AttributeModifier(
+                                entryValue.getName(),
+                                potion.func_111183_a(potioneffect.getAmplifier(), entryValue),
+                                entryValue.getOperation());
+                        preparedEffects.put(entry.getKey(), attributeModifier);
                     }
                 }
                 if (potioneffect.getAmplifier() > 0) {
-                    s1 = s1 + " "
+                    message = message + " "
                             + StatCollector.translateToLocal("potion.potency." + potioneffect.getAmplifier()).trim();
                 }
                 if (potioneffect.getDuration() > 20) {
-                    s1 = s1 + " (" + Potion.getDurationString(potioneffect) + ")";
+                    message = message + " (" + Potion.getDurationString(potioneffect) + ")";
                 }
                 if (potion.isBadEffect()) {
-                    p_77624_3_.add(EnumChatFormatting.RED + s1);
+                    messages.add(EnumChatFormatting.RED + message);
                 } else {
-                    p_77624_3_.add(EnumChatFormatting.GRAY + s1);
+                    messages.add(EnumChatFormatting.GRAY + message);
                 }
             }
         } else {
-            final String s2 = StatCollector.translateToLocal("potion.empty").trim();
-            p_77624_3_.add(EnumChatFormatting.GRAY + s2);
+            messages.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("potion.empty").trim());
         }
-        if (!hashmultimap.isEmpty()) {
-            p_77624_3_.add("");
-            p_77624_3_.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
-            for (final Map.Entry entry2 : (List<Map.Entry>) hashmultimap.entries()) {
-                final AttributeModifier attributemodifier3 = (AttributeModifier) entry2.getValue();
-                final double d0 = attributemodifier3.getAmount();
-                double d2;
-                if (attributemodifier3.getOperation() != 1 && attributemodifier3.getOperation() != 2) {
-                    d2 = attributemodifier3.getAmount();
+        if (!preparedEffects.isEmpty()) {
+            messages.add("");
+            messages.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
+            for (final Map.Entry<IAttribute, AttributeModifier> entry : preparedEffects.entries()) {
+                final AttributeModifier entryValue = entry.getValue();
+                final double valueAmount = entryValue.getAmount();
+                double convertedAmount;
+                if (entryValue.getOperation() != 1 && entryValue.getOperation() != 2) {
+                    convertedAmount = entryValue.getAmount();
                 } else {
-                    d2 = attributemodifier3.getAmount() * 100.0;
+                    convertedAmount = entryValue.getAmount() * 100.0;
                 }
-                if (d0 > 0.0) {
-                    p_77624_3_.add(
+                if (valueAmount > 0.0) {
+                    messages.add(
                             EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted(
-                                    "attribute.modifier.plus." + attributemodifier3.getOperation(),
-                                    new Object[] { ItemStack.field_111284_a.format(d2),
-                                            StatCollector.translateToLocal("attribute.name." + entry2.getKey()) }));
+                                    "attribute.modifier.plus." + entryValue.getOperation(),
+                                    new Object[] { ItemStack.field_111284_a.format(convertedAmount),
+                                            StatCollector.translateToLocal("attribute.name." + entry.getKey()) }));
                 } else {
-                    if (d0 >= 0.0) {
+                    if (valueAmount >= 0.0) {
                         continue;
                     }
-                    d2 *= -1.0;
-                    p_77624_3_.add(
+                    convertedAmount *= -1.0;
+                    messages.add(
                             EnumChatFormatting.RED + StatCollector.translateToLocalFormatted(
-                                    "attribute.modifier.take." + attributemodifier3.getOperation(),
-                                    new Object[] { ItemStack.field_111284_a.format(d2),
-                                            StatCollector.translateToLocal("attribute.name." + entry2.getKey()) }));
+                                    "attribute.modifier.take." + entryValue.getOperation(),
+                                    new Object[] { ItemStack.field_111284_a.format(convertedAmount),
+                                            StatCollector.translateToLocal("attribute.name." + entry.getKey()) }));
                 }
             }
         }

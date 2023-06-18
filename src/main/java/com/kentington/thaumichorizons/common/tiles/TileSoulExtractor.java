@@ -4,15 +4,12 @@
 
 package com.kentington.thaumichorizons.common.tiles;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -102,8 +99,8 @@ public class TileSoulExtractor extends TileVisNode implements ISidedInventory {
         if (this.soulsand != null) {
             this.soulsand.writeToNBT(nbttagcompound2);
         }
-        nbttaglist.appendTag((NBTBase) nbttagcompound2);
-        nbttagcompound.setTag("Items", (NBTBase) nbttaglist);
+        nbttaglist.appendTag(nbttagcompound2);
+        nbttagcompound.setTag("Items", nbttaglist);
     }
 
     public void readCustomNBT(final NBTTagCompound nbttagcompound) {
@@ -168,8 +165,8 @@ public class TileSoulExtractor extends TileVisNode implements ISidedInventory {
                 }
                 if (this.ticksLeft <= 0) {
                     final TileEntity below = this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord);
-                    final ItemStack sand = new ItemStack((Block) Blocks.sand);
-                    if (below != null && below instanceof ISidedInventory) {
+                    final ItemStack sand = new ItemStack(Blocks.sand);
+                    if (below instanceof ISidedInventory) {
                         final int[] accessibleSlotsFromSide;
                         final int[] slots = accessibleSlotsFromSide = ((ISidedInventory) below)
                                 .getAccessibleSlotsFromSide(1);
@@ -179,7 +176,7 @@ public class TileSoulExtractor extends TileVisNode implements ISidedInventory {
                                 break;
                             }
                         }
-                    } else if (below != null && below instanceof IInventory) {
+                    } else if (below instanceof IInventory) {
                         for (int slots2 = ((IInventory) below).getSizeInventory(), k = 0; k < slots2; ++k) {
                             if (((IInventory) below).getStackInSlot(k) == null
                                     || ((IInventory) below).getStackInSlot(k).getItem() == sand.getItem()) {
@@ -191,10 +188,10 @@ public class TileSoulExtractor extends TileVisNode implements ISidedInventory {
                         final EntityItem fallenSand = new EntityItem(
                                 this.worldObj,
                                 this.xCoord + 0.5,
-                                (double) this.yCoord,
+                                this.yCoord,
                                 this.zCoord + 0.5,
                                 sand);
-                        this.worldObj.spawnEntityInWorld((Entity) fallenSand);
+                        this.worldObj.spawnEntityInWorld(fallenSand);
                     }
                 }
                 this.markDirty();

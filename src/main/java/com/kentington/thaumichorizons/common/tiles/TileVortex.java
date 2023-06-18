@@ -16,13 +16,10 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
@@ -66,7 +63,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
         this.createdDimension = false;
         this.generating = false;
         this.cheat = false;
-        this.items = new ArrayList<ItemStack>();
+        this.items = new ArrayList<>();
     }
 
     public void updateEntity() {
@@ -74,10 +71,10 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
 
         if (this.generating) {
             this.worldObj.createExplosion(
-                    (Entity) null,
-                    (double) (this.xCoord + this.worldObj.rand.nextFloat()),
-                    (double) (this.yCoord + this.worldObj.rand.nextFloat()),
-                    (double) (this.zCoord + this.worldObj.rand.nextFloat()),
+                    null,
+                    this.xCoord + this.worldObj.rand.nextFloat(),
+                    this.yCoord + this.worldObj.rand.nextFloat(),
+                    this.zCoord + this.worldObj.rand.nextFloat(),
                     1.0f,
                     false);
             this.createDimension(null);
@@ -92,12 +89,8 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                         }
                     }
                     this.worldObj.setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
-                    if (worldObj.isRemote) Thaumcraft.proxy.burst(
-                            this.worldObj,
-                            (double) this.xCoord,
-                            (double) this.yCoord,
-                            (double) this.zCoord,
-                            4.0f);
+                    if (worldObj.isRemote)
+                        Thaumcraft.proxy.burst(this.worldObj, this.xCoord, this.yCoord, this.zCoord, 4.0f);
                     BlockAiry.explodify(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
                 }
                 return;
@@ -115,9 +108,9 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                                                 .setBlockToAir(this.xCoord + dx, this.yCoord + dy, this.zCoord + dz);
                                         if (worldObj.isRemote) Thaumcraft.proxy.burst(
                                                 this.worldObj,
-                                                (double) (this.xCoord + dx),
-                                                (double) (this.yCoord + dy),
-                                                (double) (this.zCoord + dz),
+                                                this.xCoord + dx,
+                                                this.yCoord + dy,
+                                                this.zCoord + dz,
                                                 4.0f);
                                     }
                                 }
@@ -142,14 +135,14 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                 }
                 if (this.createdDimension) {
                     final List ents = this.worldObj.getEntitiesWithinAABB(
-                            (Class) EntityPlayerMP.class,
+                            EntityPlayerMP.class,
                             AxisAlignedBB.getBoundingBox(
-                                    (double) this.xCoord,
-                                    (double) this.yCoord,
-                                    (double) this.zCoord,
-                                    (double) (this.xCoord + 1),
-                                    (double) (this.yCoord + 1),
-                                    (double) (this.zCoord + 1)));
+                                    this.xCoord,
+                                    this.yCoord,
+                                    this.zCoord,
+                                    this.xCoord + 1,
+                                    this.yCoord + 1,
+                                    this.zCoord + 1));
                     if (ents.size() > 0) {
                         for (final Object e : ents) {
                             final EntityPlayerMP player = (EntityPlayerMP) e;
@@ -163,7 +156,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                                     player.mcServer.getConfigurationManager().transferPlayerToDimension(
                                             player,
                                             ThaumicHorizons.dimensionPocketId,
-                                            (Teleporter) new VortexTeleporter(
+                                            new VortexTeleporter(
                                                     mServer.worldServerForDimension(ThaumicHorizons.dimensionPocketId),
                                                     this.dimensionID));
                                 } else {
@@ -171,7 +164,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                                     player.mcServer.getConfigurationManager().transferPlayerToDimension(
                                             player,
                                             this.returnID,
-                                            (Teleporter) new VortexTeleporter(
+                                            new VortexTeleporter(
                                                     mServer.worldServerForDimension(this.returnID),
                                                     this.dimensionID));
                                 }
@@ -185,19 +178,18 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
 
     void handlePocketPlaneStuff() {
         final List ents = this.worldObj.getEntitiesWithinAABB(
-                (Class) Entity.class,
+                Entity.class,
                 AxisAlignedBB.getBoundingBox(
-                        (double) this.xCoord,
-                        (double) this.yCoord,
-                        (double) this.zCoord,
-                        (double) (this.xCoord + 1),
-                        (double) (this.yCoord + 1),
-                        (double) (this.zCoord + 1)).expand(1.0, 1.0, 1.0));
+                        this.xCoord,
+                        this.yCoord,
+                        this.zCoord,
+                        this.xCoord + 1,
+                        this.yCoord + 1,
+                        this.zCoord + 1).expand(1.0, 1.0, 1.0));
         if (ents != null && ents.size() > 0) {
             for (final Object ent : ents) {
                 final Entity eo = (Entity) ent;
-                if (eo instanceof EntityItem) {
-                    final EntityItem item = (EntityItem) eo;
+                if (eo instanceof final EntityItem item) {
                     if (ThaumicHorizons.enablePocket && item.getEntityItem().getItem() == ConfigItems.itemEldritchObject
                             && item.getEntityItem().getItemDamage() == 3) {
                         this.createDimension(item);
@@ -257,8 +249,8 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                                     1.0f,
                                     1.0f);
                             golem.setHomeArea((int) golem.posX, (int) golem.posY, (int) golem.posZ, 32);
-                            this.worldObj.spawnEntityInWorld((Entity) golem);
-                            this.worldObj.setEntityState((Entity) golem, (byte) 7);
+                            this.worldObj.spawnEntityInWorld(golem);
+                            this.worldObj.setEntityState(golem, (byte) 7);
                         }
                     }
                     item.setDead();
@@ -275,7 +267,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
             if (this.aspects.size() > 0 && this.aspects.getAspects()[0] != null) {
                 wisp.setType(this.aspects.getAspects()[this.worldObj.rand.nextInt(this.aspects.size())].getTag());
             }
-            this.worldObj.spawnEntityInWorld((Entity) wisp);
+            this.worldObj.spawnEntityInWorld(wisp);
         }
     }
 
@@ -325,14 +317,13 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                 final Vec3 v2 = Vec3.createVectorHelper(tx + 0.5, ty + 0.5, tz + 0.5);
                 final MovingObjectPosition mop = ThaumcraftApiHelper
                         .rayTraceIgnoringSource(this.worldObj, v1, v2, true, false, false);
-                if (mop != null && this.getDistanceFrom((double) mop.blockX, (double) mop.blockY, (double) mop.blockZ)
-                        < 256.0) {
+                if (mop != null && this.getDistanceFrom(mop.blockX, mop.blockY, mop.blockZ) < 256.0) {
                     tx = mop.blockX;
                     ty = mop.blockY;
                     tz = mop.blockZ;
                     final Block bi = this.worldObj.getBlock(tx, ty, tz);
                     final int md = this.worldObj.getBlockMetadata(tx, ty, tz);
-                    if (!bi.isAir((IBlockAccess) this.worldObj, tx, ty, tz)) {
+                    if (!bi.isAir(this.worldObj, tx, ty, tz)) {
                         Thaumcraft.proxy
                                 .hungryNodeFX(this.worldObj, tx, ty, tz, this.xCoord, this.yCoord, this.zCoord, bi, md);
                     }
@@ -340,14 +331,14 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
             }
         }
         final List ents = this.worldObj.getEntitiesWithinAABB(
-                (Class) Entity.class,
+                Entity.class,
                 AxisAlignedBB.getBoundingBox(
-                        (double) this.xCoord,
-                        (double) this.yCoord,
-                        (double) this.zCoord,
-                        (double) (this.xCoord + 1),
-                        (double) (this.yCoord + 1),
-                        (double) (this.zCoord + 1)).expand(15.0, 15.0, 15.0));
+                        this.xCoord,
+                        this.yCoord,
+                        this.zCoord,
+                        this.xCoord + 1,
+                        this.yCoord + 1,
+                        this.zCoord + 1).expand(15.0, 15.0, 15.0));
         if (ents != null && ents.size() > 0) {
             for (final Object ent : ents) {
                 final Entity eo = (Entity) ent;
@@ -372,12 +363,9 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                         continue;
                     }
                     var7 *= var7;
-                    final Entity entity = eo;
-                    entity.motionX += var3 / var6 * var7 * 0.15 * modifier;
-                    final Entity entity2 = eo;
-                    entity2.motionY += var4 / var6 * var7 * 0.25 * modifier;
-                    final Entity entity3 = eo;
-                    entity3.motionZ += var5 / var6 * var7 * 0.15 * modifier;
+                    eo.motionX += var3 / var6 * var7 * 0.15 * modifier;
+                    eo.motionY += var4 / var6 * var7 * 0.25 * modifier;
+                    eo.motionZ += var5 / var6 * var7 * 0.15 * modifier;
                 }
             }
         }
@@ -393,15 +381,13 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                 final Vec3 v4 = Vec3.createVectorHelper(tx2 + 0.5, ty2 + 0.5, tz2 + 0.5);
                 final MovingObjectPosition mop2 = ThaumcraftApiHelper
                         .rayTraceIgnoringSource(this.worldObj, v3, v4, true, false, false);
-                if (mop2 != null
-                        && this.getDistanceFrom((double) mop2.blockX, (double) mop2.blockY, (double) mop2.blockZ)
-                                < 256.0) {
+                if (mop2 != null && this.getDistanceFrom(mop2.blockX, mop2.blockY, mop2.blockZ) < 256.0) {
                     tx2 = mop2.blockX;
                     ty2 = mop2.blockY;
                     tz2 = mop2.blockZ;
                     final Block bi2 = this.worldObj.getBlock(tx2, ty2, tz2);
                     final int md2 = this.worldObj.getBlockMetadata(tx2, ty2, tz2);
-                    if (!bi2.isAir((IBlockAccess) this.worldObj, tx2, ty2, tz2)) {
+                    if (!bi2.isAir(this.worldObj, tx2, ty2, tz2)) {
                         final float h = bi2.getBlockHardness(this.worldObj, tx2, ty2, tz2);
                         if (h >= 0.0f && h < 10.0f) {
                             this.worldObj.func_147480_a(tx2, ty2, tz2, true);
@@ -432,22 +418,22 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
         nbttagcompound.setBoolean("isGenerating", this.generating);
         nbttagcompound.setBoolean("cheat", this.cheat);
         final NBTTagList tlist = new NBTTagList();
-        nbttagcompound.setTag("aspects", (NBTBase) tlist);
+        nbttagcompound.setTag("aspects", tlist);
         for (final Aspect aspect : this.aspects.getAspects()) {
             if (aspect != null) {
                 final NBTTagCompound f = new NBTTagCompound();
                 f.setString("key", aspect.getTag());
                 f.setInteger("amount", this.aspects.getAmount(aspect));
-                tlist.appendTag((NBTBase) f);
+                tlist.appendTag(f);
             }
         }
         final NBTTagList itemz = new NBTTagList();
         for (final ItemStack item : this.items) {
             final NBTTagCompound itemTag = new NBTTagCompound();
             item.writeToNBT(itemTag);
-            itemz.appendTag((NBTBase) itemTag);
+            itemz.appendTag(itemTag);
         }
-        nbttagcompound.setTag("items", (NBTBase) itemz);
+        nbttagcompound.setTag("items", itemz);
     }
 
     @Override
@@ -487,7 +473,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
             final EntityItem key = new EntityItem(this.worldObj);
             key.setEntityItemStack(item);
             key.setPosition(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5);
-            this.worldObj.spawnEntityInWorld((Entity) key);
+            this.worldObj.spawnEntityInWorld(key);
             this.items.remove(0);
             player.worldObj.playSound(
                     x + 0.5,

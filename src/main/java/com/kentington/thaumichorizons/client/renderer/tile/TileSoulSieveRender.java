@@ -17,7 +17,7 @@ import thaumcraft.client.lib.UtilsFX;
 public class TileSoulSieveRender extends TileEntitySpecialRenderer {
 
     static String tx1;
-    private ModelSoulSieve model;
+    private final ModelSoulSieve model;
 
     public TileSoulSieveRender() {
         this.model = new ModelSoulSieve();

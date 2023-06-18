@@ -48,7 +48,7 @@ public class InventoryFingers extends TileMagicWorkbench implements IInventory {
             final ItemStack var3 = this.stackList[par1];
             this.stackList[par1] = null;
             if (this.eventHandler != null) {
-                this.eventHandler.onCraftMatrixChanged((IInventory) this);
+                this.eventHandler.onCraftMatrixChanged(this);
             }
             this.markDirty();
             return var3;
@@ -58,7 +58,7 @@ public class InventoryFingers extends TileMagicWorkbench implements IInventory {
             this.stackList[par1] = null;
         }
         if (this.eventHandler != null) {
-            this.eventHandler.onCraftMatrixChanged((IInventory) this);
+            this.eventHandler.onCraftMatrixChanged(this);
         }
         this.markDirty();
         return var3;
@@ -68,7 +68,7 @@ public class InventoryFingers extends TileMagicWorkbench implements IInventory {
         this.stackList[par1] = par2ItemStack;
         this.markDirty();
         if (this.eventHandler != null) {
-            this.eventHandler.onCraftMatrixChanged((IInventory) this);
+            this.eventHandler.onCraftMatrixChanged(this);
         }
     }
 
@@ -96,10 +96,9 @@ public class InventoryFingers extends TileMagicWorkbench implements IInventory {
         if (i != 10 || itemstack == null) {
             return true;
         }
-        if (!(itemstack.getItem() instanceof ItemWandCasting)) {
+        if (!(itemstack.getItem() instanceof final ItemWandCasting wand)) {
             return false;
         }
-        final ItemWandCasting wand = (ItemWandCasting) itemstack.getItem();
         return !wand.isStaff(itemstack);
     }
 
@@ -108,10 +107,9 @@ public class InventoryFingers extends TileMagicWorkbench implements IInventory {
     }
 
     public boolean canInsertItem(final int i, final ItemStack itemstack, final int j) {
-        if (i != 10 || itemstack == null || !(itemstack.getItem() instanceof ItemWandCasting)) {
+        if (i != 10 || itemstack == null || !(itemstack.getItem() instanceof final ItemWandCasting wand)) {
             return false;
         }
-        final ItemWandCasting wand = (ItemWandCasting) itemstack.getItem();
         return !wand.isStaff(itemstack);
     }
 

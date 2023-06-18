@@ -7,7 +7,6 @@ package com.kentington.thaumichorizons.client.renderer.tile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
@@ -25,7 +24,7 @@ public class TileRecombinatorRender extends TileEntitySpecialRenderer {
 
     static String tx1;
     static String tx2;
-    private ModelRecombinator base;
+    private final ModelRecombinator base;
 
     public TileRecombinatorRender() {
         this.base = new ModelRecombinator();
@@ -61,7 +60,7 @@ public class TileRecombinatorRender extends TileEntitySpecialRenderer {
             GL11.glPopMatrix();
             if (te.getWorldObj().getTileEntity(te.xCoord, te.yCoord - 1, te.zCoord) instanceof TileNode) {
                 Thaumcraft.proxy.beam(
-                        (World) Minecraft.getMinecraft().theWorld,
+                        Minecraft.getMinecraft().theWorld,
                         te.xCoord + 0.5,
                         te.yCoord + 0.2,
                         te.zCoord + 0.5,

@@ -18,8 +18,8 @@ import thaumcraft.client.lib.UtilsFX;
 
 public class TileNodeMonitorRender extends TileEntitySpecialRenderer {
 
-    private IModelCustom model;
-    private IModelCustom modelScreen;
+    private final IModelCustom model;
+    private final IModelCustom modelScreen;
     private static final ResourceLocation SCANNER;
     private static final ResourceLocation SCANNERSCREEN;
     static String tx1;
@@ -37,40 +37,34 @@ public class TileNodeMonitorRender extends TileEntitySpecialRenderer {
         GL11.glTranslatef((float) x + 0.5f, (float) (y + 0.5), (float) z + 0.5f);
         GL11.glScalef(0.4f, 0.4f, 0.4f);
         switch (tco.direction) {
-            case 1: {
+            case 1 -> {
                 GL11.glTranslatef(0.0f, -0.8f, 0.0f);
                 GL11.glRotatef((float) tco.rotation, 0.0f, 1.0f, 0.0f);
-                break;
             }
-            case 0: {
+            case 0 -> {
                 GL11.glTranslatef(0.0f, 0.8f, 0.0f);
                 GL11.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
                 GL11.glRotatef((float) tco.rotation, 0.0f, 1.0f, 0.0f);
-                break;
             }
-            case 2: {
+            case 2 -> {
                 GL11.glTranslatef(0.0f, 0.0f, 0.8f);
                 GL11.glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
                 GL11.glRotatef((float) tco.rotation, 0.0f, 1.0f, 0.0f);
-                break;
             }
-            case 3: {
+            case 3 -> {
                 GL11.glTranslatef(0.0f, 0.0f, -0.8f);
                 GL11.glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
                 GL11.glRotatef((float) tco.rotation, 0.0f, 1.0f, 0.0f);
-                break;
             }
-            case 4: {
+            case 4 -> {
                 GL11.glTranslatef(0.8f, 0.0f, 0.0f);
                 GL11.glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
                 GL11.glRotatef((float) tco.rotation, 0.0f, 1.0f, 0.0f);
-                break;
             }
-            case 5: {
+            case 5 -> {
                 GL11.glTranslatef(-0.8f, 0.0f, 0.0f);
                 GL11.glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
                 GL11.glRotatef((float) tco.rotation, 0.0f, 1.0f, 0.0f);
-                break;
             }
         }
         UtilsFX.bindTexture("thaumichorizons", TileNodeMonitorRender.tx1);

@@ -64,7 +64,7 @@ public class BlockCrystal extends BlockBreakable {
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
         for (int var4 = 0; var4 < 16; ++var4) {
-            par3List.add(new ItemStack((Block) this, 1, var4));
+            par3List.add(new ItemStack(this, 1, var4));
         }
     }
 

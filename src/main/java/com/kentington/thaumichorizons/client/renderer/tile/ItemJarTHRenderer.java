@@ -13,7 +13,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
@@ -69,9 +68,9 @@ public class ItemJarTHRenderer implements IItemRenderer {
                 GL11.glPushMatrix();
                 GL11.glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
                 GL11.glTranslatef(-0.5f, 0.0f, -0.5f);
-                final EntityLivingBase viewer = (EntityLivingBase) Minecraft.getMinecraft().thePlayer;
+                final EntityLivingBase viewer = Minecraft.getMinecraft().thePlayer;
                 th.entity = EntityList.createEntityFromNBT(item.getTagCompound(), viewer.worldObj);
-                TileEntityRendererDispatcher.instance.renderTileEntityAt((TileEntity) th, 0.0, 0.0, 0.0, 0.0f);
+                TileEntityRendererDispatcher.instance.renderTileEntityAt(th, 0.0, 0.0, 0.0, 0.0f);
                 GL11.glBlendFunc(770, 771);
                 Minecraft.getMinecraft().entityRenderer.disableLightmap(0.0);
                 GL11.glPopMatrix();

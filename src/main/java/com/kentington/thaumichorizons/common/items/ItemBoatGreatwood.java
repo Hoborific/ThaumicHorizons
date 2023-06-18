@@ -60,14 +60,14 @@ public class ItemBoatGreatwood extends ItemBoat {
         boolean flag = false;
         final float f10 = 1.0f;
         final List list = p_77659_2_.getEntitiesWithinAABBExcludingEntity(
-                (Entity) p_77659_3_,
+                p_77659_3_,
                 p_77659_3_.boundingBox.addCoord(vec5.xCoord * d4, vec5.yCoord * d4, vec5.zCoord * d4)
-                        .expand((double) f10, (double) f10, (double) f10));
-        for (int i = 0; i < list.size(); ++i) {
-            final Entity entity = (Entity) list.get(i);
+                        .expand(f10, f10, f10));
+        for (Object o : list) {
+            final Entity entity = (Entity) o;
             if (entity.canBeCollidedWith()) {
                 final float f11 = entity.getCollisionBorderSize();
-                final AxisAlignedBB axisalignedbb = entity.boundingBox.expand((double) f11, (double) f11, (double) f11);
+                final AxisAlignedBB axisalignedbb = entity.boundingBox.expand(f11, f11, f11);
                 if (axisalignedbb.isVecInside(vec3)) {
                     flag = true;
                 }
@@ -86,13 +86,12 @@ public class ItemBoatGreatwood extends ItemBoat {
             final EntityBoatGreatwood entityboat = new EntityBoatGreatwood(p_77659_2_, i + 0.5f, j + 1.0f, k + 0.5f);
             entityboat.rotationYaw = ((MathHelper.floor_double(p_77659_3_.rotationYaw * 4.0f / 360.0f + 0.5) & 0x3) - 1)
                     * 90;
-            if (!p_77659_2_
-                    .getCollidingBoundingBoxes((Entity) entityboat, entityboat.boundingBox.expand(-0.1, -0.1, -0.1))
+            if (!p_77659_2_.getCollidingBoundingBoxes(entityboat, entityboat.boundingBox.expand(-0.1, -0.1, -0.1))
                     .isEmpty()) {
                 return p_77659_1_;
             }
             if (!p_77659_2_.isRemote) {
-                p_77659_2_.spawnEntityInWorld((Entity) entityboat);
+                p_77659_2_.spawnEntityInWorld(entityboat);
             }
             if (!p_77659_3_.capabilities.isCreativeMode) {
                 --p_77659_1_.stackSize;

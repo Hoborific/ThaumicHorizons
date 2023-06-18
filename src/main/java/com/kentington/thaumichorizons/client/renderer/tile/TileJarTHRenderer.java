@@ -21,7 +21,8 @@ import thaumcraft.client.renderers.models.ModelJar;
 @SideOnly(Side.CLIENT)
 public class TileJarTHRenderer extends TileEntitySpecialRenderer {
 
-    private ModelJar model;
+    @SuppressWarnings("FieldCanBeLocal") // An unfinished feature
+    private final ModelJar model;
     static String tx3;
 
     public TileJarTHRenderer() {
@@ -30,10 +31,9 @@ public class TileJarTHRenderer extends TileEntitySpecialRenderer {
 
     public void renderTileEntityAt(final TileEntity tile, final double x, final double y, final double z,
             final float f) {
-        if (!(tile instanceof TileSoulJar)) {
+        if (!(tile instanceof final TileSoulJar th)) {
             return;
         }
-        final TileSoulJar th = (TileSoulJar) tile;
         if (th.jarTag != null && th.jarTag.getBoolean("isSoul")) {
             final long nt = System.nanoTime();
             UtilsFX.bindTexture("thaumichorizons", TileJarTHRenderer.tx3);

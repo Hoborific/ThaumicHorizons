@@ -19,7 +19,6 @@ import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 import com.kentington.thaumichorizons.common.lib.networking.PacketRemoveNightvision;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -64,6 +63,6 @@ public class ItemLensWater extends Item implements ILens {
 
     public void handleRemoval(final EntityPlayer p) {
         p.removePotionEffect(Potion.nightVision.id);
-        PacketHandler.INSTANCE.sendTo((IMessage) new PacketRemoveNightvision(), (EntityPlayerMP) p);
+        PacketHandler.INSTANCE.sendTo(new PacketRemoveNightvision(), (EntityPlayerMP) p);
     }
 }

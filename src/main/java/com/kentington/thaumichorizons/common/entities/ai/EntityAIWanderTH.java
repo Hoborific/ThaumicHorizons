@@ -10,11 +10,11 @@ import net.minecraft.util.Vec3;
 
 public class EntityAIWanderTH extends EntityAIBase {
 
-    private EntityLiving entity;
+    private final EntityLiving entity;
     private double xPosition;
     private double yPosition;
     private double zPosition;
-    private double speed;
+    private final double speed;
 
     public EntityAIWanderTH(final EntityLiving p_i1648_1_, final double p_i1648_2_) {
         this.entity = p_i1648_1_;

@@ -11,7 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
@@ -48,7 +47,7 @@ public class GuiBloodInfuser extends GuiContainer {
     NBTTagList cachedEffects;
 
     public GuiBloodInfuser(final EntityPlayer p, final TileBloodInfuser tile) {
-        super((Container) new ContainerBloodInfuser(p, tile));
+        super(new ContainerBloodInfuser(p, tile));
         this.aspectsSelected = new Aspect[8];
         this.numSelected = 0;
         this.offset = 0;
@@ -151,13 +150,7 @@ public class GuiBloodInfuser extends GuiContainer {
                         if (potion.hasStatusIcon()) {
                             this.mc.getTextureManager().bindTexture(GuiBloodInfuser.field_147001_a);
                             final int l = potion.getStatusIconIndex();
-                            this.drawTexturedModalRect(
-                                    j * 18 + 171,
-                                    k * 18 + 72,
-                                    0 + l % 8 * 18,
-                                    198 + l / 8 * 18,
-                                    18,
-                                    18);
+                            this.drawTexturedModalRect(j * 18 + 171, k * 18 + 72, l % 8 * 18, 198 + l / 8 * 18, 18, 18);
                             this.fontRendererObj.drawString(
                                     "" + this.mousedEffects.get(key),
                                     j * 18 + 171,
@@ -173,12 +166,10 @@ public class GuiBloodInfuser extends GuiContainer {
                         } else {
                             this.mc.getTextureManager()
                                     .bindTexture(new ResourceLocation("thaumichorizons", "textures/misc/potions.png"));
-                            int ecks2 = 0;
+                            int ecks2 = 0; // Potion.heal.id
                             final int why2 = 216;
                             if (potion.getId() == 23) {
                                 ecks2 = 36;
-                            } else if (potion.getId() == Potion.heal.id) {
-                                ecks2 = 0;
                             } else if (potion.getId() == Potion.harm.id) {
                                 ecks2 = 18;
                             }
@@ -210,13 +201,13 @@ public class GuiBloodInfuser extends GuiContainer {
             int k = 0;
             if (this.topOut == 38) {
                 for (int index = 0; index < this.cachedEffects.tagCount(); ++index) {
-                    final Byte id = this.cachedEffects.getCompoundTagAt(index).getByte("Id");
+                    final byte id = this.cachedEffects.getCompoundTagAt(index).getByte("Id");
                     if (id < 0 || id >= Potion.potionTypes.length) continue;
                     final Potion potion = Potion.potionTypes[id];
                     if (potion != null) {
                         this.mc.getTextureManager().bindTexture(GuiBloodInfuser.field_147001_a);
                         final int l = potion.getStatusIconIndex();
-                        this.drawTexturedModalRect(j * 18 + 171, k * 18 + 28, 0 + l % 8 * 18, 198 + l / 8 * 18, 18, 18);
+                        this.drawTexturedModalRect(j * 18 + 171, k * 18 + 28, l % 8 * 18, 198 + l / 8 * 18, 18, 18);
                         this.fontRendererObj.drawString(
                                 "" + (this.cachedEffects.getCompoundTagAt(index).getByte("Amplifier") + 1),
                                 j * 18 + 171,
@@ -355,7 +346,7 @@ public class GuiBloodInfuser extends GuiContainer {
         GL11.glPushMatrix();
         UtilsFX.bindTexture(ParticleEngine.particleTexture);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        GL11.glTranslated((double) this.flashX, (double) this.flashY, 0.0);
+        GL11.glTranslated(this.flashX, this.flashY, 0.0);
         final Tessellator tessellator = Tessellator.instance;
         final int part = this.flashTimer;
         final float var8 = 0.5f + part / 8.0f;
@@ -365,10 +356,10 @@ public class GuiBloodInfuser extends GuiContainer {
         tessellator.startDrawingQuads();
         tessellator.setBrightness(240);
         tessellator.setColorRGBA_F(red, green, blue, 1.0f);
-        tessellator.addVertexWithUV(0.0, 16.0, (double) this.zLevel, (double) var9, (double) var11);
-        tessellator.addVertexWithUV(16.0, 16.0, (double) this.zLevel, (double) var9, (double) var10);
-        tessellator.addVertexWithUV(16.0, 0.0, (double) this.zLevel, (double) var8, (double) var10);
-        tessellator.addVertexWithUV(0.0, 0.0, (double) this.zLevel, (double) var8, (double) var11);
+        tessellator.addVertexWithUV(0.0, 16.0, this.zLevel, var9, var11);
+        tessellator.addVertexWithUV(16.0, 16.0, this.zLevel, var9, var10);
+        tessellator.addVertexWithUV(16.0, 0.0, this.zLevel, var8, var10);
+        tessellator.addVertexWithUV(0.0, 0.0, this.zLevel, var8, var11);
         tessellator.draw();
         GL11.glPopMatrix();
     }
@@ -391,7 +382,7 @@ public class GuiBloodInfuser extends GuiContainer {
                     asp,
                     0.0f,
                     0,
-                    (double) this.zLevel,
+                    this.zLevel,
                     771,
                     1.0f,
                     false);
@@ -411,7 +402,7 @@ public class GuiBloodInfuser extends GuiContainer {
                         asp,
                         0.0f,
                         0,
-                        (double) this.zLevel,
+                        this.zLevel,
                         771,
                         1.0f,
                         this.tile.aspectsAcquired.getAmount(asp) < alreadyUsed.getAmount(asp));
@@ -438,10 +429,10 @@ public class GuiBloodInfuser extends GuiContainer {
         final Tessellator var9 = Tessellator.instance;
         var9.startDrawingQuads();
         var9.setColorRGBA_F(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, 0.8f);
-        var9.addVertexWithUV(x + 0.0, y + 16.0, (double) this.zLevel, 0.0, 1.0);
-        var9.addVertexWithUV(x + 16.0, y + 16.0, (double) this.zLevel, 1.0, 1.0);
-        var9.addVertexWithUV(x + 16.0, y + 0.0, (double) this.zLevel, 1.0, 0.0);
-        var9.addVertexWithUV(x + 0.0, y + 0.0, (double) this.zLevel, 0.0, 0.0);
+        var9.addVertexWithUV(x + 0.0, y + 16.0, this.zLevel, 0.0, 1.0);
+        var9.addVertexWithUV(x + 16.0, y + 16.0, this.zLevel, 1.0, 1.0);
+        var9.addVertexWithUV(x + 16.0, y + 0.0, this.zLevel, 1.0, 0.0);
+        var9.addVertexWithUV(x + 0.0, y + 0.0, this.zLevel, 0.0, 0.0);
         var9.draw();
         GL11.glPopMatrix();
         GL11.glDisable(3042);

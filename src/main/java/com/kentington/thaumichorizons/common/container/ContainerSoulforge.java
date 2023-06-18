@@ -19,7 +19,7 @@ public class ContainerSoulforge extends Container {
         this.tile = t;
     }
 
-    public boolean canInteractWith(final EntityPlayer p_75145_1_) {
-        return this.tile.isUseableByPlayer(p_75145_1_);
+    public boolean canInteractWith(final EntityPlayer player) {
+        return this.tile.isUseableByPlayer(player);
     }
 }

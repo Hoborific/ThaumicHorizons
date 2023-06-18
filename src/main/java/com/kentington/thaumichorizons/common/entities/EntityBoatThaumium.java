@@ -63,9 +63,9 @@ public class EntityBoatThaumium extends EntityBoat {
     }
 
     protected void entityInit() {
-        this.dataWatcher.addObject(17, (Object) new Integer(0));
-        this.dataWatcher.addObject(18, (Object) new Integer(1));
-        this.dataWatcher.addObject(19, (Object) new Float(0.0f));
+        this.dataWatcher.addObject(17, 0);
+        this.dataWatcher.addObject(18, 1);
+        this.dataWatcher.addObject(19, 0.0f);
     }
 
     public AxisAlignedBB getCollisionBox(final Entity p_70114_1_) {
@@ -109,7 +109,7 @@ public class EntityBoatThaumium extends EntityBoat {
                     && ((EntityPlayer) p_70097_1_.getEntity()).capabilities.isCreativeMode;
             if (flag || this.getDamageTaken() > 40.0f) {
                 if (this.riddenByEntity != null) {
-                    this.riddenByEntity.mountEntity((Entity) this);
+                    this.riddenByEntity.mountEntity(this);
                 }
                 if (!flag) {
                     this.func_145778_a(ThaumicHorizons.itemBoatThaumium, 1, 0.0f);
@@ -182,8 +182,7 @@ public class EntityBoatThaumium extends EntityBoat {
         final byte b0 = 5;
         double d0 = 0.0;
         for (int i = 0; i < b0; ++i) {
-            final double d2 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 0) / b0
-                    - 0.125;
+            final double d2 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * i / b0 - 0.125;
             final double d3 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 1) / b0
                     - 0.125;
             final AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(
@@ -295,8 +294,7 @@ public class EntityBoatThaumium extends EntityBoat {
                 }
                 this.motionY += 0.007000000216066837;
             }
-            if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityLivingBase) {
-                final EntityLivingBase entitylivingbase = (EntityLivingBase) this.riddenByEntity;
+            if (this.riddenByEntity != null && this.riddenByEntity instanceof final EntityLivingBase entitylivingbase) {
                 final float f = this.riddenByEntity.rotationYaw + -entitylivingbase.moveStrafing * 90.0f;
                 this.motionX += -Math.sin(f * 3.1415927f / 180.0f) * this.speedMultiplier
                         * entitylivingbase.moveForward
@@ -364,13 +362,13 @@ public class EntityBoatThaumium extends EntityBoat {
             this.setRotation(this.rotationYaw += (float) d13, this.rotationPitch);
             if (!this.worldObj.isRemote) {
                 final List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(
-                        (Entity) this,
+                        this,
                         this.boundingBox.expand(0.20000000298023224, 0.0, 0.20000000298023224));
                 if (list != null && !list.isEmpty()) {
-                    for (int k2 = 0; k2 < list.size(); ++k2) {
-                        final Entity entity = (Entity) list.get(k2);
+                    for (Object o : list) {
+                        final Entity entity = (Entity) o;
                         if (entity != this.riddenByEntity && entity.canBePushed() && entity instanceof EntityBoat) {
-                            entity.applyEntityCollision((Entity) this);
+                            entity.applyEntityCollision(this);
                         }
                     }
                 }
@@ -407,7 +405,7 @@ public class EntityBoatThaumium extends EntityBoat {
             return true;
         }
         if (!this.worldObj.isRemote) {
-            p_130002_1_.mountEntity((Entity) this);
+            p_130002_1_.mountEntity(this);
         }
         return true;
     }
@@ -426,7 +424,7 @@ public class EntityBoatThaumium extends EntityBoat {
     }
 
     public void setDamageTaken(final float p_70266_1_) {
-        this.dataWatcher.updateObject(19, (Object) p_70266_1_);
+        this.dataWatcher.updateObject(19, p_70266_1_);
     }
 
     public float getDamageTaken() {
@@ -434,7 +432,7 @@ public class EntityBoatThaumium extends EntityBoat {
     }
 
     public void setTimeSinceHit(final int p_70265_1_) {
-        this.dataWatcher.updateObject(17, (Object) p_70265_1_);
+        this.dataWatcher.updateObject(17, p_70265_1_);
     }
 
     public int getTimeSinceHit() {
@@ -442,7 +440,7 @@ public class EntityBoatThaumium extends EntityBoat {
     }
 
     public void setForwardDirection(final int p_70269_1_) {
-        this.dataWatcher.updateObject(18, (Object) p_70269_1_);
+        this.dataWatcher.updateObject(18, p_70269_1_);
     }
 
     public int getForwardDirection() {
@@ -465,7 +463,7 @@ public class EntityBoatThaumium extends EntityBoat {
             if (this.captureDrops) {
                 this.capturedDrops.add(entityitem);
             } else {
-                this.worldObj.spawnEntityInWorld((Entity) entityitem);
+                this.worldObj.spawnEntityInWorld(entityitem);
             }
             return entityitem;
         }

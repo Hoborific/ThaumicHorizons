@@ -60,7 +60,7 @@ public class RandomPositionGeneratorTH {
             }
         }
         if (flag) {
-            return Vec3.createVectorHelper((double) k, (double) l, (double) i1);
+            return Vec3.createVectorHelper(k, l, i1);
         }
         return null;
     }

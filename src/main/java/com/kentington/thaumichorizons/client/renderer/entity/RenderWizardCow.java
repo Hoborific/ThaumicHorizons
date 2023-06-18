@@ -40,7 +40,7 @@ public class RenderWizardCow extends RenderCow {
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
-        super.doRender((EntityLiving) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+        super.doRender(p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         if (RenderWizardCow.cowAspects.containsKey(p_76986_1_.getUniqueID().toString())) {
             this.renderMyNode(
@@ -74,17 +74,14 @@ public class RenderWizardCow extends RenderCow {
             float alpha = (float) ((viewDistance - distance) / viewDistance);
             if (mod != null) {
                 switch (mod) {
-                    case BRIGHT: {
+                    case BRIGHT -> {
                         alpha *= 1.5f;
-                        break;
                     }
-                    case PALE: {
+                    case PALE -> {
                         alpha *= 0.66f;
-                        break;
                     }
-                    case FADING: {
+                    case FADING -> {
                         alpha *= MathHelper.sin(viewer.ticksExisted / 3.0f) * 0.25f + 0.33f;
-                        break;
                     }
                 }
             }
@@ -144,36 +141,30 @@ public class RenderWizardCow extends RenderCow {
             scale *= size;
             int strip = 1;
             switch (type) {
-                case NORMAL: {
+                case NORMAL -> {
                     GL11.glBlendFunc(770, 1);
-                    break;
                 }
-                case UNSTABLE: {
+                case UNSTABLE -> {
                     GL11.glBlendFunc(770, 1);
                     strip = 6;
                     angle = 0.0f;
-                    break;
                 }
-                case DARK: {
+                case DARK -> {
                     GL11.glBlendFunc(770, 771);
                     strip = 2;
-                    break;
                 }
-                case TAINTED: {
+                case TAINTED -> {
                     GL11.glBlendFunc(770, 771);
                     strip = 5;
-                    break;
                 }
-                case HUNGRY: {
+                case HUNGRY -> {
                     GL11.glBlendFunc(770, 1);
                     strip = 4;
-                    break;
                 }
-                case PURE: {
+                case PURE -> {
                     scale *= 0.75f;
                     GL11.glBlendFunc(770, 1);
                     strip = 3;
-                    break;
                 }
             }
             GL11.glColor4f(1.0f, 0.0f, 1.0f, alpha);
@@ -220,8 +211,8 @@ public class RenderWizardCow extends RenderCow {
     }
 
     static {
-        RenderWizardCow.cowAspects = new HashMap<String, AspectList>();
-        RenderWizardCow.cowTypes = new HashMap<String, NodeType>();
-        RenderWizardCow.cowMods = new HashMap<String, NodeModifier>();
+        RenderWizardCow.cowAspects = new HashMap<>();
+        RenderWizardCow.cowTypes = new HashMap<>();
+        RenderWizardCow.cowMods = new HashMap<>();
     }
 }

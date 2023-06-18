@@ -18,7 +18,7 @@ import thaumcraft.client.lib.UtilsFX;
 
 public class TileSpikeRender extends TileEntitySpecialRenderer {
 
-    private IModelCustom model;
+    private final IModelCustom model;
     private static final ResourceLocation SPIKE;
     static String tx1;
     static String tx2;
@@ -34,34 +34,28 @@ public class TileSpikeRender extends TileEntitySpecialRenderer {
         GL11.glTranslatef((float) x + 0.5f, (float) (y + 0.5), (float) z + 0.5f);
         GL11.glScalef(0.35f, 0.35f, 0.35f);
         switch (tco.direction) {
-            case 1: {
+            case 1 -> {
                 GL11.glTranslatef(0.0f, -1.45f, 0.0f);
-                break;
             }
-            case 0: {
+            case 0 -> {
                 GL11.glTranslatef(0.0f, 1.45f, 0.0f);
                 GL11.glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
-                break;
             }
-            case 2: {
+            case 2 -> {
                 GL11.glTranslatef(0.0f, 0.0f, 1.45f);
                 GL11.glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-                break;
             }
-            case 3: {
+            case 3 -> {
                 GL11.glTranslatef(0.0f, 0.0f, -1.45f);
                 GL11.glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-                break;
             }
-            case 4: {
+            case 4 -> {
                 GL11.glTranslatef(1.45f, 0.0f, 0.0f);
                 GL11.glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
-                break;
             }
-            case 5: {
+            case 5 -> {
                 GL11.glTranslatef(-1.45f, 0.0f, 0.0f);
                 GL11.glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
-                break;
             }
         }
         if (tco.spikeType == 0) {

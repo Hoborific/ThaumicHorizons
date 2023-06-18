@@ -7,7 +7,6 @@ package com.kentington.thaumichorizons.client.gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -25,7 +24,7 @@ public class GuiVat extends GuiContainer {
     EntityPlayer player;
 
     public GuiVat(final EntityPlayer p, final TileVat t) {
-        super((Container) new ContainerVat(p, t));
+        super(new ContainerVat(p, t));
         this.tile = t;
         this.player = p;
         this.xSize = 176;
@@ -46,64 +45,36 @@ public class GuiVat extends GuiContainer {
         }
         if (this.tile.getEntity() != null) {
             final EntityLivingBase critter = this.tile.getEntity();
-            final float health = critter.getHealth() / 2.0f;
+            final float adjustedCritterHealth = critter.getHealth() / 2.0f;
             final float max = critter.getMaxHealth() / 2.0f;
             for (int i = 0; i < (int) max; ++i) {
-                if (health >= i) {
-                    this.drawTexturedModalRect(
-                            var5 + 56 + 7 * i - 63 * (i / 9),
-                            var6 + 12 + 7 * (i / 9),
-                            176,
-                            126,
-                            7,
-                            6);
+                int x = var5 + 56 + 7 * i - 63 * (i / 9);
+                int y = var6 + 12 + 7 * (i / 9);
+                int textureX = 176;
+                int height = 6;
+                if (adjustedCritterHealth >= i) {
+                    this.drawTexturedModalRect(x, y, textureX, 126, 7, height);
                 } else {
-                    this.drawTexturedModalRect(
-                            var5 + 56 + 7 * i - 63 * (i / 9),
-                            var6 + 12 + 7 * (i / 9),
-                            176,
-                            120,
-                            7,
-                            6);
-                    if (health >= i - 0.5f) {
-                        this.drawTexturedModalRect(
-                                var5 + 56 + 7 * i - 63 * (i / 9),
-                                var6 + 12 + 7 * (i / 9),
-                                176,
-                                126,
-                                4,
-                                6);
+                    this.drawTexturedModalRect(x, y, textureX, 120, 7, height);
+                    if (adjustedCritterHealth >= i - 0.5f) {
+                        this.drawTexturedModalRect(x, y, textureX, 126, 4, height);
                     }
                 }
             }
         } else if (this.tile.mode == 4 || this.tile.mode == 2) {
-            final float health2 = this.tile.selfInfusionHealth / 2.0f;
+            final float adjustedSelfInfusionHealth = this.tile.selfInfusionHealth / 2.0f;
             final float max2 = 10.0f;
             for (int j = 0; j < (int) max2; ++j) {
-                if (health2 >= j) {
-                    this.drawTexturedModalRect(
-                            var5 + 56 + 7 * j - 63 * (j / 9),
-                            var6 + 12 + 7 * (j / 9),
-                            176,
-                            126,
-                            7,
-                            6);
+                int x = var5 + 56 + 7 * j - 63 * (j / 9);
+                int y = var6 + 12 + 7 * (j / 9);
+                int textureX = 176;
+                int height = 6;
+                if (adjustedSelfInfusionHealth >= j) {
+                    this.drawTexturedModalRect(x, y, textureX, 126, 7, height);
                 } else {
-                    this.drawTexturedModalRect(
-                            var5 + 56 + 7 * j - 63 * (j / 9),
-                            var6 + 12 + 7 * (j / 9),
-                            176,
-                            120,
-                            7,
-                            6);
-                    if (health2 >= j - 0.5f) {
-                        this.drawTexturedModalRect(
-                                var5 + 56 + 7 * j - 63 * (j / 9),
-                                var6 + 12 + 7 * (j / 9),
-                                176,
-                                126,
-                                4,
-                                6);
+                    this.drawTexturedModalRect(x, y, textureX, 120, 7, height);
+                    if (adjustedSelfInfusionHealth >= j - 0.5f) {
+                        this.drawTexturedModalRect(x, y, textureX, 126, 4, height);
                     }
                 }
             }

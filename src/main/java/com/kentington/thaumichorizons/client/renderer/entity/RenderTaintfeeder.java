@@ -35,7 +35,7 @@ public class RenderTaintfeeder extends RenderPig {
 
     public void doRender(final EntityTaintPig p_76986_1_, final double p_76986_2_, final double p_76986_4_,
             final double p_76986_6_, final float p_76986_8_, final float p_76986_9_) {
-        super.doRender((EntityLiving) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+        super.doRender(p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
         GL11.glPushMatrix();
         GL11.glAlphaFunc(516, 0.003921569f);
         GL11.glEnable(3042);
@@ -93,15 +93,11 @@ public class RenderTaintfeeder extends RenderPig {
         GL11.glEnable(3042);
         GL11.glDisable(3008);
         GL11.glBlendFunc(770, 771);
-        if (p_77032_1_.isInvisible()) {
-            GL11.glDepthMask(false);
-        } else {
-            GL11.glDepthMask(true);
-        }
+        GL11.glDepthMask(!p_77032_1_.isInvisible());
         final char c0 = '\uf0f0';
         final int j = c0 % 65536;
         final int k = c0 / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0f, k / 1.0f);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j, k);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.32f + 0.32f * f);
         return 1;
     }

@@ -12,7 +12,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
@@ -62,7 +61,7 @@ public class ItemLensCase extends Item implements IBauble {
             final EntityPlayer par3EntityPlayer) {
         if (!par2World.isRemote) {
             par3EntityPlayer.openGui(
-                    (Object) ThaumicHorizons.instance,
+                    ThaumicHorizons.instance,
                     8,
                     par2World,
                     MathHelper.floor_double(par3EntityPlayer.posX),
@@ -100,10 +99,10 @@ public class ItemLensCase extends Item implements IBauble {
                 final NBTTagCompound var4 = new NBTTagCompound();
                 var4.setByte("Slot", (byte) var3);
                 stackList[var3].writeToNBT(var4);
-                var2.appendTag((NBTBase) var4);
+                var2.appendTag(var4);
             }
         }
-        item.setTagInfo("Inventory", (NBTBase) var2);
+        item.setTagInfo("Inventory", var2);
     }
 
     public String getUnlocalizedName(final ItemStack par1ItemStack) {

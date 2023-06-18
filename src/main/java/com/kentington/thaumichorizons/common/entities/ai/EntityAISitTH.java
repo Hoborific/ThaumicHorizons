@@ -4,7 +4,6 @@
 
 package com.kentington.thaumichorizons.common.entities.ai;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -13,7 +12,7 @@ import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
 
 public class EntityAISitTH extends EntityAIBase {
 
-    private EntityLiving theEntity;
+    private final EntityLiving theEntity;
     private boolean isSitting;
 
     public EntityAISitTH(final EntityLiving p_i1654_1_) {
@@ -30,9 +29,8 @@ public class EntityAISitTH extends EntityAIBase {
         }
         final EntityInfusionProperties prop = (EntityInfusionProperties) this.theEntity
                 .getExtendedProperties("CreatureInfusion");
-        final EntityLivingBase entitylivingbase = (EntityLivingBase) this.theEntity.worldObj
-                .getPlayerEntityByName(prop.getOwner());
-        return entitylivingbase == null || ((this.theEntity.getDistanceSqToEntity((Entity) entitylivingbase) >= 144.0
+        final EntityLivingBase entitylivingbase = this.theEntity.worldObj.getPlayerEntityByName(prop.getOwner());
+        return entitylivingbase == null || ((this.theEntity.getDistanceSqToEntity(entitylivingbase) >= 144.0
                 || entitylivingbase.getAITarget() == null) && this.isSitting);
     }
 

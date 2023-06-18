@@ -22,8 +22,8 @@ import thaumcraft.client.lib.UtilsFX;
 
 public class ItemSyringeRender implements IItemRenderer {
 
-    private ModelSyringe syringe;
-    private String tx1;
+    private final ModelSyringe syringe;
+    private final String tx1;
 
     public ItemSyringeRender() {
         this.syringe = new ModelSyringe();

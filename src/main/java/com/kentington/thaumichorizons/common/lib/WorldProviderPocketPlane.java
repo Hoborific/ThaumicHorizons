@@ -8,7 +8,6 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.biome.WorldChunkManagerHell;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -21,13 +20,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class WorldProviderPocketPlane extends WorldProvider {
 
     public void registerWorldChunkManager() {
-        this.worldChunkMgr = (WorldChunkManager) new WorldChunkManagerHell(BiomeGenBase.hell, 0.0f);
+        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.hell, 0.0f);
         this.dimensionId = ThaumicHorizons.dimensionPocketId;
         this.hasNoSky = true;
     }
 
     public IChunkProvider createChunkGenerator() {
-        return (IChunkProvider) new ChunkProviderPocketPlane(this.worldObj, this.worldObj.getSeed());
+        return new ChunkProviderPocketPlane(this.worldObj, this.worldObj.getSeed());
     }
 
     public int getAverageGroundLevel() {

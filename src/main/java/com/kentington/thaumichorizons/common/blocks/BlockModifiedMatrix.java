@@ -37,8 +37,7 @@ public class BlockModifiedMatrix extends BlockContainer {
     }
 
     public TileEntity createTileEntity(final World world, final int metadata) {
-        final TileVatMatrix te = new TileVatMatrix();
-        return te;
+        return new TileVatMatrix();
     }
 
     public boolean canPlaceBlockAt(final World world, final int x, final int y, final int z) {

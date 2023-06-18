@@ -20,15 +20,15 @@ import net.minecraft.world.chunk.IChunkProvider;
 
 public class ChunkProviderPocketPlane implements IChunkProvider {
 
-    private Random rand;
-    private World worldObj;
-    private WorldType worldType;
+    private final Random rand;
+    private final World worldObj;
+    private final WorldType worldType;
     private BiomeGenBase[] biomesForGeneration;
 
-    public ChunkProviderPocketPlane(final World p_i2005_1_, final long p_i2005_2_) {
-        this.worldObj = p_i2005_1_;
-        this.worldType = p_i2005_1_.getWorldInfo().getTerrainType();
-        this.rand = new Random(p_i2005_2_);
+    public ChunkProviderPocketPlane(final World worldObj, final long seed) {
+        this.worldObj = worldObj;
+        this.worldType = worldObj.getWorldInfo().getTerrainType();
+        this.rand = new Random(seed);
     }
 
     public boolean chunkExists(final int p_73149_1_, final int p_73149_2_) {
@@ -83,7 +83,7 @@ public class ChunkProviderPocketPlane implements IChunkProvider {
 
     public List getPossibleCreatures(final EnumCreatureType p_73155_1_, final int p_73155_2_, final int p_73155_3_,
             final int p_73155_4_) {
-        return new ArrayList();
+        return new ArrayList<>();
     }
 
     public ChunkPosition func_147416_a(final World p_147416_1_, final String p_147416_2_, final int p_147416_3_,

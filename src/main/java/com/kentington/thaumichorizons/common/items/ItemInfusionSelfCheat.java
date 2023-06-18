@@ -60,37 +60,37 @@ public class ItemInfusionSelfCheat extends Item {
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(final int par1) {
         switch (par1) {
-            case 1: {
+            case 1 -> {
                 return this.icon1;
             }
-            case 2: {
+            case 2 -> {
                 return this.icon2;
             }
-            case 3: {
+            case 3 -> {
                 return this.icon3;
             }
-            case 4: {
+            case 4 -> {
                 return this.icon4;
             }
-            case 5: {
+            case 5 -> {
                 return this.icon5;
             }
-            case 6: {
+            case 6 -> {
                 return this.icon6;
             }
-            case 7: {
+            case 7 -> {
                 return this.icon7;
             }
-            case 8: {
+            case 8 -> {
                 return this.icon8;
             }
-            case 9: {
+            case 9 -> {
                 return this.icon9;
             }
-            case 10: {
+            case 10 -> {
                 return this.icon10;
             }
-            default: {
+            default -> {
                 return null;
             }
         }
@@ -98,60 +98,50 @@ public class ItemInfusionSelfCheat extends Item {
 
     @SideOnly(Side.CLIENT)
     public void getSubItems(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
-        par3List.add(new ItemStack((Item) this, 1, 1));
-        par3List.add(new ItemStack((Item) this, 1, 2));
-        par3List.add(new ItemStack((Item) this, 1, 3));
-        par3List.add(new ItemStack((Item) this, 1, 4));
-        par3List.add(new ItemStack((Item) this, 1, 5));
-        par3List.add(new ItemStack((Item) this, 1, 6));
-        par3List.add(new ItemStack((Item) this, 1, 7));
-        par3List.add(new ItemStack((Item) this, 1, 8));
-        par3List.add(new ItemStack((Item) this, 1, 9));
-        par3List.add(new ItemStack((Item) this, 1, 10));
+        par3List.add(new ItemStack(this, 1, 1));
+        par3List.add(new ItemStack(this, 1, 2));
+        par3List.add(new ItemStack(this, 1, 3));
+        par3List.add(new ItemStack(this, 1, 4));
+        par3List.add(new ItemStack(this, 1, 5));
+        par3List.add(new ItemStack(this, 1, 6));
+        par3List.add(new ItemStack(this, 1, 7));
+        par3List.add(new ItemStack(this, 1, 8));
+        par3List.add(new ItemStack(this, 1, 9));
+        par3List.add(new ItemStack(this, 1, 10));
     }
 
     public String getItemStackDisplayName(final ItemStack stack) {
         String stringy = "";
         switch (stack.getItemDamage()) {
-            case 1: {
+            case 1 -> {
                 stringy += StatCollector.translateToLocal("selfInfusions.quicksilver");
-                break;
             }
-            case 2: {
+            case 2 -> {
                 stringy += StatCollector.translateToLocal("selfInfusions.morphic");
-                break;
             }
-            case 3: {
+            case 3 -> {
                 stringy += StatCollector.translateToLocal("selfInfusions.awakeBlood");
-                break;
             }
-            case 4: {
+            case 4 -> {
                 stringy += StatCollector.translateToLocal("selfInfusions.diamondSkin");
-                break;
             }
-            case 5: {
+            case 5 -> {
                 stringy += StatCollector.translateToLocal("selfInfusions.silverHeart");
-                break;
             }
-            case 6: {
+            case 6 -> {
                 stringy += StatCollector.translateToLocal("selfInfusions.synthSkin");
-                break;
             }
-            case 7: {
+            case 7 -> {
                 stringy += StatCollector.translateToLocal("selfInfusions.amphibious");
-                break;
             }
-            case 8: {
+            case 8 -> {
                 stringy += StatCollector.translateToLocal("selfInfusions.warpedTumor");
-                break;
             }
-            case 9: {
+            case 9 -> {
                 stringy += StatCollector.translateToLocal("selfInfusions.spiderClimb");
-                break;
             }
-            case 10: {
+            case 10 -> {
                 stringy += StatCollector.translateToLocal("selfInfusions.chameleonSkin");
-                break;
             }
         }
         return stringy;
@@ -160,17 +150,12 @@ public class ItemInfusionSelfCheat extends Item {
     public ItemStack onItemRightClick(final ItemStack p_77659_1_, final World world, final EntityPlayer p) {
         for (final SelfInfusionRecipe recipe : ThaumicHorizons.selfRecipes) {
             if (recipe.getID() == p_77659_1_.getItemDamage()
-                    && !((EntityInfusionProperties) ((EntityLivingBase) p).getExtendedProperties("CreatureInfusion"))
+                    && !((EntityInfusionProperties) p.getExtendedProperties("CreatureInfusion"))
                             .hasPlayerInfusion(recipe.getID())) {
-                ((EntityInfusionProperties) ((EntityLivingBase) p).getExtendedProperties("CreatureInfusion"))
+                ((EntityInfusionProperties) p.getExtendedProperties("CreatureInfusion"))
                         .addPlayerInfusion(recipe.getID());
-                ThaumicHorizons.instance.eventHandlerEntity.applyInfusions((EntityLivingBase) p);
-                Thaumcraft.proxy.burst(
-                        world,
-                        ((EntityLivingBase) p).posX,
-                        ((EntityLivingBase) p).posY + ((EntityLivingBase) p).getEyeHeight(),
-                        ((EntityLivingBase) p).posZ,
-                        1.0f);
+                ThaumicHorizons.instance.eventHandlerEntity.applyInfusions(p);
+                Thaumcraft.proxy.burst(world, p.posX, p.posY + ((EntityLivingBase) p).getEyeHeight(), p.posZ, 1.0f);
                 return p_77659_1_;
             }
         }

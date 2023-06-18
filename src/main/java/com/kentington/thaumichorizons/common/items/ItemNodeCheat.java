@@ -36,7 +36,7 @@ public class ItemNodeCheat extends Item {
             final int p_77648_4_, final int p_77648_5_, final int p_77648_6_, final int p_77648_7_,
             final float p_77648_8_, final float p_77648_9_, final float p_77648_10_) {
         final TileEntity te = p_77648_3_.getTileEntity(p_77648_4_, p_77648_5_, p_77648_6_);
-        if (te != null && te instanceof TileNode) {
+        if (te instanceof TileNode) {
             final AspectList aspects = ((TileNode) te).getAspectsBase();
             p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, ThaumicHorizons.blockVortex);
             final TileVortex tco = (TileVortex) p_77648_3_.getTileEntity(p_77648_4_, p_77648_5_, p_77648_6_);

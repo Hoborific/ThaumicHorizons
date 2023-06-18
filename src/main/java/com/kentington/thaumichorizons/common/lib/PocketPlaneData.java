@@ -9,13 +9,11 @@ import java.io.*;
 import java.util.*;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
@@ -111,9 +109,7 @@ public class PocketPlaneData {
             data.portalC = new int[4];
             data.portalD = new int[4];
             PocketPlaneData.planes.add(data);
-            PocketPlaneData.positions.put(
-                    pocketPlaneMAXID,
-                    Vec3.createVectorHelper((double) vortexX, (double) vortexY, (double) vortexZ));
+            PocketPlaneData.positions.put(pocketPlaneMAXID, Vec3.createVectorHelper(vortexX, vortexY, vortexZ));
             // System.out.println("Finished with pocket plane generation!");
             world.getChunkFromBlockCoords(vortexX, vortexZ).isModified = true;
             creatures = 0;
@@ -133,9 +129,7 @@ public class PocketPlaneData {
                 b += (int) (aspColor.getBlue() * aspectFraction(asp, aspects));
             }
         }
-        final int color = r * 256 * 256 + g * 256 + b;
-        // System.out.println("Plane color is " + color);
-        return color;
+        return r * 256 * 256 + g * 256 + b;
     }
 
     public static void addEffects(final PocketPlaneData data, final AspectList aspects) {
@@ -185,12 +179,6 @@ public class PocketPlaneData {
             drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, Blocks.obsidian, 0, world);
             drewAnything = true;
         }
-        // if (aspects.getAmount(Aspect.LIGHT) > 0) {
-        // ++numRings;
-        // drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, ThaumicHorizons.blockLight, 11,
-        // world);
-        // drewAnything = true;
-        // }
         if (aspects.getAmount(Aspect.ELDRITCH) > 0) {
             ++numRings;
             drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, ConfigBlocks.blockCosmeticSolid, 11, world);
@@ -206,13 +194,6 @@ public class PocketPlaneData {
             drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, Blocks.packed_ice, 0, world);
             drewAnything = true;
         }
-        // if (aspects.getAmount(Aspect.WEATHER) > 0 || (aspects.getAmount(Aspect.AIR) > 0 &&
-        // aspects.getAmount(Aspect.WATER) > 0)) {
-        // ++numRings;
-        // drawSphere(xCenter, yCenter, zCenter, data.radius - numRings, ThaumicHorizons.blockCloud, 0,
-        // world);
-        // drewAnything = true;
-        // }
         return drewAnything;
     }
 
@@ -227,10 +208,7 @@ public class PocketPlaneData {
         if (noise > 100d) {
             return 100d;
         }
-        if (noise < 0d) {
-            return 0d;
-        }
-        return noise;
+        return Math.max(noise, 0d);
     }
 
     public static double calcLife(final AspectList aspects) {
@@ -339,19 +317,7 @@ public class PocketPlaneData {
         }
         if (aspects.getAmount(Aspect.EARTH) > 0) {
             if (bio == BiomeGenBase.desert) {
-                drawLayer(
-                        xCenter,
-                        yCenter,
-                        zCenter,
-                        data,
-                        world,
-                        (Block) Blocks.sand,
-                        0,
-                        level,
-                        noise,
-                        bio,
-                        life,
-                        aspects);
+                drawLayer(xCenter, yCenter, zCenter, data, world, Blocks.sand, 0, level, noise, bio, life, aspects);
             } else {
                 drawLayer(xCenter, yCenter, zCenter, data, world, Blocks.dirt, 0, level, noise, bio, life, aspects);
             }
@@ -418,9 +384,9 @@ public class PocketPlaneData {
                     2 * data.radius,
                     1,
                     2 * data.radius,
-                    (double) (noise / 25.0f),
-                    (double) (noise / 50.0f),
-                    (double) (noise / 25.0f));
+                    noise / 25.0f,
+                    noise / 50.0f,
+                    noise / 25.0f);
         }
         for (int x = -data.radius; x <= data.radius; ++x) {
             for (int z = -data.radius; z <= data.radius; ++z) {
@@ -455,12 +421,9 @@ public class PocketPlaneData {
                                             && world.rand.nextInt(100) > 98
                                             && creatures < MAX_CREATURES) {
                                         final EntitySquid squiddie = new EntitySquid(world);
-                                        squiddie.setPosition(
-                                                (double) (x + xCenter),
-                                                (double) (y + level),
-                                                (double) (z + zCenter));
+                                        squiddie.setPosition(x + xCenter, y + level, z + zCenter);
                                         squiddie.func_110163_bv();
-                                        world.spawnEntityInWorld((Entity) squiddie);
+                                        world.spawnEntityInWorld(squiddie);
                                         ++creatures;
                                     }
                                     if (life > 0 && world.rand.nextInt(100) > 98) {
@@ -469,13 +432,13 @@ public class PocketPlaneData {
                                 }
                             } else if (block == Blocks.dirt) {
                                 if (life > 0 && world.isAirBlock(x + xCenter, y + level + 1, z + zCenter)) {
-                                    world.setBlock(x + xCenter, y + level, z + zCenter, (Block) Blocks.grass, 0, 0);
+                                    world.setBlock(x + xCenter, y + level, z + zCenter, Blocks.grass, 0, 0);
                                     if (life >= 10) {
                                         if ((life >= 20 || aspects.getAmount(Aspect.CROP) > 0
                                                 || aspects.getAmount(Aspect.HARVEST) > 0)
                                                 && world.rand.nextInt(100) > 97) {
                                             switch (world.rand.nextInt(10)) {
-                                                case 0: {
+                                                case 0 -> {
                                                     world.setBlock(
                                                             x + xCenter,
                                                             y + level,
@@ -490,9 +453,8 @@ public class PocketPlaneData {
                                                             Blocks.carrots,
                                                             0,
                                                             0);
-                                                    break;
                                                 }
-                                                case 1: {
+                                                case 1 -> {
                                                     world.setBlock(
                                                             x + xCenter,
                                                             y + level,
@@ -507,9 +469,8 @@ public class PocketPlaneData {
                                                             Blocks.potatoes,
                                                             0,
                                                             0);
-                                                    break;
                                                 }
-                                                case 2: {
+                                                case 2 -> {
                                                     world.setBlock(
                                                             x + xCenter,
                                                             y + level,
@@ -524,9 +485,8 @@ public class PocketPlaneData {
                                                             Blocks.wheat,
                                                             0,
                                                             0);
-                                                    break;
                                                 }
-                                                case 3: {
+                                                case 3 -> {
                                                     world.setBlock(
                                                             x + xCenter,
                                                             y + level + 1,
@@ -534,9 +494,8 @@ public class PocketPlaneData {
                                                             Blocks.melon_block,
                                                             0,
                                                             0);
-                                                    break;
                                                 }
-                                                case 4: {
+                                                case 4 -> {
                                                     world.setBlock(
                                                             x + xCenter,
                                                             y + level + 1,
@@ -544,9 +503,8 @@ public class PocketPlaneData {
                                                             Blocks.pumpkin,
                                                             0,
                                                             0);
-                                                    break;
                                                 }
-                                                case 5: {
+                                                case 5 -> {
                                                     world.setBlock(
                                                             x + xCenter,
                                                             y + level + 1,
@@ -554,43 +512,40 @@ public class PocketPlaneData {
                                                             Blocks.reeds,
                                                             0,
                                                             0);
-                                                    break;
                                                 }
-                                                case 6: {
+                                                case 6 -> {
                                                     world.setBlock(
                                                             x + xCenter,
                                                             y + level,
                                                             z + zCenter,
-                                                            (Block) Blocks.mycelium,
+                                                            Blocks.mycelium,
                                                             0,
                                                             0);
                                                     world.setBlock(
                                                             x + xCenter,
                                                             y + level + 1,
                                                             z + zCenter,
-                                                            (Block) Blocks.red_mushroom,
+                                                            Blocks.red_mushroom,
                                                             0,
                                                             0);
-                                                    break;
                                                 }
-                                                case 7: {
+                                                case 7 -> {
                                                     world.setBlock(
                                                             x + xCenter,
                                                             y + level,
                                                             z + zCenter,
-                                                            (Block) Blocks.mycelium,
+                                                            Blocks.mycelium,
                                                             0,
                                                             0);
                                                     world.setBlock(
                                                             x + xCenter,
                                                             y + level + 1,
                                                             z + zCenter,
-                                                            (Block) Blocks.brown_mushroom,
+                                                            Blocks.brown_mushroom,
                                                             0,
                                                             0);
-                                                    break;
                                                 }
-                                                case 8: {
+                                                case 8 -> {
                                                     world.setBlock(
                                                             x + xCenter,
                                                             y + level + 1,
@@ -598,9 +553,8 @@ public class PocketPlaneData {
                                                             ConfigBlocks.blockCustomPlant,
                                                             2,
                                                             0);
-                                                    break;
                                                 }
-                                                case 9: {
+                                                case 9 -> {
                                                     world.setBlock(
                                                             x + xCenter,
                                                             y + level + 1,
@@ -608,13 +562,12 @@ public class PocketPlaneData {
                                                             ConfigBlocks.blockCustomPlant,
                                                             5,
                                                             0);
-                                                    break;
                                                 }
                                             }
                                         } else if ((life >= 15 || aspects.getAmount(Aspect.TREE) > 0)
                                                 && world.rand.nextInt(100) > 97) {
                                                     switch (world.rand.nextInt(10)) {
-                                                        case 0: {
+                                                        case 0 -> {
                                                             world.setBlock(
                                                                     x + xCenter,
                                                                     y + level + 1,
@@ -622,9 +575,8 @@ public class PocketPlaneData {
                                                                     Blocks.sapling,
                                                                     0,
                                                                     0);
-                                                            break;
                                                         }
-                                                        case 1: {
+                                                        case 1 -> {
                                                             world.setBlock(
                                                                     x + xCenter,
                                                                     y + level + 1,
@@ -632,9 +584,8 @@ public class PocketPlaneData {
                                                                     Blocks.sapling,
                                                                     1,
                                                                     0);
-                                                            break;
                                                         }
-                                                        case 2: {
+                                                        case 2 -> {
                                                             world.setBlock(
                                                                     x + xCenter,
                                                                     y + level + 1,
@@ -642,9 +593,8 @@ public class PocketPlaneData {
                                                                     Blocks.sapling,
                                                                     2,
                                                                     0);
-                                                            break;
                                                         }
-                                                        case 3: {
+                                                        case 3 -> {
                                                             world.setBlock(
                                                                     x + xCenter,
                                                                     y + level + 1,
@@ -652,9 +602,8 @@ public class PocketPlaneData {
                                                                     Blocks.sapling,
                                                                     3,
                                                                     0);
-                                                            break;
                                                         }
-                                                        case 4: {
+                                                        case 4 -> {
                                                             world.setBlock(
                                                                     x + xCenter,
                                                                     y + level + 1,
@@ -662,9 +611,8 @@ public class PocketPlaneData {
                                                                     Blocks.sapling,
                                                                     4,
                                                                     0);
-                                                            break;
                                                         }
-                                                        case 5: {
+                                                        case 5 -> {
                                                             world.setBlock(
                                                                     x + xCenter,
                                                                     y + level + 1,
@@ -672,9 +620,8 @@ public class PocketPlaneData {
                                                                     Blocks.sapling,
                                                                     5,
                                                                     0);
-                                                            break;
                                                         }
-                                                        case 6: {
+                                                        case 6 -> {
                                                             if (((bio != null
                                                                     && bio.biomeID == Config.biomeMagicalForestID)
                                                                     || aspects.getAmount(Aspect.MAGIC) > 10
@@ -689,9 +636,8 @@ public class PocketPlaneData {
                                                                         0);
                                                                 break;
                                                             }
-                                                            break;
                                                         }
-                                                        case 7: {
+                                                        case 7 -> {
                                                             if (world.rand.nextInt(3) == 0) {
                                                                 world.setBlock(
                                                                         x + xCenter,
@@ -702,7 +648,6 @@ public class PocketPlaneData {
                                                                         0);
                                                                 break;
                                                             }
-                                                            break;
                                                         }
                                                     }
                                                 } else
@@ -714,7 +659,7 @@ public class PocketPlaneData {
                                                                     x + xCenter,
                                                                     y + level + 1,
                                                                     z + zCenter,
-                                                                    (Block) Blocks.red_flower,
+                                                                    Blocks.red_flower,
                                                                     random,
                                                                     0);
                                                         } else {
@@ -722,7 +667,7 @@ public class PocketPlaneData {
                                                                     x + xCenter,
                                                                     y + level + 1,
                                                                     z + zCenter,
-                                                                    (Block) Blocks.tallgrass,
+                                                                    Blocks.tallgrass,
                                                                     random - 16,
                                                                     0);
                                                         }
@@ -784,38 +729,31 @@ public class PocketPlaneData {
                             if ((life >= 50 || aspects.getAmount(Aspect.BEAST) > 0) && world.rand.nextInt(100) > 98) {
                                 EntityLiving critter = null;
                                 switch (world.rand.nextInt(7)) {
-                                    case 0: {
-                                        critter = (EntityLiving) new EntityCow(world);
-                                        break;
+                                    case 0 -> {
+                                        critter = new EntityCow(world);
                                     }
-                                    case 1: {
-                                        critter = (EntityLiving) new EntityPig(world);
-                                        break;
+                                    case 1 -> {
+                                        critter = new EntityPig(world);
                                     }
-                                    case 2: {
-                                        critter = (EntityLiving) new EntityChicken(world);
-                                        break;
+                                    case 2 -> {
+                                        critter = new EntityChicken(world);
                                     }
-                                    case 3: {
-                                        critter = (EntityLiving) new EntitySheep(world);
-                                        break;
+                                    case 3 -> {
+                                        critter = new EntitySheep(world);
                                     }
-                                    case 4: {
-                                        critter = (EntityLiving) new EntityHorse(world);
-                                        break;
+                                    case 4 -> {
+                                        critter = new EntityHorse(world);
                                     }
-                                    case 5: {
-                                        critter = (EntityLiving) new EntityOcelot(world);
-                                        break;
+                                    case 5 -> {
+                                        critter = new EntityOcelot(world);
                                     }
-                                    case 6: {
-                                        critter = (EntityLiving) new EntityWolf(world);
-                                        break;
+                                    case 6 -> {
+                                        critter = new EntityWolf(world);
                                     }
                                 }
                                 if (critter != null && creatures < MAX_CREATURES) {
-                                    critter.setPosition(x + xCenter + 0.5, (double) (y + level + 1), z + zCenter + 0.5);
-                                    world.spawnEntityInWorld((Entity) critter);
+                                    critter.setPosition(x + xCenter + 0.5, y + level + 1, z + zCenter + 0.5);
+                                    world.spawnEntityInWorld(critter);
                                     ++creatures;
                                 }
                             }
@@ -824,23 +762,23 @@ public class PocketPlaneData {
                                     || aspects.getAmount(Aspect.MECHANISM) > 0) && world.rand.nextInt(100) > 98
                                     && creatures < MAX_CREATURES) {
                                 final EntityMercurialSlime slime = new EntityMercurialSlime(world);
-                                slime.setPosition(x + xCenter + 0.5, (double) (y + level + 1), z + zCenter + 0.5);
-                                world.spawnEntityInWorld((Entity) slime);
+                                slime.setPosition(x + xCenter + 0.5, y + level + 1, z + zCenter + 0.5);
+                                world.spawnEntityInWorld(slime);
                                 ++creatures;
                             }
                             if ((aspects.getAmount(Aspect.SLIME) > 0 || aspects.getAmount(Aspect.FLESH) > 0
                                     || aspects.getAmount(Aspect.HUNGER) > 0) && world.rand.nextInt(100) > 98
                                     && creatures < MAX_CREATURES) {
                                 final EntityMeatSlime slime2 = new EntityMeatSlime(world);
-                                slime2.setPosition(x + xCenter + 0.5, (double) (y + level + 1), z + zCenter + 0.5);
-                                world.spawnEntityInWorld((Entity) slime2);
+                                slime2.setPosition(x + xCenter + 0.5, y + level + 1, z + zCenter + 0.5);
+                                world.spawnEntityInWorld(slime2);
                                 ++creatures;
                             }
                             if (aspects.getAmount(Aspect.SLIME) > 0 && world.rand.nextInt(100) > 98
                                     && creatures < MAX_CREATURES) {
                                 final EntitySlime slime3 = new EntitySlime(world);
-                                slime3.setPosition(x + xCenter + 0.5, (double) (y + level + 1), z + zCenter + 0.5);
-                                world.spawnEntityInWorld((Entity) slime3);
+                                slime3.setPosition(x + xCenter + 0.5, y + level + 1, z + zCenter + 0.5);
+                                world.spawnEntityInWorld(slime3);
                                 ++creatures;
                             }
                             if (aspects.getAmount(Aspect.ELDRITCH) > 0 && world.rand.nextInt(200) > 198) {
@@ -894,15 +832,15 @@ public class PocketPlaneData {
                             if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(200) > 198
                                     && creatures < MAX_CREATURES) {
                                 final EntityTaintacle slime4 = new EntityTaintacle(world);
-                                slime4.setPosition(x + xCenter + 0.5, (double) (y + level + 1), z + zCenter + 0.5);
-                                world.spawnEntityInWorld((Entity) slime4);
+                                slime4.setPosition(x + xCenter + 0.5, y + level + 1, z + zCenter + 0.5);
+                                world.spawnEntityInWorld(slime4);
                                 ++creatures;
                             }
                             if (aspects.getAmount(Aspect.TAINT) > 0 && world.rand.nextInt(200) > 198
                                     && creatures < MAX_CREATURES) {
                                 final EntityTaintSporeSwarmer slime5 = new EntityTaintSporeSwarmer(world);
-                                slime5.setPosition(x + xCenter + 0.5, (double) (y + level + 1), z + zCenter + 0.5);
-                                world.spawnEntityInWorld((Entity) slime5);
+                                slime5.setPosition(x + xCenter + 0.5, y + level + 1, z + zCenter + 0.5);
+                                world.spawnEntityInWorld(slime5);
                                 ++creatures;
                             }
                         } else if (block != null) {
@@ -929,7 +867,7 @@ public class PocketPlaneData {
             solidity = 1.0f;
         }
         final int numCaves = (int) (data.radius * data.radius * data.radius / 10000 * (solidity + 0.1f));
-        final HashMap<Aspect, Number> dressing = new HashMap<Aspect, Number>();
+        final HashMap<Aspect, Number> dressing = new HashMap<>();
         if (aspects.getAmount(Aspect.EARTH) > 0) {
             dressing.put(Aspect.EARTH, aspectFraction(Aspect.EARTH, aspects));
         }
@@ -996,9 +934,9 @@ public class PocketPlaneData {
                 xSize,
                 16,
                 zSize,
-                (double) (noise / 10.0f),
-                (double) (noise / 25.0f),
-                (double) (noise / 10.0f));
+                noise / 10.0f,
+                noise / 25.0f,
+                noise / 10.0f);
         final int avg = getAvg(noiseData);
         for (int x = 0; x < xSize; ++x) {
             for (int z = 0; z < zSize; ++z) {
@@ -1168,8 +1106,8 @@ public class PocketPlaneData {
 
     public static int getAvg(final double[] array) {
         long x = 0L;
-        for (int i = 0; i < array.length; ++i) {
-            x += (long) array[i];
+        for (double v : array) {
+            x += (long) v;
         }
         x /= array.length;
         return (int) x;
@@ -1178,7 +1116,7 @@ public class PocketPlaneData {
     public static void drawPockets(final int xCenter, final int yCenter, final int zCenter, final PocketPlaneData data,
             final World world, final AspectList aspects, final int noise) {
         final int numPockets = data.radius * data.radius * data.radius / 200;
-        final HashMap<Aspect, Number> probabilities = new HashMap<Aspect, Number>();
+        final HashMap<Aspect, Number> probabilities = new HashMap<>();
         if (aspects.getAmount(Aspect.EARTH) > 0) {
             probabilities.put(Aspect.EARTH, aspectFraction(Aspect.EARTH, aspects));
         }
@@ -1413,9 +1351,9 @@ public class PocketPlaneData {
                 xSize,
                 1,
                 zSize,
-                (double) (noise / 50.0d),
-                (double) (noise / 25.0d),
-                (double) (noise / 50.0d));
+                noise / 50.0d,
+                noise / 25.0d,
+                noise / 50.0d);
         double[] noiseDataBottom = null;
         noiseDataBottom = noiseGen.generateNoiseOctaves(
                 noiseDataBottom,
@@ -1425,9 +1363,9 @@ public class PocketPlaneData {
                 xSize,
                 1,
                 zSize,
-                (double) (noise / 50.0d),
-                (double) (noise / 25.0d),
-                (double) (noise / 50.0d));
+                noise / 50.0d,
+                noise / 25.0d,
+                noise / 50.0d);
         for (int x = 0; x < xSize; ++x) {
             for (int z = 0; z < zSize; ++z) {
                 int y;
@@ -1588,7 +1526,7 @@ public class PocketPlaneData {
         NBTTagCompound root = null;
         if (planeFile.exists()) {
             try {
-                root = CompressedStreamTools.readCompressed((InputStream) new FileInputStream(planeFile));
+                root = CompressedStreamTools.readCompressed(new FileInputStream(planeFile));
             } catch (IOException e2) {
                 e2.printStackTrace();
             }
@@ -1628,18 +1566,16 @@ public class PocketPlaneData {
         final File planeFile = new File(world.getSaveHandler().getWorldDirectory(), "pocketplane.dat");
         final NBTTagCompound root = new NBTTagCompound();
         final NBTTagCompound positionz = new NBTTagCompound();
-        Iterator it = PocketPlaneData.positions.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<Integer, Vec3> idToPos = (Map.Entry<Integer, Vec3>) it.next();
+        for (Map.Entry<Integer, Vec3> idToPos : PocketPlaneData.positions.entrySet()) {
             positionz.setIntArray(
                     idToPos.getKey().toString(),
                     new int[] { (int) idToPos.getValue().xCoord, (int) idToPos.getValue().yCoord,
                             (int) idToPos.getValue().zCoord });
         }
         root.setInteger("MaxID", pocketPlaneMAXID);
-        root.setTag("Positions", (NBTBase) positionz);
+        root.setTag("Positions", positionz);
         final NBTTagList planeNBT = new NBTTagList();
-        root.setTag("Data", (NBTBase) planeNBT);
+        root.setTag("Data", planeNBT);
         for (final PocketPlaneData data : PocketPlaneData.planes) {
             if (data != null) {
                 final NBTTagCompound thePlane = new NBTTagCompound();
@@ -1651,11 +1587,11 @@ public class PocketPlaneData {
                 thePlane.setIntArray("portalB", data.portalB);
                 thePlane.setIntArray("portalC", data.portalC);
                 thePlane.setIntArray("portalD", data.portalD);
-                planeNBT.appendTag((NBTBase) thePlane);
+                planeNBT.appendTag(thePlane);
             }
         }
         try {
-            CompressedStreamTools.writeCompressed(root, (OutputStream) new FileOutputStream(planeFile));
+            CompressedStreamTools.writeCompressed(root, new FileOutputStream(planeFile));
         } catch (IOException e2) {
             e2.printStackTrace();
         }
@@ -1681,8 +1617,7 @@ public class PocketPlaneData {
     public static void destroyPortal(final int id, final int which) {
         // System.out.println("Destroying portal " + which + " in plane " + id);
         final PocketPlaneData data = PocketPlaneData.planes.get(id);
-        final World world = (World) MinecraftServer.getServer()
-                .worldServerForDimension(ThaumicHorizons.dimensionPocketId);
+        final World world = MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId);
         if (which == 1) {
             for (int x = -1; x <= 1; ++x) {
                 for (int y = 126; y <= 128; ++y) {
@@ -1725,8 +1660,7 @@ public class PocketPlaneData {
     public static void makePortal(final int id, final int which, final int xCoord, final int yCoord, final int zCoord) {
         // System.out.println("Creating portal " + which + " in plane " + id);
         final PocketPlaneData data = PocketPlaneData.planes.get(id);
-        final World world = (World) MinecraftServer.getServer()
-                .worldServerForDimension(ThaumicHorizons.dimensionPocketId);
+        final World world = MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId);
         if (which == 1) {
             for (int x = -1; x <= 1; ++x) {
                 for (int y = 126; y <= 128; ++y) {
@@ -1772,7 +1706,7 @@ public class PocketPlaneData {
 
     void buildStructure(final int x, final int y, final int z, final Structure struct) {}
 
-    private class Structure {
+    private static class Structure {
 
         public int x;
         public int y;

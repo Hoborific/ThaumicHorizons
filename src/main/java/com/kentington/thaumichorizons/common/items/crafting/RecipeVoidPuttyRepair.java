@@ -15,23 +15,23 @@ import com.kentington.thaumichorizons.common.ThaumicHorizons;
 
 public class RecipeVoidPuttyRepair implements IRecipe {
 
-    public ItemStack getCraftingResult(final InventoryCrafting par1InventoryCrafting) {
+    public ItemStack getCraftingResult(final InventoryCrafting craftingInventory) {
         ItemStack itemstack = null;
-        final ArrayList arraylist = new ArrayList();
-        for (int i = 0; i < par1InventoryCrafting.getSizeInventory(); ++i) {
-            final ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(i);
-            if (itemstack2 != null) {
-                if (itemstack2.getItem().isDamageable() && itemstack2.getItem().isRepairable()
-                        && itemstack2.getItem().isDamaged(itemstack2)) {
+        final ArrayList<ItemStack> arraylist = new ArrayList<>();
+        for (int i = 0; i < craftingInventory.getSizeInventory(); ++i) {
+            final ItemStack stackInSlot = craftingInventory.getStackInSlot(i);
+            if (stackInSlot != null) {
+                if (stackInSlot.getItem().isDamageable() && stackInSlot.getItem().isRepairable()
+                        && stackInSlot.getItem().isDamaged(stackInSlot)) {
                     if (itemstack != null) {
                         return null;
                     }
-                    itemstack = itemstack2;
+                    itemstack = stackInSlot;
                 } else {
-                    if (itemstack2.getItem() != ThaumicHorizons.itemVoidPutty) {
+                    if (stackInSlot.getItem() != ThaumicHorizons.itemVoidPutty) {
                         return null;
                     }
-                    arraylist.add(itemstack2);
+                    arraylist.add(stackInSlot);
                 }
             }
         }
@@ -50,7 +50,7 @@ public class RecipeVoidPuttyRepair implements IRecipe {
 
     public boolean matches(final InventoryCrafting par1InventoryCrafting, final World arg1) {
         ItemStack itemstack = null;
-        final ArrayList arraylist = new ArrayList();
+        final ArrayList<ItemStack> arraylist = new ArrayList<>();
         for (int i = 0; i < par1InventoryCrafting.getSizeInventory(); ++i) {
             final ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(i);
             if (itemstack2 != null) {

@@ -7,7 +7,6 @@ package com.kentington.thaumichorizons.common.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -86,8 +85,7 @@ public class BlockSoulJar extends BlockContainer {
     }
 
     public TileEntity createTileEntity(final World world, final int metadata) {
-        final TileSoulJar te = new TileSoulJar();
-        return te;
+        return new TileSoulJar();
     }
 
     public void onBlockHarvested(final World par1World, final int par2, final int par3, final int par4, final int par5,
@@ -98,10 +96,10 @@ public class BlockSoulJar extends BlockContainer {
 
     public ArrayList<ItemStack> getDrops(final World world, final int x, final int y, final int z, final int metadata,
             final int fortune) {
-        final ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
+        final ArrayList<ItemStack> drops = new ArrayList<>();
         final TileEntity te = world.getTileEntity(x, y, z);
-        if (te != null && te instanceof TileSoulJar) {
-            final ItemStack drop = new ItemStack((Block) this);
+        if (te instanceof TileSoulJar) {
+            final ItemStack drop = new ItemStack(this);
             drop.setTagCompound(((TileSoulJar) te).jarTag);
             drops.add(drop);
         }

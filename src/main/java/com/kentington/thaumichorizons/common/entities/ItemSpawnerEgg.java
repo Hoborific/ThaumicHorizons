@@ -15,7 +15,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -128,7 +127,7 @@ public class ItemSpawnerEgg extends Item {
         Entity entity = null;
         for (int j = 0; j < 1; ++j) {
             entity = EntityList.createEntityByName(ItemSpawnerEgg.spawnList.get(par1).name, par0World);
-            if (entity != null && entity instanceof EntityLivingBase) {
+            if (entity instanceof EntityLivingBase) {
                 final EntityLiving entityliving = (EntityLiving) entity;
                 entity.setLocationAndAngles(
                         par2,
@@ -138,7 +137,7 @@ public class ItemSpawnerEgg extends Item {
                         0.0f);
                 entityliving.rotationYawHead = entityliving.rotationYaw;
                 entityliving.renderYawOffset = entityliving.rotationYaw;
-                entityliving.onSpawnWithEgg((IEntityLivingData) null);
+                entityliving.onSpawnWithEgg(null);
                 par0World.spawnEntityInWorld(entity);
                 entityliving.playLivingSound();
             }
@@ -174,7 +173,7 @@ public class ItemSpawnerEgg extends Item {
     }
 
     static {
-        ItemSpawnerEgg.spawnList = new ArrayList<EntityEggStuff>();
+        ItemSpawnerEgg.spawnList = new ArrayList<>();
     }
 
     static class EntityEggStuff {

@@ -5,7 +5,6 @@
 package com.kentington.thaumichorizons.common.lib.networking;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -44,7 +43,7 @@ public class PacketToggleInvisibleToServer
     }
 
     public IMessage onMessage(final PacketToggleInvisibleToServer message, final MessageContext ctx) {
-        final World world = (World) DimensionManager.getWorld(message.dim);
+        final World world = DimensionManager.getWorld(message.dim);
         final EntityPlayer player = (EntityPlayer) world.getEntityByID(message.playerid);
         ((EntityInfusionProperties) player
                 .getExtendedProperties("CreatureInfusion")).toggleInvisible = !((EntityInfusionProperties) player
@@ -54,7 +53,7 @@ public class PacketToggleInvisibleToServer
             player.setInvisible(false);
         } else {
             final PotionEffect effect = new PotionEffect(Potion.invisibility.id, Integer.MAX_VALUE, 0, true);
-            effect.setCurativeItems((List) new ArrayList());
+            effect.setCurativeItems(new ArrayList<>());
             player.addPotionEffect(effect);
             player.setInvisible(true);
         }

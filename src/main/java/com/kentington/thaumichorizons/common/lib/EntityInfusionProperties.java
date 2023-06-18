@@ -7,7 +7,6 @@ package com.kentington.thaumichorizons.common.lib;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
@@ -46,8 +45,8 @@ public class EntityInfusionProperties implements IExtendedEntityProperties {
         properties.setIntArray("PlayerInfusions", this.playerInfusions);
         final NBTTagCompound aspects = new NBTTagCompound();
         this.infusionCosts.writeToNBT(aspects);
-        properties.setTag("InfusionCosts", (NBTBase) aspects);
-        if (this.owner != null && this.owner != "") {
+        properties.setTag("InfusionCosts", aspects);
+        if (this.owner != null && !this.owner.equals("")) {
             properties.setString("owner", this.owner);
         }
         properties.setBoolean("sitting", this.sitting);
@@ -56,7 +55,7 @@ public class EntityInfusionProperties implements IExtendedEntityProperties {
         properties.setInteger("tumorWarpPermanent", this.tumorWarpPermanent);
         properties.setBoolean("toggleClimb", this.toggleClimb);
         properties.setBoolean("toggleInvisible", this.toggleInvisible);
-        compound.setTag("CreatureInfusion", (NBTBase) properties);
+        compound.setTag("CreatureInfusion", properties);
     }
 
     public void loadNBTData(final NBTTagCompound compound) {
@@ -132,8 +131,8 @@ public class EntityInfusionProperties implements IExtendedEntityProperties {
     }
 
     public boolean hasInfusion(final int id) {
-        for (int i = 0; i < this.infusions.length; ++i) {
-            if (this.infusions[i] == id) {
+        for (int infusion : this.infusions) {
+            if (infusion == id) {
                 return true;
             }
         }
@@ -141,8 +140,8 @@ public class EntityInfusionProperties implements IExtendedEntityProperties {
     }
 
     public boolean hasPlayerInfusion(final int id) {
-        for (int i = 0; i < this.playerInfusions.length; ++i) {
-            if (this.playerInfusions[i] == id) {
+        for (int playerInfusion : this.playerInfusions) {
+            if (playerInfusion == id) {
                 return true;
             }
         }

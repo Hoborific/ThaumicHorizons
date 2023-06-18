@@ -20,9 +20,9 @@ import thaumcraft.client.renderers.models.ModelJar;
 
 public class TileInspiratronRender extends TileEntitySpecialRenderer {
 
-    private ModelJar model;
-    private ModelBrain brain;
-    private ModelInspiratron inspiratron;
+    private final ModelJar model;
+    private final ModelBrain brain;
+    private final ModelInspiratron inspiratron;
     static String tx1;
 
     public TileInspiratronRender() {

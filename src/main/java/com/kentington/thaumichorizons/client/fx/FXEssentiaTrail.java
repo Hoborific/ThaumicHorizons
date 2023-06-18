@@ -15,9 +15,9 @@ import org.lwjgl.opengl.GL11;
 
 public class FXEssentiaTrail extends EntityFX {
 
-    private double targetX;
-    private double targetY;
-    private double targetZ;
+    private final double targetX;
+    private final double targetY;
+    private final double targetZ;
     private int count;
     public int particle;
 
@@ -71,29 +71,29 @@ public class FXEssentiaTrail extends EntityFX {
         tessellator
                 .setColorRGBA_F(this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16, 0.5f);
         tessellator.addVertexWithUV(
-                (double) (var13 - f1 * var12 - f4 * var12),
-                (double) (var14 - f2 * var12),
-                (double) (var15 - f3 * var12 - f5 * var12),
-                (double) t2,
-                (double) t5);
+                var13 - f1 * var12 - f4 * var12,
+                var14 - f2 * var12,
+                var15 - f3 * var12 - f5 * var12,
+                t2,
+                t5);
         tessellator.addVertexWithUV(
-                (double) (var13 - f1 * var12 + f4 * var12),
-                (double) (var14 + f2 * var12),
-                (double) (var15 - f3 * var12 + f5 * var12),
-                (double) t3,
-                (double) t5);
+                var13 - f1 * var12 + f4 * var12,
+                var14 + f2 * var12,
+                var15 - f3 * var12 + f5 * var12,
+                t3,
+                t5);
         tessellator.addVertexWithUV(
-                (double) (var13 + f1 * var12 + f4 * var12),
-                (double) (var14 + f2 * var12),
-                (double) (var15 + f3 * var12 + f5 * var12),
-                (double) t3,
-                (double) t4);
+                var13 + f1 * var12 + f4 * var12,
+                var14 + f2 * var12,
+                var15 + f3 * var12 + f5 * var12,
+                t3,
+                t4);
         tessellator.addVertexWithUV(
-                (double) (var13 + f1 * var12 - f4 * var12),
-                (double) (var14 - f2 * var12),
-                (double) (var15 + f3 * var12 - f5 * var12),
-                (double) t2,
-                (double) t4);
+                var13 + f1 * var12 - f4 * var12,
+                var14 - f2 * var12,
+                var15 + f3 * var12 - f5 * var12,
+                t2,
+                t4);
     }
 
     public int getFXLayer() {
@@ -189,39 +189,33 @@ public class FXEssentiaTrail extends EntityFX {
             final float var22 = (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1f;
             if (var19 == 0) {
                 this.motionX = -var21;
-                final double n = var22;
-                this.motionZ = n;
-                this.motionY = n;
+                this.motionZ = var22;
+                this.motionY = var22;
             }
             if (var19 == 1) {
                 this.motionX = var21;
-                final double n2 = var22;
-                this.motionZ = n2;
-                this.motionY = n2;
+                this.motionZ = var22;
+                this.motionY = var22;
             }
             if (var19 == 2) {
                 this.motionY = -var21;
-                final double n3 = var22;
-                this.motionZ = n3;
-                this.motionX = n3;
+                this.motionZ = var22;
+                this.motionX = var22;
             }
             if (var19 == 3) {
                 this.motionY = var21;
-                final double n4 = var22;
-                this.motionZ = n4;
-                this.motionX = n4;
+                this.motionZ = var22;
+                this.motionX = var22;
             }
             if (var19 == 4) {
                 this.motionZ = -var21;
-                final double n5 = var22;
-                this.motionX = n5;
-                this.motionY = n5;
+                this.motionX = var22;
+                this.motionY = var22;
             }
             if (var19 == 5) {
                 this.motionZ = var21;
-                final double n6 = var22;
-                this.motionX = n6;
-                this.motionY = n6;
+                this.motionX = var22;
+                this.motionY = var22;
             }
             return true;
         }

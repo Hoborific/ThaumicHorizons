@@ -42,12 +42,12 @@ public class TilePortalTH extends TileThaumcraft {
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
         return AxisAlignedBB.getBoundingBox(
-                (double) (this.xCoord - 1),
-                (double) (this.yCoord - 1),
-                (double) (this.zCoord - 1),
-                (double) (this.xCoord + 2),
-                (double) (this.yCoord + 2),
-                (double) (this.zCoord + 2));
+                this.xCoord - 1,
+                this.yCoord - 1,
+                this.zCoord - 1,
+                this.xCoord + 2,
+                this.yCoord + 2,
+                this.zCoord + 2);
     }
 
     public void updateEntity() {
@@ -67,14 +67,14 @@ public class TilePortalTH extends TileThaumcraft {
         }
         if (!this.worldObj.isRemote && this.count % 5 == 0) {
             final List ents = this.worldObj.getEntitiesWithinAABB(
-                    (Class) EntityPlayerMP.class,
+                    EntityPlayerMP.class,
                     AxisAlignedBB.getBoundingBox(
-                            (double) this.xCoord,
-                            (double) this.yCoord,
-                            (double) this.zCoord,
-                            (double) (this.xCoord + 1),
-                            (double) (this.yCoord + 1),
-                            (double) (this.zCoord + 1)).expand(0.5, 1.0, 0.5));
+                            this.xCoord,
+                            this.yCoord,
+                            this.zCoord,
+                            this.xCoord + 1,
+                            this.yCoord + 1,
+                            this.zCoord + 1).expand(0.5, 1.0, 0.5));
             if (ents.size() > 0) {
                 for (final Object e : ents) {
                     final EntityPlayerMP player = (EntityPlayerMP) e;
@@ -115,12 +115,8 @@ public class TilePortalTH extends TileThaumcraft {
                     1.0f,
                     1.0f,
                     false);
-            Thaumcraft.proxy.burst(
-                    this.getWorldObj(),
-                    (double) (this.xCoord + 0.5f),
-                    (double) (this.yCoord + 0.5f),
-                    (double) (this.zCoord + 0.5f),
-                    3.0f);
+            Thaumcraft.proxy
+                    .burst(this.getWorldObj(), this.xCoord + 0.5f, this.yCoord + 0.5f, this.zCoord + 0.5f, 3.0f);
             this.worldObj.setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
         }
     }

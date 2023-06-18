@@ -10,7 +10,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
@@ -27,7 +26,7 @@ public class ContainerInjector extends Container {
 
     public ContainerInjector(final EntityPlayer p) {
         this.ammo = new ItemStack[7];
-        this.ammoInv = (IInventory) new InventoryInjector(this);
+        this.ammoInv = new InventoryInjector(this);
         this.injector = null;
         this.player = p;
         this.blockSlot = this.player.inventory.currentItem + 34;
@@ -38,61 +37,26 @@ public class ContainerInjector extends Container {
                     ((ItemInjector) ThaumicHorizons.itemInjector).getAmmo(this.injector, i));
         }
         this.addSlotToContainer(
-                (Slot) new SlotRestricted(
-                        this.ammoInv,
-                        0,
-                        73,
-                        10,
-                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+                new SlotRestricted(this.ammoInv, 0, 73, 10, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
         this.addSlotToContainer(
-                (Slot) new SlotRestricted(
-                        this.ammoInv,
-                        1,
-                        99,
-                        20,
-                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+                new SlotRestricted(this.ammoInv, 1, 99, 20, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
         this.addSlotToContainer(
-                (Slot) new SlotRestricted(
-                        this.ammoInv,
-                        2,
-                        107,
-                        47,
-                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+                new SlotRestricted(this.ammoInv, 2, 107, 47, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
         this.addSlotToContainer(
-                (Slot) new SlotRestricted(
-                        this.ammoInv,
-                        3,
-                        92,
-                        70,
-                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+                new SlotRestricted(this.ammoInv, 3, 92, 70, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
         this.addSlotToContainer(
-                (Slot) new SlotRestricted(
-                        this.ammoInv,
-                        4,
-                        64,
-                        72,
-                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+                new SlotRestricted(this.ammoInv, 4, 64, 72, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
         this.addSlotToContainer(
-                (Slot) new SlotRestricted(
-                        this.ammoInv,
-                        5,
-                        45,
-                        51,
-                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+                new SlotRestricted(this.ammoInv, 5, 45, 51, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
         this.addSlotToContainer(
-                (Slot) new SlotRestricted(
-                        this.ammoInv,
-                        6,
-                        49,
-                        24,
-                        new ItemStack(ThaumicHorizons.itemSyringeInjection)));
+                new SlotRestricted(this.ammoInv, 6, 49, 24, new ItemStack(ThaumicHorizons.itemSyringeInjection)));
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot((IInventory) p.inventory, j + i * 9 + 9, 8 + j * 18, 108 + i * 18));
+                this.addSlotToContainer(new Slot(p.inventory, j + i * 9 + 9, 8 + j * 18, 108 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot((IInventory) p.inventory, i, 8 + i * 18, 166));
+            this.addSlotToContainer(new Slot(p.inventory, i, 8 + i * 18, 166));
         }
         if (!this.player.worldObj.isRemote) {}
     }
@@ -113,7 +77,7 @@ public class ContainerInjector extends Container {
                 }
                 slot.onSlotChange(itemstack2, itemstack);
                 if (itemstack2.stackSize == 0) {
-                    slot.putStack((ItemStack) null);
+                    slot.putStack(null);
                 }
                 if (itemstack2.stackSize == itemstack.stackSize) {
                     return null;
@@ -126,7 +90,7 @@ public class ContainerInjector extends Container {
                 }
                 slot.onSlotChange(itemstack2, itemstack);
                 if (itemstack2.stackSize == 0) {
-                    slot.putStack((ItemStack) null);
+                    slot.putStack(null);
                 }
                 if (itemstack2.stackSize == itemstack.stackSize) {
                     return null;
@@ -156,13 +120,13 @@ public class ContainerInjector extends Container {
                 if (var3 != null) {
                     final NBTTagCompound var4 = new NBTTagCompound();
                     var3.writeToNBT(var4);
-                    ammo.appendTag((NBTBase) var4);
+                    ammo.appendTag(var4);
                 } else {
-                    ammo.appendTag((NBTBase) new NBTTagCompound());
+                    ammo.appendTag(new NBTTagCompound());
                 }
             }
             final NBTTagCompound newTag = new NBTTagCompound();
-            newTag.setTag("ammo", (NBTBase) ammo);
+            newTag.setTag("ammo", ammo);
             this.injector.setTagCompound(newTag);
             if (this.player == null) {
                 return;

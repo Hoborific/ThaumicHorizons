@@ -63,10 +63,10 @@ public class BlastPhialRender extends RenderSnowball {
         GL11.glRotatef(-this.renderManager.playerViewX, 1.0f, 0.0f, 0.0f);
         p_77026_1_.startDrawingQuads();
         p_77026_1_.setNormal(0.0f, 1.0f, 0.0f);
-        p_77026_1_.addVertexWithUV((double) (0.0f - f6), (double) (0.0f - f7), 0.0, (double) f, (double) f4);
-        p_77026_1_.addVertexWithUV((double) (f5 - f6), (double) (0.0f - f7), 0.0, (double) f2, (double) f4);
-        p_77026_1_.addVertexWithUV((double) (f5 - f6), (double) (f5 - f7), 0.0, (double) f2, (double) f3);
-        p_77026_1_.addVertexWithUV((double) (0.0f - f6), (double) (f5 - f7), 0.0, (double) f, (double) f3);
+        p_77026_1_.addVertexWithUV(0.0f - f6, 0.0f - f7, 0.0, f, f4);
+        p_77026_1_.addVertexWithUV(f5 - f6, 0.0f - f7, 0.0, f2, f4);
+        p_77026_1_.addVertexWithUV(f5 - f6, f5 - f7, 0.0, f2, f3);
+        p_77026_1_.addVertexWithUV(0.0f - f6, f5 - f7, 0.0, f, f3);
         p_77026_1_.draw();
     }
 

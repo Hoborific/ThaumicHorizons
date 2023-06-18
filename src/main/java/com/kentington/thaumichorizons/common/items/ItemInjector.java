@@ -8,13 +8,11 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
@@ -67,7 +65,7 @@ public class ItemInjector extends ItemBow implements IRepairable {
             if (this.getAmmo(p_77615_1_, 0).getItemDamage() == 0) {
                 final EntitySyringe entityarrow = new EntitySyringe(
                         p_77615_2_,
-                        (EntityLivingBase) p_77615_3_,
+                        p_77615_3_,
                         f * 2.0f,
                         this.getAmmo(p_77615_1_, 0).stackTagCompound);
                 if (f == 1.0f) {
@@ -84,17 +82,13 @@ public class ItemInjector extends ItemBow implements IRepairable {
                 if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, p_77615_1_) > 0) {
                     entityarrow.setFire(100);
                 }
-                projectile = (IProjectile) entityarrow;
+                projectile = entityarrow;
             } else {
-                projectile = (IProjectile) new EntityBlastPhial(
-                        p_77615_2_,
-                        (EntityLivingBase) p_77615_3_,
-                        f * 2.0f,
-                        this.getAmmo(p_77615_1_, 0));
+                projectile = new EntityBlastPhial(p_77615_2_, p_77615_3_, f * 2.0f, this.getAmmo(p_77615_1_, 0));
             }
-            p_77615_1_.damageItem(1, (EntityLivingBase) p_77615_3_);
+            p_77615_1_.damageItem(1, p_77615_3_);
             p_77615_2_.playSoundAtEntity(
-                    (Entity) p_77615_3_,
+                    p_77615_3_,
                     "random.bow",
                     1.0f,
                     1.0f / (ItemInjector.itemRand.nextFloat() * 0.4f + 1.2f) + f * 0.5f);
@@ -116,7 +110,7 @@ public class ItemInjector extends ItemBow implements IRepairable {
             final EntityPlayer p_77659_3_) {
         if (p_77659_3_.isSneaking()) {
             p_77659_3_.openGui(
-                    (Object) ThaumicHorizons.instance,
+                    ThaumicHorizons.instance,
                     6,
                     p_77659_2_,
                     MathHelper.floor_double(p_77659_3_.posX),
@@ -155,11 +149,11 @@ public class ItemInjector extends ItemBow implements IRepairable {
             if (ammo.getCompoundTagAt(i) != null) {
                 newAmmo.appendTag(ammo.getCompoundTagAt(i).copy());
             } else {
-                newAmmo.appendTag((NBTBase) new NBTTagCompound());
+                newAmmo.appendTag(new NBTTagCompound());
             }
         }
-        newAmmo.appendTag((NBTBase) new NBTTagCompound());
-        stack.stackTagCompound.setTag("ammo", (NBTBase) newAmmo);
+        newAmmo.appendTag(new NBTTagCompound());
+        stack.stackTagCompound.setTag("ammo", newAmmo);
     }
 
     public void onUsingTick(final ItemStack stack, final EntityPlayer player, final int count) {

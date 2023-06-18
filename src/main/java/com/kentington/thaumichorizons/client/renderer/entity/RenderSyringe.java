@@ -15,7 +15,7 @@ import com.kentington.thaumichorizons.common.entities.EntitySyringe;
 
 public class RenderSyringe extends Render {
 
-    private ModelSyringe model;
+    private final ModelSyringe model;
 
     public RenderSyringe() {
         this.shadowSize = 0.0f;
@@ -28,13 +28,12 @@ public class RenderSyringe extends Render {
 
     public void doRender(final Entity ent, final double p_76986_2_, final double p_76986_4_, final double p_76986_6_,
             final float p_76986_8_, final float p_76986_9_) {
-        if (ent instanceof EntitySyringe) {
-            final EntitySyringe syringe = (EntitySyringe) ent;
+        if (ent instanceof final EntitySyringe syringe) {
             GL11.glPushMatrix();
             GL11.glTranslatef((float) p_76986_2_, (float) p_76986_4_, (float) p_76986_6_);
             GL11.glRotatef(syringe.rotationYaw + 90.0f, 0.0f, 1.0f, 0.0f);
             GL11.glRotatef(-syringe.rotationPitch, 0.0f, 0.0f, 1.0f);
-            this.bindEntityTexture((Entity) syringe);
+            this.bindEntityTexture(syringe);
             this.model.render(syringe, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f, null);
             GL11.glPopMatrix();
         }

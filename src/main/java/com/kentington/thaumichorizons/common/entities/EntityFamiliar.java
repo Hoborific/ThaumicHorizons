@@ -36,7 +36,7 @@ public class EntityFamiliar extends EntityOcelot {
         super.updateAITick();
         if (this.ticksExisted % 10 == 0) {
             final List<EntityPlayer> players = (List<EntityPlayer>) this.worldObj.getEntitiesWithinAABB(
-                    (Class) EntityPlayer.class,
+                    EntityPlayer.class,
                     AxisAlignedBB.getBoundingBox(
                             this.posX - 5.0,
                             this.posY - 5.0,
@@ -45,8 +45,7 @@ public class EntityFamiliar extends EntityOcelot {
                             this.posY + 5.0,
                             this.posZ + 5.0));
             for (final EntityPlayer player : players) {
-                if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemWandCasting) {
-                    final ItemWandCasting wand = (ItemWandCasting) player.getHeldItem().getItem();
+                if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof final ItemWandCasting wand) {
                     final AspectList al = wand.getAspectsWithRoom(player.getHeldItem());
                     for (final Aspect aspect : al.getAspects()) {
                         if (aspect != null) {
@@ -72,7 +71,7 @@ public class EntityFamiliar extends EntityOcelot {
     protected void entityInit() {
         super.entityInit();
         final byte b0 = this.dataWatcher.getWatchableObjectByte(16);
-        this.dataWatcher.updateObject(16, (Object) (byte) (b0 | 0x4));
+        this.dataWatcher.updateObject(16, (byte) (b0 | 0x4));
     }
 
     public boolean isTamed() {
