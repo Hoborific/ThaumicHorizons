@@ -13,6 +13,7 @@ import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.blocks.BlockVatSolid;
 import com.kentington.thaumichorizons.common.tiles.TileVat;
 import com.kentington.thaumichorizons.common.tiles.TileVatSlave;
+
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class BlockVatSolidRender implements ISimpleBlockRenderingHandler {

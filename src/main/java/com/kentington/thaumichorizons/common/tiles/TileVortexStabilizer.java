@@ -15,17 +15,16 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import thaumcraft.api.TileThaumcraft;
-import thaumcraft.api.nodes.INode;
-import thaumcraft.api.nodes.NodeType;
-import thaumcraft.api.wands.IWandable;
-import thaumcraft.common.Thaumcraft;
-
 import com.kentington.thaumichorizons.client.fx.FXSonic;
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.TileThaumcraft;
+import thaumcraft.api.nodes.INode;
+import thaumcraft.api.nodes.NodeType;
+import thaumcraft.api.wands.IWandable;
+import thaumcraft.common.Thaumcraft;
 
 public class TileVortexStabilizer extends TileThaumcraft implements IWandable {
 

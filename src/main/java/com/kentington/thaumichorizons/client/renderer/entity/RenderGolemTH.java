@@ -17,13 +17,13 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.client.renderer.model.ModelGolemTH;
+import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.entity.RenderGolemBase;
 import thaumcraft.client.renderers.models.entities.ModelGolemAccessories;
 import thaumcraft.common.config.ConfigItems;
-
-import com.kentington.thaumichorizons.client.renderer.model.ModelGolemTH;
-import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
 
 public class RenderGolemTH extends RenderGolemBase {
 

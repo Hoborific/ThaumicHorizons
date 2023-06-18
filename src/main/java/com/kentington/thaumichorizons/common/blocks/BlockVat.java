@@ -13,8 +13,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import thaumcraft.api.TileThaumcraft;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.tiles.TileVat;
 import com.kentington.thaumichorizons.common.tiles.TileVatConnector;
@@ -22,6 +20,7 @@ import com.kentington.thaumichorizons.common.tiles.TileVatSlave;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.TileThaumcraft;
 
 public class BlockVat extends BlockContainer {
 

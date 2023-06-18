@@ -14,9 +14,9 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.client.renderer.model.ModelInjector;
+
+import thaumcraft.client.lib.UtilsFX;
 
 public class ItemInjectorRender implements IItemRenderer {
 

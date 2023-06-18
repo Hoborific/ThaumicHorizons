@@ -14,12 +14,12 @@ import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.fx.ParticleEngine;
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.client.fx.FXEssentiaTrail;
 import com.kentington.thaumichorizons.client.renderer.model.ModelQuarterBlock;
 import com.kentington.thaumichorizons.common.tiles.TileEssentiaDynamo;
+
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.lib.UtilsFX;
 
 public class TileEssentiaDynamoRender extends TileEntitySpecialRenderer {
 

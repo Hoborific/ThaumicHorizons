@@ -13,12 +13,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import thaumcraft.common.config.ConfigItems;
-
 import com.kentington.thaumichorizons.common.tiles.TileInspiratron;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.common.config.ConfigItems;
 
 public class ContainerInspiratron extends Container {
 

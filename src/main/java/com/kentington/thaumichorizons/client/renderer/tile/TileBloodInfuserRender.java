@@ -10,12 +10,12 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.client.renderer.model.ModelBloodInfuser;
 import com.kentington.thaumichorizons.client.renderer.model.ModelSyringe;
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.tiles.TileBloodInfuser;
+
+import thaumcraft.client.lib.UtilsFX;
 
 public class TileBloodInfuserRender extends TileEntitySpecialRenderer {
 

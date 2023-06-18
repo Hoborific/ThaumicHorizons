@@ -17,15 +17,14 @@ import net.minecraft.util.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.client.lib.QuadHelper;
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.common.tiles.TileVortex;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.client.lib.QuadHelper;
+import thaumcraft.client.lib.UtilsFX;
 
 @SideOnly(Side.CLIENT)
 public class TileVortexRender extends TileEntitySpecialRenderer {

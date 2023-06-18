@@ -25,15 +25,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import thaumcraft.api.TileThaumcraft;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.damagesource.DamageSourceThaumcraft;
-import thaumcraft.common.config.Config;
-import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.config.ConfigItems;
-import thaumcraft.common.entities.EntityAspectOrb;
-import thaumcraft.common.entities.monster.EntityFireBat;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.entities.EntityItemInvulnerable;
 import com.kentington.thaumichorizons.common.entities.EntityLightningBoltFinite;
@@ -43,6 +34,14 @@ import com.kentington.thaumichorizons.common.lib.networking.PacketRainState;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.TileThaumcraft;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.damagesource.DamageSourceThaumcraft;
+import thaumcraft.common.config.Config;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.entities.EntityAspectOrb;
+import thaumcraft.common.entities.monster.EntityFireBat;
 
 public class TileCloud extends TileThaumcraft {
 

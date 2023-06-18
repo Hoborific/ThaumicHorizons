@@ -27,6 +27,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
+import com.kentington.thaumichorizons.common.lib.*;
+
+import cpw.mods.fml.common.FMLCommonHandler;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
@@ -38,11 +43,6 @@ import thaumcraft.common.blocks.BlockAiry;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.monster.EntityWisp;
 import thaumcraft.common.items.wands.ItemWandCasting;
-
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
-import com.kentington.thaumichorizons.common.lib.*;
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TileVortex extends TileThaumcraft implements IWandable, IAspectContainer {
 
@@ -58,7 +58,6 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
     public boolean generating;
     public boolean cheat;
     public ArrayList<ItemStack> items;
-    Thread ppThread;
 
     public TileVortex() {
         this.aspects = new AspectList();
@@ -68,7 +67,6 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
         this.generating = false;
         this.cheat = false;
         this.items = new ArrayList<ItemStack>();
-        this.ppThread = null;
     }
 
     public void updateEntity() {
@@ -82,16 +80,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
                     (double) (this.zCoord + this.worldObj.rand.nextFloat()),
                     1.0f,
                     false);
-            if (this.ppThread == null) {
-                this.createDimension(null);
-                return;
-            }
-            if (!this.ppThread.isAlive()) {
-                this.generating = false;
-                this.createdDimension = true;
-                this.markDirty();
-                this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-            }
+            this.createDimension(null);
         } else {
             if (this.collapsing) {
                 ++this.count;
@@ -308,16 +297,17 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
         this.generating = true;
         if (!this.worldObj.isRemote) {
             this.returnID = this.worldObj.provider.dimensionId;
-            (this.ppThread = new Thread(
-                    new PocketPlaneThread(
-                            data,
-                            this.aspects,
-                            (World) MinecraftServer.getServer()
-                                    .worldServerForDimension(ThaumicHorizons.dimensionPocketId),
-                            this.xCoord,
-                            this.yCoord,
-                            this.zCoord,
-                            this.returnID))).run();
+            new PocketPlaneThread(
+                    data,
+                    this.aspects,
+                    MinecraftServer.getServer().worldServerForDimension(ThaumicHorizons.dimensionPocketId),
+                    this.xCoord,
+                    this.yCoord,
+                    this.zCoord,
+                    this.returnID);
+            this.generating = false;
+            this.createdDimension = true;
+            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         }
         this.markDirty();
     }

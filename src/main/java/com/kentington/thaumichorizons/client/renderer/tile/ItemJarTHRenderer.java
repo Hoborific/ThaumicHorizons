@@ -18,11 +18,11 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.common.config.ConfigBlocks;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.tiles.TileSoulJar;
+
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.config.ConfigBlocks;
 
 public class ItemJarTHRenderer implements IItemRenderer {
 

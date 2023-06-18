@@ -12,10 +12,10 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import thaumcraft.common.container.SlotLimitedByClass;
-
 import com.kentington.thaumichorizons.common.items.lenses.ILens;
 import com.kentington.thaumichorizons.common.items.lenses.ItemLensCase;
+
+import thaumcraft.common.container.SlotLimitedByClass;
 
 public class ContainerCase extends Container {
 

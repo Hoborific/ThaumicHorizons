@@ -12,9 +12,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.util.ResourceLocation;
 
-import thaumcraft.common.Thaumcraft;
-
 import com.kentington.thaumichorizons.common.entities.EntityFamiliar;
+
+import thaumcraft.common.Thaumcraft;
 
 public class RenderFamiliar extends RenderOcelot {
 

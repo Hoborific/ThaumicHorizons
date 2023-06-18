@@ -21,14 +21,13 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import thaumcraft.api.IRepairable;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.entities.EntityBlastPhial;
 import com.kentington.thaumichorizons.common.entities.EntitySyringe;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.IRepairable;
 
 public class ItemInjector extends ItemBow implements IRepairable {
 

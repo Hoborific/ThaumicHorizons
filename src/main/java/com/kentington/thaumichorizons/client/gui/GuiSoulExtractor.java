@@ -11,10 +11,10 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.common.container.ContainerSoulExtractor;
 import com.kentington.thaumichorizons.common.tiles.TileSoulExtractor;
+
+import thaumcraft.client.lib.UtilsFX;
 
 public class GuiSoulExtractor extends GuiContainer {
 

@@ -15,16 +15,15 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.client.renderers.models.ModelCube;
-import thaumcraft.codechicken.lib.math.MathHelper;
-
 import com.kentington.thaumichorizons.common.tiles.TileVat;
 import com.kentington.thaumichorizons.common.tiles.TileVatMatrix;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.models.ModelCube;
+import thaumcraft.codechicken.lib.math.MathHelper;
 
 @SideOnly(Side.CLIENT)
 public class TileVatMatrixRender extends TileEntitySpecialRenderer {

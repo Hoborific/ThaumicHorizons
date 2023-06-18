@@ -19,11 +19,11 @@ import net.minecraft.util.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.common.tiles.TileSyntheticNode;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.models.ModelCrystal;
-
-import com.kentington.thaumichorizons.common.tiles.TileSyntheticNode;
 
 public class TileEtherealShardRender extends TileEntitySpecialRenderer {
 

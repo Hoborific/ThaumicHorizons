@@ -18,15 +18,15 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.common.container.ContainerBloodInfuser;
+import com.kentington.thaumichorizons.common.tiles.TileBloodInfuser;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.fx.ParticleEngine;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.config.Config;
-
-import com.kentington.thaumichorizons.common.container.ContainerBloodInfuser;
-import com.kentington.thaumichorizons.common.tiles.TileBloodInfuser;
 
 public class GuiBloodInfuser extends GuiContainer {
 

@@ -11,12 +11,11 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.common.container.ContainerCase;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.client.lib.UtilsFX;
 
 @SideOnly(Side.CLIENT)
 public class GuiCase extends GuiContainer {

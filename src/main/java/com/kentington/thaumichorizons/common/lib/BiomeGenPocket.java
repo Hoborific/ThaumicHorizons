@@ -9,9 +9,9 @@ import java.util.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-import thaumcraft.common.config.ConfigBlocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.common.config.ConfigBlocks;
 
 public class BiomeGenPocket extends BiomeGenBase {
 

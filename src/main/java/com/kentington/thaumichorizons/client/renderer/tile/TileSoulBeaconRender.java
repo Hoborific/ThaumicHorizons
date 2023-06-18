@@ -13,10 +13,10 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.client.renderer.model.ModelSoulBeacon;
 import com.kentington.thaumichorizons.common.tiles.TileSoulBeacon;
+
+import thaumcraft.client.lib.UtilsFX;
 
 public class TileSoulBeaconRender extends TileEntitySpecialRenderer {
 

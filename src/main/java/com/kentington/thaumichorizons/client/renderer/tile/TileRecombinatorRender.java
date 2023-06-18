@@ -11,15 +11,14 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.tiles.TileNode;
-
 import com.kentington.thaumichorizons.client.renderer.model.ModelRecombinator;
 import com.kentington.thaumichorizons.common.tiles.TileRecombinator;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.tiles.TileNode;
 
 @SideOnly(Side.CLIENT)
 public class TileRecombinatorRender extends TileEntitySpecialRenderer {

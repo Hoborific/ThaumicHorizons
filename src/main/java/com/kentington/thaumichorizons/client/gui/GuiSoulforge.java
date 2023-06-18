@@ -11,13 +11,12 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.common.container.ContainerSoulforge;
 import com.kentington.thaumichorizons.common.tiles.TileSoulforge;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.client.lib.UtilsFX;
 
 @SideOnly(Side.CLIENT)
 public class GuiSoulforge extends GuiContainer {

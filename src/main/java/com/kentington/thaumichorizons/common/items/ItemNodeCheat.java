@@ -14,14 +14,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.tiles.TileNode;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.tiles.TileVortex;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.tiles.TileNode;
 
 public class ItemNodeCheat extends Item {
 

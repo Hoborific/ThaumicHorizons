@@ -16,12 +16,11 @@ import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.common.tiles.TileTransductionAmplifier;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.client.lib.UtilsFX;
 
 @SideOnly(Side.CLIENT)
 public class TileTransductionAmplifierRender extends TileEntitySpecialRenderer {

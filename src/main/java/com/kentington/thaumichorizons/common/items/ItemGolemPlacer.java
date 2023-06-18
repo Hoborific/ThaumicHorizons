@@ -18,13 +18,12 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import thaumcraft.codechicken.lib.math.MathHelper;
-import thaumcraft.common.entities.golems.ItemGolemBell;
-
 import com.kentington.thaumichorizons.common.entities.EntityGolemTH;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.codechicken.lib.math.MathHelper;
+import thaumcraft.common.entities.golems.ItemGolemBell;
 
 public class ItemGolemPlacer extends thaumcraft.common.entities.golems.ItemGolemPlacer {
 

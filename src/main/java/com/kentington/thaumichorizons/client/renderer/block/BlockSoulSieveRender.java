@@ -12,11 +12,11 @@ import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.renderers.block.BlockRenderer;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.tiles.TileSoulExtractor;
+
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import thaumcraft.client.renderers.block.BlockRenderer;
 
 public class BlockSoulSieveRender extends BlockRenderer implements ISimpleBlockRenderingHandler {
 

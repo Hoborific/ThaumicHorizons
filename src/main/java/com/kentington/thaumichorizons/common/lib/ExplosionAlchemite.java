@@ -29,6 +29,9 @@ import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityItemInvulnerable;
+
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -40,9 +43,6 @@ import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.ItemCrystalEssence;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.TileNode;
-
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityItemInvulnerable;
 
 public class ExplosionAlchemite extends Explosion {
 

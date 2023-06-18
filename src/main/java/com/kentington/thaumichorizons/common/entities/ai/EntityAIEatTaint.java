@@ -10,11 +10,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.biome.BiomeGenBase;
 
-import thaumcraft.common.config.Config;
-import thaumcraft.common.lib.utils.Utils;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.entities.EntityTaintPig;
+
+import thaumcraft.common.config.Config;
+import thaumcraft.common.lib.utils.Utils;
 
 public class EntityAIEatTaint extends EntityAIBase {
 

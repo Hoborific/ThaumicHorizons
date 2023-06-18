@@ -9,10 +9,10 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-
 import com.kentington.thaumichorizons.client.renderer.model.ModelVortexAttenuator;
 import com.kentington.thaumichorizons.common.tiles.TileVortexStabilizer;
+
+import thaumcraft.client.lib.UtilsFX;
 
 public class TileVortexStabilizerRender extends TileEntitySpecialRenderer {
 

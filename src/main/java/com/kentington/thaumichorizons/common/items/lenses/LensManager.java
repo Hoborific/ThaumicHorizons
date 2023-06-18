@@ -20,10 +20,10 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import thaumcraft.api.nodes.IRevealer;
-import baubles.api.BaublesApi;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import baubles.api.BaublesApi;
+import thaumcraft.api.nodes.IRevealer;
 
 public class LensManager {
 

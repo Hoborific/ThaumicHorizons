@@ -25,6 +25,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+import com.kentington.thaumichorizons.common.entities.EntityMeatSlime;
+import com.kentington.thaumichorizons.common.entities.EntityMercurialSlime;
+import com.kentington.thaumichorizons.common.tiles.TileVortex;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.config.Config;
@@ -33,11 +38,6 @@ import thaumcraft.common.entities.monster.EntityTaintSporeSwarmer;
 import thaumcraft.common.entities.monster.EntityTaintacle;
 import thaumcraft.common.lib.utils.Utils;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
-
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
-import com.kentington.thaumichorizons.common.entities.EntityMeatSlime;
-import com.kentington.thaumichorizons.common.entities.EntityMercurialSlime;
-import com.kentington.thaumichorizons.common.tiles.TileVortex;
 
 public class PocketPlaneData {
 

@@ -12,12 +12,12 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.common.lib.research.ResearchManager;
-
 import com.kentington.thaumichorizons.common.container.ContainerVat;
 import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
 import com.kentington.thaumichorizons.common.tiles.TileVat;
+
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.lib.research.ResearchManager;
 
 public class GuiVat extends GuiContainer {
 

@@ -10,9 +10,9 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
-import thaumcraft.common.config.Config;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import thaumcraft.common.config.Config;
 
 public class BlockFlesh extends Block {
 

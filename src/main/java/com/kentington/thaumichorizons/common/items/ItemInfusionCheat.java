@@ -25,9 +25,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.entities.golems.EntityGolemBase;
-
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
@@ -36,6 +33,8 @@ import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.entities.golems.EntityGolemBase;
 
 public class ItemInfusionCheat extends Item {
 

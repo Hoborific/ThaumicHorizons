@@ -16,14 +16,13 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import thaumcraft.common.Thaumcraft;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.lib.EntityInfusionProperties;
 import com.kentington.thaumichorizons.common.lib.SelfInfusionRecipe;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.common.Thaumcraft;
 
 public class ItemInfusionSelfCheat extends Item {
 

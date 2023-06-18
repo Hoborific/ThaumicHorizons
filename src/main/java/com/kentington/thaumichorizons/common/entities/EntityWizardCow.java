@@ -12,6 +12,12 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+import com.kentington.thaumichorizons.common.lib.networking.PacketGetCowData;
+import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import io.netty.buffer.ByteBuf;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.nodes.NodeModifier;
@@ -20,13 +26,6 @@ import thaumcraft.common.blocks.ItemJarFilled;
 import thaumcraft.common.blocks.ItemJarNode;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
-
-import com.kentington.thaumichorizons.common.lib.networking.PacketGetCowData;
-import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
-
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
-import io.netty.buffer.ByteBuf;
 
 public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawnData {
 

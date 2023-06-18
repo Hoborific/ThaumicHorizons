@@ -9,9 +9,9 @@ import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.World;
 
-import thaumcraft.common.config.Config;
-
 import com.kentington.thaumichorizons.common.entities.ai.EntityAIEatTaint;
+
+import thaumcraft.common.config.Config;
 
 public class EntityTaintPig extends EntityPig {
 

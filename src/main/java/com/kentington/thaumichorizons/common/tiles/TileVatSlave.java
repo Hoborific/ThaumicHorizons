@@ -6,12 +6,12 @@ package com.kentington.thaumichorizons.common.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
 
+import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
-
-import com.kentington.thaumichorizons.common.ThaumicHorizons;
 
 public class TileVatSlave extends TileThaumcraft implements IAspectContainer {
 

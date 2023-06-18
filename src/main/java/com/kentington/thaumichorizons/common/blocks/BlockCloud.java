@@ -23,17 +23,16 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.damagesource.DamageSourceThaumcraft;
-import thaumcraft.common.items.wands.ItemWandCasting;
-import thaumcraft.common.lib.research.ResearchManager;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.entities.EntityItemInvulnerable;
 import com.kentington.thaumichorizons.common.tiles.TileCloud;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.damagesource.DamageSourceThaumcraft;
+import thaumcraft.common.items.wands.ItemWandCasting;
+import thaumcraft.common.lib.research.ResearchManager;
 
 public class BlockCloud extends BlockContainer {
 

@@ -14,17 +14,16 @@ import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.common.items.wands.ItemWandCasting;
-import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
-
 import com.kentington.thaumichorizons.common.container.ContainerFingers;
 import com.kentington.thaumichorizons.common.container.InventoryFingers;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.items.wands.ItemWandCasting;
+import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 
 @SideOnly(Side.CLIENT)
 public class GuiFingers extends GuiContainer {

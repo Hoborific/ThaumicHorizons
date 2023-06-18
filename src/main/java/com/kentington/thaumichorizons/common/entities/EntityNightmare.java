@@ -22,6 +22,7 @@ import com.kentington.thaumichorizons.common.ThaumicHorizons;
 import com.kentington.thaumichorizons.common.lib.NightmareTeleporter;
 import com.kentington.thaumichorizons.common.lib.networking.PacketHandler;
 import com.kentington.thaumichorizons.common.lib.networking.PacketMountNightmare;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 
 public class EntityNightmare extends EntityEndersteed {

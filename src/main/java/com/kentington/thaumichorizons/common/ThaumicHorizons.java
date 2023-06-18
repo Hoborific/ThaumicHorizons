@@ -57,28 +57,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.ThaumcraftApi.EntityTagsNBT;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.crafting.CrucibleRecipe;
-import thaumcraft.api.crafting.InfusionRecipe;
-import thaumcraft.api.crafting.ShapedArcaneRecipe;
-import thaumcraft.api.crafting.ShapelessArcaneRecipe;
-import thaumcraft.api.entities.ITaintedMob;
-import thaumcraft.api.research.ResearchCategories;
-import thaumcraft.api.research.ResearchItem;
-import thaumcraft.api.research.ResearchPage;
-import thaumcraft.api.wands.WandCap;
-import thaumcraft.api.wands.WandRod;
-import thaumcraft.api.wands.WandTriggerRegistry;
-import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.config.ConfigItems;
-import thaumcraft.common.config.ConfigResearch;
-import thaumcraft.common.entities.monster.EntityPech;
-import thaumcraft.common.entities.monster.EntityWisp;
-import thaumcraft.common.lib.utils.Utils;
-
 import com.kentington.thaumichorizons.client.lib.RenderEventHandler;
 import com.kentington.thaumichorizons.common.blocks.BlockAlchemite;
 import com.kentington.thaumichorizons.common.blocks.BlockBloodInfuser;
@@ -253,6 +231,27 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GT_OreDictUnificator;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.ThaumcraftApi.EntityTagsNBT;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.crafting.CrucibleRecipe;
+import thaumcraft.api.crafting.InfusionRecipe;
+import thaumcraft.api.crafting.ShapedArcaneRecipe;
+import thaumcraft.api.crafting.ShapelessArcaneRecipe;
+import thaumcraft.api.entities.ITaintedMob;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchItem;
+import thaumcraft.api.research.ResearchPage;
+import thaumcraft.api.wands.WandCap;
+import thaumcraft.api.wands.WandRod;
+import thaumcraft.api.wands.WandTriggerRegistry;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.config.ConfigResearch;
+import thaumcraft.common.entities.monster.EntityPech;
+import thaumcraft.common.entities.monster.EntityWisp;
+import thaumcraft.common.lib.utils.Utils;
 
 @Mod(
         modid = ThaumicHorizons.MODID,

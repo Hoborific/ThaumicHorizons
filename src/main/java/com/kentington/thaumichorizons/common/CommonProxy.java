@@ -13,8 +13,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.Packet;
 import net.minecraft.world.World;
 
-import thaumcraft.api.wands.IWandTriggerManager;
-
 import com.kentington.thaumichorizons.common.container.ContainerBloodInfuser;
 import com.kentington.thaumichorizons.common.container.ContainerCase;
 import com.kentington.thaumichorizons.common.container.ContainerFingers;
@@ -34,6 +32,7 @@ import com.kentington.thaumichorizons.common.tiles.TileVisDynamo;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
+import thaumcraft.api.wands.IWandTriggerManager;
 
 public class CommonProxy implements IGuiHandler {
 

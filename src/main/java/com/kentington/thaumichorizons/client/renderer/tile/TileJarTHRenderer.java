@@ -11,13 +11,12 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.client.renderers.models.ModelJar;
-
 import com.kentington.thaumichorizons.common.tiles.TileSoulJar;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.models.ModelJar;
 
 @SideOnly(Side.CLIENT)
 public class TileJarTHRenderer extends TileEntitySpecialRenderer {

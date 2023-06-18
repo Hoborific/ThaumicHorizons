@@ -12,9 +12,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 
-import thaumcraft.api.aspects.AspectList;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
+
+import thaumcraft.api.aspects.AspectList;
 
 public class EntityInfusionProperties implements IExtendedEntityProperties {
 

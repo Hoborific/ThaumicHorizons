@@ -19,11 +19,10 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
-
 import com.kentington.thaumichorizons.common.ThaumicHorizons;
 
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

@@ -15,10 +15,10 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.common.entities.EntityTaintPig;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.tile.TileNodeRenderer;
-
-import com.kentington.thaumichorizons.common.entities.EntityTaintPig;
 
 public class RenderTaintfeeder extends RenderPig {
 

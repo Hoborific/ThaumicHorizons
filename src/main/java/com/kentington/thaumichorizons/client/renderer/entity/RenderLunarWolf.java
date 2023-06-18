@@ -14,10 +14,10 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import com.kentington.thaumichorizons.common.entities.EntityLunarWolf;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.client.renderers.tile.TileNodeRenderer;
-
-import com.kentington.thaumichorizons.common.entities.EntityLunarWolf;
 
 public class RenderLunarWolf extends RenderWolf {
 

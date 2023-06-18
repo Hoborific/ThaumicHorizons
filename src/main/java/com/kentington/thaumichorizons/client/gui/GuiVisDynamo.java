@@ -14,16 +14,15 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.client.fx.ParticleEngine;
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.common.config.Config;
-
 import com.kentington.thaumichorizons.common.container.ContainerVisDynamo;
 import com.kentington.thaumichorizons.common.tiles.TileVisDynamo;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.common.config.Config;
 
 @SideOnly(Side.CLIENT)
 public class GuiVisDynamo extends GuiContainer {
