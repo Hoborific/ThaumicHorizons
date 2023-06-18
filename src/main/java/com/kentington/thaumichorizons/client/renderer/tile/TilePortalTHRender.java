@@ -56,21 +56,17 @@ public class TilePortalTHRender extends TileEntitySpecialRenderer {
             tessellator.startDrawingQuads();
             tessellator.setBrightness(220);
             switch (te.dimension) {
-                case -1: {
+                case -1 -> {
                     tessellator.setColorRGBA_F(1.0f, 0.1f, 0.1f, 1.0f);
-                    break;
                 }
-                case 0: {
+                case 0 -> {
                     tessellator.setColorRGBA_F(0.1f, 0.8f, 0.8f, 1.0f);
-                    break;
                 }
-                case 1: {
+                case 1 -> {
                     tessellator.setColorRGBA_F(0.25f, 0.25f, 0.25f, 1.0f);
-                    break;
                 }
-                default: {
+                default -> {
                     tessellator.setColorRGBA_F(0.5f, 0.5f, 0.1f, 1.0f);
-                    break;
                 }
             }
             final double px = x + 0.5;

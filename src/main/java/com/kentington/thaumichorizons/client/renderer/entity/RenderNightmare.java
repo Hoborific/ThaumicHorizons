@@ -31,16 +31,16 @@ public class RenderNightmare extends RenderHorse {
 
     protected ResourceLocation getEntityTexture(final EntityHorse p_110775_1_) {
         switch (p_110775_1_.func_110241_cb()) {
-            case 1: {
+            case 1 -> {
                 return this.enderTexIron;
             }
-            case 2: {
+            case 2 -> {
                 return this.enderTexGold;
             }
-            case 3: {
+            case 3 -> {
                 return this.enderTexDiamond;
             }
-            default: {
+            default -> {
                 return this.enderTex;
             }
         }

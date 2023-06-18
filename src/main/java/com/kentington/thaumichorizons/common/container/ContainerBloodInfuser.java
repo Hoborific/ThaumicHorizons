@@ -114,22 +114,22 @@ public class ContainerBloodInfuser extends Container {
             return true;
         }
         switch (button) {
-            case 0: {
+            case 0 -> {
                 this.tile.mode = 0;
                 this.tile.markDirty();
                 return true;
             }
-            case 1: {
+            case 1 -> {
                 this.tile.mode = 1;
                 this.tile.markDirty();
                 return true;
             }
-            case 2: {
+            case 2 -> {
                 this.tile.mode = 2;
                 this.tile.markDirty();
                 return true;
             }
-            default: {
+            default -> {
                 return false;
             }
         }

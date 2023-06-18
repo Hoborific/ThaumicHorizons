@@ -65,13 +65,13 @@ public class BlockSpike extends BlockContainer {
 
     public IIcon getIcon(final int par1, final int par2) {
         switch (this.type) {
-            case 1: {
+            case 1 -> {
                 return this.iconWood;
             }
-            case 2: {
+            case 2 -> {
                 return this.iconTooth;
             }
-            default: {
+            default -> {
                 return this.icon;
             }
         }

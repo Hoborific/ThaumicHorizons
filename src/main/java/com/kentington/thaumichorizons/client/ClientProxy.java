@@ -286,31 +286,31 @@ public class ClientProxy extends CommonProxy {
             final int y, final int z) {
         if (world instanceof WorldClient) {
             switch (ID) {
-                case 1: {
+                case 1 -> {
                     return new GuiVisDynamo(player, (TileVisDynamo) world.getTileEntity(x, y, z));
                 }
-                case 2: {
+                case 2 -> {
                     return new GuiSoulExtractor(player.inventory, (TileSoulExtractor) world.getTileEntity(x, y, z));
                 }
-                case 3: {
+                case 3 -> {
                     return new GuiInspiratron(player.inventory, (TileInspiratron) world.getTileEntity(x, y, z));
                 }
-                case 4: {
+                case 4 -> {
                     return new GuiSoulforge(player, (TileSoulforge) world.getTileEntity(x, y, z));
                 }
-                case 5: {
+                case 5 -> {
                     return new GuiBloodInfuser(player, (TileBloodInfuser) world.getTileEntity(x, y, z));
                 }
-                case 6: {
+                case 6 -> {
                     return new GuiInjector(player);
                 }
-                case 7: {
+                case 7 -> {
                     return new GuiVat(player, (TileVat) world.getTileEntity(x, y, z));
                 }
-                case 8: {
+                case 8 -> {
                     return new GuiCase(player.inventory, world, x, y, z);
                 }
-                case 9: {
+                case 9 -> {
                     return new GuiFingers(player.inventory);
                 }
             }

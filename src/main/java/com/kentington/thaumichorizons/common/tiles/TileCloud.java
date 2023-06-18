@@ -88,8 +88,7 @@ public class TileCloud extends TileThaumcraft {
                 if (this.worldObj.getTotalWorldTime() % 10L == 0L) {
                     this.findBlockBelow();
                     switch (this.md) {
-                        case 1:
-                        case 4: {
+                        case 1, 4 -> {
                             final int meltable = ((ItemFocusLiquefaction) ThaumicHorizons.itemFocusLiquefaction)
                                     .isMeltableBlock(this.cachedBlock, this.cachedMD);
                             if (meltable == 1) {
@@ -162,9 +161,8 @@ public class TileCloud extends TileThaumcraft {
                                     break;
                                 }
                             }
-                            break;
                         }
-                        case 3: {
+                        case 3 -> {
                             final int meltable = ((ItemFocusLiquefaction) ThaumicHorizons.itemFocusLiquefaction)
                                     .isMeltableBlock(this.cachedBlock, this.cachedMD);
                             if (meltable == 1) {
@@ -202,9 +200,8 @@ public class TileCloud extends TileThaumcraft {
                                         this.zCoord + 0.5);
                                 break;
                             }
-                            break;
                         }
-                        default: {
+                        default -> {
                             if (this.worldObj.getBiomeGenForCoords(this.xCoord, this.zCoord)
                                     .getFloatTemperature(this.xCoord, this.yCoord, this.zCoord) >= 0.15) {
                                 if (this.cachedBlock == Blocks.farmland && this.worldObj
@@ -235,7 +232,6 @@ public class TileCloud extends TileThaumcraft {
                                             3);
                                     break;
                                 }
-                                break;
                             } else {
                                 if (this.cachedBlock.isOpaqueCube() && this.worldObj
                                         .isAirBlock(this.xCoord, this.yCoord - this.howManyDown + 1, this.zCoord)) {
@@ -246,29 +242,25 @@ public class TileCloud extends TileThaumcraft {
                                             Blocks.snow_layer);
                                     break;
                                 }
-                                break;
                             }
                             // break;
                         }
                     }
                 }
                 switch (this.md) {
-                    case 1:
-                    case 4: {
+                    case 1, 4 -> {
                         final List<Entity> critters = this.getCrittersBelow();
                         for (final Entity ent : critters) {
                             ent.setFire(6);
                         }
-                        break;
                     }
-                    case 3: {
+                    case 3 -> {
                         final List<Entity> critters = this.getCrittersBelow();
                         for (final Entity ent : critters) {
                             ent.attackEntityFrom(DamageSourceThaumcraft.dissolve, 1.0f);
                         }
-                        break;
                     }
-                    default: {
+                    default -> {
                         if (this.worldObj.getBiomeGenForCoords(this.xCoord, this.zCoord)
                                 .getFloatTemperature(this.xCoord, this.yCoord, this.zCoord) >= 0.15) {
                             final List<Entity> critters = this.getCrittersBelow();
@@ -306,7 +298,6 @@ public class TileCloud extends TileThaumcraft {
                             }
                             break;
                         }
-                        break;
                     }
                 }
                 if (this.dropTimer != -1) {
@@ -315,7 +306,7 @@ public class TileCloud extends TileThaumcraft {
                         this.dropTimer = TileCloud.dropTimers[this.md] / 2
                                 + this.worldObj.rand.nextInt(TileCloud.dropTimers[this.md] / 2);
                         switch (this.md) {
-                            case 2: {
+                            case 2 -> {
                                 this.worldObj.spawnEntityInWorld(
                                         new EntityLightningBoltFinite(
                                                 this.worldObj,
@@ -324,9 +315,8 @@ public class TileCloud extends TileThaumcraft {
                                                 this.zCoord + 0.5,
                                                 this.howManyDown,
                                                 false));
-                                break;
                             }
-                            case 4: {
+                            case 4 -> {
                                 final int type = this.worldObj.rand.nextInt(75);
                                 if (type < 6) {
                                     this.entityDropItem(new ItemStack(Items.gold_nugget), 0.3f);
@@ -338,102 +328,88 @@ public class TileCloud extends TileThaumcraft {
                                         break;
                                     }
                                     this.entityDropItem(new ItemStack(ConfigItems.itemNugget, 1, 0), 0.3f);
-                                    break;
                                 } else if (type < 20) {
                                     if (Config.foundCopperIngot) {
                                         this.entityDropItem(new ItemStack(ConfigItems.itemNugget, 1, 1), 0.3f);
                                         break;
                                     }
                                     this.entityDropItem(new ItemStack(ConfigItems.itemNugget, 1, 0), 0.3f);
-                                    break;
                                 } else if (type < 30) {
                                     if (Config.foundTinIngot) {
                                         this.entityDropItem(new ItemStack(ConfigItems.itemNugget, 1, 2), 0.3f);
                                         break;
                                     }
                                     this.entityDropItem(new ItemStack(ConfigItems.itemNugget, 1, 0), 0.3f);
-                                    break;
                                 } else if (type < 40) {
                                     if (Config.foundLeadIngot) {
                                         this.entityDropItem(new ItemStack(ConfigItems.itemNugget, 1, 4), 0.3f);
                                         break;
                                     }
                                     this.entityDropItem(new ItemStack(ConfigItems.itemNugget, 1, 0), 0.3f);
-                                    break;
                                 } else {
                                     if (type < 50) {
                                         this.entityDropItem(new ItemStack(ConfigItems.itemNugget, 1, 5), 0.3f);
                                         break;
                                     }
                                     this.entityDropItem(new ItemStack(ConfigItems.itemNugget, 1, 0), 0.3f);
-                                    break;
                                 }
                                 // break;
                             }
-                            case 5: {
+                            case 5 -> {
                                 switch (this.worldObj.rand.nextInt(10)) {
-                                    case 0: {
+                                    case 0 -> {
                                         this.entityDropItem(new ItemStack(Items.beef), 0.3f);
                                         break Label_4978;
                                     }
-                                    case 1: {
+                                    case 1 -> {
                                         this.entityDropItem(new ItemStack(Items.porkchop), 0.3f);
                                         break Label_4978;
                                     }
-                                    case 2: {
+                                    case 2 -> {
                                         this.entityDropItem(new ItemStack(Items.chicken), 0.3f);
                                         break Label_4978;
                                     }
-                                    case 3: {
+                                    case 3 -> {
                                         switch (this.worldObj.rand.nextInt(3)) {
-                                            case 0: {
+                                            case 0 -> {
                                                 this.entityDropItem(new ItemStack(Items.fish), 0.3f);
-                                                break;
                                             }
-                                            case 1: {
+                                            case 1 -> {
                                                 this.entityDropItem(new ItemStack(Items.fish, 1, 1), 0.3f);
-                                                break;
                                             }
-                                            case 2: {
+                                            case 2 -> {
                                                 this.entityDropItem(new ItemStack(Items.fish, 1, 2), 0.3f);
-                                                break;
                                             }
                                         }
                                         break Label_4978;
                                     }
-                                    default: {
+                                    default -> {
                                         this.entityDropItem(new ItemStack(ThaumicHorizons.itemMeat), 0.3f);
                                         break Label_4978;
                                     }
                                 }
                                 // break;
                             }
-                            case 6: {
+                            case 6 -> {
                                 Aspect asp = null;
                                 switch (this.worldObj.rand.nextInt(6)) {
-                                    case 1: {
+                                    case 1 -> {
                                         asp = Aspect.FIRE;
-                                        break;
                                     }
-                                    case 2: {
+                                    case 2 -> {
                                         asp = Aspect.ORDER;
-                                        break;
                                     }
-                                    case 3: {
+                                    case 3 -> {
                                         asp = Aspect.ENTROPY;
-                                        break;
                                     }
-                                    case 4: {
+                                    case 4 -> {
                                         asp = Aspect.AIR;
-                                        break;
                                     }
-                                    case 5: {
+                                    case 5 -> {
                                         asp = Aspect.EARTH;
-                                        break;
                                     }
-                                    default: {
+                                    default -> {
                                         asp = Aspect.WATER;
-                                        break;
                                     }
                                 }
                                 final EntityAspectOrb orb = new EntityAspectOrb(
@@ -444,9 +420,8 @@ public class TileCloud extends TileThaumcraft {
                                         asp,
                                         1);
                                 this.worldObj.spawnEntityInWorld(orb);
-                                break;
                             }
-                            case 7: {
+                            case 7 -> {
                                 final EntityXPOrb xporb = new EntityXPOrb(
                                         this.worldObj,
                                         this.xCoord + this.worldObj.rand.nextDouble(),
@@ -454,9 +429,8 @@ public class TileCloud extends TileThaumcraft {
                                         this.zCoord + this.worldObj.rand.nextDouble(),
                                         this.worldObj.rand.nextInt(4));
                                 this.worldObj.spawnEntityInWorld(xporb);
-                                break;
                             }
-                            case 8: {
+                            case 8 -> {
                                 this.findBlockBelow();
                                 if (!this.worldObj
                                         .isAirBlock(this.xCoord, this.yCoord - this.howManyDown + 1, this.zCoord)) {
@@ -550,7 +524,7 @@ public class TileCloud extends TileThaumcraft {
                                                     3);
                                         } else if (plant < 750) {
                                             switch (this.worldObj.rand.nextInt(14)) {
-                                                case 0: {
+                                                case 0 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -562,9 +536,8 @@ public class TileCloud extends TileThaumcraft {
                                                             this.zCoord,
                                                             1,
                                                             3);
-                                                    break;
                                                 }
-                                                case 1: {
+                                                case 1 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -576,18 +549,15 @@ public class TileCloud extends TileThaumcraft {
                                                             this.zCoord,
                                                             2,
                                                             3);
-                                                    break;
                                                 }
-                                                case 2: {
+                                                case 2 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
                                                             Blocks.yellow_flower);
-                                                    break;
                                                 }
-                                                case 3:
-                                                case 4: {
+                                                case 3, 4 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -599,9 +569,8 @@ public class TileCloud extends TileThaumcraft {
                                                             this.zCoord,
                                                             0,
                                                             3);
-                                                    break;
                                                 }
-                                                case 5: {
+                                                case 5 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -613,9 +582,8 @@ public class TileCloud extends TileThaumcraft {
                                                             this.zCoord,
                                                             1,
                                                             3);
-                                                    break;
                                                 }
-                                                case 6: {
+                                                case 6 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -627,9 +595,8 @@ public class TileCloud extends TileThaumcraft {
                                                             this.zCoord,
                                                             2,
                                                             3);
-                                                    break;
                                                 }
-                                                case 7: {
+                                                case 7 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -641,9 +608,8 @@ public class TileCloud extends TileThaumcraft {
                                                             this.zCoord,
                                                             3,
                                                             3);
-                                                    break;
                                                 }
-                                                case 8: {
+                                                case 8 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -655,9 +621,8 @@ public class TileCloud extends TileThaumcraft {
                                                             this.zCoord,
                                                             4,
                                                             3);
-                                                    break;
                                                 }
-                                                case 9: {
+                                                case 9 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -669,9 +634,8 @@ public class TileCloud extends TileThaumcraft {
                                                             this.zCoord,
                                                             5,
                                                             3);
-                                                    break;
                                                 }
-                                                case 10: {
+                                                case 10 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -683,9 +647,8 @@ public class TileCloud extends TileThaumcraft {
                                                             this.zCoord,
                                                             6,
                                                             3);
-                                                    break;
                                                 }
-                                                case 11: {
+                                                case 11 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -697,9 +660,8 @@ public class TileCloud extends TileThaumcraft {
                                                             this.zCoord,
                                                             7,
                                                             3);
-                                                    break;
                                                 }
-                                                case 12: {
+                                                case 12 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
@@ -711,15 +673,13 @@ public class TileCloud extends TileThaumcraft {
                                                             this.zCoord,
                                                             8,
                                                             3);
-                                                    break;
                                                 }
-                                                case 13: {
+                                                case 13 -> {
                                                     this.worldObj.setBlock(
                                                             this.xCoord,
                                                             this.yCoord - this.howManyDown + 1,
                                                             this.zCoord,
                                                             Blocks.reeds);
-                                                    break;
                                                 }
                                             }
                                         } else if (plant < 950) {
@@ -843,12 +803,11 @@ public class TileCloud extends TileThaumcraft {
                                                     Blocks.nether_wart);
                                             break;
                                         }
-                                        break;
                                     }
                                 }
                                 // break;
                             }
-                            case 9: {
+                            case 9 -> {
                                 this.worldObj.spawnEntityInWorld(
                                         new EntityLightningBoltFinite(
                                                 this.worldObj,
@@ -857,7 +816,6 @@ public class TileCloud extends TileThaumcraft {
                                                 this.zCoord + 0.5,
                                                 this.howManyDown,
                                                 true));
-                                break;
                             }
                         }
                     }

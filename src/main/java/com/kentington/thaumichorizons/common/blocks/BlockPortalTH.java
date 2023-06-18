@@ -101,20 +101,13 @@ public class BlockPortalTH extends BlockBreakable {
 
                 // Note the order ACBD
                 switch (which) {
-                    case 0:
-                        portal = plane.portalA;
-                        break;
-                    case 1:
-                        portal = plane.portalC;
-                        break;
-                    case 2:
-                        portal = plane.portalB;
-                        break;
-                    case 3:
-                        portal = plane.portalD;
-                        break;
-                    default:
+                    case 0 -> portal = plane.portalA;
+                    case 1 -> portal = plane.portalC;
+                    case 2 -> portal = plane.portalB;
+                    case 3 -> portal = plane.portalD;
+                    default -> {
                         return;
+                    }
                 }
 
                 targetX = portal[0];
@@ -156,26 +149,22 @@ public class BlockPortalTH extends BlockBreakable {
                     targetY = 128;
                     float targetYaw = 0.0f;
                     switch (tco.which) {
-                        case 1: {
+                        case 1 -> {
                             targetZ = tco.pocketID * 256 + PocketPlaneData.planes.get(tco.pocketID).radius;
                             targetYaw = 180.0f;
-                            break;
                         }
-                        case 2: {
+                        case 2 -> {
                             targetZ = tco.pocketID * 256 - PocketPlaneData.planes.get(tco.pocketID).radius;
-                            break;
                         }
-                        case 3: {
+                        case 3 -> {
                             targetZ = tco.pocketID * 256;
                             targetX = PocketPlaneData.planes.get(tco.pocketID).radius;
                             targetYaw = 90.0f;
-                            break;
                         }
-                        case 4: {
+                        case 4 -> {
                             targetZ = tco.pocketID * 256;
                             targetX = -PocketPlaneData.planes.get(tco.pocketID).radius;
                             targetYaw = 270.0f;
-                            break;
                         }
                     }
                     final MinecraftServer mServer2 = FMLCommonHandler.instance().getMinecraftServerInstance();

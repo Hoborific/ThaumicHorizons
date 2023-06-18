@@ -236,7 +236,7 @@ public class EntityGolemTH extends EntityGolemBase {
                 if (this.ticksExisted % 10 == 0 && this.worldObj.rand.nextInt(500) == 0) {
                     final EntityPlayer player = this.worldObj.getPlayerEntityByName(this.getOwnerName());
                     switch (this.voidCount) {
-                        case 0: {
+                        case 0 -> {
                             if (player != null) {
                                 player.addChatMessage(
                                         new ChatComponentText(
@@ -246,9 +246,8 @@ public class EntityGolemTH extends EntityGolemBase {
                                                                 .translateToLocal("thaumichorizons.golemWarning1")));
                                 break;
                             }
-                            break;
                         }
-                        case 1: {
+                        case 1 -> {
                             if (player != null) {
                                 player.addChatMessage(
                                         new ChatComponentText(
@@ -258,9 +257,8 @@ public class EntityGolemTH extends EntityGolemBase {
                                                                 .translateToLocal("thaumichorizons.golemWarning2")));
                                 break;
                             }
-                            break;
                         }
-                        case 2: {
+                        case 2 -> {
                             if (player != null) {
                                 player.addChatMessage(
                                         new ChatComponentText(
@@ -270,9 +268,8 @@ public class EntityGolemTH extends EntityGolemBase {
                                                                 .translateToLocal("thaumichorizons.golemWarning3")));
                                 break;
                             }
-                            break;
                         }
-                        case 3: {
+                        case 3 -> {
                             this.die();
                             Thaumcraft.proxy
                                     .burst(this.worldObj, this.posX, this.posY + this.height / 2.0f, this.posZ, 2.0f);
@@ -280,7 +277,6 @@ public class EntityGolemTH extends EntityGolemBase {
                             scaryThing.setPosition(this.posX, this.posY, this.posZ);
                             this.worldObj.spawnEntityInWorld(scaryThing);
                             scaryThing.setHomeArea((int) this.posX, (int) this.posY, (int) this.posZ, 32);
-                            break;
                         }
                     }
                     ++this.voidCount;

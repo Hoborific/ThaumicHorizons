@@ -873,56 +873,37 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
     public void craftCycle() {
         if (this.instability > 0 && this.worldObj.rand.nextInt(500) <= this.instability) {
             switch (this.worldObj.rand.nextInt(21)) {
-                case 0:
-                case 2:
-                case 10:
-                case 13: {
+                case 0, 2, 10, 13 -> {
                     this.inEvEjectItem(0);
-                    break;
                 }
-                case 6:
-                case 17: {
+                case 6, 17 -> {
                     this.inEvEjectItem(1);
-                    break;
                 }
-                case 1:
-                case 11: {
+                case 1, 11 -> {
                     this.inEvEjectItem(2);
-                    break;
                 }
-                case 3:
-                case 8:
-                case 14: {
+                case 3, 8, 14 -> {
                     this.inEvZap(false);
-                    break;
                 }
-                case 5:
-                case 16: {
+                case 5, 16 -> {
                     this.inEvHarm(false);
-                    break;
                 }
-                case 12: {
+                case 12 -> {
                     this.inEvZap(true);
-                    break;
                 }
-                case 19: {
+                case 19 -> {
                     this.inEvEjectItem(3);
-                    break;
                 }
-                case 7: {
+                case 7 -> {
                     this.inEvEjectItem(4);
-                    break;
                 }
-                case 4:
-                case 15: {
+                case 4, 15 -> {
                     this.inEvEjectItem(5);
-                    break;
                 }
-                case 18: {
+                case 18 -> {
                     this.inEvHarm(true);
-                    break;
                 }
-                case 9: {
+                case 9 -> {
                     this.worldObj.createExplosion(
                             null,
                             this.xCoord + 0.5f,
@@ -930,11 +911,9 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
                             this.zCoord + 0.5f,
                             1.5f + this.worldObj.rand.nextFloat(),
                             false);
-                    break;
                 }
-                case 20: {
+                case 20 -> {
                     this.inEvWarp();
-                    break;
                 }
             }
         }

@@ -69,34 +69,34 @@ public class CommonProxy implements IGuiHandler {
     public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x,
             final int y, final int z) {
         switch (ID) {
-            case 1: {
+            case 1 -> {
                 return new ContainerVisDynamo(player, (TileVisDynamo) world.getTileEntity(x, y, z));
             }
-            case 2: {
+            case 2 -> {
                 return new ContainerSoulExtractor(player.inventory, (TileSoulExtractor) world.getTileEntity(x, y, z));
             }
-            case 3: {
+            case 3 -> {
                 return new ContainerInspiratron(player.inventory, (TileInspiratron) world.getTileEntity(x, y, z));
             }
-            case 4: {
+            case 4 -> {
                 return new ContainerSoulforge(player, (TileSoulforge) world.getTileEntity(x, y, z));
             }
-            case 5: {
+            case 5 -> {
                 return new ContainerBloodInfuser(player, (TileBloodInfuser) world.getTileEntity(x, y, z));
             }
-            case 6: {
+            case 6 -> {
                 return new ContainerInjector(player);
             }
-            case 7: {
+            case 7 -> {
                 return new ContainerVat(player, (TileVat) world.getTileEntity(x, y, z));
             }
-            case 8: {
+            case 8 -> {
                 return new ContainerCase(player.inventory, world, x, y, z);
             }
-            case 9: {
+            case 9 -> {
                 return new ContainerFingers(player.inventory);
             }
-            default: {
+            default -> {
                 return null;
             }
         }

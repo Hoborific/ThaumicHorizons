@@ -41,29 +41,23 @@ public class FXSonic extends EntityFX {
         this.noClip = true;
         this.particleScale = 1.0f;
         switch (dir) {
-            case 0: {
+            case 0 -> {
                 this.pitch = 90.0f;
-                break;
             }
-            case 1: {
+            case 1 -> {
                 this.pitch = -90.0f;
-                break;
             }
-            case 2: {
+            case 2 -> {
                 this.yaw = 180.0f;
-                break;
             }
-            case 3: {
+            case 3 -> {
                 this.yaw = 0.0f;
-                break;
             }
-            case 4: {
+            case 4 -> {
                 this.yaw = 90.0f;
-                break;
             }
-            case 5: {
+            case 5 -> {
                 this.yaw = 270.0f;
-                break;
             }
         }
         this.prevPosX = this.posX;

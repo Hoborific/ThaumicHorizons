@@ -90,44 +90,35 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
             this.hasNode = true;
             final NodeModifier mod = ((ItemJarNode) itemstack.getItem()).getNodeModifier(itemstack);
             switch (mod) {
-                case BRIGHT: {
+                case BRIGHT -> {
                     this.nodeMod = 1;
-                    break;
                 }
-                case PALE: {
+                case PALE -> {
                     this.nodeMod = -1;
-                    break;
                 }
-                case FADING: {
+                case FADING -> {
                     this.nodeMod = -2;
-                    break;
                 }
             }
             final NodeType type = ((ItemJarNode) itemstack.getItem()).getNodeType(itemstack);
             switch (type) {
-                case NORMAL: {
+                case NORMAL -> {
                     this.nodeType = 1;
-                    break;
                 }
-                case UNSTABLE: {
+                case UNSTABLE -> {
                     this.nodeType = 2;
-                    break;
                 }
-                case DARK: {
+                case DARK -> {
                     this.nodeType = 3;
-                    break;
                 }
-                case TAINTED: {
+                case TAINTED -> {
                     this.nodeType = 4;
-                    break;
                 }
-                case HUNGRY: {
+                case HUNGRY -> {
                     this.nodeType = 5;
-                    break;
                 }
-                case PURE: {
+                case PURE -> {
                     this.nodeType = 6;
-                    break;
                 }
             }
             p_70085_1_.inventory
@@ -140,22 +131,22 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
 
     public NodeType getNodeType() {
         switch (this.nodeType) {
-            case 2: {
+            case 2 -> {
                 return NodeType.UNSTABLE;
             }
-            case 3: {
+            case 3 -> {
                 return NodeType.DARK;
             }
-            case 4: {
+            case 4 -> {
                 return NodeType.TAINTED;
             }
-            case 5: {
+            case 5 -> {
                 return NodeType.HUNGRY;
             }
-            case 6: {
+            case 6 -> {
                 return NodeType.PURE;
             }
-            default: {
+            default -> {
                 return NodeType.NORMAL;
             }
         }
@@ -163,16 +154,16 @@ public class EntityWizardCow extends EntityCow implements IEntityAdditionalSpawn
 
     public NodeModifier getNodeMod() {
         switch (this.nodeMod) {
-            case 1: {
+            case 1 -> {
                 return NodeModifier.BRIGHT;
             }
-            case -1: {
+            case -1 -> {
                 return NodeModifier.PALE;
             }
-            case -2: {
+            case -2 -> {
                 return NodeModifier.FADING;
             }
-            default: {
+            default -> {
                 return null;
             }
         }

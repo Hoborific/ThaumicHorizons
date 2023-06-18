@@ -71,37 +71,37 @@ public class ItemInfusionCheat extends Item {
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(final int par1) {
         switch (par1) {
-            case 1: {
+            case 1 -> {
                 return this.icon1;
             }
-            case 2: {
+            case 2 -> {
                 return this.icon2;
             }
-            case 3: {
+            case 3 -> {
                 return this.icon3;
             }
-            case 4: {
+            case 4 -> {
                 return this.icon4;
             }
-            case 5: {
+            case 5 -> {
                 return this.icon5;
             }
-            case 6: {
+            case 6 -> {
                 return this.icon6;
             }
-            case 7: {
+            case 7 -> {
                 return this.icon7;
             }
-            case 8: {
+            case 8 -> {
                 return this.icon8;
             }
-            case 9: {
+            case 9 -> {
                 return this.icon9;
             }
-            case 10: {
+            case 10 -> {
                 return this.icon10;
             }
-            default: {
+            default -> {
                 return null;
             }
         }
@@ -124,45 +124,35 @@ public class ItemInfusionCheat extends Item {
     public String getItemStackDisplayName(final ItemStack stack) {
         String stringy = "";
         switch (stack.getItemDamage()) {
-            case 1: {
+            case 1 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.quicksilver");
-                break;
             }
-            case 2: {
+            case 2 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.thaumClaws");
-                break;
             }
-            case 3: {
+            case 3 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.awakeBlood");
-                break;
             }
-            case 4: {
+            case 4 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.diamondSkin");
-                break;
             }
-            case 5: {
+            case 5 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.enderHeart");
-                break;
             }
-            case 6: {
+            case 6 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.shockSkin");
-                break;
             }
-            case 7: {
+            case 7 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.instilledLoyalty");
-                break;
             }
-            case 8: {
+            case 8 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.runicHide");
-                break;
             }
-            case 9: {
+            case 9 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.eldritchFangs");
-                break;
             }
-            case 10: {
+            case 10 -> {
                 stringy += StatCollector.translateToLocal("critterInfusions.portability");
-                break;
             }
         }
         return stringy;

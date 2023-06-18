@@ -515,29 +515,23 @@ public class EventHandlerEntity {
             if (event.entity.ticksExisted % (20 - 3 * boost2) == 0) {
                 Aspect aspect = null;
                 switch (target.worldObj.rand.nextInt(6)) {
-                    case 0: {
+                    case 0 -> {
                         aspect = Aspect.AIR;
-                        break;
                     }
-                    case 1: {
+                    case 1 -> {
                         aspect = Aspect.EARTH;
-                        break;
                     }
-                    case 2: {
+                    case 2 -> {
                         aspect = Aspect.FIRE;
-                        break;
                     }
-                    case 3: {
+                    case 3 -> {
                         aspect = Aspect.WATER;
-                        break;
                     }
-                    case 4: {
+                    case 4 -> {
                         aspect = Aspect.ORDER;
-                        break;
                     }
-                    case 5: {
+                    case 5 -> {
                         aspect = Aspect.ENTROPY;
-                        break;
                     }
                 }
                 if (aspect != null) {
@@ -636,25 +630,20 @@ public class EventHandlerEntity {
             if (event.entityLiving instanceof EntityMeatSlime
                     && ((EntityMeatSlime) event.entityLiving).getSlimeSize() == 1) {
                 switch (event.entityLiving.worldObj.rand.nextInt(5)) {
-                    case 0: {
+                    case 0 -> {
                         event.entityLiving.entityDropItem(new ItemStack(Items.beef), 0.0f);
-                        break;
                     }
-                    case 1: {
+                    case 1 -> {
                         event.entityLiving.entityDropItem(new ItemStack(Items.porkchop), 0.0f);
-                        break;
                     }
-                    case 2: {
+                    case 2 -> {
                         event.entityLiving.entityDropItem(new ItemStack(Items.chicken), 0.0f);
-                        break;
                     }
-                    case 3: {
+                    case 3 -> {
                         event.entityLiving.entityDropItem(new ItemStack(Items.fish), 0.0f);
-                        break;
                     }
-                    default: {
+                    default -> {
                         event.entityLiving.entityDropItem(new ItemStack(Items.rotten_flesh), 0.0f);
-                        break;
                     }
                 }
             } else if (event.entityLiving instanceof EntityMercurialSlime
