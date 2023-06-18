@@ -49,8 +49,7 @@ public class BlockSoulExtractor extends BlockContainer {
 
     public void breakBlock(final World world, final int x, final int y, final int z, final Block block, final int md) {
         final TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof TileSoulExtractor) {
-            final TileSoulExtractor tile = (TileSoulExtractor) te;
+        if (te instanceof final TileSoulExtractor tile) {
             if (tile.soulsand != null) {
                 world.spawnEntityInWorld(new EntityItem(world, x, y, z, tile.soulsand));
             }

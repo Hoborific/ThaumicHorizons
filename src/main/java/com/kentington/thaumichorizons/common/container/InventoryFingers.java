@@ -96,10 +96,9 @@ public class InventoryFingers extends TileMagicWorkbench implements IInventory {
         if (i != 10 || itemstack == null) {
             return true;
         }
-        if (!(itemstack.getItem() instanceof ItemWandCasting)) {
+        if (!(itemstack.getItem() instanceof final ItemWandCasting wand)) {
             return false;
         }
-        final ItemWandCasting wand = (ItemWandCasting) itemstack.getItem();
         return !wand.isStaff(itemstack);
     }
 
@@ -108,10 +107,9 @@ public class InventoryFingers extends TileMagicWorkbench implements IInventory {
     }
 
     public boolean canInsertItem(final int i, final ItemStack itemstack, final int j) {
-        if (i != 10 || itemstack == null || !(itemstack.getItem() instanceof ItemWandCasting)) {
+        if (i != 10 || itemstack == null || !(itemstack.getItem() instanceof final ItemWandCasting wand)) {
             return false;
         }
-        final ItemWandCasting wand = (ItemWandCasting) itemstack.getItem();
         return !wand.isStaff(itemstack);
     }
 

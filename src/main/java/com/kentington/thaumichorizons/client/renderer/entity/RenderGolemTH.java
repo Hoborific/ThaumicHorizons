@@ -43,8 +43,7 @@ public class RenderGolemTH extends RenderGolemBase {
     }
 
     protected ResourceLocation getEntityTexture(final Entity entity) {
-        if (entity instanceof EntityGolemTH) {
-            final EntityGolemTH golem = (EntityGolemTH) entity;
+        if (entity instanceof final EntityGolemTH golem) {
             if (golem.texture == null && golem.blocky != null && golem.blocky != Blocks.air) {
                 golem.loadTexture();
             } else if (golem.texture == null) {

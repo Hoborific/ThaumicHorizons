@@ -23,8 +23,7 @@ public class BlockVatSolidRender implements ISimpleBlockRenderingHandler {
 
     public boolean renderWorldBlock(final IBlockAccess world, final int x, final int y, final int z, final Block block,
             final int modelId, final RenderBlocks renderer) {
-        if (world.getTileEntity(x, y, z) instanceof TileVatSlave) {
-            final TileVatSlave tco = (TileVatSlave) world.getTileEntity(x, y, z);
+        if (world.getTileEntity(x, y, z) instanceof final TileVatSlave tco) {
             final TileVat boss = tco.getBoss(-1);
             if (boss == null) {
                 return false;

@@ -31,8 +31,7 @@ public class PacketGetCowData implements IMessage, IMessageHandler<PacketGetCowD
     public IMessage onMessage(final PacketGetCowData message, final MessageContext ctx) {
         final World world = FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld();
         final Entity ent = world.getEntityByID(message.id);
-        if (ent instanceof EntityWizardCow) {
-            final EntityWizardCow cow = (EntityWizardCow) ent;
+        if (ent instanceof final EntityWizardCow cow) {
             final AspectList ess = cow.getEssentia();
             final int mod = cow.nodeMod;
             final int type = cow.nodeType;

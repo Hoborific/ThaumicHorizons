@@ -28,8 +28,7 @@ public class RenderSyringe extends Render {
 
     public void doRender(final Entity ent, final double p_76986_2_, final double p_76986_4_, final double p_76986_6_,
             final float p_76986_8_, final float p_76986_9_) {
-        if (ent instanceof EntitySyringe) {
-            final EntitySyringe syringe = (EntitySyringe) ent;
+        if (ent instanceof final EntitySyringe syringe) {
             GL11.glPushMatrix();
             GL11.glTranslatef((float) p_76986_2_, (float) p_76986_4_, (float) p_76986_6_);
             GL11.glRotatef(syringe.rotationYaw + 90.0f, 0.0f, 1.0f, 0.0f);

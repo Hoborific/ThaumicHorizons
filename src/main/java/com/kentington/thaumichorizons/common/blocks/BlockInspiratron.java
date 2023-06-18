@@ -52,8 +52,7 @@ public class BlockInspiratron extends BlockContainer {
 
     public void breakBlock(final World world, final int x, final int y, final int z, final Block block, final int md) {
         final TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof TileInspiratron) {
-            final TileInspiratron tile = (TileInspiratron) te;
+        if (te instanceof final TileInspiratron tile) {
             if (tile.paper != null) {
                 world.spawnEntityInWorld(new EntityItem(world, x, y, z, tile.paper));
             }

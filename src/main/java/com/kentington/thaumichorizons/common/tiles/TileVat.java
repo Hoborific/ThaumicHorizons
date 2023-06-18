@@ -598,8 +598,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
         final ArrayList<ItemStack> components = new ArrayList<>();
         for (final ChunkCoordinates cc : this.pedestals) {
             final TileEntity te = this.worldObj.getTileEntity(cc.posX, cc.posY, cc.posZ);
-            if (te instanceof TilePedestal) {
-                final TilePedestal ped = (TilePedestal) te;
+            if (te instanceof final TilePedestal ped) {
                 if (ped.getStackInSlot(0) == null) { // func_70301_a
                     continue;
                 }
@@ -627,8 +626,7 @@ public class TileVat extends TileThaumcraft implements IAspectContainer, IEssent
             for (final ItemStack ing : recipe.getComponents()) {
                 this.recipeIngredients.add(ing.copy());
             }
-            if (recipe.getRecipeOutput(this.getEntityContained().getClass()) instanceof Object[]) {
-                final Object[] obj = (Object[]) recipe.getRecipeOutput(this.getEntityContained().getClass());
+            if (recipe.getRecipeOutput(this.getEntityContained().getClass()) instanceof final Object[] obj) {
                 this.recipeOutputLabel = (String) obj[0];
                 this.recipeOutput = obj[1];
             } else {

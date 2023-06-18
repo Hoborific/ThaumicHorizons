@@ -160,15 +160,13 @@ public class ItemInfusionCheat extends Item {
 
     public ItemStack onItemRightClick(final ItemStack p_77659_1_, final World world, final EntityPlayer p) {
         final Entity ent = ItemFocusContainment.getPointedEntity(world, p, 1.5);
-        if (ent instanceof EntityLiving && this.isValidInfusionTarget((EntityLiving) ent)) {
-            final EntityLiving critter = (EntityLiving) ent;
+        if (ent instanceof final EntityLiving critter && this.isValidInfusionTarget((EntityLiving) ent)) {
             for (final CreatureInfusionRecipe recipe : ThaumicHorizons.critterRecipes) {
                 boolean blockLoyalty = false;
                 if (recipe.getID(null) == p_77659_1_.getItemDamage()
-                        && recipe.getRecipeOutput() instanceof NBTTagCompound
+                        && recipe.getRecipeOutput() instanceof final NBTTagCompound tagMods
                         && !((EntityInfusionProperties) critter.getExtendedProperties("CreatureInfusion"))
                                 .hasInfusion(recipe.getID(null))) {
-                    final NBTTagCompound tagMods = (NBTTagCompound) recipe.getRecipeOutput();
                     final Multimap map = HashMultimap.create();
                     if (tagMods.getDouble("generic.movementSpeed") > 0.0) {
                         map.put(

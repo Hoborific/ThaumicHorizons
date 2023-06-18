@@ -57,8 +57,7 @@ public class EntityGuardianPanther extends EntityOcelot implements IEntityInfuse
 
     public boolean interact(final EntityPlayer p_70085_1_) {
         final ItemStack itemstack = p_70085_1_.inventory.getCurrentItem();
-        if (itemstack != null && itemstack.getItem() instanceof ItemFood) {
-            final ItemFood itemfood = (ItemFood) itemstack.getItem();
+        if (itemstack != null && itemstack.getItem() instanceof final ItemFood itemfood) {
             if (this.getHealth() < this.getMaxHealth()) {
                 --itemstack.stackSize;
                 this.heal((float) itemfood.func_150905_g(itemstack));

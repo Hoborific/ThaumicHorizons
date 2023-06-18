@@ -35,8 +35,7 @@ public class PacketCowUpdate implements IMessage, IMessageHandler<PacketCowUpdat
 
     public IMessage onMessage(final PacketCowUpdate message, final MessageContext ctx) {
         final Entity ent = Minecraft.getMinecraft().theWorld.getEntityByID(message.id);
-        if (ent instanceof EntityWizardCow) {
-            final EntityWizardCow cow = (EntityWizardCow) ent;
+        if (ent instanceof final EntityWizardCow cow) {
             cow.nodeMod = message.mod;
             cow.nodeType = message.type;
             cow.essentia = new AspectList();

@@ -43,8 +43,7 @@ public class BlockSoulBeacon extends BlockContainer {
     public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player,
             final int p_149727_6_, final float p_149727_7_, final float p_149727_8_, final float p_149727_9_) {
         final TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof TileSoulBeacon) {
-            final TileSoulBeacon tile = (TileSoulBeacon) te;
+        if (te instanceof final TileSoulBeacon tile) {
             return tile.activate(player);
         }
         return false;

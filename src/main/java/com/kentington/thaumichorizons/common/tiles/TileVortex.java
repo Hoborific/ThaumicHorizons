@@ -192,8 +192,7 @@ public class TileVortex extends TileThaumcraft implements IWandable, IAspectCont
         if (ents != null && ents.size() > 0) {
             for (final Object ent : ents) {
                 final Entity eo = (Entity) ent;
-                if (eo instanceof EntityItem) {
-                    final EntityItem item = (EntityItem) eo;
+                if (eo instanceof final EntityItem item) {
                     if (ThaumicHorizons.enablePocket && item.getEntityItem().getItem() == ConfigItems.itemEldritchObject
                             && item.getEntityItem().getItemDamage() == 3) {
                         this.createDimension(item);

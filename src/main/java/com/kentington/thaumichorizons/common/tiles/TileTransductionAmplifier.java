@@ -273,8 +273,7 @@ public class TileTransductionAmplifier extends TileThaumcraft {
 
     void boostNode(final int x, final int y, final int z) {
         final TileEntity tyle = this.worldObj.getTileEntity(x, y, z);
-        if (tyle instanceof TileNodeEnergized) {
-            final TileNodeEnergized node = (TileNodeEnergized) tyle;
+        if (tyle instanceof final TileNodeEnergized node) {
             final AspectList baseVis = node.getAuraBase();
             for (final Aspect asp : baseVis.getAspects()) {
                 baseVis.add(asp, 10);
@@ -315,16 +314,14 @@ public class TileTransductionAmplifier extends TileThaumcraft {
 
     void unboostNode(final int x, final int y, final int z) {
         final TileEntity tyle = this.worldObj.getTileEntity(x, y, z);
-        if (tyle instanceof TileNodeEnergized) {
-            final TileNodeEnergized node = (TileNodeEnergized) tyle;
+        if (tyle instanceof final TileNodeEnergized node) {
             final AspectList baseVis = node.getAuraBase();
             for (final Aspect asp : baseVis.getAspects()) {
                 baseVis.remove(asp, 10);
             }
             node.setAspects(baseVis);
             node.setupNode();
-        } else if (tyle instanceof TileNode) {
-            final TileNode node2 = (TileNode) tyle;
+        } else if (tyle instanceof final TileNode node2) {
             final AspectList baseVis = node2.getAspectsBase();
             for (final Aspect asp : baseVis.getAspects()) {
                 baseVis.remove(asp, 10);

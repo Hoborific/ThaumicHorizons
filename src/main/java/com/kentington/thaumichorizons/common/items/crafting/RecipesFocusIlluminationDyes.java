@@ -22,8 +22,7 @@ public class RecipesFocusIlluminationDyes implements IRecipe {
         for (int i = 0; i < par1InventoryCrafting.getSizeInventory(); ++i) {
             final ItemStack itemstack2 = par1InventoryCrafting.getStackInSlot(i);
             if (itemstack2 != null) {
-                if (itemstack2.getItem() instanceof ItemFocusIllumination) {
-                    final ItemFocusIllumination itemarmor = (ItemFocusIllumination) itemstack2.getItem();
+                if (itemstack2.getItem() instanceof final ItemFocusIllumination itemarmor) {
                     if (itemstack != null) {
                         return false;
                     }

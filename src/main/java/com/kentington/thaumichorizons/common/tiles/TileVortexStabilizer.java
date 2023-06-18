@@ -167,8 +167,7 @@ public class TileVortexStabilizer extends TileThaumcraft implements IWandable {
     public void reHungrifyTarget() {
         if (this.target instanceof INode) {
             ((INode) this.target).setNodeType(NodeType.values()[this.prevType]);
-        } else if (this.target instanceof TileVortex) {
-            final TileVortex tileVortex = (TileVortex) this.target;
+        } else if (this.target instanceof final TileVortex tileVortex) {
             --tileVortex.beams;
         }
         if (this.target != null) {
@@ -180,8 +179,7 @@ public class TileVortexStabilizer extends TileThaumcraft implements IWandable {
     void deHungrifyTarget() {
         if (this.target instanceof INode) {
             ((INode) this.target).setNodeType(NodeType.NORMAL);
-        } else if (this.target instanceof TileVortex) {
-            final TileVortex tileVortex = (TileVortex) this.target;
+        } else if (this.target instanceof final TileVortex tileVortex) {
             ++tileVortex.beams;
         }
         if (this.target != null) {

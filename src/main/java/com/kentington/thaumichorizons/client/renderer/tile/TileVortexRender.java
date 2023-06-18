@@ -34,11 +34,10 @@ public class TileVortexRender extends TileEntitySpecialRenderer {
 
     public void renderTileEntityAt(final TileEntity tile, final double x, final double y, final double z,
             final float partialTicks) {
-        if (!(tile instanceof TileVortex)) {
+        if (!(tile instanceof final TileVortex node)) {
             return;
         }
         final float size = 10.0f;
-        final TileVortex node = (TileVortex) tile;
         final double viewDistance = 64.0;
         final EntityLivingBase viewer = Minecraft.getMinecraft().renderViewEntity;
         final boolean condition = true;

@@ -183,8 +183,7 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
     }
 
     void applyEffects(final Entity entityHit) {
-        if (entityHit instanceof EntityLivingBase && !this.worldObj.isRemote) {
-            final EntityLivingBase ent = (EntityLivingBase) entityHit;
+        if (entityHit instanceof final EntityLivingBase ent && !this.worldObj.isRemote) {
             final ItemStack psuedoPotion = new ItemStack(ThaumicHorizons.itemSyringeInjection);
             psuedoPotion.setTagCompound(this.effects);
             final List<PotionEffect> list = ((ItemSyringeInjection) ThaumicHorizons.itemSyringeInjection)
@@ -302,8 +301,7 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
             if (entity != null) {
                 movingobjectposition = new MovingObjectPosition(entity);
             }
-            if (movingobjectposition != null && movingobjectposition.entityHit instanceof EntityPlayer) {
-                final EntityPlayer entityplayer = (EntityPlayer) movingobjectposition.entityHit;
+            if (movingobjectposition != null && movingobjectposition.entityHit instanceof final EntityPlayer entityplayer) {
                 if (entityplayer.capabilities.disableDamage || (this.shootingEntity instanceof EntityPlayer
                         && !((EntityPlayer) this.shootingEntity).canAttackPlayer(entityplayer))) {
                     movingobjectposition = null;
@@ -327,8 +325,7 @@ public class EntitySyringe extends Entity implements IProjectile, IEntityAdditio
                         movingobjectposition.entityHit.setFire(5);
                     }
                     if (movingobjectposition.entityHit.attackEntityFrom(damagesource, (float) k)) {
-                        if (movingobjectposition.entityHit instanceof EntityLivingBase) {
-                            final EntityLivingBase entitylivingbase = (EntityLivingBase) movingobjectposition.entityHit;
+                        if (movingobjectposition.entityHit instanceof final EntityLivingBase entitylivingbase) {
                             if (!this.worldObj.isRemote) {
                                 entitylivingbase.setArrowCountInEntity(entitylivingbase.getArrowCountInEntity() + 1);
                             }

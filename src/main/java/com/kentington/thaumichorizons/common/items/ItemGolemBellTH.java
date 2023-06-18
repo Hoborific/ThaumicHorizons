@@ -185,14 +185,13 @@ public class ItemGolemBellTH extends ItemGolemBell {
             entity.setDead();
             return true;
         } else {
-            if (!(entity instanceof EntityGolemTH) || entity.isDead) {
+            if (!(entity instanceof final EntityGolemTH golem) || entity.isDead) {
                 return false;
             }
             if (entity.worldObj.isRemote && entity instanceof EntityLiving) {
                 ((EntityLiving) entity).spawnExplosionParticle();
                 return false;
             }
-            final EntityGolemTH golem = (EntityGolemTH) entity;
             if (golem.getCore() == -1) {
                 golem.ticksAlive = 0;
                 return true;

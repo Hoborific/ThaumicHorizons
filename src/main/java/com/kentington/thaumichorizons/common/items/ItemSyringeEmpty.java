@@ -49,8 +49,7 @@ public class ItemSyringeEmpty extends Item {
 
     public ItemStack onItemRightClick(final ItemStack p_77659_1_, final World world, final EntityPlayer p) {
         final Entity ent = ItemFocusContainment.getPointedEntity(world, p, 1.5);
-        if (ent instanceof EntityLiving && !(ent instanceof EntityPlayer)) {
-            final EntityLiving critter = (EntityLiving) ent;
+        if (ent instanceof final EntityLiving critter && !(ent instanceof EntityPlayer)) {
             if (critter.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD && !(critter instanceof INpc)
                     && !(critter instanceof IMerchant)
                     && (critter.isCreatureType(EnumCreatureType.creature, false)

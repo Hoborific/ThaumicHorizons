@@ -144,8 +144,7 @@ public class BlockPortalTH extends BlockBreakable {
                     }
                 }
                 final TileEntity te = world.getTileEntity(slotX, slotY, slotZ);
-                if (te instanceof TileSlot) {
-                    final TileSlot tco = (TileSlot) te;
+                if (te instanceof final TileSlot tco) {
                     targetY = 128;
                     float targetYaw = 0.0f;
                     switch (tco.which) {

@@ -42,14 +42,13 @@ public class TilePortalTHRender extends TileEntitySpecialRenderer {
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         GL11.glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
-        if (Minecraft.getMinecraft().renderViewEntity instanceof EntityPlayer) {
+        if (Minecraft.getMinecraft().renderViewEntity instanceof final EntityPlayer player) {
             final Tessellator tessellator = Tessellator.instance;
             final float arX = ActiveRenderInfo.rotationX;
             final float arZ = ActiveRenderInfo.rotationZ;
             final float arYZ = ActiveRenderInfo.rotationYZ;
             final float arXY = ActiveRenderInfo.rotationXY;
             final float arXZ = ActiveRenderInfo.rotationXZ;
-            final EntityPlayer player = (EntityPlayer) Minecraft.getMinecraft().renderViewEntity;
             final double iPX = player.prevPosX + (player.posX - player.prevPosX) * f;
             final double iPY = player.prevPosY + (player.posY - player.prevPosY) * f;
             final double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * f;

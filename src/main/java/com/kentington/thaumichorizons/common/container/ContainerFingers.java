@@ -62,8 +62,7 @@ public class ContainerFingers extends Container {
                 9,
                 CraftingManager.getInstance().findMatchingRecipe(ic, this.ip.player.worldObj));
         if (this.tileEntity.getStackInSlot(9) == null && this.tileEntity.getStackInSlot(10) != null
-                && this.tileEntity.getStackInSlot(10).getItem() instanceof ItemWandCasting) {
-            final ItemWandCasting wand = (ItemWandCasting) this.tileEntity.getStackInSlot(10).getItem();
+                && this.tileEntity.getStackInSlot(10).getItem() instanceof final ItemWandCasting wand) {
             if (wand.consumeAllVisCrafting(
                     this.tileEntity.getStackInSlot(10),
                     this.ip.player,

@@ -31,10 +31,9 @@ public class TileJarTHRenderer extends TileEntitySpecialRenderer {
 
     public void renderTileEntityAt(final TileEntity tile, final double x, final double y, final double z,
             final float f) {
-        if (!(tile instanceof TileSoulJar)) {
+        if (!(tile instanceof final TileSoulJar th)) {
             return;
         }
-        final TileSoulJar th = (TileSoulJar) tile;
         if (th.jarTag != null && th.jarTag.getBoolean("isSoul")) {
             final long nt = System.nanoTime();
             UtilsFX.bindTexture("thaumichorizons", TileJarTHRenderer.tx3);

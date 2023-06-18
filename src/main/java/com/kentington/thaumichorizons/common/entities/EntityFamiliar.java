@@ -45,8 +45,7 @@ public class EntityFamiliar extends EntityOcelot {
                             this.posY + 5.0,
                             this.posZ + 5.0));
             for (final EntityPlayer player : players) {
-                if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemWandCasting) {
-                    final ItemWandCasting wand = (ItemWandCasting) player.getHeldItem().getItem();
+                if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof final ItemWandCasting wand) {
                     final AspectList al = wand.getAspectsWithRoom(player.getHeldItem());
                     for (final Aspect aspect : al.getAspects()) {
                         if (aspect != null) {

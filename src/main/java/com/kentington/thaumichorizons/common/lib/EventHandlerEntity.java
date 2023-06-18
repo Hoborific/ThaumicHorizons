@@ -286,8 +286,7 @@ public class EventHandlerEntity {
 
     @SubscribeEvent
     public void livingTick(final LivingEvent.LivingUpdateEvent event) {
-        if (event.entity instanceof EntityPlayer) {
-            final EntityPlayer player = (EntityPlayer) event.entity;
+        if (event.entity instanceof final EntityPlayer player) {
             final String pp = "R" + player.getDisplayName();
             if (ItemFocusContainment.hitCritters.containsKey(pp)) {
                 ItemFocusContainment.contain.put(pp, ItemFocusContainment.contain.get(pp) - 1.0f);
@@ -677,9 +676,8 @@ public class EventHandlerEntity {
             event.ammount = 0.0f;
             return;
         }
-        if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer
+        if (!event.entity.worldObj.isRemote && event.entity instanceof final EntityPlayer player
                 && event.entityLiving.getHealth() - event.ammount <= 0.0f) {
-            final EntityPlayer player = (EntityPlayer) event.entity;
             if (prop.tumorWarpPermanent > 0 || prop.tumorWarp > 0 || prop.tumorWarpTemp > 0) {
                 Thaumcraft.proxy.getPlayerKnowledge()
                         .addWarpPerm(event.entity.getCommandSenderName(), prop.tumorWarpPermanent);

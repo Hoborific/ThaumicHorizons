@@ -196,8 +196,7 @@ public class ExplosionAlchemite extends Explosion {
                 final int k = chunkposition.chunkPosZ;
                 final Block block = this.worldObj.getBlock(i, j, k);
                 if (this.worldObj.getTileEntity(i, j, k) != null
-                        && this.worldObj.getTileEntity(i, j, k) instanceof TileNode) {
-                    final TileNode node = (TileNode) this.worldObj.getTileEntity(i, j, k);
+                        && this.worldObj.getTileEntity(i, j, k) instanceof final TileNode node) {
                     final double d = Math.random();
                     if (d < 0.25) {
                         final AspectList aspects = node.getAspects();
