@@ -3,7 +3,7 @@
 Curseforge link: https://www.curseforge.com/minecraft/mc-mods/thaumic-horizons
 
 GTNH Changes are dual-licensed:  
-For Kentington - Original ARR License,  
+For Kentington - MIT  
 For everyone else, this code is licensed LGPL v3.0 or later.
 
 Original code Copyright (c) 2015 Kentington
